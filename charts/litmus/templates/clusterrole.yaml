@@ -1,0 +1,14 @@
+---
+# Source: openebs/templates/clusterrole.yaml
+apiVersion: rbac.authorization.k8s.io/v1beta1
+kind: ClusterRole
+metadata:
+  name: {{ include "litmus.fullname" . }}
+  labels:
+    name: {{ include "litmus.name" . }}
+    instance: {{ .Release.Name  }}
+    chart: {{ include "litmus.chart" . }}
+rules:
+- apiGroups: ["","apps","batch","litmuschaos.io"]
+  resources: ["pods","jobs","deployments","daemonsets","statefulsets","events","configmaps","services","chaosengines","chaosexperiments","chaosresults"]
+  verbs: ["get","create","update","patch","delete","list","watch","deletecollection"]
