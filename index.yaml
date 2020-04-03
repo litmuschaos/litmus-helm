@@ -1,0 +1,13 @@
+apiVersion: v1
+entries:
+  litmus:
+  - apiVersion: v1
+    appVersion: 1.2.0
+    created: 2020-04-03T05:49:02.148940345Z
+    description: A Helm chart to install litmus infra components on Kubernetes
+    digest: 4e1a0da74e53d97cb9a3bcd51d9c191572ca83d517528ca79b27c795dc79bebb
+    name: litmus
+    urls:
+    - litmus/litmus-1.2.0.tgz
+    version: 1.2.0
+generated: 2020-04-03T05:49:02.148507768Z
