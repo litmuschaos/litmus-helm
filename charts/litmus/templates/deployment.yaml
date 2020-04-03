@@ -20,13 +20,17 @@ spec:
       serviceAccountName: {{ include "litmus.fullname" . }} 
       containers:
         - name: {{ .Values.operatorName }}
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          image: "{{ .Values.image.operator.repository }}:{{ .Values.image.operator.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           command: 
           - chaos-operator
           env:
+            - name: CHAOS_RUNNER_IMAGE
+              value: "{{ .Values.image.runner.repository }}:{{ .Values.image.runner.tag }}"
+            - name: CHAOS_MONITOR_IMAGE
+              value: "{{ .Values.image.exporter.repository }}:{{ .Values.image.exporter.tag }}"
             - name: WATCH_NAMESPACE
-              value: 
+              value:  
             - name: POD_NAME
               valueFrom:
                 fieldRef:
