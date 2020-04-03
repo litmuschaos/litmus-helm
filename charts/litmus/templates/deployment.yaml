@@ -3,19 +3,20 @@ kind: Deployment
 metadata:
   name: {{ include "litmus.fullname" . }} 
   labels:
+    name: {{ include "litmus.name" . }}
+    chart: {{ include "litmus.chart" . }}
+    instance: {{ .Release.Name }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app.kubernetes.io/name: {{ include "litmus.name" . }}
-      app.kubernetes.io/instance: {{ .Release.Name }}
-      app.kubernetes.io/chart: {{ include "litmus.chart" . }}
+      name: {{ include "litmus.name" . }}
+      instance: {{ .Release.Name }}
   template:
     metadata:
       labels:
-        app.kubernetes.io/name: {{ include "litmus.name" . }}
-        app.kubernetes.io/instance: {{ .Release.Name }}
-        app.kubernetes.io/chart: {{ include "litmus.chart" . }}
+        name: {{ include "litmus.name" . }}
+        instance: {{ .Release.Name }}
     spec:
       serviceAccountName: {{ include "litmus.fullname" . }} 
       containers:
