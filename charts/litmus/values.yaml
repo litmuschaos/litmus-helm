@@ -10,9 +10,18 @@ operatorName: "chaos-operator"
 replicaCount: 1
 
 image:
-  repository: litmuschaos/chaos-operator
-  tag: 1.2.0 
-  pullPolicy: Always
+  operator: 
+    repository: litmuschaos/chaos-operator
+    tag: 1.2.2 
+    pullPolicy: Always
+  runner:
+    repository: litmuschaos/chaos-runner
+    tag: 1.2.2 
+    pullPolicy: Always
+  exporter:
+    repository: litmuschaos/chaos-exporter
+    tag: 1.2.2 
+    pullPolicy: Always
 
 service:
   type: ClusterIP
