@@ -3,3 +3,16 @@ appVersion: "1.2.2"
 description: A Helm chart to install litmus infra components on Kubernetes
 name: litmus
 version: 1.2.2
+home: https://litmuschaos.io
+sources: https://github.com/litmuschaos/litmus
+keywords:
+  - chaos-engineering
+  - resiliency
+  - kubernetes
+maintainers:
+  - name: ksatchit
+    email: karthik.s@mayadata.io
+  - name: chandankumar4
+    email: chandan.kumar@mayadata.io
+icon: 
+  - https://raw.githubusercontent.com/litmuschaos/icons/master/litmus.png 

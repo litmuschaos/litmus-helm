@@ -1,0 +1,35 @@
+## Additional Steps (Verification)
+----------------------------------
+You can run the following commands if you wish to verify if all desired components are installed successfully.
+
+- Check if chaos CRDs are installed & the api-resources are created for the same: 
+
+root@demo:~# kubectl get crds | grep litmus 
+chaosengines.litmuschaos.io             2020-04-03T06:10:29Z
+chaosexperiments.litmuschaos.io         2020-04-03T06:10:29Z
+chaosresults.litmuschaos.io             2020-04-03T06:10:29Z
+
+root@demo:~# kubectl api-resources | grep litmus 
+chaosengines                                   litmuschaos.io                 true         ChaosEngine
+chaosexperiments                               litmuschaos.io                 true         ChaosExperiment
+chaosresults                                   litmuschaos.io                 true         ChaosResult
+
+- Check if the litmus chaos operator deployment is running successfully
+
+root@demo:~# kubectl get pods -n litmus 
+NAME                      READY   STATUS    RESTARTS   AGE
+litmus-7d998b6568-nnlcd   1/1     Running   0          106s
+Check if the chaos operator RBAC is configured appropriately:
+
+root@demo:~# kubectl get serviceaccount -n litmus 
+NAME      SECRETS   AGE
+default   1         3m56s
+litmus    1         3m34s
+root@demo:~# kubectl get clusterrole,clusterrolebinding | grep litmus
+clusterrole.rbac.authorization.k8s.io/litmus                                                        4m18s
+clusterrolebinding.rbac.authorization.k8s.io/litmus                                                 4m18s
+
+## Start Running Chaos Experiments 
+----------------------------------
+With this, you are good to go!! Refer to the chaos experiment documentation @ https://docs.litmuschaos.io 
+to start executing your first experiment.
