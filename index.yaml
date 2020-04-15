@@ -2,8 +2,30 @@ apiVersion: v1
 entries:
   litmus:
   - apiVersion: v1
+    appVersion: 1.3.0
+    created: 2020-04-15T18:36:32.71358563Z
+    description: A Helm chart to install litmus infra components on Kubernetes
+    digest: e3927b950206bf63dfc453a363ba75b8f1e55dda9e36647886acdd92455ad372
+    home: https://litmuschaos.io
+    icon: https://raw.githubusercontent.com/litmuschaos/icons/master/litmus.png
+    keywords:
+    - chaos-engineering
+    - resiliency
+    - kubernetes
+    maintainers:
+    - email: karthik.s@mayadata.io
+      name: ksatchit
+    - email: chandan.kumar@mayadata.io
+      name: chandankumar4
+    name: litmus
+    sources:
+    - https://github.com/litmuschaos/litmus
+    urls:
+    - litmus/litmus-1.3.0.tgz
+    version: 1.3.0
+  - apiVersion: v1
     appVersion: 1.2.2
-    created: 2020-04-03T07:52:35.232984605Z
+    created: 2020-04-15T18:36:32.713118393Z
     description: A Helm chart to install litmus infra components on Kubernetes
     digest: f2c58b2a0b1c4260475f8fc00352abe3516cfb8fb0cdcbb38d9cfeb81a56ddd9
     name: litmus
@@ -12,11 +34,11 @@ entries:
     version: 1.2.2
   - apiVersion: v1
     appVersion: 1.2.0
-    created: 2020-04-03T07:52:35.23268112Z
+    created: 2020-04-15T18:36:32.712817195Z
     description: A Helm chart to install litmus infra components on Kubernetes
     digest: 4e1a0da74e53d97cb9a3bcd51d9c191572ca83d517528ca79b27c795dc79bebb
     name: litmus
     urls:
     - litmus/litmus-1.2.0.tgz
     version: 1.2.0
-generated: 2020-04-03T07:52:35.232253026Z
+generated: 2020-04-15T18:36:32.712396229Z
