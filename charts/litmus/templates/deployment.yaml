@@ -28,8 +28,6 @@ spec:
           env:
             - name: CHAOS_RUNNER_IMAGE
               value: "{{ .Values.image.runner.repository }}:{{ .Values.image.runner.tag }}"
-            - name: CHAOS_MONITOR_IMAGE
-              value: "{{ .Values.image.exporter.repository }}:{{ .Values.image.exporter.tag }}"
             - name: WATCH_NAMESPACE
               value:  
             - name: POD_NAME
