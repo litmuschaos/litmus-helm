@@ -23,7 +23,7 @@ chaosresults.litmuschaos.io
 
 ### Chaos-Experiments
 
-Chaos Experiment is a CR and are available as YAML files on Chaos Hub. For more details visit Chaos Hub documentation. For helm installation visit [chaos-chart repository][1].
+Chaos Experiment is a CR and are available as YAML files on Chaos Hub. For more details visit ChaosHub [documentation](https://docs.litmuschaos.io/docs/chaoshub/). To view and install chaos charts visit [chaos-charts](https://github.com/litmuschaos/chaos-charts) repository.
 
 ### Chaos-Engine
 
