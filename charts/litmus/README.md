@@ -1,14 +1,43 @@
 litmus
 ======
-A Helm chart to install litmus infra components on Kubernetes
+A Helm chart to install litmus infra components on Kubernetes.
 
 Current chart version is `1.3.1`
 
-Source code can be found [here](https://litmuschaos.io)
+## Architecture introduction
 
+![litmus architecture](https://camo.githubusercontent.com/44801ffbcabc79d86867ea259c0a3046bd124987/68747470733a2f2f646f63732e6c69746d75736368616f732e696f2f646f63732f6173736574732f6172636869746563747572652e706e67)
 
+### Chaos-Operator
+
+Chaos-Operator watches for the ChaosEngine CR and executes the Chaos-Experiments mentioned in the CR. Chaos-Operator is namespace scoped. By default, it runs in litmus namespace. Once the experiment is completed, chaos-operator invokes chaos-exporter to export chaos metrics to a Prometheus database.
+
+### Chaos-CRDs
+
+During installation, the following three CRDs are installed on the Kubernetes cluster.
+```
+chaosengines.litmuschaos.io
+chaosexperiments.litmuschaos.io
+chaosresults.litmuschaos.io
+```
+
+### Chaos-Experiments
+
+Chaos Experiment is a CR and are available as YAML files on Chaos Hub. For more details visit Chaos Hub documentation. For helm installation visit [chaos-chart repository][1].
+
+### Chaos-Engine
+
+ChaosEngine CR links application to experiments. User has to create ChaosEngine YAML by specifying the application label and experiments and create the CR. The CR is watched by Chaos-Operator and chaos-experiments are executed on a given application.
+
+### Chaos-Exporter
+
+Optionally metrics can be exported to a Prometheus database. Chaos-Exporter implements the Prometheus `/metrics` endpoint in port: `8080`.
+
+Full documentation can be found [here](https://litmuschaos.io)
 
 ## Chart Values
+
+The following table lists the configurable parameters of the Litmus chart and their default values.
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
@@ -40,3 +69,5 @@ Source code can be found [here](https://litmuschaos.io)
 | service.port | int | `80` | Service port |
 | service.type | string | `"ClusterIP"` | Service type |
 | tolerations | list | `[]` | Tolerations |
+
+[1]: https://github.com/litmuschaos/chaos-charts
