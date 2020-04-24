@@ -1,0 +1,37 @@
+{{- if and (.Values.exporter.enabled) (.Values.exporter.serviceMonitor.enabled)}}
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: {{ template "litmus.name" . }}
+  {{- if .Values.exporter.serviceMonitor.namespace }}
+  namespace: {{ .Values.exporter.serviceMonitor.namespace }}
+  {{- end }}
+  labels:
+    chart: {{ include "litmus.chart" . }}
+    instance: {{ .Release.Name }}
+    name: litmus-monitor
+    {{- if .Values.exporter.serviceMonitor.additionalLabels }}
+    {{- toYaml .Values.exporter.serviceMonitor.additionalLabels | nindent 4 }}
+    {{- end }}
+  {{- if .Values.exporter.serviceMonitor.annotations }}
+  annotations:
+    {{- toYaml .Values.exporter.serviceMonitor.annotations | nindent 4 }}
+  {{- end }}
+spec:
+  endpoints:
+    - port: http
+      path: /metrics
+      {{- if .Values.exporter.serviceMonitor.interval }}
+      interval: {{ .Values.exporter.serviceMonitor.interval }}
+      {{- end }}
+      {{- if .Values.exporter.serviceMonitor.scrapeTimeout }}
+      scrapeTimeout: {{ .Values.exporter.serviceMonitor.scrapeTimeout }}
+      {{- end }}
+  namespaceSelector:
+    matchNames:
+      - {{ .Release.Namespace }}
+  selector:
+    matchLabels:
+      name: {{ include "litmus.name" . }}-monitor
+      instance: {{ .Release.Name }}
+{{- end }}

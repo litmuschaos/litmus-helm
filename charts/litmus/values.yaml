@@ -10,17 +10,17 @@ operatorName: "chaos-operator"
 replicaCount: 1
 
 image:
-  operator: 
+  operator:
     repository: litmuschaos/chaos-operator
-    tag: 1.3.0 
+    tag: 1.3.0
     pullPolicy: Always
   runner:
     repository: litmuschaos/chaos-runner
-    tag: 1.3.0 
+    tag: 1.3.0
     pullPolicy: Always
   #exporter:
   #  repository: litmuschaos/chaos-exporter
-  #  tag: 1.3.0 
+  #  tag: 1.3.0
   #  pullPolicy: Always
 
 service:
@@ -59,3 +59,25 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+exporter:
+  enabled: false
+  serviceMonitor:
+    enabled: false
+    additionalLabels: {}
+  image:
+    repository: litmuschaos/chaos-exporter
+    tag: latest
+    pullPolicy: Always
+  service:
+    type: ClusterIP
+    port: 8080
+    annotations: {}
+
+  resources: {}
+
+  nodeSelector: {}
+
+  tolerations: []
+
+  affinity: {}

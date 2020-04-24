@@ -1,0 +1,46 @@
+{{ if .Values.exporter.enabled }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "litmus.fullname" . }}-monitor
+  labels:
+    name: {{ include "litmus.name" . }}-monitor
+    chart: {{ include "litmus.chart" . }}
+    instance: {{ .Release.Name }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: {{ include "litmus.name" . }}-monitor
+      instance: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        name: {{ include "litmus.name" . }}-monitor
+        instance: {{ .Release.Name }}
+    spec:
+      serviceAccountName: {{ include "litmus.fullname" . }}
+      serviceAccount: {{ include "litmus.fullname" . }}
+      containers:
+        - name: exporter
+          image: "{{ .Values.exporter.image.repository }}:{{ .Values.exporter.image.tag }}"
+          imagePullPolicy: {{ .Values.exporter.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: 8080
+              protocol: TCP
+          resources:
+            {{- toYaml .Values.exporter.resources | nindent 12 }}
+      {{- with .Values.exporter.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+    {{- with .Values.exporter.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+    {{- with .Values.exporter.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+{{ end }}
