@@ -1,14 +1,31 @@
-# litmus
+litmus
+======
+A Helm chart to install litmus infra components on Kubernetes
 
- A Helm chart to install litmus infra components on Kubernetes
+Current chart version is `1.3.1`
 
- Current chart version is `1.3.0`
+Source code can be found [here](https://litmuschaos.io)
 
- ## Chart Values
 
- | Key | Type | Default | Description |
+
+## Chart Values
+
+| Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| affinity | object | `{}` | Affinity |
+| affinity | object | `{}` | Affinity for operator |
+| exporter.affinity | object | `{}` | Affinity for exporter |
+| exporter.enabled | bool | `false` | If metrics exporter enabled  |
+| exporter.image.pullPolicy | string | `"Always"` | Image pill policy for exporter |
+| exporter.image.repository | string | `"litmuschaos/chaos-exporter"` | Image repository for exporter |
+| exporter.image.tag | string | `"ci"` | Image tag for exporter |
+| exporter.nodeSelector | object | `{}` | Node selector for exporter |
+| exporter.resources | object | `{}` | Resources requests and limits for exporter |
+| exporter.service.annotations | object | `{}` | Annotations for exporter service |
+| exporter.service.port | int | `8080` | Port for exporter service |
+| exporter.service.type | string | `"ClusterIP"` | Type of exporter's service |
+| exporter.serviceMonitor.additionalLabels | object | `{}` | Additional labels for exporter's serviceMonitor |
+| exporter.serviceMonitor.enabled | bool | `false` | If serviceMonitor enabled |
+| exporter.tolerations | list | `[]` | Tolerations for exporter |
 | fullnameOverride | string | `"litmus"` | Full name override |
 | image.\<operator\|runner\>.pullPolicy | string | `"Always"` | Image operator or runner pull policy |
 | image.\<operator\|runner\>.repository | string | `"litmuschaos/chaos-operator"` | Image operator or runner repository |
