@@ -10,7 +10,7 @@ Current chart version is `1.3.1`
 
 ### Chaos-Operator
 
-Chaos-Operator watches for the ChaosEngine CR and executes the Chaos-Experiments mentioned in the CR. Chaos-Operator is namespace scoped. By default, it runs in litmus namespace. Once the experiment is completed, chaos-operator invokes chaos-exporter to export chaos metrics to a Prometheus database.
+Chaos-Operator watches for the ChaosEngine CRs across namespaces and executes the Chaos-Experiments mentioned in the CR. By default, it runs in litmus namespace. The Chaos-exporter is used to export chaos metrics about state of experiments listed in the ChaosEngine, to a Prometheus database.
 
 ### Chaos-CRDs
 
