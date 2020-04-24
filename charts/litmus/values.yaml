@@ -67,7 +67,7 @@ exporter:
     additionalLabels: {}
   image:
     repository: litmuschaos/chaos-exporter
-    tag: ci
+    tag: latest
     pullPolicy: Always
   service:
     type: ClusterIP

@@ -17,7 +17,7 @@ Source code can be found [here](https://litmuschaos.io)
 | exporter.enabled | bool | `false` | If metrics exporter enabled  |
 | exporter.image.pullPolicy | string | `"Always"` | Image pill policy for exporter |
 | exporter.image.repository | string | `"litmuschaos/chaos-exporter"` | Image repository for exporter |
-| exporter.image.tag | string | `"ci"` | Image tag for exporter |
+| exporter.image.tag | string | `"latest"` | Image tag for exporter |
 | exporter.nodeSelector | object | `{}` | Node selector for exporter |
 | exporter.resources | object | `{}` | Resources requests and limits for exporter |
 | exporter.service.annotations | object | `{}` | Annotations for exporter service |
