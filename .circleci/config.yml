@@ -28,12 +28,16 @@ workflows:
     jobs:
       - lint-charts
   build:
-    triggers:
-      - schedule:
-          cron: "23,53 * * * *"
-          filters:
-            branches:
-              only:
-                - master
     jobs:
-      - build
+      - lint-charts:
+          filters:
+            ## release jobs needs to be run for tagged releases alone & not for any branch commits
+            branches:
+              only: master
+      - build:
+          requires:
+            - lint-charts
+          filters:
+            ## release jobs needs to be run for tagged releases alone & not for any branch commits
+            branches:
+              only: master
