@@ -1,5 +1,17 @@
 version: 2
 jobs:
+  lint-charts:
+    docker:
+      - image: gcr.io/kubernetes-charts-ci/test-image:v3.4.1
+    steps:
+      - checkout
+      - run:
+          name: lint
+          command: |
+            helm version --client
+            git remote add litmus https://github.com/litmuschaos/litmus-helm.git
+            git fetch litmus master
+            ct lint --config .circleci/ct.yaml --lint-conf .circleci/lintconf.yaml
   build:
     docker:
       - image: alpine
@@ -10,3 +22,18 @@ jobs:
           environment:
             - GITHUB_PAGES_REPO: litmuschaos/litmus-helm
           command: wget -O - https://raw.githubusercontent.com/litmuschaos/helm-github-pages/master/publish.sh | sh
+workflows:
+  version: 2
+  lint:
+    jobs:
+      - lint-charts
+  build:
+    triggers:
+      - schedule:
+          cron: "23,53 * * * *"
+          filters:
+            branches:
+              only:
+                - master
+    jobs:
+      - build
