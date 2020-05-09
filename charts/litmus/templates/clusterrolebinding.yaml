@@ -1,4 +1,3 @@
-{{ if or (not .Values.administratorMode.enabled) ( .Values.exporter.enabled ) }}
 apiVersion: rbac.authorization.k8s.io/v1beta1
 kind: ClusterRoleBinding
 metadata:
@@ -15,7 +14,6 @@ subjects:
 - kind: ServiceAccount
   name: {{ include "litmus.fullname" . }}
   namespace: {{ .Release.Namespace }}
-{{ end }}
 {{ if .Values.administratorMode.enabled }}
 ---
 apiVersion: rbac.authorization.k8s.io/v1beta1

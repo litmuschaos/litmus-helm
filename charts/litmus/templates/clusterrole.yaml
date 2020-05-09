@@ -1,5 +1,3 @@
-{{ if or (not .Values.administratorMode.enabled) ( .Values.exporter.enabled ) }}
-# Source: openebs/templates/clusterrole.yaml
 apiVersion: rbac.authorization.k8s.io/v1beta1
 kind: ClusterRole
 metadata:
@@ -12,7 +10,6 @@ rules:
 - apiGroups: ["","apps","batch","litmuschaos.io"]
   resources: ["pods","jobs","deployments","daemonsets","statefulsets","events","configmaps","services","chaosengines","chaosexperiments","chaosresults"]
   verbs: ["get","create","update","patch","delete","list","watch","deletecollection"]
-{{ end }}
 {{ if .Values.administratorMode.enabled }}
 ---
 apiVersion: rbac.authorization.k8s.io/v1beta1
