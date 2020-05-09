@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "litmus.fullname" . }} 
+  name: {{ include "litmus.fullname" . }}
   labels:
     name: {{ include "litmus.name" . }}
     chart: {{ include "litmus.chart" . }}
@@ -18,18 +18,18 @@ spec:
         name: {{ include "litmus.name" . }}
         instance: {{ .Release.Name }}
     spec:
-      serviceAccountName: {{ include "litmus.fullname" . }} 
+      serviceAccountName: {{ include "litmus.fullname" . }}
       containers:
         - name: {{ .Values.operatorName }}
-          image: "{{ .Values.image.operator.repository }}:{{ .Values.image.operator.tag }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
-          command: 
+          image: "{{ .Values.operator.image.repository }}:{{ .Values.operator.image.tag }}"
+          imagePullPolicy: {{ .Values.operator.image.pullPolicy }}
+          command:
           - chaos-operator
           env:
             - name: CHAOS_RUNNER_IMAGE
-              value: "{{ .Values.image.runner.repository }}:{{ .Values.image.runner.tag }}"
+              value: "{{ .Values.runner.image.repository }}:{{ .Values.runner.image.tag }}"
             - name: WATCH_NAMESPACE
-              value:  
+              value:
             - name: POD_NAME
               valueFrom:
                 fieldRef:
