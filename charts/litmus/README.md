@@ -56,9 +56,9 @@ The following table lists the configurable parameters of the Litmus chart and th
 | exporter.serviceMonitor.enabled | bool | `false` | If serviceMonitor enabled |
 | exporter.tolerations | list | `[]` | Tolerations for exporter |
 | fullnameOverride | string | `"litmus"` | Full name override |
-| image.\<operator\|runner\>.pullPolicy | string | `"Always"` | Image operator or runner pull policy |
-| image.\<operator\|runner\>.repository | string | `"litmuschaos/chaos-operator"` | Image operator or runner repository |
-| image.\<operator\|runner\>.tag | string | `"1.3.0"` | Image operator or runner tag |
+| operator.image.pullPolicy | string | `"Always"` | Image operator or runner pull policy |
+| \<operator\|runner\>.image.repository | string | `"litmuschaos/chaos-operator"` | Image operator or runner repository |
+| \<operator\|runner\>.image.tag | string | `"1.3.0"` | Image operator or runner tag |
 | ingress.annotations | object | `{}` | Ingress annotations |
 | ingress.enabled | bool | `false` | Ingress enabled |
 | nameOverride | string | `"litmus"` | Name override |

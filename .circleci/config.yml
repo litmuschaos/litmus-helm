@@ -29,14 +29,7 @@ workflows:
       - lint-charts
   build:
     jobs:
-      - lint-charts:
-          filters:
-            ## release jobs needs to be run for tagged releases alone & not for any branch commits
-            branches:
-              only: master
       - build:
-          requires:
-            - lint-charts
           filters:
             ## release jobs needs to be run for tagged releases alone & not for any branch commits
             branches:
