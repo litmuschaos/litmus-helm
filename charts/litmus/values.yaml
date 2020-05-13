@@ -60,6 +60,12 @@ affinity: {}
 administratorMode:
   enabled: false
 
+# Support for disabling google analytics
+# https://docs.litmuschaos.io/docs/faq-general/#does-litmus-track-any-usage-metrics-on-the-test-clusters
+policies:
+  monitoring:
+    disabled: false
+
 exporter:
   enabled: false
   serviceMonitor:

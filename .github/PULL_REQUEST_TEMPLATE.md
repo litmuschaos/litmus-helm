@@ -1,10 +1,8 @@
 <!--
-Thank you for contributing to helm/charts. Before you submit this PR we'd like to
-make sure you are aware of our technical requirements and best practices:
 
 * https://github.com/helm/helm/tree/master/docs/chart_best_practices
 
-Following our best practices right from the start will accelerate the review process and
+Following best practices right from the start will accelerate the review process and
 help get your PR merged quicker.
 
 When updates to your PR are requested, please add new commits and do not squash the
@@ -29,6 +27,6 @@ even continue reviewing your changes.
 
 #### Checklist
 [Place an '[x]' (no spaces) in all applicable fields. Please remove unrelated fields.]
-- [ ] [DCO](https://github.com/helm/charts/blob/master/CONTRIBUTING.md#sign-your-work) signed
+- [ ] DCO signed
 - [ ] Chart Version bumped
 - [ ] Variables are documented in the README.md
