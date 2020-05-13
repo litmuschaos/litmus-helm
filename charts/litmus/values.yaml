@@ -64,7 +64,7 @@ administratorMode:
 # https://docs.litmuschaos.io/docs/faq-general/#does-litmus-track-any-usage-metrics-on-the-test-clusters
 policies:
   monitoring:
-    disabled: true
+    disabled: false
 
 exporter:
   enabled: false
