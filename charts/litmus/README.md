@@ -2,7 +2,7 @@ litmus
 ======
 A Helm chart to install litmus infra components on Kubernetes.
 
-Current chart version is `1.3.3`
+Current chart version is `1.3.4`
 
 ## Architecture introduction
 
@@ -67,6 +67,7 @@ The following table lists the configurable parameters of the Litmus chart and th
 | operatorName | string | `"chaos-operator"` | Operator name |
 | replicaCount | int | `1` | Replica count |
 | resources | object | `{}` | Resources requests and limits |
+| policies.monitoring.disabled | string | false | If google analytics disabled |
 | service.port | int | `80` | Service port |
 | service.type | string | `"ClusterIP"` | Service type |
 | tolerations | list | `[]` | Tolerations |
