@@ -56,6 +56,10 @@ tolerations: []
 
 affinity: {}
 
+# Support for https://docs.litmuschaos.io/docs/admin-mode
+administratorMode:
+  enabled: false
+
 exporter:
   enabled: false
   serviceMonitor:
