@@ -26,7 +26,12 @@ workflows:
   version: 2
   lint:
     jobs:
-      - lint-charts
+      - lint-charts:
+          filters:
+            ## lint job (and build below) needs to be run on all branches except for gh-pages
+            ## it is taken are of in lint via an "only" directive
+            branches: 
+              ignore: gh-pages
   build:
     jobs:
       - build:
