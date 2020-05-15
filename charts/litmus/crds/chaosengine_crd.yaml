@@ -47,14 +47,14 @@ spec:
               properties:
                 appkind:
                   type: string
-                  pattern: ^(deployment|statefulset|daemonset)$
+                  pattern: ^(deployment|statefulset|daemonset|deploymentconfig)$
                 applabel:
                   type: string
                 appns:
                   type: string
             auxiliaryAppInfo:
               type: string
-            engineState: 
+            engineState:
               type: string
               pattern: ^(active|stop|initialized|stopped)$
             chaosServiceAccount:
@@ -70,6 +70,19 @@ spec:
                     type:
                       type: string
                       pattern: ^(go|ansible)$
+                    runnerannotation:
+                      type: object
+                      additionalProperties:
+                        type: string
+                        properties:
+                          key:
+                            type: string
+                            minLength: 1
+                            allowEmptyValue: false
+                          value:
+                            type: string
+                            minLength: 1
+                            allowEmptyValue: false
             experiments:
               type: array
               items:
@@ -80,7 +93,7 @@ spec:
                   spec:
                     type: object
                     properties:
-                      components: 
+                      components:
                         type: object
                         properties:
                           env:
@@ -106,16 +119,29 @@ spec:
                             items:
                               type: object
                               properties:
-                                name: 
+                                name:
                                   type: string
                                 mountPath:
                                   type: string
+                          experimentannotation:
+                            type: object
+                            additionalProperties:
+                              type: string
+                              properties:
+                                key:
+                                  type: string
+                                  minLength: 1
+                                  allowEmptyValue: false
+                                value:
+                                  type: string
+                                  minLength: 1
+                                  allowEmptyValue: false
 
 
         status:
           type: object
   version: v1alpha1
   versions:
-  - name: v1alpha1
-    served: true
-    storage: true
+    - name: v1alpha1
+      served: true
+      storage: true
