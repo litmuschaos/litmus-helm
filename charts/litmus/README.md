@@ -59,7 +59,7 @@ The following table lists the configurable parameters of the Litmus chart and th
 | fullnameOverride | string | `"litmus"` | Full name override |
 | operator.image.pullPolicy | string | `"Always"` | Image operator or runner pull policy |
 | \<operator\|runner\>.image.repository | string | `"litmuschaos/chaos-operator"` | Image operator or runner repository |
-| \<operator\|runner\>.image.tag | string | `"1.3.0"` | Image operator or runner tag |
+| \<operator\|runner\>.image.tag | string | `"1.4.0"` | Image operator or runner tag |
 | ingress.annotations | object | `{}` | Ingress annotations |
 | ingress.enabled | bool | `false` | Ingress enabled |
 | nameOverride | string | `"litmus"` | Name override |
