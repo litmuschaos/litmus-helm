@@ -27,4 +27,7 @@ rules:
 - apiGroups: [""]
   resources: ["nodes"]
   verbs: ["get","list","patch"]
+- apiGroups: ["admissionregistration.k8s.io"]
+  resources: ["validatingwebhookconfigurations"]
+  verbs: ["get","create","list","delete","update"]
 {{ end }}
