@@ -98,5 +98,3 @@ root@demo:~# kubectl get clusterrole,clusterrolebinding | grep litmus
 clusterrole.rbac.authorization.k8s.io/litmus                                                        4m18s
 clusterrolebinding.rbac.authorization.k8s.io/litmus                                                 4m18s
 ```
-
-
