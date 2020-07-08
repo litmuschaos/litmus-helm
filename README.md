@@ -16,18 +16,18 @@ The following steps will help you install litmus via helm.
 
 #### Step-1: Add the litmus helm repository
 
-```
+```bash
 root@demo:~# helm repo add litmuschaos https://litmuschaos.github.io/litmus-helm/
 "litmuschaos" has been added to your repositories
 ```
 
-```
+```bash
 root@demo:~# helm repo list
 NAME            URL
 litmuschaos     https://litmuschaos.github.io/litmus-helm/
 ```
 
-```
+```bash
 root@demo:~# helm search repo litmuschaos
 NAME                    CHART VERSION   APP VERSION     DESCRIPTION
 litmuschaos/litmus      1.5.0           1.5.0           A Helm chart to install litmus infra components...
@@ -39,14 +39,14 @@ litmuschaos/litmus      1.5.0           1.5.0           A Helm chart to install 
 
 **Note**: The chaos operator can be placed in any namespace, though it is typically placed in "litmus".
 
-```
+```bash
 root@demo:~# kubectl create ns litmus
 namespace/litmus created
 ```
 
 #### Step-3: Install the litmus chaos operator and CRDs
 
-```
+```bash
 root@demo:~# helm install chaos litmuschaos/litmus --namespace=litmus
 NAME: chaos
 LAST DEPLOYED: Fri Apr  3 06:19:50 2020
@@ -64,14 +64,14 @@ You can run the following commands if you wish to verify if all desired componen
 
 - Check if chaos CRDs are installed & the api-resources are created for the same
 
-```
+```bash
 root@demo:~# kubectl get crds | grep litmus
 chaosengines.litmuschaos.io             2020-04-03T06:10:29Z
 chaosexperiments.litmuschaos.io         2020-04-03T06:10:29Z
 chaosresults.litmuschaos.io             2020-04-03T06:10:29Z
 ```
 
-```
+```bash
 root@demo:~# kubectl api-resources | grep litmus
 chaosengines                                   litmuschaos.io                 true         ChaosEngine
 chaosexperiments                               litmuschaos.io                 true         ChaosExperiment
@@ -80,7 +80,7 @@ chaosresults                                   litmuschaos.io                 tr
 
 - Check if the litmus chaos operator deployment is running successfully
 
-```
+```bash
 root@demo:~# kubectl get pods -n litmus
 NAME                      READY   STATUS    RESTARTS   AGE
 litmus-7d998b6568-nnlcd   1/1     Running   0          106s
@@ -88,14 +88,14 @@ litmus-7d998b6568-nnlcd   1/1     Running   0          106s
 
 - Check if the chaos operator RBAC is configured appropriately:
 
-```
+```bash
 root@demo:~# kubectl get serviceaccount -n litmus
 NAME      SECRETS   AGE
 default   1         3m56s
 litmus    1         3m34s
 ```
 
-```
+```bash
 root@demo:~# kubectl get clusterrole,clusterrolebinding | grep litmus
 clusterrole.rbac.authorization.k8s.io/litmus                                                        4m18s
 clusterrolebinding.rbac.authorization.k8s.io/litmus                                                 4m18s
