@@ -1,5 +1,8 @@
 # Litmus helm
 
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+[![<litmuschaos>](https://circleci.com/gh/litmuschaos/litmus-helm/tree/master.svg?style=svg)](https://circleci.com/gh/litmuschaos/litmus-helm/tree/master)
+
 Helm Charts for the Litmus Chaos Operator &amp; CRDs
 
 ## Usage
@@ -104,3 +107,7 @@ clusterrolebinding.rbac.authorization.k8s.io/litmus                             
 ## Contributing
 
 We'd love to have you contribute! Please refer to our [contribution guidelines](CONTRIBUTING.md) for details.
+
+## License
+
+[Apache 2.0 License](./LICENSE).
