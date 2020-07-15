@@ -12,12 +12,12 @@ replicaCount: 1
 operator:
   image:
     repository: litmuschaos/chaos-operator
-    tag: 1.5.1
+    tag: 1.6.0
     pullPolicy: Always
 runner:
   image:
     repository: litmuschaos/chaos-runner
-    tag: 1.5.1
+    tag: 1.6.0
 
 service:
   type: ClusterIP
