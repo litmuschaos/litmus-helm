@@ -36,7 +36,7 @@ NAME                    CHART VERSION   APP VERSION     DESCRIPTION
 litmuschaos/litmus      1.6.0           1.6.0           A Helm chart to install litmus infra components...
 ```
 
-#### Step-2: Create the litmus namespace 
+#### Step-2: Create the litmus namespace
 
 - The litmus infra components will be placed in this namespace.
 
