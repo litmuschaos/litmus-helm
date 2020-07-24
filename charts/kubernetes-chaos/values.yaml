@@ -1,0 +1,55 @@
+# Default values for kubernetes 
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+nameOverride: "k8s"
+fullnameOverride: "k8s"
+
+image:
+  litmus: 
+    repository: litmuschaos/ansible-runner
+    tag: 1.6.0
+    pullPolicy: Always
+
+  litmusGO:
+    repository: litmuschaos/go-runner
+    tag: 1.6.0
+    pullPolicy: Always
+
+  pumba:
+    repository: gaiaadm/pumba
+    tag: 0.6.5
+    libName: pumba
+
+  powerfulseal:
+    repository: store/bloomberg/powerfulseal
+    tag: 2.8.0
+
+  chaostoolkit:
+    repository: litmuschaos/chaostoolkit
+    tag: latest
+
+  md5sumCpuStress:    
+    repository: litmuschaos/app-cpu-stress
+    tag: latest
+
+  ddMemoryStress:    
+    repository: litmuschaos/app-memory-stress
+    tag: latest
+
+  linuxStressNG:
+    repository: alexeiled/stress-ng
+    tag: latest 
+
+  litmusStressNG:
+    repository: litmuschaos/stress-ng
+    tag: latest 
+
+  litmusPodDeleteHelper:
+    repository: litmuschaos/pod-delete-helper
+    tag: latest
+
+  litmusContainerKillHelper:
+    repository: litmuschaos/container-kill-helper
+    tag: latest
+    libName: containerd

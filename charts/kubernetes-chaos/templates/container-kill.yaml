@@ -1,0 +1,75 @@
+apiVersion: litmuschaos.io/v1alpha1
+description:
+  message: "Kills a container belonging to an application pod \n"
+kind: ChaosExperiment
+metadata:
+  name: {{ include "kubernetes-chaos.name" . }}-container-kill
+  version: 0.1.23
+  labels: 
+    instance: {{ .Release.Name }}
+    chart: {{ include "kubernetes-chaos.chart" . }}
+spec:
+  definition:
+    scope: Namespaced
+    permissions:
+      - apiGroups:
+          - ""
+          - "apps"
+          - "batch"
+          - "litmuschaos.io"
+        resources:
+          - "daemonsets"
+          - "jobs"
+          - "pods"
+          - "pods/log"
+          - "events"
+          - "pods/exec"
+          - "chaosengines"
+          - "chaosexperiments"
+          - "chaosresults"
+        verbs:
+          - "create"
+          - "list"
+          - "get"
+          - "update"
+          - "patch"
+          - "delete"
+    image: "{{ .Values.image.litmusGO.repository }}:{{ .Values.image.litmusGO.tag }}"
+    imagePullPolicy: {{ .Values.image.litmusGO.pullPolicy }}
+    args:
+    - -c
+    - ./experiments/container-kill
+    command:
+    - /bin/bash
+    env:
+
+    - name: ANSIBLE_STDOUT_CALLBACK
+      value: 'default'
+
+    - name: TARGET_CONTAINER
+      value: ''
+
+    # Period to wait before injection of chaos in sec
+    - name: RAMP_TIME
+      value: ''
+
+    # provide the chaos interval
+    - name: CHAOS_INTERVAL
+      value: '10'
+
+    # provide the total chaos duration
+    - name: TOTAL_CHAOS_DURATION
+      value: '20'
+
+    - name: CONTAINER_PATH
+      value: '/run/containerd/containerd.sock'
+
+    # It supports pumba and containerd 
+    - name: LIB
+      value: {{ .Values.image.pumba.libName }}
+
+    - name: LIB_IMAGE  
+      value: "{{ .Values.image.pumba.repository }}:{{ .Values.image.pumba.tag }}"
+
+    labels:
+      name: container-kill

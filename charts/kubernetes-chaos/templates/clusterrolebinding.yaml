@@ -1,0 +1,16 @@
+---
+apiVersion: rbac.authorization.k8s.io/v1beta1
+kind: ClusterRoleBinding
+metadata:
+  name: {{ include "kubernetes-chaos.name" . }}-chaos-admin 
+  labels:
+    instance: {{ .Release.Name }}
+    chart: {{ include "kubernetes-chaos.chart" . }}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: {{ include "kubernetes-chaos.name" . }}-chaos-admin
+subjects:
+- kind: ServiceAccount
+  name: {{ include "kubernetes-chaos.name" . }}-chaos-admin
+  namespace: {{ .Release.Namespace }}

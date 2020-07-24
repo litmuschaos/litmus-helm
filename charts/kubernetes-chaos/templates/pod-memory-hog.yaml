@@ -1,0 +1,68 @@
+apiVersion: litmuschaos.io/v1alpha1
+description:
+  message: |
+    Injects memory consumption on pods belonging to an app deployment
+kind: ChaosExperiment
+metadata:
+  name: {{ include "kubernetes-chaos.name" . }}-pod-memory-hog
+  version: 0.1.3
+  labels:
+    instance: {{ .Release.Name }}
+    chart: {{ include "kubernetes-chaos.chart" . }}
+spec:
+  definition:
+    scope: Namespaced
+    permissions:
+      - apiGroups:
+          - ""
+          - "batch"
+          - "litmuschaos.io"
+        resources:
+          - "jobs"
+          - "pods"
+          - "pods/log"
+          - "pods/exec"
+          - "events"
+          - "chaosengines"
+          - "chaosexperiments"
+          - "chaosresults"
+        verbs:
+          - "create"
+          - "list"
+          - "get"
+          - "patch"
+          - "update"
+          - "delete"
+    image: "{{ .Values.image.litmusGO.repository }}:{{ .Values.image.litmusGO.tag }}"
+    imagePullPolicy: {{ .Values.image.litmusGO.pullPolicy }}
+    args:
+    - -c
+    - ./experiments/pod-memory-hog
+    command:
+    - /bin/bash
+    env:
+    - name: ANSIBLE_STDOUT_CALLBACK
+      value: 'default'
+
+    - name: TARGET_CONTAINER
+      value: ''
+
+    # Enter the amount of memory in megabytes to be consumed by the application pod
+    # default: 500 (Megabytes) 
+    - name: MEMORY_CONSUMPTION
+      value: '500'
+
+    - name: TOTAL_CHAOS_DURATION
+      value: '60' # in seconds
+
+    # Period to wait before injection of chaos in sec
+    - name: RAMP_TIME
+      value: ''
+
+    - name: LIB
+      value: 'litmus'
+
+    - name: LIB_IMAGE
+      value: "{{ .Values.image.ddMemoryStress.repository }}:{{ .Values.image.ddMemoryStress.tag }}" 
+    labels:
+      name: pod-memory-hog
