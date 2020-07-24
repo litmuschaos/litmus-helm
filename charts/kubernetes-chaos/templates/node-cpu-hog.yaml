@@ -1,0 +1,73 @@
+apiVersion: litmuschaos.io/v1alpha1
+description:
+  message: |
+    Give a cpu spike on a node belonging to a deployment
+kind: ChaosExperiment
+metadata:
+  name: {{ include "kubernetes-chaos.name" . }}-node-cpu-hog
+  version: 0.1.20
+  labels:
+    instance: {{ .Release.Name }}
+    chart: {{ include "kubernetes-chaos.chart" . }}
+spec:
+  definition:
+    scope: Cluster
+    permissions:
+      - apiGroups:
+          - ""
+          - "batch"
+          - "apps"
+          - "litmuschaos.io"
+        resources:
+          - "jobs"
+          - "pods"
+          - "pods/log"
+          - "events"
+          - "chaosengines"
+          - "chaosexperiments"
+          - "chaosresults"
+        verbs:
+          - "create"
+          - "list"
+          - "get"
+          - "patch"
+          - "update"
+          - "delete"
+      - apiGroups:
+          - ""
+        resources: 
+          - "nodes"
+        verbs :
+          - "get"
+          - "list"
+    image: "{{ .Values.image.litmusGO.repository }}:{{ .Values.image.litmusGO.tag }}" 
+    imagePullPolicy: {{ .Values.image.litmusGO.pullPolicy }}
+    args:
+    - -c
+    - ./experiments/node-cpu-hog
+    command:
+    - /bin/bash
+    env:
+
+    - name: ANSIBLE_STDOUT_CALLBACK
+      value: 'default'
+
+    - name: TOTAL_CHAOS_DURATION
+      value: '60'
+
+    # Period to wait before injection of chaos in sec
+    - name: RAMP_TIME
+      value: ''
+
+    - name: NODE_CPU_CORE
+      value: ''
+
+    - name: LIB
+      value: 'litmus'
+
+    ##TODO: Sync w/ linuxStressNG values
+    - name: LIB_IMAGE
+      value: "{{ .Values.image.litmusStressNG.repository }}:{{ .Values.image.litmusStressNG.tag }}"
+      
+    labels:
+      name: node-cpu-hog

@@ -1,0 +1,85 @@
+apiVersion: litmuschaos.io/v1alpha1
+description:
+  message: |
+    Detaching a persistent disk from a node/instance. Supports only for AWS and GCP
+kind: ChaosExperiment
+metadata:
+  name: {{ include "kubernetes-chaos.name" . }}-disk-loss
+  version: 0.1.14
+  labels:
+    instance: {{ .Release.Name }}
+    chart: {{ include "kubernetes-chaos.chart" . }}
+spec:
+  definition:
+    scope: Cluster
+    permissions:
+      - apiGroups:
+          - ""
+          - "batch"
+          - "litmuschaos.io"
+        resources:
+          - "jobs"
+          - "pods"
+          - "events"
+          - "pods/log"
+          - "secrets"
+          - "chaosengines"
+          - "chaosexperiments"
+          - "chaosresults"
+        verbs:
+          - "create"
+          - "list"
+          - "get"
+          - "patch"
+          - "update"
+          - "delete"
+    image: "{{ .Values.image.litmus.repository }}:{{ .Values.image.litmus.tag }}"
+    imagePullPolicy: {{ .Values.image.litmus.pullPolicy }}
+    args:
+    - -c
+    - ansible-playbook ./experiments/generic/disk_loss/disk_loss_ansible_logic.yml -i /etc/ansible/hosts -vv; exit 0
+    command:
+    - /bin/bash
+    env:
+    - name: ANSIBLE_STDOUT_CALLBACK
+      value: 'default'
+
+    - name: TOTAL_CHAOS_DURATION
+      value: '15'
+
+    # Period to wait before injection of chaos in sec
+    - name: RAMP_TIME
+      value: ''
+
+    - name: APP_CHECK
+      value: 'true' 
+
+    # GKE and AWS supported
+    - name: CLOUD_PLATFORM
+      value: 'GKE'
+
+    - name: PROJECT_ID 
+      value: ''
+
+    # provide the LIB
+    # only litmus supported
+    - name: LIB
+      value: 'litmus'
+
+    - name: NODE_NAME
+      value: '' 
+
+    - name: DISK_NAME
+      value: ''  
+          
+    - name: ZONE_NAME
+      value: '' 
+
+    - name: DEVICE_NAME
+      value: '' 
+          
+    labels:
+      name: disk-loss
+    secrets:
+    - name: cloud-secret
+      mountPath: /tmp/
