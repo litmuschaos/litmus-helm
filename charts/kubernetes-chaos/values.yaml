@@ -8,17 +8,15 @@ fullnameOverride: "k8s"
 image:
   litmus: 
     repository: litmuschaos/ansible-runner
-    tag: 1.6.0
+    tag: 1.6.1
     pullPolicy: Always
 
   litmusGO:
     repository: litmuschaos/go-runner
-    tag: 1.6.0
+    tag: 1.6.2
     pullPolicy: Always
 
   pumba:
-    repository: gaiaadm/pumba
-    tag: 0.6.5
     libName: pumba
 
   powerfulseal:
@@ -33,23 +31,9 @@ image:
     repository: litmuschaos/app-cpu-stress
     tag: latest
 
-  ddMemoryStress:    
-    repository: litmuschaos/app-memory-stress
-    tag: latest
+  litmusLIBImage:
+    repository: litmuschaos/go-runner
+    tag: 1.6.2
 
-  linuxStressNG:
-    repository: alexeiled/stress-ng
-    tag: latest 
-
-  litmusStressNG:
-    repository: litmuschaos/stress-ng
-    tag: latest 
-
-  litmusPodDeleteHelper:
-    repository: litmuschaos/pod-delete-helper
-    tag: latest
-
-  litmusContainerKillHelper:
-    repository: litmuschaos/container-kill-helper
-    tag: latest
-    libName: containerd
+  networkChaos:
+    tcImage: gaiadocker/iproute2

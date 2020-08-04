@@ -44,3 +44,4 @@ rules:
   - "get"
   - "list"
   - "patch"
+  - "update"

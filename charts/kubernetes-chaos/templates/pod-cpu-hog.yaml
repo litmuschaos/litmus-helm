@@ -41,8 +41,6 @@ spec:
     command:
     - /bin/bash
     env:
-    - name: ANSIBLE_STDOUT_CALLBACK
-      value: 'default'
 
     - name: TARGET_CONTAINER
       value: ''
@@ -53,6 +51,10 @@ spec:
     - name: TOTAL_CHAOS_DURATION
       value: '60' # in seconds
 
+    ## Percentage of total pods to target
+    - name: PODS_AFFECTED_PERC
+      value: ''
+
     # Period to wait before injection of chaos in sec
     - name: RAMP_TIME
       value: ''
@@ -60,7 +62,5 @@ spec:
     - name: LIB
       value: 'litmus'
 
-    - name: LIB_IMAGE
-      value: "{{ .Values.image.md5sumCpuStress.repository }}:{{ .Values.image.md5sumCpuStress.tag }}" 
     labels:
       name: pod-cpu-hog

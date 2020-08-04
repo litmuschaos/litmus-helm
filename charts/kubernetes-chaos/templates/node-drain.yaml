@@ -53,9 +53,7 @@ spec:
     command:
     - /bin/bash
     env:
-    - name: ANSIBLE_STDOUT_CALLBACK
-      value: 'default'
-
+  
     - name: LIVENESS_APP_LABEL
       value: ''
     

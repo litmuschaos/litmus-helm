@@ -5,7 +5,7 @@ description:
 kind: ChaosExperiment
 metadata:
   name: {{ include "kubernetes-chaos.name" . }}-node-memory-hog
-  version: 0.1.10
+  version: 0.1.12
   labels: 
     instance: {{ .Release.Name }}
     chart: {{ include "kubernetes-chaos.chart" . }}
@@ -49,9 +49,6 @@ spec:
     - /bin/bash
     env:
 
-    - name: ANSIBLE_STDOUT_CALLBACK
-      value: 'default'
-
     - name: TOTAL_CHAOS_DURATION
       value: '120'
 
@@ -69,7 +66,7 @@ spec:
 
     # provide lib image
     - name: LIB_IMAGE
-      value: "{{ .Values.image.linuxStressNG.repository }}:{{ .Values.image.linuxStressNG.tag }}"
+      value: "{{ .Values.image.litmusLIBImage.repository }}:{{ .Values.image.litmusLIBImage.tag }}"
       
     labels:
       name: node-memory-hog
