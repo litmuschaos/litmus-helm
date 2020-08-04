@@ -3,10 +3,10 @@ entries:
   kubernetes-chaos:
   - apiVersion: v1
     appVersion: 1.6.0
-    created: 2020-07-24T08:37:19.123785301Z
+    created: 2020-08-04T02:47:30.174110106Z
     description: A Helm chart to install litmus chaos experiments for kubernetes category
       (chaos-chart)
-    digest: 1923bc49f545d01d46b5df714fc7eea96f9395d8e596d40b4362090085819280
+    digest: 2597a28e83f627becaf83243f4bc17bdd75f8cbec769695ed7eed82eb17c74b1
     home: https://litmuschaos.io
     icon: https://raw.githubusercontent.com/litmuschaos/icons/master/litmus.png
     keywords:
@@ -29,7 +29,7 @@ entries:
   litmus:
   - apiVersion: v1
     appVersion: 1.6.0
-    created: 2020-07-24T08:37:19.130062171Z
+    created: 2020-08-04T02:47:30.17908104Z
     description: A Helm chart to install litmus infra components on Kubernetes
     digest: 421b8aabd797da76ec0f8698f4a0dc5c3f84db95010db219f245056ddda4fdbd
     home: https://litmuschaos.io
@@ -51,7 +51,7 @@ entries:
     version: 1.6.0
   - apiVersion: v1
     appVersion: 1.5.1
-    created: 2020-07-24T08:37:19.128511969Z
+    created: 2020-08-04T02:47:30.178584384Z
     description: A Helm chart to install litmus infra components on Kubernetes
     digest: bcdbff9fa089e2ffda4d8b50327f5d09a1c220c78c0bc27ef326a8ba55e80f6f
     home: https://litmuschaos.io
@@ -73,7 +73,7 @@ entries:
     version: 1.5.1
   - apiVersion: v1
     appVersion: 1.5.0
-    created: 2020-07-24T08:37:19.127979776Z
+    created: 2020-08-04T02:47:30.178081618Z
     description: A Helm chart to install litmus infra components on Kubernetes
     digest: 16b2696099e96ac59bba58d314c1f3858ad1539b0fe2f12770657b3a28e66a16
     home: https://litmuschaos.io
@@ -95,7 +95,7 @@ entries:
     version: 1.5.0
   - apiVersion: v1
     appVersion: 1.4.0
-    created: 2020-07-24T08:37:19.127475787Z
+    created: 2020-08-04T02:47:30.177566712Z
     description: A Helm chart to install litmus infra components on Kubernetes
     digest: 3d0cb7b54beff54897a8a1e062586334f963fd656fa9e58e4e38764b30dabf36
     home: https://litmuschaos.io
@@ -117,7 +117,7 @@ entries:
     version: 1.4.0
   - apiVersion: v1
     appVersion: 1.3.0
-    created: 2020-07-24T08:37:19.12693993Z
+    created: 2020-08-04T02:47:30.177080375Z
     description: A Helm chart to install litmus infra components on Kubernetes
     digest: aee810db5419955541b81f8ee0a1586ca87b8ad9937826e01792c2b4115c0a14
     home: https://litmuschaos.io
@@ -139,7 +139,7 @@ entries:
     version: 1.3.4
   - apiVersion: v1
     appVersion: 1.3.0
-    created: 2020-07-24T08:37:19.126445657Z
+    created: 2020-08-04T02:47:30.176557565Z
     description: A Helm chart to install litmus infra components on Kubernetes
     digest: 3357bb914dc5041f9277278513a908aada180fc5237850e4bf737a647d4c2609
     home: https://litmuschaos.io
@@ -161,7 +161,7 @@ entries:
     version: 1.3.3
   - apiVersion: v1
     appVersion: 1.3.0
-    created: 2020-07-24T08:37:19.125923006Z
+    created: 2020-08-04T02:47:30.176064215Z
     description: A Helm chart to install litmus infra components on Kubernetes
     digest: 5e15e526b94d26af371784e00ecde409bc67fbce1a7b29b790e746c71232e0f7
     home: https://litmuschaos.io
@@ -183,7 +183,7 @@ entries:
     version: 1.3.2
   - apiVersion: v1
     appVersion: 1.3.0
-    created: 2020-07-24T08:37:19.125410315Z
+    created: 2020-08-04T02:47:30.175585415Z
     description: A Helm chart to install litmus infra components on Kubernetes
     digest: d84422d96897088695f95528e09d0fda90b693a62b7815948d849d88e56f720c
     home: https://litmuschaos.io
@@ -205,7 +205,7 @@ entries:
     version: 1.3.1
   - apiVersion: v1
     appVersion: 1.3.0
-    created: 2020-07-24T08:37:19.124859944Z
+    created: 2020-08-04T02:47:30.175104287Z
     description: A Helm chart to install litmus infra components on Kubernetes
     digest: 8096ac20f73833e9ed50f7d935d6f3a190400df27e97e4823855c449cdcda1c1
     home: https://litmuschaos.io
@@ -227,7 +227,7 @@ entries:
     version: 1.3.0
   - apiVersion: v1
     appVersion: 1.2.2
-    created: 2020-07-24T08:37:19.124412752Z
+    created: 2020-08-04T02:47:30.174706913Z
     description: A Helm chart to install litmus infra components on Kubernetes
     digest: f2c58b2a0b1c4260475f8fc00352abe3516cfb8fb0cdcbb38d9cfeb81a56ddd9
     name: litmus
@@ -236,11 +236,11 @@ entries:
     version: 1.2.2
   - apiVersion: v1
     appVersion: 1.2.0
-    created: 2020-07-24T08:37:19.124108194Z
+    created: 2020-08-04T02:47:30.174411489Z
     description: A Helm chart to install litmus infra components on Kubernetes
     digest: 4e1a0da74e53d97cb9a3bcd51d9c191572ca83d517528ca79b27c795dc79bebb
     name: litmus
     urls:
     - litmus/litmus-1.2.0.tgz
     version: 1.2.0
-generated: 2020-07-24T08:37:19.123013434Z
+generated: 2020-08-04T02:47:30.173418244Z
