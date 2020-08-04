@@ -19,18 +19,6 @@ image:
   pumba:
     libName: pumba
 
-  powerfulseal:
-    repository: store/bloomberg/powerfulseal
-    tag: 2.8.0
-
-  chaostoolkit:
-    repository: litmuschaos/chaostoolkit
-    tag: latest
-
-  md5sumCpuStress:    
-    repository: litmuschaos/app-cpu-stress
-    tag: latest
-
   litmusLIBImage:
     repository: litmuschaos/go-runner
     tag: 1.6.2
