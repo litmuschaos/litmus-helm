@@ -5,7 +5,7 @@ description:
 kind: ChaosExperiment
 metadata:
   name: {{ include "kubernetes-chaos.name" . }}-pod-network-duplication
-  version: 0.1.1
+  version: 0.1.3
   labels: 
     instance: {{ .Release.Name }}
     chart: {{ include "kubernetes-chaos.chart" . }}
@@ -52,6 +52,9 @@ spec:
     - name: NETWORK_INTERFACE
       value: 'eth0'
 
+    - name: TC_IMAGE
+      value: "{{ .Values.image.networkChaos.tcImage }}"
+
     - name: NETWORK_PACKET_DUPLICATION_PERCENTAGE
       value: '100' # in percentage
 
@@ -59,6 +62,6 @@ spec:
       value: 'pumba'     
        
     - name: LIB_IMAGE
-      value: "{{ .Values.image.pumba.repository }}:{{ .Values.image.pumba.tag }}"
+      value: "{{ .Values.image.litmusLIBImage.repository }}:{{ .Values.image.litmusLIBImage.tag }}"
     labels:
       name: pod-network-duplication
