@@ -1,8 +1,8 @@
 litmus
 ======
-A Helm chart to install litmus infra components on Kubernetes.
+A Helm chart to install litmus infra components on Kubernetes
 
-Current chart version is `1.6.2`
+Current chart version is `1.6.4`
 
 ## Architecture introduction
 
@@ -65,11 +65,14 @@ The following table lists the configurable parameters of the Litmus chart and th
 | nameOverride | string | `"litmus"` | Name override |
 | nodeSelector | object | `{}` | Node selector |
 | operatorName | string | `"chaos-operator"` | Operator name |
+| rbac.create | bool | `true` | All required roles and rolebindings will be created |
 | replicaCount | int | `1` | Replica count |
 | resources | object | `{}` | Resources requests and limits |
 | policies.monitoring.disabled | string | false | If google analytics disabled |
 | service.port | int | `80` | Service port |
 | service.type | string | `"ClusterIP"` | Service type |
+| serviceAccount.create | bool | `true` | Create service account |
+| serviceAccount.name | string | `nil` | The name of the ServiceAccount to use. If not set and create is true, a name is generated using the fullname template |
 | tolerations | list | `[]` | Tolerations |
 
 [1]: https://github.com/litmuschaos/chaos-charts
