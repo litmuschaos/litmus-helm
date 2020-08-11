@@ -1,3 +1,5 @@
+{{ if or (eq .Values.operatorMode "standard") (eq .Values.operatorMode "admin") }}
+---
 apiVersion: rbac.authorization.k8s.io/v1beta1
 kind: ClusterRoleBinding
 metadata:
@@ -14,7 +16,8 @@ subjects:
 - kind: ServiceAccount
   name: {{ include "litmus.fullname" . }}
   namespace: {{ .Release.Namespace }}
-{{ if .Values.administratorMode.enabled }}
+{{ end }}
+{{ if eq .Values.operatorMode "admin" }}
 ---
 apiVersion: rbac.authorization.k8s.io/v1beta1
 kind: ClusterRoleBinding

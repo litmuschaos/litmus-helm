@@ -28,8 +28,15 @@ spec:
           env:
             - name: CHAOS_RUNNER_IMAGE
               value: "{{ .Values.runner.image.repository }}:{{ .Values.runner.image.tag }}"
+          {{ if or (eq .Values.operatorMode "namespaced") ( eq .Values.operatorMode "admin") }}    
             - name: WATCH_NAMESPACE
-              value:
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+          {{ else }}
+            - name: WATCH_NAMESPACE
+              value: 
+          {{ end }}
             - name: POD_NAME
               valueFrom:
                 fieldRef:
