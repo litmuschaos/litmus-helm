@@ -5,6 +5,7 @@ metadata:
   labels:
     name: {{ include "litmus.name" . }}
     chart: {{ include "litmus.chart" . }}
+    litmuschaos.io/version: {{ .Chart.AppVersion }}
     instance: {{ .Release.Name }}
 spec:
   replicas: {{ .Values.replicaCount }}

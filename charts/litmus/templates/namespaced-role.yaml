@@ -8,6 +8,7 @@ metadata:
     name: {{ include "litmus.name" . }}
     instance: {{ .Release.Name  }}
     chart: {{ include "litmus.chart" . }}
+    litmuschaos.io/version: {{ .Chart.AppVersion }}
 rules:
 - apiGroups: ["","apps","batch","extensions","litmuschaos.io"]
   resources: ["pods","pods/exec","pods/log","pods/eviction","jobs","deployments","daemonsets","statefulsets","events","configmaps","services","chaosengines","chaosexperiments","chaosresults"]

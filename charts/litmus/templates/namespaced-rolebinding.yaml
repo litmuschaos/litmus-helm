@@ -8,6 +8,7 @@ metadata:
     name: {{ include "litmus.name" . }}
     instance: {{ .Release.Name  }}
     chart: {{ include "litmus.chart" . }}
+    litmuschaos.io/version: {{ .Chart.AppVersion }}
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
