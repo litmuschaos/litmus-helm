@@ -9,6 +9,7 @@ metadata:
   labels:
     chart: {{ include "litmus.chart" . }}
     instance: {{ .Release.Name }}
+    litmuschaos.io/version: {{ .Chart.AppVersion }}
     name: litmus-monitor
     {{- if .Values.exporter.serviceMonitor.additionalLabels }}
     {{- toYaml .Values.exporter.serviceMonitor.additionalLabels | nindent 4 }}

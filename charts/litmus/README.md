@@ -41,7 +41,7 @@ The following table lists the configurable parameters of the Litmus chart and th
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| administratorMode.enabled | string | `false` | Enable Administrator mode |
+| operatorMode | string | `standard` | Operational mode of the chaos operator. Supports: `standard`, `namespaced`, `admin` |
 | affinity | object | `{}` | Affinity for operator |
 | exporter.affinity | object | `{}` | Affinity for exporter |
 | exporter.enabled | bool | `false` | If metrics exporter enabled  |

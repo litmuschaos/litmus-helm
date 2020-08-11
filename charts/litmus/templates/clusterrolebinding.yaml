@@ -1,3 +1,5 @@
+{{ if or (eq .Values.operatorMode "standard") (eq .Values.operatorMode "admin") }}
+---
 apiVersion: rbac.authorization.k8s.io/v1beta1
 kind: ClusterRoleBinding
 metadata:
@@ -6,6 +8,7 @@ metadata:
     name: {{ include "litmus.name" . }}
     instance: {{ .Release.Name  }}
     chart: {{ include "litmus.chart" . }}
+    litmuschaos.io/version: {{ .Chart.AppVersion }}
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
@@ -14,7 +17,8 @@ subjects:
 - kind: ServiceAccount
   name: {{ include "litmus.fullname" . }}
   namespace: {{ .Release.Namespace }}
-{{ if .Values.administratorMode.enabled }}
+{{ end }}
+{{ if eq .Values.operatorMode "admin" }}
 ---
 apiVersion: rbac.authorization.k8s.io/v1beta1
 kind: ClusterRoleBinding
@@ -24,6 +28,7 @@ metadata:
     name: {{ include "litmus.name" . }}-admin
     instance: {{ .Release.Name  }}
     chart: {{ include "litmus.chart" . }}
+    litmuschaos.io/version: {{ .Chart.AppVersion }}
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole

@@ -1,3 +1,5 @@
+{{ if or (eq .Values.operatorMode "standard") (eq .Values.operatorMode "admin") }}
+---
 apiVersion: rbac.authorization.k8s.io/v1beta1
 kind: ClusterRole
 metadata:
@@ -6,11 +8,13 @@ metadata:
     name: {{ include "litmus.name" . }}
     instance: {{ .Release.Name  }}
     chart: {{ include "litmus.chart" . }}
+    litmuschaos.io/version: {{ .Chart.AppVersion }}
 rules:
 - apiGroups: ["","apps","batch","litmuschaos.io"]
   resources: ["pods","jobs","deployments","daemonsets","statefulsets","events","configmaps","services","chaosengines","chaosexperiments","chaosresults"]
   verbs: ["get","create","update","patch","delete","list","watch","deletecollection"]
-{{ if .Values.administratorMode.enabled }}
+{{ end }} 
+{{ if eq .Values.operatorMode "admin" }}
 ---
 apiVersion: rbac.authorization.k8s.io/v1beta1
 kind: ClusterRole
@@ -20,6 +24,7 @@ metadata:
     name: {{ include "litmus.name" . }}
     instance: {{ .Release.Name  }}
     chart: {{ include "litmus.chart" . }}
+    litmuschaos.io/version: {{ .Chart.AppVersion }}
 rules:
 - apiGroups: ["","apps","batch","extensions","litmuschaos.io","openebs.io","storage.k8s.io"]
   resources: ["chaosengines","chaosexperiments","chaosresults","cstorpools","cstorvolumereplicas","configmaps","secrets","pods","pods/exec","pods/log","pods/eviction","jobs","replicasets","deployments","daemonsets","statefulsets","persistentvolumeclaims","persistentvolumes","storageclasses","services","events"]
