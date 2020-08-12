@@ -2,7 +2,7 @@ litmus
 ======
 A Helm chart to install litmus infra components on Kubernetes
 
-Current chart version is `1.6.4`
+Current chart version is `1.6.5`
 
 ## Architecture introduction
 
