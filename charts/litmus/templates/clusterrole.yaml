@@ -11,7 +11,7 @@ metadata:
     litmuschaos.io/version: {{ .Chart.AppVersion }}
 rules:
 - apiGroups: ["","apps","batch","litmuschaos.io"]
-  resources: ["pods","jobs","deployments","daemonsets","statefulsets","events","configmaps","services","chaosengines","chaosexperiments","chaosresults"]
+  resources: ["pods","jobs","deployments","replicasets","daemonsets","statefulsets","events","configmaps","services","chaosengines","chaosexperiments","chaosresults"]
   verbs: ["get","create","update","patch","delete","list","watch","deletecollection"]
 {{ end }} 
 {{ if eq .Values.operatorMode "admin" }}
