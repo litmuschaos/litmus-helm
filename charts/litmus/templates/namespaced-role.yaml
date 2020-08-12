@@ -10,7 +10,7 @@ metadata:
     chart: {{ include "litmus.chart" . }}
     litmuschaos.io/version: {{ .Chart.AppVersion }}
 rules:
-- apiGroups: ["","apps","batch","extensions","litmuschaos.io"]
-  resources: ["pods","pods/exec","pods/log","pods/eviction","jobs","deployments","replicasets","daemonsets","statefulsets","events","configmaps","services","chaosengines","chaosexperiments","chaosresults"]
+- apiGroups: ["","apps","batch","extensions","litmuschaos.io","apps.openshift.io"]
+  resources: ["pods","pods/exec","pods/log","pods/eviction","jobs","deployments","replicasets","replicationcontrollers","deploymentconfigs","daemonsets","statefulsets","events","configmaps","services","chaosengines","chaosexperiments","chaosresults"]
   verbs: ["get","create","update","patch","delete","list","watch","deletecollection"]
 {{ end }}
