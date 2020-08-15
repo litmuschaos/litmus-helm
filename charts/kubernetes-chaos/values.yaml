@@ -8,12 +8,12 @@ fullnameOverride: "k8s"
 image:
   litmus: 
     repository: litmuschaos/ansible-runner
-    tag: 1.6.1
+    tag: 1.7.0
     pullPolicy: Always
 
   litmusGO:
     repository: litmuschaos/go-runner
-    tag: 1.6.2
+    tag: 1.7.0
     pullPolicy: Always
 
   pumba:
@@ -21,7 +21,7 @@ image:
 
   litmusLIBImage:
     repository: litmuschaos/go-runner
-    tag: 1.6.2
+    tag: 1.7.0
 
   networkChaos:
     tcImage: gaiadocker/iproute2

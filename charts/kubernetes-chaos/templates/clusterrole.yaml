@@ -5,6 +5,7 @@ metadata:
   labels:
     instance: {{ .Release.Name }}
     chart: {{ include "kubernetes-chaos.chart" . }}
+    litmuschaos.io/version: {{ .Chart.AppVersion }}
 rules:
 - apiGroups:
   - ""
