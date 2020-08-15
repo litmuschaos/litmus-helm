@@ -15,9 +15,9 @@ Current chart version is `1.6.2`
 | fullnameOverride | string | `"k8s"` |  |
 | image.litmus.pullPolicy | string | `"Always"` |  |
 | image.litmus.repository | string | `"litmuschaos/ansible-runner"` |  |
-| image.litmus.tag | string | `"1.6.2"` |  |
+| image.litmus.tag | string | `"1.7.0"` |  |
 | image.litmusGO.pullPolicy | string | `"Always"` |  |
 | image.litmusGO.repository | string | `"litmuschaos/go-runner"` |  |
-| image.litmusGO.tag | string | `"1.6.2"` |  |
+| image.litmusGO.tag | string | `"1.7.0"` |  |
 | image.pumba.libName | string | `"pumba"` |  |
 | nameOverride | string | `"k8s"` |  |

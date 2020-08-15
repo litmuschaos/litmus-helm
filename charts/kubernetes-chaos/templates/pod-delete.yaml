@@ -5,10 +5,10 @@ description:
 kind: ChaosExperiment
 metadata:
   name: {{ include "kubernetes-chaos.name" . }}-pod-delete
-  version: 0.1.19
   labels:
     instance: {{ .Release.Name }}
     chart: {{ include "kubernetes-chaos.chart" . }}
+    litmuschaos.io/version: {{ .Chart.AppVersion }}
 spec:
   definition:
     scope: Namespaced

@@ -5,10 +5,10 @@ description:
 kind: ChaosExperiment
 metadata:
   name: {{ include "kubernetes-chaos.name" . }}-pod-network-corruption
-  version: 0.1.13
   labels:
     instance: {{ .Release.Name }}
     chart: {{ include "kubernetes-chaos.chart" . }}
+    litmuschaos.io/version: {{ .Chart.AppVersion }}
 spec:
   definition:
     scope: Namespaced
