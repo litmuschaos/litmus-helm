@@ -47,8 +47,8 @@ spec:
                   type: string
                   pattern: ^(deployment|statefulset|daemonset|deploymentconfig)$
                 applabel:
-                  type: string
                   pattern: ([a-z0-9A-Z_\.-/]+)=([a-z0-9A-Z_\.-/_]+)
+                  type: string
                 appns:
                   type: string
             auxiliaryAppInfo:
@@ -68,7 +68,7 @@ spec:
                       type: string
                     type:
                       type: string
-                      pattern: ^(go|ansible)$
+                      pattern: ^(go)$
                     runnerannotation:
                       type: object
                       additionalProperties:
@@ -92,6 +92,94 @@ spec:
                   spec:
                     type: object
                     properties:
+                      k8sProbe:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            name:
+                              type: string
+                            inputs:
+                              type: object
+                              properties:
+                                command:
+                                  type: object
+                                  properties:
+                                    group:
+                                      type: string
+                                    version:
+                                      type: string
+                                    resource:
+                                      type: string
+                                    namespace:
+                                      type: string
+                                    fieldSelector:
+                                      type: string
+                                expectedResult:
+                                  type: string
+                            runProperties:
+                              type: object
+                              properties:
+                                probeTimeout:
+                                  type: integer
+                                interval:
+                                  type: integer
+                                retry: 
+                                  type: integer
+                            mode:
+                              type: string
+                      cmdProbe:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            name:
+                              type: string
+                            inputs:
+                              type: object
+                              properties:
+                                command:
+                                  type: string
+                                expectedResult:
+                                  type: string
+                                source:
+                                  type: string
+                            runProperties:
+                              type: object
+                              properties:
+                                probeTimeout:
+                                  type: integer
+                                interval:
+                                  type: integer
+                                retry: 
+                                  type: integer
+                            mode:
+                              type: string
+                      httpProbe:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            name:
+                              type: string
+                            inputs:
+                              type: object
+                              properties:
+                                url:
+                                  type: string
+                                expectedResponseCode:
+                                  type: string
+                            runProperties:
+                              type: object
+                              properties:
+                                probeTimeout:
+                                  type: integer
+                                interval:
+                                  type: integer
+                                retry: 
+                                  type: integer
+                            mode:
+                              type: string
                       components:
                         type: object
                         properties:
@@ -99,9 +187,9 @@ spec:
                             type: object
                             properties:
                               delay:
-                                type: int
+                                type: integer
                               timeout:
-                                type: int
+                                type: integer
                           nodeSelector:
                             type: object
                             minLength: 1
