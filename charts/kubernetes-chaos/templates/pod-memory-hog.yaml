@@ -1,3 +1,5 @@
+{{ if not (has "pod-memory-hog" .Values.experiments.disabled) }}
+---
 apiVersion: litmuschaos.io/v1alpha1
 description:
   message: |
@@ -46,7 +48,7 @@ spec:
       value: ''
 
     # Enter the amount of memory in megabytes to be consumed by the application pod
-    # default: 500 (Megabytes) 
+    # default: 500 (Megabytes)
     - name: MEMORY_CONSUMPTION
       value: '500'
 
@@ -66,3 +68,4 @@ spec:
 
     labels:
       name: pod-memory-hog
+{{ end }}

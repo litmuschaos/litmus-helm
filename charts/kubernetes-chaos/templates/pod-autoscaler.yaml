@@ -1,3 +1,5 @@
+{{ if not (has "pod-autoscaler" .Values.experiments.disabled) }}
+---
 apiVersion: litmuschaos.io/v1alpha1
 description:
   message: |
@@ -36,7 +38,7 @@ spec:
           - "delete"
       - apiGroups:
           - ""
-        resources: 
+        resources:
           - "nodes"
         verbs:
           - "get"
@@ -65,6 +67,7 @@ spec:
     # ONLY LITMUS SUPPORTED
     - name: LIB
       value: 'litmus'
-  
+
     labels:
       name: pod-autoscaler
+{{ end }}

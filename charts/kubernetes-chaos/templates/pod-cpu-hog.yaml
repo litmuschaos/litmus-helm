@@ -1,3 +1,5 @@
+{{ if not (has "pod-cpu-hog" .Values.experiments.disabled) }}
+---
 apiVersion: litmuschaos.io/v1alpha1
 description:
   message: |
@@ -64,3 +66,4 @@ spec:
 
     labels:
       name: pod-cpu-hog
+{{ end }}

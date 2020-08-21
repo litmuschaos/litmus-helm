@@ -1,3 +1,5 @@
+{{ if not (has "disk-loss" .Values.experiments.disabled) }}
+---
 apiVersion: litmuschaos.io/v1alpha1
 description:
   message: |
@@ -52,13 +54,13 @@ spec:
       value: ''
 
     - name: APP_CHECK
-      value: 'true' 
+      value: 'true'
 
     # GKE and AWS supported
     - name: CLOUD_PLATFORM
       value: 'GKE'
 
-    - name: PROJECT_ID 
+    - name: PROJECT_ID
       value: ''
 
     # provide the LIB
@@ -67,19 +69,20 @@ spec:
       value: 'litmus'
 
     - name: NODE_NAME
-      value: '' 
+      value: ''
 
     - name: DISK_NAME
-      value: ''  
-          
+      value: ''
+
     - name: ZONE_NAME
-      value: '' 
+      value: ''
 
     - name: DEVICE_NAME
-      value: '' 
-          
+      value: ''
+
     labels:
       name: disk-loss
     secrets:
     - name: cloud-secret
       mountPath: /tmp/
+{{ end }}

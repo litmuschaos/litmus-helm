@@ -1,10 +1,12 @@
+{{ if not (has "container-kill" .Values.experiments.disabled) }}
+---
 apiVersion: litmuschaos.io/v1alpha1
 description:
   message: "Kills a container belonging to an application pod \n"
 kind: ChaosExperiment
 metadata:
   name: {{ include "kubernetes-chaos.name" . }}-container-kill
-  labels: 
+  labels:
     instance: {{ .Release.Name }}
     chart: {{ include "kubernetes-chaos.chart" . }}
     litmuschaos.io/version: {{ .Chart.AppVersion }}
@@ -67,8 +69,9 @@ spec:
     - name: LIB
       value: {{ .Values.image.pumba.libName }}
 
-    - name: LIB_IMAGE  
+    - name: LIB_IMAGE
       value: "{{ .Values.image.litmusLIBImage.repository }}:{{ .Values.image.litmusLIBImage.tag }}"
 
     labels:
       name: container-kill
+{{ end }}

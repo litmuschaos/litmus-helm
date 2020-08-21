@@ -1,3 +1,5 @@
+{{ if not (has "node-memory-hog" .Values.experiments.disabled) }}
+---
 apiVersion: litmuschaos.io/v1alpha1
 description:
   message: |
@@ -5,7 +7,7 @@ description:
 kind: ChaosExperiment
 metadata:
   name: {{ include "kubernetes-chaos.name" . }}-node-memory-hog
-  labels: 
+  labels:
     instance: {{ .Release.Name }}
     chart: {{ include "kubernetes-chaos.chart" . }}
     litmuschaos.io/version: {{ .Chart.AppVersion }}
@@ -35,7 +37,7 @@ spec:
           - "delete"
       - apiGroups:
           - ""
-        resources: 
+        resources:
           - "nodes"
         verbs :
           - "get"
@@ -55,7 +57,7 @@ spec:
     ## specify the size as percent of total available memory (in percentage %)
     ## Default value "90%"
     - name: MEMORY_PERCENTAGE
-      value: '90'        
+      value: '90'
 
     # Period to wait before injection of chaos in sec
     - name: RAMP_TIME
@@ -67,6 +69,7 @@ spec:
     # provide lib image
     - name: LIB_IMAGE
       value: "{{ .Values.image.litmusLIBImage.repository }}:{{ .Values.image.litmusLIBImage.tag }}"
-      
+
     labels:
       name: node-memory-hog
+{{ end }}
