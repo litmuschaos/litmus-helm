@@ -2,11 +2,7 @@ kubernetes-chaos
 ================
 A Helm chart to install litmus chaos experiments for kubernetes category (chaos-chart)
 
-Current chart version is `1.6.2`
-
-
-
-
+Current app version is `1.7.0`
 
 ## Chart Values
 
@@ -20,4 +16,5 @@ Current chart version is `1.6.2`
 | image.litmusGO.repository | string | `"litmuschaos/go-runner"` |  |
 | image.litmusGO.tag | string | `"1.7.0"` |  |
 | image.pumba.libName | string | `"pumba"` |  |
+| experiments.disabled | list | [] | List the experiments to disable based on their name |
 | nameOverride | string | `"k8s"` |  |

@@ -1,4 +1,4 @@
-# Default values for kubernetes 
+# Default values for kubernetes
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
@@ -6,7 +6,7 @@ nameOverride: "k8s"
 fullnameOverride: "k8s"
 
 image:
-  litmus: 
+  litmus:
     repository: litmuschaos/ansible-runner
     tag: 1.7.0
     pullPolicy: Always
@@ -25,3 +25,6 @@ image:
 
   networkChaos:
     tcImage: gaiadocker/iproute2
+
+experiments:
+  disabled: []

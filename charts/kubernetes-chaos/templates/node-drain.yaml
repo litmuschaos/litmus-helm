@@ -1,3 +1,4 @@
+{{ if not (has "node-drain" .Values.experiments.disabled) }}
 ---
 apiVersion: litmuschaos.io/v1alpha1
 description:
@@ -6,7 +7,7 @@ description:
 kind: ChaosExperiment
 metadata:
   name: {{ include "kubernetes-chaos.name" . }}-node-drain
-  labels: 
+  labels:
     instance: {{ .Release.Name }}
     chart: {{ include "kubernetes-chaos.chart" . }}
     litmuschaos.io/version: {{ .Chart.AppVersion }}
@@ -39,13 +40,13 @@ spec:
           - "delete"
       - apiGroups:
           - ""
-        resources: 
+        resources:
           - "nodes"
         verbs :
           - "get"
           - "list"
           - "patch"
-    image: "{{ .Values.image.litmusGO.repository }}:{{ .Values.image.litmusGO.tag }}" 
+    image: "{{ .Values.image.litmusGO.repository }}:{{ .Values.image.litmusGO.tag }}"
     imagePullPolicy: {{ .Values.image.litmusGO.pullPolicy }}
     args:
     - -c
@@ -53,10 +54,10 @@ spec:
     command:
     - /bin/bash
     env:
-  
+
     - name: LIVENESS_APP_LABEL
       value: ''
-    
+
     - name: APP_NODE
       value: ''
 
@@ -71,7 +72,8 @@ spec:
       value: ''
 
     - name: LIVENESS_APP_NAMESPACE
-      value: '' 
+      value: ''
 
     labels:
       name: node-drain
+{{ end }}

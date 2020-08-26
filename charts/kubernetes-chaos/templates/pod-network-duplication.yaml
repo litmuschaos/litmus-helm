@@ -1,3 +1,5 @@
+{{ if not (has "pod-network-duplication" .Values.experiments.disabled) }}
+---
 apiVersion: litmuschaos.io/v1alpha1
 description:
   message: |
@@ -5,7 +7,7 @@ description:
 kind: ChaosExperiment
 metadata:
   name: {{ include "kubernetes-chaos.name" . }}-pod-network-duplication
-  labels: 
+  labels:
     instance: {{ .Release.Name }}
     chart: {{ include "kubernetes-chaos.chart" . }}
     litmuschaos.io/version: {{ .Chart.AppVersion }}
@@ -59,9 +61,10 @@ spec:
       value: '100' # in percentage
 
     - name: LIB
-      value: 'pumba'     
-       
+      value: 'pumba'
+
     - name: LIB_IMAGE
       value: "{{ .Values.image.litmusLIBImage.repository }}:{{ .Values.image.litmusLIBImage.tag }}"
     labels:
       name: pod-network-duplication
+{{ end }}

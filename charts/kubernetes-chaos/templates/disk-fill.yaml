@@ -1,3 +1,5 @@
+{{ if not (has "disk-fill" .Values.experiments.disabled) }}
+---
 apiVersion: litmuschaos.io/v1alpha1
 description:
   message: |
@@ -5,14 +7,14 @@ description:
 kind: ChaosExperiment
 metadata:
   name: {{ include "kubernetes-chaos.name" . }}-disk-fill
-  labels: 
+  labels:
     instance: {{ .Release.Name }}
     chart: {{ include "kubernetes-chaos.chart" . }}
     litmuschaos.io/version: {{ .Chart.AppVersion }}
 spec:
   definition:
     scope: Cluster
-    permissions: 
+    permissions:
       - apiGroups:
           - ""
           - "apps"
@@ -34,7 +36,7 @@ spec:
           - "patch"
           - "update"
           - "delete"
-    image: "{{ .Values.image.litmusGO.repository }}:{{ .Values.image.litmusGO.tag }}" 
+    image: "{{ .Values.image.litmusGO.repository }}:{{ .Values.image.litmusGO.tag }}"
     imagePullPolicy: {{ .Values.image.litmusGO.pullPolicy }}
     args:
     - -c
@@ -45,7 +47,7 @@ spec:
 
     - name: TARGET_CONTAINER
       value: ''
-    
+
     - name: FILL_PERCENTAGE
       value: '80'
 
@@ -55,7 +57,7 @@ spec:
     # Period to wait before injection of chaos in sec
     - name: RAMP_TIME
       value: ''
-      
+
     - name: LIB
       value: 'litmus'
 
@@ -69,5 +71,4 @@ spec:
 
     labels:
       name: disk-fill
-
-
+{{ end }}
