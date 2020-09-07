@@ -6,7 +6,7 @@ description:
     Kills the docker service on the application node to check the resiliency.
 kind: ChaosExperiment
 metadata:
-  name: {{ include "kubernetes-chaos.name" . }}-docker-service-kill
+  name: docker-service-kill
   labels:
     instance: {{ .Release.Name }}
     chart: {{ include "kubernetes-chaos.chart" . }}

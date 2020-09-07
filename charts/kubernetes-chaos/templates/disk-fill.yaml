@@ -6,7 +6,7 @@ description:
     Fillup Ephemeral Storage of a Resource
 kind: ChaosExperiment
 metadata:
-  name: {{ include "kubernetes-chaos.name" . }}-disk-fill
+  name: disk-fill
   labels:
     instance: {{ .Release.Name }}
     chart: {{ include "kubernetes-chaos.chart" . }}
