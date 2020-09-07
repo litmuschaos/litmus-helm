@@ -6,7 +6,7 @@ description:
     Injects network packet duplication on pods belonging to an app deployment
 kind: ChaosExperiment
 metadata:
-  name: {{ include "kubernetes-chaos.name" . }}-pod-network-duplication
+  name: pod-network-duplication
   labels:
     instance: {{ .Release.Name }}
     chart: {{ include "kubernetes-chaos.chart" . }}

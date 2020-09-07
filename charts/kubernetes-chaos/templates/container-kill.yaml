@@ -5,7 +5,7 @@ description:
   message: "Kills a container belonging to an application pod \n"
 kind: ChaosExperiment
 metadata:
-  name: {{ include "kubernetes-chaos.name" . }}-container-kill
+  name: container-kill
   labels:
     instance: {{ .Release.Name }}
     chart: {{ include "kubernetes-chaos.chart" . }}
