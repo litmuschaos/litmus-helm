@@ -64,6 +64,12 @@ spec:
     - name: LIB_IMAGE
       value: "{{ .Values.image.litmusLIBImage.repository }}:{{ .Values.image.litmusLIBImage.tag }}"
 
+    - name: TARGET_POD
+      value: ''
+
+    - name: PODS_AFFECTED_PERC
+      value: ''
+
     # Provide the container runtime path
     # Default set to docker
     - name: CONTAINER_PATH

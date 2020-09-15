@@ -37,6 +37,7 @@ rules:
   - "list"
   - "patch"
   - "update"
+  - "deletecollection"
 - apiGroups:
   - ""
   resources:

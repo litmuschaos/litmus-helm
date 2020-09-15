@@ -44,16 +44,13 @@ spec:
     - /bin/bash
     env:
 
-    - name: TARGET_CONTAINER
-      value: ''
+    - name: TOTAL_CHAOS_DURATION
+      value: '60'
 
     - name: CPU_CORES
       value: '1'
 
-    - name: TOTAL_CHAOS_DURATION
-      value: '60' # in seconds
-
-    ## Percentage of total pods to target
+    # Percentage of total pods to target
     - name: PODS_AFFECTED_PERC
       value: ''
 
@@ -61,8 +58,17 @@ spec:
     - name: RAMP_TIME
       value: ''
 
+    # Env var that describes the library used to execute the chaos
+    # Default: litmus. Supported values: litmus, pumba
     - name: LIB
       value: 'litmus'
+
+    # It is used in pumba lib only  
+    - name: LIB_IMAGE
+      value: 'gaiaadm/pumba'
+
+    - name: TARGET_POD
+      value: ''
 
     labels:
       name: pod-cpu-hog
