@@ -73,7 +73,7 @@ spec:
     # Provide the container runtime path
     # Default set to docker
     - name: CONTAINER_PATH
-      value: '/var/lib/docker/containers'
+      value: "{{ .Values.environment.containerPath }}"
 
     labels:
       name: disk-fill

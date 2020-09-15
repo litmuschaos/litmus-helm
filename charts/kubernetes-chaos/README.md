@@ -18,5 +18,8 @@ Current app version is `1.8.0`
 | image.networkChaos.tcImage | string | `"gaiadocker/iproute2"` |  |
 | image.stressChaos.stressImage | string | `"gaiaadm/pumba"` |  |
 | image.pumba.libName | string | `"pumba"` |  |
+| environment.runtime | string | `"docker"` |  |
+| environment.socketPath | string | `"/var/run/docker.sock"` |  |
+| environment.containerPath | string | `"/var/lib/docker/containers"` |  |
 | experiments.disabled | list | [] | List the experiments to disable based on their name |
 | nameOverride | string | `"k8s"` |  |

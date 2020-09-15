@@ -64,10 +64,10 @@ spec:
     # it supports docker, containerd, crio
     # default to docker
     - name: CONTAINER_RUNTIME
-      value: 'docker'
+      value: "{{ .Values.environment.runtime }}"
 
     - name: CONTAINER_PATH
-      value: '/run/containerd/containerd.sock'
+      value: "{{ .Values.environment.socketPath }}"
 
     - name: LIB
       value: 'litmus'

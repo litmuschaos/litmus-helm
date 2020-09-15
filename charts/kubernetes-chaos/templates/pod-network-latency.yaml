@@ -80,13 +80,13 @@ spec:
     # it supports docker, containerd, crio
     # defaults to docker
     - name: CONTAINER_RUNTIME
-      value: 'docker'
+      value: "{{ .Values.environment.runtime }}"
     
     # provide the container runtime socket path
     # needed only for containerd and crio runtime
     # default set to std containerd sock file path
     - name: CONTAINER_PATH
-      value: '/run/containerd/containerd.sock'
+      value: "{{ .Values.environment.socketPath }}"
 
     labels:
       name: pod-network-latency
