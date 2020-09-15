@@ -35,6 +35,7 @@ spec:
           - "patch"
           - "update"
           - "delete"
+          - "deletecollection"
     image: "{{ .Values.image.litmusGO.repository }}:{{ .Values.image.litmusGO.tag }}"
     imagePullPolicy: {{ .Values.image.litmusGO.pullPolicy }}
     args:
@@ -67,7 +68,7 @@ spec:
 
     # It is used in pumba lib only   
     - name: LIB_IMAGE
-      value: 'gaiaadm/pumba'
+      value: "{{ .Values.image.stressChaos.stressImage }}"
 
     - name: TARGET_POD
       value: ''
