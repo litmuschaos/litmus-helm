@@ -8,12 +8,12 @@ fullnameOverride: "k8s"
 image:
   litmus:
     repository: litmuschaos/ansible-runner
-    tag: 1.7.0
+    tag: 1.8.0
     pullPolicy: Always
 
   litmusGO:
     repository: litmuschaos/go-runner
-    tag: 1.7.0
+    tag: 1.8.0
     pullPolicy: Always
 
   pumba:
@@ -21,10 +21,24 @@ image:
 
   litmusLIBImage:
     repository: litmuschaos/go-runner
-    tag: 1.7.0
+    tag: 1.8.0
 
   networkChaos:
     tcImage: gaiadocker/iproute2
+
+  stressChaos:
+    stressImage: gaiaadm/pumba
+
+environment:
+  # supported: 'docker', 'containerd', 'crio'
+  runtime: 'docker'
+
+  # ex: '/var/run/docker.sock', '/run/containerd/containerd.sock', '/run/crio/crio.sock'
+  socketPath: '/var/run/docker.sock'
+
+  # ex: '/var/lib/docker/containers', '/var/lib/containerd/io.containerd.runtime.v1.linux/k8s.io', '/var/lib/containers/storage/overlay/'
+  containerPath: '/var/lib/docker/containers'
+
 
 experiments:
   disabled: []

@@ -35,6 +35,7 @@ spec:
           - "patch"
           - "update"
           - "delete"
+          - "deletecollection"
     image: "{{ .Values.image.litmusGO.repository }}:{{ .Values.image.litmusGO.tag }}"
     imagePullPolicy: {{ .Values.image.litmusGO.pullPolicy }}
     args:
@@ -44,18 +45,15 @@ spec:
     - /bin/bash
     env:
 
-    - name: TARGET_CONTAINER
-      value: ''
+    - name: TOTAL_CHAOS_DURATION
+      value: '60'
 
     # Enter the amount of memory in megabytes to be consumed by the application pod
     # default: 500 (Megabytes)
     - name: MEMORY_CONSUMPTION
       value: '500'
 
-    - name: TOTAL_CHAOS_DURATION
-      value: '60' # in seconds
-
-     ## percentage of total pods to target
+    # Percentage of total pods to target
     - name: PODS_AFFECTED_PERC
       value: ''
 
@@ -63,8 +61,17 @@ spec:
     - name: RAMP_TIME
       value: ''
 
+    # Env var that describes the library used to execute the chaos
+    # Default: litmus. Supported values: litmus, pumba
     - name: LIB
       value: 'litmus'
+
+    # It is used in pumba lib only   
+    - name: LIB_IMAGE
+      value: "{{ .Values.image.stressChaos.stressImage }}"
+
+    - name: TARGET_POD
+      value: ''
 
     labels:
       name: pod-memory-hog

@@ -37,6 +37,7 @@ spec:
           - "patch"
           - "update"
           - "delete"
+          - "deletecollection"
       - apiGroups:
           - ""
         resources:
@@ -60,18 +61,21 @@ spec:
     - name: RAMP_TIME
       value: ''
 
-    # provide the kill count
-    - name: KILL_COUNT
-      value: ''
-
     - name: FORCE
       value: 'true'
 
     - name: CHAOS_INTERVAL
       value: '5'
 
+    # Percentage of total pods to target
+    - name: PODS_AFFECTED_PERC
+      value: ''
+
     - name: LIB
       value: 'litmus'
+
+    - name: TARGET_POD
+      value: ''
 
     labels:
       name: pod-delete

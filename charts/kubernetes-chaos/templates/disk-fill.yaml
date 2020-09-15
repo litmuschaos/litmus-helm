@@ -36,6 +36,7 @@ spec:
           - "patch"
           - "update"
           - "delete"
+          - "deletecollection"
     image: "{{ .Values.image.litmusGO.repository }}:{{ .Values.image.litmusGO.tag }}"
     imagePullPolicy: {{ .Values.image.litmusGO.pullPolicy }}
     args:
@@ -64,10 +65,16 @@ spec:
     - name: LIB_IMAGE
       value: "{{ .Values.image.litmusLIBImage.repository }}:{{ .Values.image.litmusLIBImage.tag }}"
 
+    - name: TARGET_POD
+      value: ''
+
+    - name: PODS_AFFECTED_PERC
+      value: ''
+
     # Provide the container runtime path
     # Default set to docker
     - name: CONTAINER_PATH
-      value: '/var/lib/docker/containers'
+      value: "{{ .Values.environment.containerPath }}"
 
     labels:
       name: disk-fill

@@ -34,6 +34,7 @@ spec:
           - "patch"
           - "update"
           - "delete"
+          - "deletecollection"
     image: "{{ .Values.image.litmusGO.repository }}:{{ .Values.image.litmusGO.tag }}"
     imagePullPolicy: {{ .Values.image.litmusGO.pullPolicy }}
     args:
@@ -67,7 +68,27 @@ spec:
       value: ''
 
     - name: LIB
-      value: 'pumba'
+      value: 'litmus'
+
+    # percentage of total pods to target
+    - name: PODS_AFFECTED_PERC
+      value: ''
+
+    - name: TARGET_POD
+      value: ''
+
+    # provide the name of container runtime
+    # it supports docker, containerd, crio
+    # defaults to docker
+    - name: CONTAINER_RUNTIME
+      value: "{{ .Values.environment.runtime }}"
+    
+    # provide the container runtime socket path
+    # needed only for containerd and crio runtime
+    # default set to std containerd sock file path
+    - name: CONTAINER_PATH
+      value: "{{ .Values.environment.socketPath }}"
+
     labels:
       name: pod-network-latency
 {{ end }}
