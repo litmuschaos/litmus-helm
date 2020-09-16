@@ -26,7 +26,6 @@ spec:
           - "pods"
           - "pods/log"
           - "events"
-          - "configmaps"
           - "chaosengines"
           - "chaosexperiments"
           - "chaosresults"
@@ -38,13 +37,6 @@ spec:
           - "update"
           - "delete"
           - "deletecollection"
-      - apiGroups:
-          - ""
-        resources:
-          - "nodes"
-        verbs :
-          - "get"
-          - "list"
     image: "{{ .Values.image.litmusGO.repository }}:{{ .Values.image.litmusGO.tag }}"
     imagePullPolicy: {{ .Values.image.litmusGO.pullPolicy }}
     args:
