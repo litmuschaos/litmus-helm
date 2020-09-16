@@ -86,7 +86,7 @@ spec:
     # provide the container runtime socket path
     # needed only for containerd and crio runtime
     # default set to std containerd sock file path
-    - name: CONTAINER_PATH
+    - name: SOCKET_PATH
       value: "{{ .Values.environment.socketPath }}" 
 
     labels:
