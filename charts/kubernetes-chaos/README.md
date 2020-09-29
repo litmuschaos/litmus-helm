@@ -14,7 +14,7 @@ Current app version is `1.8.1`
 | image.litmus.tag | string | `"1.8.0"` |  |
 | image.litmusGO.pullPolicy | string | `"Always"` |  |
 | image.litmusGO.repository | string | `"litmuschaos/go-runner"` |  |
-| image.litmusGO.tag | string | `"1.8.1"` |  |
+| image.litmusGO.tag | string | `"1.8.2"` |  |
 | image.networkChaos.tcImage | string | `"gaiadocker/iproute2"` |  |
 | image.stressChaos.stressImage | string | `"gaiaadm/pumba"` |  |
 | image.pumba.libName | string | `"pumba"` |  |
