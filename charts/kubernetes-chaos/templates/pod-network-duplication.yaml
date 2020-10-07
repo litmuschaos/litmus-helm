@@ -39,7 +39,7 @@ spec:
     imagePullPolicy: {{ .Values.image.litmusGO.pullPolicy }}
     args:
     - -c
-    - ./experiments/pod-network-duplication
+    - ./experiments -name pod-network-duplication
     command:
     - /bin/bash
     env:

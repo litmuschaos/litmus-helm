@@ -46,7 +46,7 @@ spec:
     imagePullPolicy: {{ .Values.image.litmusGO.pullPolicy }}
     args:
     - -c
-    - ./experiments/node-cpu-hog
+    - ./experiments -name node-cpu-hog
     command:
     - /bin/bash
     env:

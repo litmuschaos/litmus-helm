@@ -41,7 +41,7 @@ spec:
     imagePullPolicy: {{ .Values.image.litmusGO.pullPolicy }}
     args:
     - -c
-    - ./experiments/pod-delete
+    - ./experiments -name pod-delete
     command:
     - /bin/bash
     env:

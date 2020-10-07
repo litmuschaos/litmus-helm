@@ -40,7 +40,7 @@ spec:
     imagePullPolicy: {{ .Values.image.litmusGO.pullPolicy }}
     args:
     - -c
-    - ./experiments/pod-cpu-hog
+    - ./experiments -name pod-cpu-hog
     command:
     - /bin/bash
     env:

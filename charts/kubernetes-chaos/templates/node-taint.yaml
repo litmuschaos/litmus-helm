@@ -50,7 +50,7 @@ spec:
     imagePullPolicy: {{ .Values.image.litmusGO.pullPolicy }}
     args:
     - -c
-    - ./experiments/node-taint
+    - ./experiments -name node-taint
     command:
     - /bin/bash
     env:

@@ -41,7 +41,7 @@ spec:
     imagePullPolicy: {{ .Values.image.litmusGO.pullPolicy }}
     args:
     - -c
-    - ./experiments/disk-fill
+    - ./experiments -name disk-fill
     command:
     - /bin/bash
     env:

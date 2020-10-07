@@ -50,7 +50,7 @@ spec:
     imagePullPolicy: {{ .Values.image.litmusGO.pullPolicy }}
     args:
     - -c
-    - ./experiments/node-drain
+    - ./experiments -name node-drain
     command:
     - /bin/bash
     env:

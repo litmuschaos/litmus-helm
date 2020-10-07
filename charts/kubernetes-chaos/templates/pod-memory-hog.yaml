@@ -40,7 +40,7 @@ spec:
     imagePullPolicy: {{ .Values.image.litmusGO.pullPolicy }}
     args:
     - -c
-    - ./experiments/pod-memory-hog
+    - ./experiments -name pod-memory-hog
     command:
     - /bin/bash
     env:
