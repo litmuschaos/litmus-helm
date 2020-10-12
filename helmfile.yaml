@@ -1,0 +1,12 @@
+repositories:
+  - name: litmuschaos
+    url: https://litmuschaos.github.io/litmus-helm/
+
+releases:
+  - name: litmus-chaos-infra
+    chart: ./charts/litmus
+
+  - name: kubernetes-chaos-experiments
+    chart: ./charts/kubernetes-chaos
+
+ 
