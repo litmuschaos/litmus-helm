@@ -12,12 +12,12 @@ replicaCount: 1
 operator:
   image:
     repository: litmuschaos/chaos-operator
-    tag: 1.6.2
+    tag: 1.8.2
     pullPolicy: Always
 runner:
   image:
     repository: litmuschaos/chaos-runner
-    tag: 1.6.2
+    tag: 1.8.2
 
 rbac:
   # Specifies whether RBAC resources should be created
@@ -83,7 +83,7 @@ exporter:
     additionalLabels: {}
   image:
     repository: litmuschaos/chaos-exporter
-    tag: latest
+    tag: 1.8.0
     pullPolicy: Always
   service:
     type: ClusterIP

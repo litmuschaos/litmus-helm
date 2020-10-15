@@ -1,14 +1,16 @@
+{{ if not (has "disk-loss" .Values.experiments.disabled) }}
+---
 apiVersion: litmuschaos.io/v1alpha1
 description:
   message: |
     Detaching a persistent disk from a node/instance. Supports only for AWS and GCP
 kind: ChaosExperiment
 metadata:
-  name: {{ include "kubernetes-chaos.name" . }}-disk-loss
-  version: 0.1.14
+  name: disk-loss
   labels:
     instance: {{ .Release.Name }}
     chart: {{ include "kubernetes-chaos.chart" . }}
+    litmuschaos.io/version: {{ .Chart.AppVersion }}
 spec:
   definition:
     scope: Cluster
@@ -52,13 +54,13 @@ spec:
       value: ''
 
     - name: APP_CHECK
-      value: 'true' 
+      value: 'true'
 
     # GKE and AWS supported
     - name: CLOUD_PLATFORM
       value: 'GKE'
 
-    - name: PROJECT_ID 
+    - name: PROJECT_ID
       value: ''
 
     # provide the LIB
@@ -67,19 +69,20 @@ spec:
       value: 'litmus'
 
     - name: NODE_NAME
-      value: '' 
+      value: ''
 
     - name: DISK_NAME
-      value: ''  
-          
+      value: ''
+
     - name: ZONE_NAME
-      value: '' 
+      value: ''
 
     - name: DEVICE_NAME
-      value: '' 
-          
+      value: ''
+
     labels:
       name: disk-loss
     secrets:
     - name: cloud-secret
       mountPath: /tmp/
+{{ end }}

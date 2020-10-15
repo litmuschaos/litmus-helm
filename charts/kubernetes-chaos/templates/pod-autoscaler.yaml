@@ -1,12 +1,12 @@
-{{ if not (has "node-drain" .Values.experiments.disabled) }}
+{{ if not (has "pod-autoscaler" .Values.experiments.disabled) }}
 ---
 apiVersion: litmuschaos.io/v1alpha1
 description:
   message: |
-    Drain the node where application pod is scheduled
+    Scale the application replicas and test the node autoscaling on cluster
 kind: ChaosExperiment
 metadata:
-  name: node-drain
+  name: pod-autoscaler
   labels:
     instance: {{ .Release.Name }}
     chart: {{ include "kubernetes-chaos.chart" . }}
@@ -17,17 +17,15 @@ spec:
     permissions:
       - apiGroups:
           - ""
-          - "apps"
           - "batch"
-          - "extensions"
+          - "apps"
           - "litmuschaos.io"
         resources:
           - "jobs"
           - "pods"
-          - "events"
           - "pods/log"
-          - "pods/eviction"
-          - "daemonsets"
+          - "deployments"
+          - "events"
           - "chaosengines"
           - "chaosexperiments"
           - "chaosresults"
@@ -42,34 +40,34 @@ spec:
           - ""
         resources:
           - "nodes"
-        verbs :
+        verbs:
           - "get"
           - "list"
-          - "patch"
     image: "{{ .Values.image.litmusGO.repository }}:{{ .Values.image.litmusGO.tag }}"
     imagePullPolicy: {{ .Values.image.litmusGO.pullPolicy }}
     args:
     - -c
-    - ./experiments/node-drain
+    - ./experiments/pod-autoscaler
     command:
     - /bin/bash
     env:
 
-    - name: APP_NODE
-      value: ''
-
     - name: TOTAL_CHAOS_DURATION
       value: '60'
 
-    # Provide the LIB here
-    # Only litmus supported
-    - name: LIB
-      value: 'litmus'
-
-    # Period to wait before injection of chaos in sec
+    # Period to wait before and after injection of chaos in sec
     - name: RAMP_TIME
       value: ''
 
+    # Number of replicas to scale
+    - name: REPLICA_COUNT
+      value: '5'
+
+    # PROVIDE THE LIB HERE
+    # ONLY LITMUS SUPPORTED
+    - name: LIB
+      value: 'litmus'
+
     labels:
-      name: node-drain
+      name: pod-autoscaler
 {{ end }}

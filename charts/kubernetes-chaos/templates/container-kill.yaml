@@ -1,13 +1,15 @@
+{{ if not (has "container-kill" .Values.experiments.disabled) }}
+---
 apiVersion: litmuschaos.io/v1alpha1
 description:
   message: "Kills a container belonging to an application pod \n"
 kind: ChaosExperiment
 metadata:
-  name: {{ include "kubernetes-chaos.name" . }}-container-kill
-  version: 0.1.24
-  labels: 
+  name: container-kill
+  labels:
     instance: {{ .Release.Name }}
     chart: {{ include "kubernetes-chaos.chart" . }}
+    litmuschaos.io/version: {{ .Chart.AppVersion }}
 spec:
   definition:
     scope: Namespaced
@@ -34,6 +36,7 @@ spec:
           - "update"
           - "patch"
           - "delete"
+          - "deletecollection"
     image: "{{ .Values.image.litmusGO.repository }}:{{ .Values.image.litmusGO.tag }}"
     imagePullPolicy: {{ .Values.image.litmusGO.pullPolicy }}
     args:
@@ -58,17 +61,31 @@ spec:
     - name: TOTAL_CHAOS_DURATION
       value: '20'
 
-    - name: CONTAINER_PATH
-      value: '/run/containerd/containerd.sock'
+    # provide the name of container runtime
+    # it supports docker, containerd, crio
+    # default to docker
+    - name: CONTAINER_RUNTIME
+      value: "{{ .Values.environment.runtime }}"
 
-    # It supports pumba and litmus
-    # pumba: for docker runtime
-    # litmus: for containerd/crio runtime
+    - name: SOCKET_PATH
+      value: "{{ .Values.environment.socketPath }}"
+
     - name: LIB
-      value: {{ .Values.image.pumba.libName }}
+      value: 'litmus'
 
-    - name: LIB_IMAGE  
+    - name: LIB_IMAGE
       value: "{{ .Values.image.litmusLIBImage.repository }}:{{ .Values.image.litmusLIBImage.tag }}"
+
+    - name: TARGET_POD
+      value: ''    
+
+    - name: PODS_AFFECTED_PERC
+      value: ''
+
+    securityContext:
+      containerSecurityContext:
+        privileged: true 
 
     labels:
       name: container-kill
+{{ end }}

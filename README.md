@@ -33,7 +33,7 @@ litmuschaos     https://litmuschaos.github.io/litmus-helm/
 ```bash
 root@demo:~# helm search repo litmuschaos
 NAME                    CHART VERSION   APP VERSION     DESCRIPTION
-litmuschaos/litmus      1.6.0           1.6.0           A Helm chart to install litmus infra components...
+litmuschaos/litmus      1.8.2           1.8.2           A Helm chart to install litmus infra components...
 ```
 
 #### Step-2: Create the litmus namespace
@@ -52,7 +52,7 @@ namespace/litmus created
 ```bash
 root@demo:~# helm install chaos litmuschaos/litmus --namespace=litmus
 NAME: chaos
-LAST DEPLOYED: Fri Apr  3 06:19:50 2020
+LAST DEPLOYED: Fri Sep  29 06:19:50 2020
 NAMESPACE: litmus
 STATUS: deployed
 REVISION: 1
@@ -69,9 +69,9 @@ You can run the following commands if you wish to verify if all desired componen
 
 ```bash
 root@demo:~# kubectl get crds | grep litmus
-chaosengines.litmuschaos.io             2020-04-03T06:10:29Z
-chaosexperiments.litmuschaos.io         2020-04-03T06:10:29Z
-chaosresults.litmuschaos.io             2020-04-03T06:10:29Z
+chaosengines.litmuschaos.io             2020-09-29T06:10:29Z
+chaosexperiments.litmuschaos.io         2020-09-29T06:10:29Z
+chaosresults.litmuschaos.io             2020-09-29T06:10:29Z
 ```
 
 ```bash

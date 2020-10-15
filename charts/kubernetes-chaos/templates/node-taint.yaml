@@ -1,14 +1,16 @@
+{{ if not (has "node-taint" .Values.experiments.disabled) }}
+---
 apiVersion: litmuschaos.io/v1alpha1
 description:
   message: |
     Taint the node where application pod is scheduled
 kind: ChaosExperiment
 metadata:
-  name: {{ include "kubernetes-chaos.name" . }}-node-taint
-  version: 0.1.1
-  labels: 
+  name: node-taint
+  labels:
     instance: {{ .Release.Name }}
     chart: {{ include "kubernetes-chaos.chart" . }}
+    litmuschaos.io/version: {{ .Chart.AppVersion }}
 spec:
   definition:
     scope: Cluster
@@ -37,7 +39,7 @@ spec:
           - "delete"
       - apiGroups:
           - ""
-        resources: 
+        resources:
           - "nodes"
         verbs:
           - "get"
@@ -71,7 +73,8 @@ spec:
     # set taint label & effect
     # key=value:effect or key:effect
     - name: TAINTS
-      value: '' 
+      value: ''
 
     labels:
       name: node-taint
+{{ end }}

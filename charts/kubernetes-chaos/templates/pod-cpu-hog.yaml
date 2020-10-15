@@ -1,14 +1,16 @@
+{{ if not (has "pod-cpu-hog" .Values.experiments.disabled) }}
+---
 apiVersion: litmuschaos.io/v1alpha1
 description:
   message: |
     Injects cpu consumption on pods belonging to an app deployment
 kind: ChaosExperiment
 metadata:
-  name: {{ include "kubernetes-chaos.name" . }}-pod-cpu-hog
-  version: 0.1.11
+  name: pod-cpu-hog
   labels:
     instance: {{ .Release.Name }}
     chart: {{ include "kubernetes-chaos.chart" . }}
+    litmuschaos.io/version: {{ .Chart.AppVersion }}
 spec:
   definition:
     scope: Namespaced
@@ -33,6 +35,7 @@ spec:
           - "patch"
           - "update"
           - "delete"
+          - "deletecollection"
     image: "{{ .Values.image.litmusGO.repository }}:{{ .Values.image.litmusGO.tag }}"
     imagePullPolicy: {{ .Values.image.litmusGO.pullPolicy }}
     args:
@@ -42,16 +45,13 @@ spec:
     - /bin/bash
     env:
 
-    - name: TARGET_CONTAINER
-      value: ''
+    - name: TOTAL_CHAOS_DURATION
+      value: '60'
 
     - name: CPU_CORES
       value: '1'
 
-    - name: TOTAL_CHAOS_DURATION
-      value: '60' # in seconds
-
-    ## Percentage of total pods to target
+    # Percentage of total pods to target
     - name: PODS_AFFECTED_PERC
       value: ''
 
@@ -59,8 +59,18 @@ spec:
     - name: RAMP_TIME
       value: ''
 
+    # Env var that describes the library used to execute the chaos
+    # Default: litmus. Supported values: litmus, pumba
     - name: LIB
       value: 'litmus'
 
+    # It is used in pumba lib only  
+    - name: LIB_IMAGE
+      value: "{{ .Values.image.stressChaos.stressImage }}" 
+
+    - name: TARGET_POD
+      value: ''
+
     labels:
       name: pod-cpu-hog
+{{ end }}

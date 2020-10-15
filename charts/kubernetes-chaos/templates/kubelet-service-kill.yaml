@@ -1,14 +1,16 @@
+{{ if not (has "kubelet-service-kill" .Values.experiments.disabled) }}
+---
 apiVersion: litmuschaos.io/v1alpha1
 description:
   message: |
     Kills the kubelet service on the application node to check the resiliency.
 kind: ChaosExperiment
 metadata:
-  name: {{ include "kubernetes-chaos.name" . }}-kubelet-service-kill
-  version: 0.1.4
-  labels: 
+  name: kubelet-service-kill
+  labels:
     instance: {{ .Release.Name }}
     chart: {{ include "kubernetes-chaos.chart" . }}
+    litmuschaos.io/version: {{ .Chart.AppVersion }}
 spec:
   definition:
     scope: Cluster
@@ -35,7 +37,7 @@ spec:
           - "delete"
       - apiGroups:
           - ""
-        resources: 
+        resources:
           - "nodes"
         verbs:
           - "get"
@@ -48,7 +50,7 @@ spec:
     command:
     - /bin/bash
     env:
-   
+
     - name: TOTAL_CHAOS_DURATION
       value: '90' # in seconds
 
@@ -59,9 +61,13 @@ spec:
     - name: LIB
       value: 'litmus'
 
+    - name: LIB_IMAGE
+      value: 'ubuntu:16.04'
+
     # provide node name
     - name: APP_NODE
       value: ''
 
     labels:
       name: kubelet-service-kill
+{{ end }}

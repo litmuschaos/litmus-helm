@@ -1,14 +1,16 @@
+{{ if not (has "pod-network-duplication" .Values.experiments.disabled) }}
+---
 apiVersion: litmuschaos.io/v1alpha1
 description:
   message: |
     Injects network packet duplication on pods belonging to an app deployment
 kind: ChaosExperiment
 metadata:
-  name: {{ include "kubernetes-chaos.name" . }}-pod-network-duplication
-  version: 0.1.3
-  labels: 
+  name: pod-network-duplication
+  labels:
     instance: {{ .Release.Name }}
     chart: {{ include "kubernetes-chaos.chart" . }}
+    litmuschaos.io/version: {{ .Chart.AppVersion }}
 spec:
   definition:
     scope: Namespaced
@@ -32,6 +34,7 @@ spec:
         - "create"
         - "update"
         - "delete"
+        - "deletecollection"
     image: "{{ .Values.image.litmusGO.repository }}:{{ .Values.image.litmusGO.tag }}"
     imagePullPolicy: {{ .Values.image.litmusGO.pullPolicy }}
     args:
@@ -59,9 +62,30 @@ spec:
       value: '100' # in percentage
 
     - name: LIB
-      value: 'pumba'     
-       
+      value: 'litmus'
+
     - name: LIB_IMAGE
       value: "{{ .Values.image.litmusLIBImage.repository }}:{{ .Values.image.litmusLIBImage.tag }}"
+
+    # percentage of total pods to target
+    - name: PODS_AFFECTED_PERC
+      value: ''
+
+    - name: TARGET_POD
+      value: ''
+
+    # provide the name of container runtime
+    # it supports docker, containerd, crio
+    # defaults to docker
+    - name: CONTAINER_RUNTIME
+      value: "{{ .Values.environment.runtime }}"
+
+    # provide the container runtime socket path
+    # needed only for containerd and crio runtime
+    # default set to std containerd sock file path
+    - name: SOCKET_PATH
+      value: "{{ .Values.environment.socketPath }}" 
+
     labels:
       name: pod-network-duplication
+{{ end }}

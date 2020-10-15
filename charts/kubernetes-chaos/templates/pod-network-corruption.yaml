@@ -1,14 +1,16 @@
+{{ if not (has "pod-network-corruption" .Values.experiments.disabled) }}
+---
 apiVersion: litmuschaos.io/v1alpha1
 description:
   message: |
     Inject network packet corruption into application pod
 kind: ChaosExperiment
 metadata:
-  name: {{ include "kubernetes-chaos.name" . }}-pod-network-corruption
-  version: 0.1.13
+  name: pod-network-corruption
   labels:
     instance: {{ .Release.Name }}
     chart: {{ include "kubernetes-chaos.chart" . }}
+    litmuschaos.io/version: {{ .Chart.AppVersion }}
 spec:
   definition:
     scope: Namespaced
@@ -32,7 +34,8 @@ spec:
           - "patch"
           - "update"
           - "get"
-    image: "{{ .Values.image.litmusGO.repository }}:{{ .Values.image.litmusGO.tag }}" 
+          - "deletecollection"
+    image: "{{ .Values.image.litmusGO.repository }}:{{ .Values.image.litmusGO.tag }}"
     imagePullPolicy: {{ .Values.image.litmusGO.pullPolicy }}
     args:
     - -c
@@ -40,7 +43,7 @@ spec:
     command:
     - /bin/bash
     env:
-  
+
     - name: TARGET_CONTAINER
       value: ''
 
@@ -65,6 +68,27 @@ spec:
       value: ''
 
     - name: LIB
-      value: 'pumba'
+      value: 'litmus'
+
+    # percentage of total pods to target
+    - name: PODS_AFFECTED_PERC
+      value: ''
+
+    - name: TARGET_POD
+      value: ''
+
+    # provide the name of container runtime
+    # it supports docker, containerd, crio
+    # defaults to docker
+    - name: CONTAINER_RUNTIME
+      value: "{{ .Values.environment.runtime }}"
+
+    # provide the container runtime socket path
+    # needed only for containerd and crio runtime
+    # default set to std containerd sock file path
+    - name: SOCKET_PATH
+      value: "{{ .Values.environment.socketPath }}" 
+
     labels:
       name: pod-network-corruption
+{{ end }}

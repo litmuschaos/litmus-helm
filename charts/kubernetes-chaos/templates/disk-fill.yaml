@@ -1,18 +1,20 @@
+{{ if not (has "disk-fill" .Values.experiments.disabled) }}
+---
 apiVersion: litmuschaos.io/v1alpha1
 description:
   message: |
     Fillup Ephemeral Storage of a Resource
 kind: ChaosExperiment
 metadata:
-  name: {{ include "kubernetes-chaos.name" . }}-disk-fill
-  version: 0.1.15
-  labels: 
+  name: disk-fill
+  labels:
     instance: {{ .Release.Name }}
     chart: {{ include "kubernetes-chaos.chart" . }}
+    litmuschaos.io/version: {{ .Chart.AppVersion }}
 spec:
   definition:
     scope: Cluster
-    permissions: 
+    permissions:
       - apiGroups:
           - ""
           - "apps"
@@ -34,7 +36,8 @@ spec:
           - "patch"
           - "update"
           - "delete"
-    image: "{{ .Values.image.litmusGO.repository }}:{{ .Values.image.litmusGO.tag }}" 
+          - "deletecollection"
+    image: "{{ .Values.image.litmusGO.repository }}:{{ .Values.image.litmusGO.tag }}"
     imagePullPolicy: {{ .Values.image.litmusGO.pullPolicy }}
     args:
     - -c
@@ -45,7 +48,7 @@ spec:
 
     - name: TARGET_CONTAINER
       value: ''
-    
+
     - name: FILL_PERCENTAGE
       value: '80'
 
@@ -55,19 +58,24 @@ spec:
     # Period to wait before injection of chaos in sec
     - name: RAMP_TIME
       value: ''
-      
+
     - name: LIB
       value: 'litmus'
 
     - name: LIB_IMAGE
       value: "{{ .Values.image.litmusLIBImage.repository }}:{{ .Values.image.litmusLIBImage.tag }}"
 
+    - name: TARGET_POD
+      value: ''
+
+    - name: PODS_AFFECTED_PERC
+      value: ''
+
     # Provide the container runtime path
     # Default set to docker
     - name: CONTAINER_PATH
-      value: '/var/lib/docker/containers'
+      value: "{{ .Values.environment.containerPath }}"
 
     labels:
       name: disk-fill
-
-
+{{ end }}
