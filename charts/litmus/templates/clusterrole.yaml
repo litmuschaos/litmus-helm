@@ -1,4 +1,4 @@
-{{ if or (eq .Values.operatorMode "standard") (eq .Values.operatorMode "admin") }}
+{{ if and (or ( eq .Values.operatorMode "standard" ) ( eq .Values.operatorMode "admin" )) ( .Values.rbac.create ) }}
 ---
 apiVersion: rbac.authorization.k8s.io/v1beta1
 kind: ClusterRole
@@ -13,8 +13,9 @@ rules:
 - apiGroups: ["","apps","batch","litmuschaos.io","apps.openshift.io"]
   resources: ["pods","jobs","deployments","replicasets","replicationcontrollers","deploymentconfigs","daemonsets","statefulsets","events","configmaps","services","chaosengines","chaosexperiments","chaosresults"]
   verbs: ["get","create","update","patch","delete","list","watch","deletecollection"]
-{{ end }} 
-{{ if eq .Values.operatorMode "admin" }}
+{{ end }}
+
+{{ if and (eq .Values.operatorMode "admin") ( .Values.rbac.create ) }}
 ---
 apiVersion: rbac.authorization.k8s.io/v1beta1
 kind: ClusterRole

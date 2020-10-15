@@ -19,7 +19,9 @@ spec:
         name: {{ include "litmus.name" . }}
         instance: {{ .Release.Name }}
     spec:
-      serviceAccountName: {{ include "litmus.fullname" . }}
+      {{- if .Values.serviceAccount.create }}
+      serviceAccountName: {{ include "litmus.serviceAccountName" . }}
+      {{- end }}
       containers:
         - name: {{ .Values.operatorName }}
           image: "{{ .Values.operator.image.repository }}:{{ .Values.operator.image.tag }}"
