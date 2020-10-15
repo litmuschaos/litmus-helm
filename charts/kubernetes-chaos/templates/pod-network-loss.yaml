@@ -39,7 +39,7 @@ spec:
     imagePullPolicy: {{ .Values.image.litmusGO.pullPolicy }}
     args:
     - -c
-    - ./experiments/pod-network-loss
+    - ./experiments -name pod-network-loss
     command:
     - /bin/bash
     env:
@@ -77,6 +77,11 @@ spec:
     - name: TARGET_POD
       value: ''
 
+    ## it defines the sequence of chaos execution for multiple target pods
+    ## supported values: serial, parallel
+    - name: SEQUENCE
+      value: 'parallel'      
+
     # provide the name of container runtime
     # it supports docker, containerd, crio
     # defaults to docker
@@ -91,4 +96,5 @@ spec:
     
     labels:
       name: pod-network-loss
+      app.kubernetes.io/part-of: litmus
 {{ end }}

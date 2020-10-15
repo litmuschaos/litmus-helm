@@ -40,7 +40,7 @@ spec:
     imagePullPolicy: {{ .Values.image.litmusGO.pullPolicy }}
     args:
     - -c
-    - ./experiments/pod-cpu-hog
+    - ./experiments -name pod-cpu-hog
     command:
     - /bin/bash
     env:
@@ -64,6 +64,17 @@ spec:
     - name: LIB
       value: 'litmus'
 
+    - name: CHAOS_INJECT_COMMAND
+      value: 'md5sum /dev/zero'
+
+    - name: CHAOS_KILL_COMMAND
+      value: "kill -9 $(ps afx | grep \"[md5sum] /dev/zero\" | awk '{print$1}' | tr '\n' ' ')"
+
+    ## it defines the sequence of chaos execution for multiple target pods
+    ## supported values: serial, parallel
+    - name: SEQUENCE
+      value: 'parallel'      
+
     # It is used in pumba lib only  
     - name: LIB_IMAGE
       value: "{{ .Values.image.stressChaos.stressImage }}" 
@@ -73,4 +84,5 @@ spec:
 
     labels:
       name: pod-cpu-hog
+      app.kubernetes.io/part-of: litmus
 {{ end }}

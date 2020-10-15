@@ -46,7 +46,7 @@ spec:
     imagePullPolicy: {{ .Values.image.litmusGO.pullPolicy }}
     args:
     - -c
-    - ./experiments/node-memory-hog
+    - ./experiments -name node-memory-hog
     command:
     - /bin/bash
     env:
@@ -78,4 +78,5 @@ spec:
 
     labels:
       name: node-memory-hog
+      app.kubernetes.io/part-of: litmus
 {{ end }}

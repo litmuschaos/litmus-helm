@@ -50,7 +50,7 @@ spec:
     imagePullPolicy: {{ .Values.image.litmusGO.pullPolicy }}
     args:
     - -c
-    - ./experiments/node-taint
+    - ./experiments -name node-taint
     command:
     - /bin/bash
     env:
@@ -77,4 +77,5 @@ spec:
 
     labels:
       name: node-taint
+      app.kubernetes.io/part-of: litmus
 {{ end }}

@@ -46,7 +46,7 @@ spec:
     imagePullPolicy: {{ .Values.image.litmusGO.pullPolicy }}
     args:
     - -c
-    - ./experiments/node-io-stress
+    - ./experiments -name node-io-stress
     command:
     - /bin/bash
     env:
@@ -87,4 +87,5 @@ spec:
       
     labels:
       name: node-io-stress
+      app.kubernetes.io/part-of: litmus
 {{ end }}

@@ -41,7 +41,7 @@ spec:
     imagePullPolicy: {{ .Values.image.litmusGO.pullPolicy }}
     args:
     - -c
-    - ./experiments/pod-delete
+    - ./experiments -name pod-delete
     command:
     - /bin/bash
     env:
@@ -69,6 +69,12 @@ spec:
     - name: TARGET_POD
       value: ''
 
+    ## it defines the sequence of chaos execution for multiple target pods
+    ## supported values: serial, parallel
+    - name: SEQUENCE
+      value: 'parallel'      
+
     labels:
       name: pod-delete
+      app.kubernetes.io/part-of: litmus
 {{ end }}

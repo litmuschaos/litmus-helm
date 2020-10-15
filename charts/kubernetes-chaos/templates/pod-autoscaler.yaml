@@ -47,7 +47,7 @@ spec:
     imagePullPolicy: {{ .Values.image.litmusGO.pullPolicy }}
     args:
     - -c
-    - ./experiments/pod-autoscaler
+    - ./experiments -name pod-autoscaler
     command:
     - /bin/bash
     env:
@@ -70,4 +70,5 @@ spec:
 
     labels:
       name: pod-autoscaler
+      app.kubernetes.io/part-of: litmus
 {{ end }}

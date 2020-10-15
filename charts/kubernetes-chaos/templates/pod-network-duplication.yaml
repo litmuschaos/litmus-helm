@@ -39,7 +39,7 @@ spec:
     imagePullPolicy: {{ .Values.image.litmusGO.pullPolicy }}
     args:
     - -c
-    - ./experiments/pod-network-duplication
+    - ./experiments -name pod-network-duplication
     command:
     - /bin/bash
     env:
@@ -74,6 +74,11 @@ spec:
     - name: TARGET_POD
       value: ''
 
+    ## it defines the sequence of chaos execution for multiple target pods
+    ## supported values: serial, parallel
+    - name: SEQUENCE
+      value: 'parallel'      
+
     # provide the name of container runtime
     # it supports docker, containerd, crio
     # defaults to docker
@@ -88,4 +93,5 @@ spec:
 
     labels:
       name: pod-network-duplication
+      app.kubernetes.io/part-of: litmus
 {{ end }}

@@ -40,7 +40,7 @@ spec:
     imagePullPolicy: {{ .Values.image.litmusGO.pullPolicy }}
     args:
     - -c
-    - ./experiments/pod-io-stress
+    - ./experiments -name pod-io-stress
     command:
     - /bin/bash
     env:
@@ -74,10 +74,16 @@ spec:
       - name: LIB
         value: 'pumba'
 
+      ## it defines the sequence of chaos execution for multiple target pods
+      ## supported values: serial, parallel
+      - name: SEQUENCE
+        value: 'parallel'        
+
       # provide lib image
       - name: LIB_IMAGE
         value: "{{ .Values.image.stressChaos.stressImage }}"
 
     labels:
       name: pod-io-stress
+      app.kubernetes.io/part-of: litmus
 {{ end }}

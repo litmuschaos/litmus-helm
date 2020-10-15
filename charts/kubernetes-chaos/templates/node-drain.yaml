@@ -50,7 +50,7 @@ spec:
     imagePullPolicy: {{ .Values.image.litmusGO.pullPolicy }}
     args:
     - -c
-    - ./experiments/node-drain
+    - ./experiments -name node-drain
     command:
     - /bin/bash
     env:
@@ -72,4 +72,5 @@ spec:
 
     labels:
       name: node-drain
+      app.kubernetes.io/part-of: litmus
 {{ end }}
