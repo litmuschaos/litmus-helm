@@ -75,4 +75,5 @@ spec:
 
     labels:
       name: node-cpu-hog
+      app.kubernetes.io/part-of: litmus
 {{ end }}

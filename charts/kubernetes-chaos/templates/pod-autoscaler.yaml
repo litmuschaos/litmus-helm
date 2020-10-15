@@ -70,4 +70,5 @@ spec:
 
     labels:
       name: pod-autoscaler
+      app.kubernetes.io/part-of: litmus
 {{ end }}

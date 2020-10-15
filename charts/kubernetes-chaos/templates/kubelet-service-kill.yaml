@@ -70,4 +70,5 @@ spec:
 
     labels:
       name: kubelet-service-kill
+      app.kubernetes.io/part-of: litmus
 {{ end }}

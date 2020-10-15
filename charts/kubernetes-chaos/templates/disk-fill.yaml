@@ -71,6 +71,11 @@ spec:
     - name: PODS_AFFECTED_PERC
       value: ''
 
+    ## it defines the sequence of chaos execution for multiple target pods
+    ## supported values: serial, parallel
+    - name: SEQUENCE
+      value: 'parallel'      
+
     # Provide the container runtime path
     # Default set to docker
     - name: CONTAINER_PATH
@@ -78,4 +83,5 @@ spec:
 
     labels:
       name: disk-fill
+      app.kubernetes.io/part-of: litmus
 {{ end }}

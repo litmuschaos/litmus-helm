@@ -73,6 +73,15 @@ spec:
     - name: TARGET_POD
       value: ''
 
+    - name: CHAOS_KILL_COMMAND
+      value: "kill -9 $(ps afx | grep \"[dd] if /dev/zero\" | awk '{print $1}' | tr '\n' ' ')"      
+
+    ## it defines the sequence of chaos execution for multiple target pods
+    ## supported values: serial, parallel
+    - name: SEQUENCE
+      value: 'parallel'      
+
     labels:
       name: pod-memory-hog
+      app.kubernetes.io/part-of: litmus
 {{ end }}
