@@ -68,8 +68,8 @@ spec:
     - name: NUMBER_OF_WORKERS
       value: '4'    
 
-    # enter the name of the desired node
-    - name: APP_NODE
+    # enter the name of the target node
+    - name: TARGET_NODE
       value: ''    
 
     # Period to wait before and after injection of chaos in sec
@@ -84,6 +84,15 @@ spec:
     # provide lib image
     - name: LIB_IMAGE
       value: "{{ .Values.image.litmusGO.repository }}:{{ .Values.image.litmusGO.tag }}" 
+
+    ## percentage of total nodes to target
+    - name: NODES_AFFECTED_PERC
+      value: ''
+
+    ## it defines the sequence of chaos execution for multiple target nodes
+    ## supported values: serial, parallel
+    - name: SEQUENCE
+      value: 'parallel'
       
     labels:
       name: node-io-stress
