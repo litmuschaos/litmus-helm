@@ -1,0 +1,25 @@
+{{ if eq .Values.portal-scope "namespace" }}
+apiVersion: rbac.authorization.k8s.io/v1beta1
+kind: Role
+metadata:
+  name: litmus-server
+  namespace:  {{ .Values.portal-namespace }}
+  labels:
+    name: litmus-server
+rules:
+  - apiGroups:
+      - ""
+    resources:
+      - pods
+      - pods/exec
+    verbs:
+      - create
+      - patch
+      - update
+  - apiGroups:
+      - "apps"
+    resources:
+      - deployments
+    verbs:
+      - create
+{{ end }}
