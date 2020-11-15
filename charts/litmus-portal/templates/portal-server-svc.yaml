@@ -2,15 +2,15 @@ apiVersion: v1
 kind: Service
 metadata:
   name: litmusportal-server-service
-  namespace:  {{ .Values.portal-namespace }}
+  namespace:  {{ .Values.portalNamespace }}
 spec:
   type: NodePort
   ports:
     - name: graphql-server
-      port: {{ .Values.portal-server.service.graphql-server.port }}
-      targetPort: {{ .Values.portal-server.service.graphql-server.targetPort }}
+      port: {{ .Values.portalServer.service.graphqlServer.port }}
+      targetPort: {{ .Values.portalServer.service.graphqlServer.targetPort }}
     - name: auth-server
-      port: {{ .Values.portal-server.service.auth-server.port }}
-      targetPort: {{ .Values.portal-server.service.auth-server.targetPort }}
+      port: {{ .Values.portalServer.service.authServer.port }}
+      targetPort: {{ .Values.portalServer.service.authServer.targetPort }}
   selector:
     component: litmusportal-server

@@ -2,11 +2,11 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: litmusportal-frontend
-  namespace:  {{ .Values.portal-namespace }}
+  namespace:  {{ .Values.portalNamespace }}
   labels:
     component: litmusportal-frontend
 spec:
-  replicas: {{ .Values.portal-frontend.deployment.replicas }}
+  replicas: {{ .Values.portalFrontend.deployment.replicas }}
   selector:
     matchLabels:
       component: litmusportal-frontend
@@ -17,12 +17,12 @@ spec:
     spec:
       containers:
         - name: litmusportal-frontend
-          image: {{ .Values.portal-frontend.deployment.image }}
-          imagePullPolicy: {{ .Values.portal-frontend.deployment.imagePullPolicy }}
+          image: {{ .Values.portalFrontend.deployment.image }}
+          imagePullPolicy: {{ .Values.portalFrontend.deployment.imagePullPolicy }}
           resources:
-            {{- toYaml .Values.portal-frontend.deployment.resources | nindent 12 }}
+            {{- toYaml .Values.portalFrontend.deployment.resources | nindent 12 }}
           ports:
-            - containerPort: {{ .Values.portal-frontend.deployment.port }}
+            - containerPort: {{ .Values.portalFrontend.deployment.port }}
           env:
             - name: AGENT_SCOPE
               valueFrom:

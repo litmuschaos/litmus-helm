@@ -2,11 +2,11 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: mongo
-  namespace:  {{ .Values.portal-namespace }}
+  namespace:  {{ .Values.portalNamespace }}
   labels:
     app: mongo
 spec:
-  replicas: {{ .Values.mongo-db.deployment.replicas }}
+  replicas: {{ .Values.mongoDB.deployment.replicas }}
   selector:
     matchLabels:
       component: database
@@ -17,12 +17,12 @@ spec:
     spec:
       containers:
         - name: mongo
-          image: {{ .Values.mongo-db.deployment.image }}
+          image: {{ .Values.mongoDB.deployment.image }}
           resources:
-            {{- toYaml .Values.mongo-db.deployment.resources | nindent 12 }}
+            {{- toYaml .Values.mongoDB.deployment.resources | nindent 12 }}
           ports:
-            - containerPort: {{ .Values.mongo-db.deployment.port }}
-          imagePullPolicy: {{ .Values.mongo-db.deployment.imagePullPolicy }}
+            - containerPort: {{ .Values.mongoDB.deployment.port }}
+          imagePullPolicy: {{ .Values.mongoDB.deployment.imagePullPolicy }}
           volumeMounts:
             - name: mongo-persistent-storage
               mountPath: /data/db

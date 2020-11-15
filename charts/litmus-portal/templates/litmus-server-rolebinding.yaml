@@ -1,13 +1,13 @@
-{{ if eq .Values.portal-scope "namespace" }}
+{{ if eq .Values.portalScope "namespace" }}
 apiVersion: rbac.authorization.k8s.io/v1beta1
 kind: RoleBinding
 metadata:
   name: litmus-server-rb
-  namespace:  {{ .Values.portal-namespace }}
+  namespace:  {{ .Values.portalNamespace }}
 subjects:
   - kind: ServiceAccount
     name: litmus-server-account
-    namespace:  {{ .Values.portal-namespace }}
+    namespace:  {{ .Values.portalNamespace }}
 roleRef:
   kind: Role
   name: litmus-server

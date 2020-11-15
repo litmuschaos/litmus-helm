@@ -1,9 +1,9 @@
-{{ if eq .Values.portal-scope "namespace" }}
+{{ if eq .Values.portalScope "namespace" }}
 apiVersion: rbac.authorization.k8s.io/v1beta1
 kind: Role
 metadata:
   name: litmus-server
-  namespace:  {{ .Values.portal-namespace }}
+  namespace:  {{ .Values.portalNamespace }}
   labels:
     name: litmus-server
 rules:

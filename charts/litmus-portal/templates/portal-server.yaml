@@ -2,11 +2,11 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: litmusportal-server
-  namespace:  {{ .Values.portal-namespace }}
+  namespace: {{ .Values.portalNamespace }}
   labels:
     component: litmusportal-server
 spec:
-  replicas: {{ .Values.portal-server.deployment.replicas }}
+  replicas: {{ .Values.portalServer.deployment.replicas }}
   selector:
     matchLabels:
       component: litmusportal-server
@@ -17,9 +17,9 @@ spec:
     spec:
       containers:
         - name: graphql-server
-          image: {{ .Values.portal-server.deployment.graphql-server.image }}
+          image: {{ .Values.portalServer.deployment.graphqlServer.image }}
           resources:
-            {{- toYaml .Values.portal-server.deployment.graphql-server.resources | nindent 12 }}
+            {{- toYaml .Values.portalServer.deployment.graphqlServer.resources | nindent 12 }}
           env:
             - name: DB_SERVER
               valueFrom:
@@ -36,7 +36,7 @@ spec:
                 fieldRef:
                   fieldPath: metadata.namespace
             - name: PORTAL_SCOPE
-              value: {{ .Values.portal-scope }}
+              value: {{ .Values.portalScope }}
             - name: SELF_CLUSTER
               value: "true"
             - name: AGENT_SCOPE
@@ -64,22 +64,22 @@ spec:
                   name: litmus-portal-admin-config
                   key: DB_PASSWORD
             - name: SUBSCRIBER_IMAGE
-              value: {{ .Values.portal-server.deployment.graphql-server.env.subscriber-image }}
+              value: {{ .Values.portalServer.deployment.graphqlServer.env.subscriberImage }}
             - name: ARGO_SERVER_IMAGE
-              value: {{ .Values.portal-server.deployment.graphql-server.env.argo-server-image }}
+              value: {{ .Values.portalServer.deployment.graphqlServer.env.argoServerImage }}
             - name: ARGO_WORKFLOW_CONTROLLER_IMAGE
-              value: {{ .Values.portal-server.deployment.graphql-server.env.argo-workflow-controller-image }}
+              value: {{ .Values.portalServer.deployment.graphqlServer.env.argoWorkflowControllerImage }}
             - name: ARGO_WORKFLOW_EXECUTOR_IMAGE
-              value: {{ .Values.portal-server.deployment.graphql-server.env.argo-workflow-executor-image }}
+              value: {{ .Values.portalServer.deployment.graphqlServer.env.argoWorkflowExecutorImage }}
             - name: LITMUS_CHAOS_OPERATOR_IMAGE
-              value: {{ .Values.portal-server.deployment.graphql-server.env.litmus-operator-image }}
+              value: {{ .Values.portalServer.deployment.graphqlServer.env.litmusOperatorImage }}
             - name: LITMUS_CHAOS_RUNNER_IMAGE
-              value: {{ .Values.portal-server.deployment.graphql-server.env.litmus-runner-image }}
+              value: {{ .Values.portalServer.deployment.graphqlServer.env.litmusRunnerImage }}
           ports:
-            - containerPort: {{ .Values.portal-server.deployment.graphql-server.port }}
-          imagePullPolicy: {{ .Values.portal-server.deployment.graphql-server.imagePullPolicy }}
+            - containerPort: {{ .Values.portalServer.deployment.graphqlServer.port }}
+          imagePullPolicy: {{ .Values.portalServer.deployment.graphqlServer.imagePullPolicy }}
         - name: auth-server
-          image: {{ .Values.portal-server.deployment.auth-server.image }}
+          image: {{ .Values.portalServer.deployment.authServer.image }}
           env:
             - name: DB_SERVER
               valueFrom:
@@ -102,10 +102,10 @@ spec:
                   name: litmus-portal-admin-config
                   key: DB_PASSWORD
             - name: ADMIN_USERNAME
-              value: {{ .Values.portal-server.deployment.auth-server.env.admin-username }}
+              value: {{ .Values.portalServer.deployment.authServer.env.adminUsername }}
             - name: ADMIN_PASSWORD
-              value: {{ .Values.portal-server.deployment.auth-server.env.admin-password }}
+              value: {{ .Values.portalServer.deployment.authServer.env.adminPassword }}
           ports:
-            - containerPort: {{ .Values.portal-server.deployment.auth-server.port }}
-          imagePullPolicy: {{ .Values.portal-server.deployment.auth-server.imagePullPolicy }}
-      serviceAccountName: {{ .Values.portal-server.deployment.serviceAccountName }}
+            - containerPort: {{ .Values.portalServer.deployment.authServer.port }}
+          imagePullPolicy: {{ .Values.portalServer.deployment.authServer.imagePullPolicy }}
+      serviceAccountName: {{ .Values.portalServer.deployment.serviceAccountName }}

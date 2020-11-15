@@ -4,10 +4,10 @@ metadata:
   labels:
     app: mongo
   name: mongo-service
-  namespace:  {{ .Values.portal-namespace }}
+  namespace:  {{ .Values.portalNamespace }}
 spec:
   ports:
-    - port: {{ .Values.mongo-db.service.port }}
-      targetPort: {{ .Values.mongo-db.service.targetPort }}
+    - port: {{ .Values.mongoDB.service.port }}
+      targetPort: {{ .Values.mongoDB.service.targetPort }}
   selector:
     component: database

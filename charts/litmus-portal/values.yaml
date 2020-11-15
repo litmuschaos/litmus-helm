@@ -2,20 +2,19 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-portal-scope: cluster
-portal-namespace: "litmus"
+portalScope: cluster
+portalNamespace: "litmus"
 
-admin-config:
-  AgentScope: cluster
+adminConfig:
   DBUSER: "admin"
   DBPASSWORD: "1234"
   JWTSecret: "litmus-portal@123"
   DataBaseServer: "mongodb://mongo-service:27017"
 
-portal-frontend:
+portalFrontend:
   deployment:
     replicas: 1
-    image: "litmuschaos/litmusportal-frontend:ci"
+    image: "litmuschaos/litmusportal-frontend:1.9.0"
     imagePullPolicy: "Always"
     port: 80
     resources: {}
@@ -33,21 +32,21 @@ portal-frontend:
     port: 80
     targetPort: 9091
 
-portal-server:
+portalServer:
   deployment:
     replicas: 1
     serviceAccountName: litmus-server-account
-    graphql-server:
-      image: "litmuschaos/litmusportal-server:ci"
+    graphqlServer:
+      image: "litmuschaos/litmusportal-server:1.9.0"
       imagePullPolicy: "Always"
       port: 8080
       env:
-        subscriber-image: "litmuschaos/litmusportal-subscriber:ci"
-        argo-server-image: "argoproj/argocli:v2.9.3"
-        argo-workflow-controller-image: "argoproj/workflow-controller:v2.9.3"
-        argo-workflow-executor-image: "argoproj/argoexec:v2.9.3"
-        litmus-operator-image: "litmuschaos/chaos-operator:1.10.0"
-        litmus-runner-image: "litmuschaos/chaos-runner:1.10.0"
+        subscriberImage: "litmuschaos/litmusportal-subscriber:1.9.0"
+        argoServerImage: "argoproj/argocli:v2.9.3"
+        argoWorkflowControllerImage: "argoproj/workflow-controller:v2.9.3"
+        argoWorkflowExecutorImage: "argoproj/argoexec:v2.9.3"
+        litmusOperatorImage: "litmuschaos/chaos-operator:1.9.1"
+        litmusRunnerImage: "litmuschaos/chaos-runner:1.9.1"
       resources: {}
       # We usually recommend not to specify default resources and to leave this as a conscious
       # choice for the user. This also increases chances charts run on environments with little
@@ -59,13 +58,13 @@ portal-server:
       # requests:
       #   cpu: 200m
       #   memory: 400Mi
-    auth-server:
-      image: "litmuschaos/litmusportal-auth-server:ci"
+    authServer:
+      image: "litmuschaos/litmusportal-auth-server:1.9.0"
       imagePullPolicy: "Always"
       port: 3000
       env:
-      admin-username: "admin"
-      admin-password: "litmus"
+        adminUsername: "admin"
+        adminPassword: "litmus"
       resources: {}
       # We usually recommend not to specify default resources and to leave this as a conscious
       # choice for the user. This also increases chances charts run on environments with little
@@ -78,14 +77,14 @@ portal-server:
       #   cpu: 200m
       #   memory: 250Mi
   service:
-    graphql-server:
+    graphqlServer:
       port: 9002
       targetPort: 8080
-    auth-server:
+    authServer:
       port: 9003
       targetPort: 3000
 
-mongo-db:
+mongoDB:
   deployment:
     replicas: 1
     image: "mongo:4.2.8"
