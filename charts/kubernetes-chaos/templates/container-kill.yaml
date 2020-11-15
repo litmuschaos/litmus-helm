@@ -76,7 +76,7 @@ spec:
     - name: LIB_IMAGE
       value: "{{ .Values.image.litmusLIBImage.repository }}:{{ .Values.image.litmusLIBImage.tag }}"
 
-    - name: TARGET_POD
+    - name: TARGET_PODS
       value: ''    
 
     - name: PODS_AFFECTED_PERC

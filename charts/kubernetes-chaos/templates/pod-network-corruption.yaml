@@ -74,7 +74,7 @@ spec:
     - name: PODS_AFFECTED_PERC
       value: ''
 
-    - name: TARGET_POD
+    - name: TARGET_PODS
       value: ''
 
     ## it defines the sequence of chaos execution for multiple target pods

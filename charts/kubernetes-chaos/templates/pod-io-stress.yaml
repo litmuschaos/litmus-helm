@@ -63,10 +63,14 @@ spec:
 
       # Percentage of total pods to target
       - name: PODS_AFFECTED_PERC
-        value: ''      
+        value: ''   
 
-       ## specify the target pod name
-      - name: TARGET_POD
+      # provide volume mount path
+      - name: VOLUME_MOUNT_PATH
+        value: ''   
+
+       ## specify the comma separated target pods
+      - name: TARGET_PODS
         value: ''      
 
       # Period to wait before and after injection of chaos in sec

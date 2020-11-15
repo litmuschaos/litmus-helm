@@ -70,7 +70,7 @@ spec:
     - name: LIB_IMAGE
       value: "{{ .Values.image.stressChaos.stressImage }}"
 
-    - name: TARGET_POD
+    - name: TARGET_PODS
       value: ''
 
     - name: CHAOS_KILL_COMMAND
