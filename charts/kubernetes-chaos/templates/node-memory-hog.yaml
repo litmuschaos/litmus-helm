@@ -59,8 +59,8 @@ spec:
     - name: MEMORY_PERCENTAGE
       value: '90'
 
-    # ENTER THE NAME OF THE TARGET NODE
-    - name: TARGET_NODE
+     ## enter the comma separated target nodes name
+    - name: TARGET_NODES
       value: '' 
 
     # Period to wait before injection of chaos in sec

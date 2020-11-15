@@ -62,8 +62,8 @@ spec:
     - name: NODE_CPU_CORE
       value: ''
 
-    # Enter the name of the application node
-    - name: TARGET_NODE
+    # ENTER THE COMMA SEPARATED TARGET NODES NAME
+    - name: TARGET_NODES
       value: ''
     
     - name: LIB
