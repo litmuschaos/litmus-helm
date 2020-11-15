@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: ConfigMap 
+metadata:
+  name: litmus-portal-admin-config
+  namespace:  {{ .Values.portalNamespace }}
+data:
+  AgentScope: "{{ .Values.portalScope }}"
+  AgentNamespace: "{{ .Values.portalNamespace }}"
+  DataBaseServer: "{{ .Values.adminConfig.DataBaseServer }}"
+  JWTSecret: "{{ .Values.adminConfig.JWTSecret }}"
+  DB_USER: "{{ .Values.adminConfig.DBUSER }}"
+  DB_PASSWORD: "{{ .Values.adminConfig.DBPASSWORD }}"
+  

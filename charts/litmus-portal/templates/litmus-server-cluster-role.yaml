@@ -1,0 +1,15 @@
+{{ if eq .Values.portalScope "cluster" }}
+apiVersion: rbac.authorization.k8s.io/v1beta1
+kind: ClusterRole
+metadata:
+  name: litmus-server
+  labels:
+    name: litmus-server
+rules:
+  - apiGroups:
+      - "*"
+    resources:
+      - "*"
+    verbs:
+      - "*"
+{{ end }}
