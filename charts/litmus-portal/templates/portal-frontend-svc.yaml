@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: litmusportal-frontend-service
+  namespace:  {{ .Values.portal-namespace }}
+spec:
+  type: NodePort
+  ports:
+    - name: http
+      port: {{ .Values.portal-frontend.service.port }}
+      targetPort: {{ .Values.portal-frontend.service.targetPort }}
+  selector:
+    component: litmusportal-frontend

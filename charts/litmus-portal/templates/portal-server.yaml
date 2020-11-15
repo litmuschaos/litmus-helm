@@ -1,0 +1,111 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: litmusportal-server
+  namespace:  {{ .Values.portal-namespace }}
+  labels:
+    component: litmusportal-server
+spec:
+  replicas: {{ .Values.portal-server.deployment.replicas }}
+  selector:
+    matchLabels:
+      component: litmusportal-server
+  template:
+    metadata:
+      labels:
+        component: litmusportal-server
+    spec:
+      containers:
+        - name: graphql-server
+          image: {{ .Values.portal-server.deployment.graphql-server.image }}
+          resources:
+            {{- toYaml .Values.portal-server.deployment.graphql-server.resources | nindent 12 }}
+          env:
+            - name: DB_SERVER
+              valueFrom:
+                configMapKeyRef:
+                  name: litmus-portal-admin-config
+                  key: DataBaseServer
+            - name: JWT_SECRET
+              valueFrom:
+                configMapKeyRef:
+                  name: litmus-portal-admin-config
+                  key: JWTSecret
+            - name: LITMUS_PORTAL_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+            - name: PORTAL_SCOPE
+              value: {{ .Values.portal-scope }}
+            - name: SELF_CLUSTER
+              value: "true"
+            - name: AGENT_SCOPE
+              valueFrom:
+                configMapKeyRef:
+                  name: litmus-portal-admin-config
+                  key: AgentScope
+            - name: AGENT_NAMESPACE
+              valueFrom:
+                configMapKeyRef:
+                  name: litmus-portal-admin-config
+                  key: AgentNamespace
+            - name: LITMUS_PORTAL_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+            - name: DB_USER
+              valueFrom:
+                configMapKeyRef:
+                  name: litmus-portal-admin-config
+                  key: DB_USER
+            - name: DB_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  name: litmus-portal-admin-config
+                  key: DB_PASSWORD
+            - name: SUBSCRIBER_IMAGE
+              value: {{ .Values.portal-server.deployment.graphql-server.env.subscriber-image }}
+            - name: ARGO_SERVER_IMAGE
+              value: {{ .Values.portal-server.deployment.graphql-server.env.argo-server-image }}
+            - name: ARGO_WORKFLOW_CONTROLLER_IMAGE
+              value: {{ .Values.portal-server.deployment.graphql-server.env.argo-workflow-controller-image }}
+            - name: ARGO_WORKFLOW_EXECUTOR_IMAGE
+              value: {{ .Values.portal-server.deployment.graphql-server.env.argo-workflow-executor-image }}
+            - name: LITMUS_CHAOS_OPERATOR_IMAGE
+              value: {{ .Values.portal-server.deployment.graphql-server.env.litmus-operator-image }}
+            - name: LITMUS_CHAOS_RUNNER_IMAGE
+              value: {{ .Values.portal-server.deployment.graphql-server.env.litmus-runner-image }}
+          ports:
+            - containerPort: {{ .Values.portal-server.deployment.graphql-server.port }}
+          imagePullPolicy: {{ .Values.portal-server.deployment.graphql-server.imagePullPolicy }}
+        - name: auth-server
+          image: {{ .Values.portal-server.deployment.auth-server.image }}
+          env:
+            - name: DB_SERVER
+              valueFrom:
+                configMapKeyRef:
+                  name: litmus-portal-admin-config
+                  key: DataBaseServer
+            - name: JWT_SECRET
+              valueFrom:
+                configMapKeyRef:
+                  name: litmus-portal-admin-config
+                  key: JWTSecret
+            - name: DB_USER
+              valueFrom:
+                configMapKeyRef:
+                  name: litmus-portal-admin-config
+                  key: DB_USER
+            - name: DB_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  name: litmus-portal-admin-config
+                  key: DB_PASSWORD
+            - name: ADMIN_USERNAME
+              value: {{ .Values.portal-server.deployment.auth-server.env.admin-username }}
+            - name: ADMIN_PASSWORD
+              value: {{ .Values.portal-server.deployment.auth-server.env.admin-password }}
+          ports:
+            - containerPort: {{ .Values.portal-server.deployment.auth-server.port }}
+          imagePullPolicy: {{ .Values.portal-server.deployment.auth-server.imagePullPolicy }}
+      serviceAccountName: {{ .Values.portal-server.deployment.serviceAccountName }}
