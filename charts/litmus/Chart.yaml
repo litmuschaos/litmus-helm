@@ -2,7 +2,7 @@ apiVersion: v1
 appVersion: "1.10.0"
 description: A Helm chart to install litmus infra components on Kubernetes
 name: litmus
-version: 1.10.0
+version: 1.10.1
 home: https://litmuschaos.io
 sources:
   - https://github.com/litmuschaos/litmus
