@@ -9,4 +9,6 @@ releases:
   - name: kubernetes-chaos-experiments
     chart: ./charts/kubernetes-chaos
 
+  - name: litmus-portal
+    chart: ./charts/litmus-portal
  
