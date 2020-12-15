@@ -62,8 +62,8 @@ spec:
       value: '20'
 
     # provide the name of container runtime
-    # it supports docker, containerd, crio
-    # default to docker
+    # for litmus LIB, it supports docker, containerd, crio
+    # for pumba LIB, it supports docker only
     - name: CONTAINER_RUNTIME
       value: "{{ .Values.environment.runtime }}"
 
@@ -86,10 +86,6 @@ spec:
     ## supported values: serial, parallel
     - name: SEQUENCE
       value: 'parallel'      
-
-    securityContext:
-      containerSecurityContext:
-        privileged: true 
 
     labels:
       name: container-kill

@@ -80,17 +80,26 @@ spec:
     ## it defines the sequence of chaos execution for multiple target pods
     ## supported values: serial, parallel
     - name: SEQUENCE
-      value: 'parallel'      
+      value: 'parallel'    
+
+    # provide the destination ips
+    # chaos injection will be triggered for these destination ips
+    - name: DESTINATION_IPS
+      value: ''
+
+    # provide the destination hosts
+    # chaos injection will be triggered for these destination hosts
+    - name: DESTINATION_HOSTS
+      value: ''  
 
     # provide the name of container runtime
-    # it supports docker, containerd, crio
-    # defaults to docker
+    # for litmus LIB, it supports docker, containerd, crio
+    # for pumba LIB, it supports docker only
     - name: CONTAINER_RUNTIME
       value: "{{ .Values.environment.runtime }}"
 
     # provide the container runtime socket path
-    # needed only for containerd and crio runtime
-    # default set to std containerd sock file path
+    # default set to std docker sock file path
     - name: SOCKET_PATH
       value: "{{ .Values.environment.socketPath }}" 
     
