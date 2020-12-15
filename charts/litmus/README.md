@@ -2,7 +2,7 @@ litmus
 ======
 A Helm chart to install litmus infra components on Kubernetes.
 
-Current chart version is `1.10.0`
+Current chart version is `1.11.0`
 
 ## Architecture introduction
 
@@ -47,7 +47,7 @@ The following table lists the configurable parameters of the Litmus chart and th
 | exporter.enabled | bool | `false` | If metrics exporter enabled  |
 | exporter.image.pullPolicy | string | `"Always"` | Image pill policy for exporter |
 | exporter.image.repository | string | `"litmuschaos/chaos-exporter"` | Image repository for exporter |
-| exporter.image.tag | string | `"1.10.0"` | Image tag for exporter |
+| exporter.image.tag | string | `"1.11.0"` | Image tag for exporter |
 | exporter.nodeSelector | object | `{}` | Node selector for exporter |
 | exporter.resources | object | `{}` | Resources requests and limits for exporter |
 | exporter.service.annotations | object | `{}` | Annotations for exporter service |
@@ -59,7 +59,7 @@ The following table lists the configurable parameters of the Litmus chart and th
 | fullnameOverride | string | `"litmus"` | Full name override |
 | operator.image.pullPolicy | string | `"Always"` | Image operator or runner pull policy |
 | \<operator\|runner\>.image.repository | string | `"litmuschaos/chaos-operator"` | Image operator or runner repository |
-| \<operator\|runner\>.image.tag | string | `"1.10.0"` | Image operator or runner tag |
+| \<operator\|runner\>.image.tag | string | `"1.11.0"` | Image operator or runner tag |
 | ingress.annotations | object | `{}` | Ingress annotations |
 | ingress.enabled | bool | `false` | Ingress enabled |
 | nameOverride | string | `"litmus"` | Name override |
