@@ -64,12 +64,6 @@ spec:
     - name: LIB
       value: 'litmus'
 
-    - name: CHAOS_INJECT_COMMAND
-      value: 'md5sum /dev/zero'
-
-    - name: CHAOS_KILL_COMMAND
-      value: "kill -9 $(ps afx | grep \"[md5sum] /dev/zero\" | awk '{print$1}' | tr '\n' ' ')"
-
     ## it defines the sequence of chaos execution for multiple target pods
     ## supported values: serial, parallel
     - name: SEQUENCE
@@ -82,6 +76,9 @@ spec:
     - name: TARGET_PODS
       value: ''
 
+    - name: SOCKET_PATH
+      value: "{{ .Values.environment.socketPath }}"
+            
     labels:
       name: pod-cpu-hog
       app.kubernetes.io/part-of: litmus
