@@ -17,7 +17,7 @@ operator:
 runner:
   image:
     repository: litmuschaos/chaos-runner
-    tag: 1.11.0
+    tag: 1.11.1
 
 service:
   type: ClusterIP
