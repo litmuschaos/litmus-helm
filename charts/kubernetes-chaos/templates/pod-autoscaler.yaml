@@ -24,7 +24,9 @@ spec:
           - "jobs"
           - "pods"
           - "pods/log"
+          - "pods/exec"
           - "deployments"
+          - "statefulsets"
           - "events"
           - "chaosengines"
           - "chaosexperiments"
@@ -36,13 +38,17 @@ spec:
           - "patch"
           - "update"
           - "delete"
+          - "deletecollection"
       - apiGroups:
           - ""
-        resources:
+        resources: 
           - "nodes"
         verbs:
           - "get"
           - "list"
+          - "create"
+          - "patch"
+          - "update"
     image: "{{ .Values.image.litmusGO.repository }}:{{ .Values.image.litmusGO.tag }}"
     imagePullPolicy: {{ .Values.image.litmusGO.pullPolicy }}
     args:
