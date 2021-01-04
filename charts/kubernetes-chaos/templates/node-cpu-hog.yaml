@@ -43,13 +43,6 @@ spec:
         verbs:
           - "get"
           - "list"
-      - apiGroups:
-          - ""
-        resources:
-          - "nodes"
-        verbs :
-          - "get"
-          - "list"
     image: "{{ .Values.image.litmusGO.repository }}:{{ .Values.image.litmusGO.tag }}"
     imagePullPolicy: {{ .Values.image.litmusGO.pullPolicy }}
     args:

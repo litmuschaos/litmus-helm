@@ -2,7 +2,7 @@ apiVersion: v1
 appVersion: "1.11.1"
 description: A Helm chart to install litmus chaos experiments for kubernetes category (chaos-chart)
 name: kubernetes-chaos
-version: 2.4.1
+version: 2.4.2
 home: https://litmuschaos.io
 sources:
   - https://github.com/litmuschaos/litmus
