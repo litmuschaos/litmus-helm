@@ -17,17 +17,17 @@ spec:
     permissions:
       - apiGroups:
           - ""
-          - "apps"
           - "batch"
-          - "extensions"
           - "litmuschaos.io"
+          - "apps"
         resources:
           - "jobs"
           - "pods"
           - "events"
           - "pods/log"
-          - "pods/eviction"
+          - "pods/exec"
           - "daemonsets"
+          - "pods/eviction"
           - "chaosengines"
           - "chaosexperiments"
           - "chaosresults"
@@ -38,11 +38,12 @@ spec:
           - "patch"
           - "update"
           - "delete"
+          - "deletecollection"
       - apiGroups:
           - ""
-        resources:
+        resources: 
           - "nodes"
-        verbs :
+        verbs:
           - "get"
           - "list"
           - "patch"
