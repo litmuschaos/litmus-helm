@@ -2,7 +2,7 @@ kubernetes-chaos
 ================
 A Helm chart to install litmus chaos experiments for kubernetes category (chaos-chart)
 
-Current app version is `1.11.0`
+Current app version is `1.11.2`
 
 ## Chart Values
 
