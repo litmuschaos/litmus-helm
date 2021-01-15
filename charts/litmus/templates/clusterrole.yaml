@@ -1,6 +1,6 @@
 {{ if or (eq .Values.operatorMode "standard") (eq .Values.operatorMode "admin") }}
 ---
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
   name: {{ include "litmus.fullname" . }}
@@ -34,7 +34,7 @@ rules:
 {{ end }} 
 {{ if eq .Values.operatorMode "admin" }}
 ---
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
   name: {{ include "litmus.fullname" . }}-admin
