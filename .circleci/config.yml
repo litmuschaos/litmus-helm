@@ -21,7 +21,10 @@ jobs:
           name: helm-github-pages
           environment:
             - GITHUB_PAGES_REPO: litmuschaos/litmus-helm
-          command: wget -O - https://raw.githubusercontent.com/litmuschaos/helm-github-pages/master/publish.sh | sh
+          command: |
+            apt-get update
+            apt-get install wget 
+            wget -O - https://raw.githubusercontent.com/litmuschaos/helm-github-pages/master/publish.sh | sh
 workflows:
   version: 2.1
   lint:
