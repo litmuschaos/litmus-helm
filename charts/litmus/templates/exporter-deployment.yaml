@@ -26,6 +26,9 @@ spec:
         - name: exporter
           image: "{{ .Values.exporter.image.repository }}:{{ .Values.exporter.image.tag }}"
           imagePullPolicy: {{ .Values.exporter.image.pullPolicy }}
+          env: 
+            - name: WATCH_NAMESPACE
+              value: ''
           ports:
             - name: http
               containerPort: 8080
