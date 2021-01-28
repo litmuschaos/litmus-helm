@@ -1,13 +1,17 @@
+{{- $values := .Values.mongoDB.deployment.persistence -}}
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: mongo-pv-claim
-  namespace:  {{ .Values.portalNamespace }}
+  namespace: {{ .Values.portalNamespace }}
   labels:
     app: mongo
 spec:
   accessModes:
-    - ReadWriteOnce
+    - {{ $values.accessMode }}
   resources:
     requests:
-      storage: 20Gi
+      storage: {{ $values.size }}
+  {{- if $values.storageClass }}
+  storageClassName: {{ $values.storageClass }}
+  {{- end }}
