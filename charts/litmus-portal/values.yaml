@@ -31,6 +31,7 @@ portalFrontend:
   service:
     port: 9091
     targetPort: 8080
+    # nodePort:
 
 portalServer:
   deployment:
