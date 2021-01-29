@@ -31,6 +31,7 @@ portalFrontend:
   service:
     port: 9091
     targetPort: 8080
+    # nodePort:
 
 portalServer:
   deployment:
@@ -91,6 +92,10 @@ mongoDB:
     imagePullPolicy: "Always"
     port: 27017
     resources: {}
+    persistence:
+      size: 20Gi
+      accessMode: ReadWriteOnce
+      #storageClass: ""
     # We usually recommend not to specify default resources and to leave this as a conscious
     # choice for the user. This also increases chances charts run on environments with little
     # resources, such as Minikube. If you do want to specify resources, uncomment the following
