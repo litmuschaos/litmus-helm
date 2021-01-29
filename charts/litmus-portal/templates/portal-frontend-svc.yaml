@@ -9,5 +9,8 @@ spec:
     - name: http
       port: {{ .Values.portalFrontend.service.port }}
       targetPort: {{ .Values.portalFrontend.service.targetPort }}
+      {{- if .Values.portalFrontend.service.nodePort }}
+      nodePort: {{ .Values.portalFrontend.service.nodePort }}
+      {{- end }}
   selector:
     component: litmusportal-frontend
