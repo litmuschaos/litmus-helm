@@ -14,7 +14,7 @@ adminConfig:
 portalFrontend:
   deployment:
     replicas: 1
-    image: "litmuschaos/litmusportal-frontend:1.12.0"
+    image: "litmuschaos/litmusportal-frontend:1.13.0"
     imagePullPolicy: "Always"
     port: 8080
     resources: {}
@@ -38,16 +38,16 @@ portalServer:
     replicas: 1
     serviceAccountName: litmus-server-account
     graphqlServer:
-      image: "litmuschaos/litmusportal-server:1.12.0"
+      image: "litmuschaos/litmusportal-server:1.13.0"
       imagePullPolicy: "Always"
       port: 8080
       env:
-        subscriberImage: "litmuschaos/litmusportal-subscriber:1.12.0"
+        subscriberImage: "litmuschaos/litmusportal-subscriber:1.13.0"
         argoServerImage: "argoproj/argocli:v2.9.3"
         argoWorkflowControllerImage: "argoproj/workflow-controller:v2.9.3"
         argoWorkflowExecutorImage: "argoproj/argoexec:v2.9.3"
-        litmusOperatorImage: "litmuschaos/chaos-operator:1.12.0"
-        litmusRunnerImage: "litmuschaos/chaos-runner:1.12.0"
+        litmusOperatorImage: "litmuschaos/chaos-operator:1.13.0"
+        litmusRunnerImage: "litmuschaos/chaos-runner:1.13.0"
       resources: {}
       # We usually recommend not to specify default resources and to leave this as a conscious
       # choice for the user. This also increases chances charts run on environments with little
@@ -60,7 +60,7 @@ portalServer:
       #   cpu: 200m
       #   memory: 400Mi
     authServer:
-      image: "litmuschaos/litmusportal-auth-server:1.12.0"
+      image: "litmuschaos/litmusportal-auth-server:1.13.0"
       imagePullPolicy: "Always"
       port: 3000
       env:
