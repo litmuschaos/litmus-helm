@@ -58,7 +58,7 @@ spec:
     ## Specify the size as percent of total node capacity Ex: '30'
     ## NOTE: for selecting this option keep MEMORY_CONSUMPTION_MEBIBYTES empty
     - name: MEMORY_CONSUMPTION_PERCENTAGE
-      value: ''
+      value: '30'
 
     ## Specify the amount of memory to be consumed in mebibytes
     ## NOTE: for selecting this option keep MEMORY_CONSUMPTION_PERCENTAGE empty
