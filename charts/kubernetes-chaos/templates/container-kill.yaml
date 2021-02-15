@@ -65,6 +65,9 @@ spec:
     - name: CHAOS_INTERVAL
       value: '10'
 
+    - name: SIGNAL
+      value: 'SIGKILL'
+
     # provide the total chaos duration
     - name: TOTAL_CHAOS_DURATION
       value: '20'
