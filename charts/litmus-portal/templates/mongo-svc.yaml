@@ -4,7 +4,7 @@ metadata:
   labels:
     app: mongo
   name: mongo-service
-  namespace:  {{ .Values.portalNamespace }}
+  namespace:  {{ .Release.Namespace }}
 spec:
   ports:
     - port: {{ .Values.mongoDB.service.port }}

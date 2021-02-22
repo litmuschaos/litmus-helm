@@ -3,7 +3,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: mongo-pv-claim
-  namespace: {{ .Values.portalNamespace }}
+  namespace: {{ .Release.Namespace }}
   labels:
     app: mongo
 spec:

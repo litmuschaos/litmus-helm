@@ -6,7 +6,7 @@ metadata:
 subjects:
   - kind: ServiceAccount
     name: litmus-server-account
-    namespace:  {{ .Values.portalNamespace }}
+    namespace:  {{ .Release.Namespace }}
 roleRef:
   kind: ClusterRole
   name: litmus-server
