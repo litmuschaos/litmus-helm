@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: litmusportal-server
-  namespace: {{ .Values.portalNamespace }}
+  namespace: {{ .Release.Namespace }}
   labels:
     component: litmusportal-server
 spec:

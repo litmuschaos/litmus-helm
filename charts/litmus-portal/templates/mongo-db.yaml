@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: mongo
-  namespace:  {{ .Values.portalNamespace }}
+  namespace:  {{ .Release.Namespace }}
   labels:
     app: mongo
 spec:
