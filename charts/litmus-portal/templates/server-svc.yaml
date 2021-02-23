@@ -18,4 +18,4 @@ spec:
 
   selector:
     {{- include "litmus-portal.selectors" . | nindent 4 }}
-    app.kubernetes.io/part-of: {{ include "litmus-portal.name" . }}-server
+    app.kubernetes.io/part-of: {{ include "litmus-portal.fullname" . }}-server

@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "litmus-portal.name" . }}-server
+  name: {{ include "litmus-portal.fullname" . }}-server
   namespace: {{ .Release.Namespace }}
   labels:
     {{- include "litmus-portal.labels" . | nindent 4 }}
-    app.kubernetes.io/part-of: {{ include "litmus-portal.name" . }}-server
+    app.kubernetes.io/part-of: {{ include "litmus-portal.fullname" . }}-server
 spec:
   replicas: {{ .Values.portal.server.replicas }}
   selector:
     matchLabels:
       {{- include "litmus-portal.selectors" . | nindent 6 }}
-      app.kubernetes.io/part-of: {{ include "litmus-portal.name" . }}-server
+      app.kubernetes.io/part-of: {{ include "litmus-portal.fullname" . }}-server
   template:
     metadata:
       labels:
         {{- include "litmus-portal.labels" . | nindent 8 }}
-        app.kubernetes.io/part-of: {{ include "litmus-portal.name" . }}-server
+        app.kubernetes.io/part-of: {{ include "litmus-portal.fullname" . }}-server
     spec:
       serviceAccountName: {{ .Values.portal.server.serviceAccountName }}
       {{- if .Values.imagePullSecrets }}
@@ -36,12 +36,12 @@ spec:
             - name: DB_SERVER
               valueFrom:
                 configMapKeyRef:
-                  name: {{ include "litmus-portal.name" . }}-admin-config
+                  name: {{ include "litmus-portal.fullname" . }}-admin-config
                   key: DataBaseServer
             - name: JWT_SECRET
               valueFrom:
                 configMapKeyRef:
-                  name: {{ include "litmus-portal.name" . }}-admin-config
+                  name: {{ include "litmus-portal.fullname" . }}-admin-config
                   key: JWTSecret
             - name: LITMUS_PORTAL_NAMESPACE
               valueFrom:
@@ -54,12 +54,12 @@ spec:
             - name: AGENT_SCOPE
               valueFrom:
                 configMapKeyRef:
-                  name: {{ include "litmus-portal.name" . }}-admin-config
+                  name: {{ include "litmus-portal.fullname" . }}-admin-config
                   key: AgentScope
             - name: AGENT_NAMESPACE
               valueFrom:
                 configMapKeyRef:
-                  name: {{ include "litmus-portal.name" . }}-admin-config
+                  name: {{ include "litmus-portal.fullname" . }}-admin-config
                   key: AgentNamespace
             - name: LITMUS_PORTAL_NAMESPACE
               valueFrom:
@@ -68,12 +68,12 @@ spec:
             - name: DB_USER
               valueFrom:
                 configMapKeyRef:
-                  name: {{ include "litmus-portal.name" . }}-admin-config
+                  name: {{ include "litmus-portal.fullname" . }}-admin-config
                   key: DB_USER
             - name: DB_PASSWORD
               valueFrom:
                 configMapKeyRef:
-                  name: {{ include "litmus-portal.name" . }}-admin-config
+                  name: {{ include "litmus-portal.fullname" . }}-admin-config
                   key: DB_PASSWORD
             {{- range $key, $val := .Values.portal.server.graphqlServer.env }}
             - name: {{ $key }}
@@ -89,22 +89,22 @@ spec:
             - name: DB_SERVER
               valueFrom:
                 configMapKeyRef:
-                  name: {{ include "litmus-portal.name" . }}-admin-config
+                  name: {{ include "litmus-portal.fullname" . }}-admin-config
                   key: DataBaseServer
             - name: JWT_SECRET
               valueFrom:
                 configMapKeyRef:
-                  name: {{ include "litmus-portal.name" . }}-admin-config
+                  name: {{ include "litmus-portal.fullname" . }}-admin-config
                   key: JWTSecret
             - name: DB_USER
               valueFrom:
                 configMapKeyRef:
-                  name: {{ include "litmus-portal.name" . }}-admin-config
+                  name: {{ include "litmus-portal.fullname" . }}-admin-config
                   key: DB_USER
             - name: DB_PASSWORD
               valueFrom:
                 configMapKeyRef:
-                  name: {{ include "litmus-portal.name" . }}-admin-config
+                  name: {{ include "litmus-portal.fullname" . }}-admin-config
                   key: DB_PASSWORD
             {{- range $key, $val := .Values.portal.server.authServer.env }}
             - name: {{ $key }}

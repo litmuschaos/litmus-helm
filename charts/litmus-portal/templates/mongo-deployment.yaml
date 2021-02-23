@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "litmus-portal.name" . }}-mongo
+  name: {{ include "litmus-portal.fullname" . }}-mongo
   namespace:  {{ .Release.Namespace }}
   labels:
     {{- include "litmus-portal.labels" . | nindent 4 }}
-    app.kubernetes.io/part-of: {{ include "litmus-portal.name" . }}-mongo
+    app.kubernetes.io/part-of: {{ include "litmus-portal.fullname" . }}-mongo
 spec:
   replicas: {{ .Values.mongo.replicas }}
   selector:
     matchLabels:
       {{- include "litmus-portal.selectors" . | nindent 6 }}
-      app.kubernetes.io/part-of: {{ include "litmus-portal.name" . }}-mongo
+      app.kubernetes.io/part-of: {{ include "litmus-portal.fullname" . }}-mongo
   template:
     metadata:
       labels:
         {{- include "litmus-portal.labels" . | nindent 8 }}
-        app.kubernetes.io/part-of: {{ include "litmus-portal.name" . }}-mongo
+        app.kubernetes.io/part-of: {{ include "litmus-portal.fullname" . }}-mongo
     spec:
       {{- if .Values.imagePullSecrets }}
       imagePullSecrets:
@@ -38,14 +38,14 @@ spec:
             - name: MONGO_INITDB_ROOT_USERNAME
               valueFrom:
                 configMapKeyRef:
-                  name: {{ include "litmus-portal.name" . }}-admin-config
+                  name: {{ include "litmus-portal.fullname" . }}-admin-config
                   key: DB_USER
             - name: MONGO_INITDB_ROOT_PASSWORD
               valueFrom:
                 configMapKeyRef:
-                  name: {{ include "litmus-portal.name" . }}-admin-config
+                  name: {{ include "litmus-portal.fullname" . }}-admin-config
                   key: DB_PASSWORD
       volumes:
         - name: mongo-persistent-storage
           persistentVolumeClaim:
-            claimName: {{ include "litmus-portal.name" . }}-mongo-pvc
+            claimName: {{ include "litmus-portal.fullname" . }}-mongo-pvc

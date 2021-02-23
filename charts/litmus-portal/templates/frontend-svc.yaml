@@ -1,11 +1,11 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "litmus-portal.name" . }}-frontend
+  name: {{ include "litmus-portal.fullname" . }}-frontend
   namespace:  {{ .Release.Namespace }}
   labels:
     {{- include "litmus-portal.labels" . | nindent 4 }}
-    app.kubernetes.io/part-of: {{ include "litmus-portal.name" . }}-frontend
+    app.kubernetes.io/part-of: {{ include "litmus-portal.fullname" . }}-frontend
 spec:
   type: {{ .Values.portal.frontend.service.type }}
   ports:
@@ -17,4 +17,4 @@ spec:
       {{- end }}
   selector:
     {{- include "litmus-portal.selectors" . | nindent 4 }}
-    app.kubernetes.io/part-of: {{ include "litmus-portal.name" . }}-frontend
+    app.kubernetes.io/part-of: {{ include "litmus-portal.fullname" . }}-frontend

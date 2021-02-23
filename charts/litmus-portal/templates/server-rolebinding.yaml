@@ -2,17 +2,17 @@
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
-  name: {{ include "litmus-portal.name" . }}-server-rb
+  name: {{ include "litmus-portal.fullname" . }}-server-rb
   namespace:  {{ .Release.Namespace }}
   labels:
     {{- include "litmus-portal.labels" . | nindent 4 }}
-    app.kubernetes.io/part-of: {{ include "litmus-portal.name" . }}-server
+    app.kubernetes.io/part-of: {{ include "litmus-portal.fullname" . }}-server
 subjects:
   - kind: ServiceAccount
-    name: {{ include "litmus-portal.name" . }}
+    name: {{ .Values.portal.server.serviceAccountName }}
     namespace:  {{ .Release.Namespace }}
 roleRef:
   kind: Role
-  name: {{ include "litmus-portal.name" . }}-server
+  name: {{ include "litmus-portal.fullname" . }}-server
   apiGroup: rbac.authorization.k8s.io
 {{ end }}

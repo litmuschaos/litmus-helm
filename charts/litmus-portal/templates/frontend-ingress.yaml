@@ -11,7 +11,7 @@ metadata:
   name: {{ $fullName }}-frontend
   labels:
     {{- include "litmus-portal.labels" . | nindent 4 }}
-    app.kubernetes.io/part-of: {{ include "litmus-portal.name" . }}-frontend
+    app.kubernetes.io/part-of: {{ include "litmus-portal.fullname" . }}-frontend
   {{- with .Values.portal.frontend.ingress.annotations }}
   annotations:
     {{- toYaml . | nindent 4 }}

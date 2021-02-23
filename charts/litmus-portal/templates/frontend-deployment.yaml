@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "litmus-portal.name" . }}-frontend
+  name: {{ include "litmus-portal.fullname" . }}-frontend
   namespace:  {{ .Release.Namespace }}
   labels:
     {{- include "litmus-portal.labels" . | nindent 4 }}
-    app.kubernetes.io/part-of: {{ include "litmus-portal.name" . }}-frontend
+    app.kubernetes.io/part-of: {{ include "litmus-portal.fullname" . }}-frontend
 spec:
   replicas: {{ .Values.portal.frontend.replicas }}
   selector:
     matchLabels:
       {{- include "litmus-portal.selectors" . | nindent 6 }}
-      app.kubernetes.io/part-of: {{ include "litmus-portal.name" . }}-frontend
+      app.kubernetes.io/part-of: {{ include "litmus-portal.fullname" . }}-frontend
   template:
     metadata:
       labels:
         {{- include "litmus-portal.labels" . | nindent 8 }}
-        app.kubernetes.io/part-of: {{ include "litmus-portal.name" . }}-frontend
+        app.kubernetes.io/part-of: {{ include "litmus-portal.fullname" . }}-frontend
     spec:
       containers:
         {{- if .Values.imagePullSecrets }}
@@ -35,5 +35,5 @@ spec:
             - name: AGENT_SCOPE
               valueFrom:
                 configMapKeyRef:
-                  name: {{ include "litmus-portal.name" . }}-admin-config
+                  name: {{ include "litmus-portal.fullname" . }}-admin-config
                   key: AgentScope
