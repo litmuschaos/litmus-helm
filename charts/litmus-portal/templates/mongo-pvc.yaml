@@ -1,17 +1,18 @@
-{{- $values := .Values.mongoDB.deployment.persistence -}}
+{{- $persistence := .Values.mongo.persistence -}}
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: mongo-pv-claim
+  name: {{ include "litmus-portal.name" . }}-mongo-pvc
   namespace: {{ .Release.Namespace }}
   labels:
-    app: mongo
+    {{- include "litmus-portal.labels" . | nindent 4 }}
+    app.kubernetes.io/part-of: {{ include "litmus-portal.name" . }}-mongo
 spec:
   accessModes:
-    - {{ $values.accessMode }}
+    - {{ $persistence.accessMode }}
   resources:
     requests:
-      storage: {{ $values.size }}
-  {{- if $values.storageClass }}
-  storageClassName: {{ $values.storageClass }}
+      storage: {{ $persistence.size }}
+  {{- if $persistence.storageClass }}
+  storageClassName: {{ $persistence.storageClass }}
   {{- end }}

@@ -1,6 +1,6 @@
 # litmus-portal
 
-![Version: 1.13.1](https://img.shields.io/badge/Version-1.13.1-informational?style=flat-square) ![AppVersion: 1.13.0](https://img.shields.io/badge/AppVersion-1.13.0-informational?style=flat-square)
+![Version: 1.13.2](https://img.shields.io/badge/Version-1.13.2-informational?style=flat-square) ![AppVersion: 1.13.0](https://img.shields.io/badge/AppVersion-1.13.0-informational?style=flat-square)
 
 A Helm chart to install litmus portal
 
@@ -25,45 +25,53 @@ A Helm chart to install litmus portal
 | adminConfig.DBUSER | string | `"admin"` |  |
 | adminConfig.DataBaseServer | string | `"mongodb://mongo-service:27017"` |  |
 | adminConfig.JWTSecret | string | `"litmus-portal@123"` |  |
-| mongoDB.deployment.image | string | `"mongo:4.2.8"` |  |
-| mongoDB.deployment.imagePullPolicy | string | `"Always"` |  |
-| mongoDB.deployment.persistence.accessMode | string | `"ReadWriteOnce"` |  |
-| mongoDB.deployment.persistence.size | string | `"20Gi"` |  |
-| mongoDB.deployment.port | int | `27017` |  |
-| mongoDB.deployment.replicas | int | `1` |  |
-| mongoDB.deployment.resources | object | `{}` |  |
-| mongoDB.service.port | int | `27017` |  |
-| mongoDB.service.targetPort | int | `27017` |  |
-| portalFrontend.deployment.image | string | `"litmuschaos/litmusportal-frontend:1.13.0"` |  |
-| portalFrontend.deployment.imagePullPolicy | string | `"Always"` |  |
-| portalFrontend.deployment.port | int | `8080` |  |
-| portalFrontend.deployment.replicas | int | `1` |  |
-| portalFrontend.deployment.resources | object | `{}` |  |
-| portalFrontend.service.port | int | `9091` |  |
-| portalFrontend.service.targetPort | int | `8080` |  |
+| imagePullSecrets | list | `[]` |  |
+| mongo.containerPort | int | `27017` |  |
+| mongo.image.pullPolicy | string | `"Always"` |  |
+| mongo.image.repository | string | `"mongo"` |  |
+| mongo.image.tag | string | `"4.2.8"` |  |
+| mongo.persistence.accessMode | string | `"ReadWriteOnce"` |  |
+| mongo.persistence.size | string | `"20Gi"` |  |
+| mongo.replicas | int | `1` |  |
+| mongo.resources | object | `{}` |  |
+| mongo.service.nodePort | string | `""` |  |
+| mongo.service.port | int | `27017` |  |
+| mongo.service.type | string | `"ClusterIP"` |  |
+| portal.frontend.containerPort | int | `8080` |  |
+| portal.frontend.image.pullPolicy | string | `"Always"` |  |
+| portal.frontend.image.repository | string | `"litmuschaos/litmusportal-frontend"` |  |
+| portal.frontend.image.tag | string | `"1.13.0"` |  |
+| portal.frontend.replicas | int | `1` |  |
+| portal.frontend.resources | object | `{}` |  |
+| portal.frontend.service.nodePort | string | `""` |  |
+| portal.frontend.service.port | int | `9091` |  |
+| portal.frontend.service.targetPort | int | `8080` |  |
+| portal.frontend.service.type | string | `"ClusterIP"` |  |
+| portal.server.authServer.containerPort | int | `3000` |  |
+| portal.server.authServer.env.ADMIN_PASSWORD | string | `"litmus"` |  |
+| portal.server.authServer.env.ADMIN_USERNAME | string | `"admin"` |  |
+| portal.server.authServer.image.pullPolicy | string | `"Always"` |  |
+| portal.server.authServer.image.repository | string | `"litmuschaos/litmusportal-auth-server"` |  |
+| portal.server.authServer.image.tag | string | `"1.13.0"` |  |
+| portal.server.authServer.resources | object | `{}` |  |
+| portal.server.graphqlServer.containerPort | int | `8080` |  |
+| portal.server.graphqlServer.env.ARGO_SERVER_IMAGE | string | `"argoproj/argocli:v2.9.3"` |  |
+| portal.server.graphqlServer.env.ARGO_WORKFLOW_CONTROLLER_IMAGE | string | `"argoproj/workflow-controller:v2.9.3"` |  |
+| portal.server.graphqlServer.env.ARGO_WORKFLOW_EXECUTOR_IMAGE | string | `"argoproj/argoexec:v2.9.3"` |  |
+| portal.server.graphqlServer.env.LITMUS_CHAOS_OPERATOR_IMAGE | string | `"litmuschaos/chaos-operator:1.13.0"` |  |
+| portal.server.graphqlServer.env.LITMUS_CHAOS_RUNNER_IMAGE | string | `"litmuschaos/chaos-runner:1.13.0"` |  |
+| portal.server.graphqlServer.env.SUBSCRIBER_IMAGE | string | `"litmuschaos/litmusportal-subscriber:1.13.0"` |  |
+| portal.server.graphqlServer.image.pullPolicy | string | `"Always"` |  |
+| portal.server.graphqlServer.image.repository | string | `"litmuschaos/litmusportal-server"` |  |
+| portal.server.graphqlServer.image.tag | string | `"1.13.0"` |  |
+| portal.server.graphqlServer.resources | object | `{}` |  |
+| portal.server.replicas | int | `1` |  |
+| portal.server.service.authServer.port | int | `9003` |  |
+| portal.server.service.graphqlServer.port | int | `9002` |  |
+| portal.server.service.nodePort | string | `""` |  |
+| portal.server.service.type | string | `"ClusterIP"` |  |
+| portal.server.serviceAccountName | string | `"litmus-server-account"` |  |
 | portalScope | string | `"cluster"` |  |
-| portalServer.deployment.authServer.env.adminPassword | string | `"litmus"` |  |
-| portalServer.deployment.authServer.env.adminUsername | string | `"admin"` |  |
-| portalServer.deployment.authServer.image | string | `"litmuschaos/litmusportal-auth-server:1.13.0"` |  |
-| portalServer.deployment.authServer.imagePullPolicy | string | `"Always"` |  |
-| portalServer.deployment.authServer.port | int | `3000` |  |
-| portalServer.deployment.authServer.resources | object | `{}` |  |
-| portalServer.deployment.graphqlServer.env.argoServerImage | string | `"argoproj/argocli:v2.9.3"` |  |
-| portalServer.deployment.graphqlServer.env.argoWorkflowControllerImage | string | `"argoproj/workflow-controller:v2.9.3"` |  |
-| portalServer.deployment.graphqlServer.env.argoWorkflowExecutorImage | string | `"argoproj/argoexec:v2.9.3"` |  |
-| portalServer.deployment.graphqlServer.env.litmusOperatorImage | string | `"litmuschaos/chaos-operator:1.13.0"` |  |
-| portalServer.deployment.graphqlServer.env.litmusRunnerImage | string | `"litmuschaos/chaos-runner:1.13.0"` |  |
-| portalServer.deployment.graphqlServer.env.subscriberImage | string | `"litmuschaos/litmusportal-subscriber:1.13.0"` |  |
-| portalServer.deployment.graphqlServer.image | string | `"litmuschaos/litmusportal-server:1.13.0"` |  |
-| portalServer.deployment.graphqlServer.imagePullPolicy | string | `"Always"` |  |
-| portalServer.deployment.graphqlServer.port | int | `8080` |  |
-| portalServer.deployment.graphqlServer.resources | object | `{}` |  |
-| portalServer.deployment.replicas | int | `1` |  |
-| portalServer.deployment.serviceAccountName | string | `"litmus-server-account"` |  |
-| portalServer.service.authServer.port | int | `9003` |  |
-| portalServer.service.authServer.targetPort | int | `3000` |  |
-| portalServer.service.graphqlServer.port | int | `9002` |  |
-| portalServer.service.graphqlServer.targetPort | int | `8080` |  |
 
 ----------------------------------------------
 Autogenerated from chart metadata using [helm-docs v1.5.0](https://github.com/norwoodj/helm-docs/releases/v1.5.0)

@@ -1,8 +1,10 @@
 apiVersion: v1
-kind: ConfigMap 
+kind: ConfigMap
 metadata:
-  name: litmus-portal-admin-config
+  name: {{ include "litmus-portal.name" . }}-admin-config
   namespace:  {{ .Release.Namespace }}
+  labels:
+    {{- include "litmus-portal.labels" . | nindent 4 }}
 data:
   AgentScope: "{{ .Values.portalScope }}"
   AgentNamespace: "{{ .Release.Namespace }}"
