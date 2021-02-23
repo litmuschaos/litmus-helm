@@ -11,7 +11,7 @@ spec:
   ports:
     - name: http
       port: {{ .Values.mongo.service.port }}
-      targetPort: {{ .Values.mongo.containerPort }}
+      targetPort: http
       {{- if and (eq .Values.mongo.service.type "NodePort") .Values.mongo.service.nodePort }}
       nodePort: {{ .Values.mongo.service.nodePort }}
       {{- end }}

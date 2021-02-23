@@ -29,6 +29,7 @@ spec:
             {{- toYaml .Values.mongo.resources | nindent 12 }}
           ports:
             - containerPort: {{ .Values.mongo.containerPort }}
+              name: http
           imagePullPolicy: {{ .Values.mongo.image.pullPolicy }}
           volumeMounts:
             - name: mongo-persistent-storage

@@ -11,7 +11,7 @@ spec:
   ports:
     - name: http
       port: {{ .Values.portal.frontend.service.port }}
-      targetPort: {{ .Values.portal.frontend.containerPort }}
+      targetPort: http
       {{- if and (eq .Values.portal.frontend.service.type "NodePort") .Values.portal.frontend.service.nodePort }}
       nodePort: {{ .Values.portal.frontend.service.nodePort }}
       {{- end }}

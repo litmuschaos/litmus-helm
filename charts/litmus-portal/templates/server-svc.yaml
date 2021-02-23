@@ -8,13 +8,13 @@ spec:
   ports:
     - name: graphql-server
       port: {{ .Values.portal.server.service.graphqlServer.port }}
-      targetPort: {{ .Values.portal.server.graphqlServer.containerPort }}
+      targetPort: graphql-server
       {{- if and (eq .Values.portal.frontend.service.type "NodePort") .Values.portal.frontend.service.nodePort }}
       nodePort: {{ .Values.portal.frontend.service.nodePort }}
       {{- end }}
     - name: auth-server
       port: {{ .Values.portal.server.service.authServer.port }}
-      targetPort: {{ .Values.portal.server.authServer.containerPort }}
+      targetPort: auth-server
 
   selector:
     {{- include "litmus-portal.selectors" . | nindent 4 }}
