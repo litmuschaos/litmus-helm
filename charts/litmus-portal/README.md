@@ -23,7 +23,8 @@ A Helm chart to install litmus portal
 |-----|------|---------|-------------|
 | adminConfig.DBPASSWORD | string | `"1234"` |  |
 | adminConfig.DBUSER | string | `"admin"` |  |
-| adminConfig.DataBaseServer | string | `"mongodb://mongo-service:27017"` |  |
+| adminConfig.DB_PORT | string | `"27017"` |  |
+| adminConfig.DB_SERVER | string | `""` | leave empty if uses Mongo DB deployed by this chart |
 | adminConfig.JWTSecret | string | `"litmus-portal@123"` |  |
 | imagePullSecrets | list | `[]` |  |
 | mongo.containerPort | int | `27017` |  |
@@ -41,6 +42,11 @@ A Helm chart to install litmus portal
 | portal.frontend.image.pullPolicy | string | `"Always"` |  |
 | portal.frontend.image.repository | string | `"litmuschaos/litmusportal-frontend"` |  |
 | portal.frontend.image.tag | string | `"1.13.0"` |  |
+| portal.frontend.ingress.annotations | object | `{}` |  |
+| portal.frontend.ingress.enabled | bool | `false` |  |
+| portal.frontend.ingress.hosts[0].host | string | `"chart-example.local"` |  |
+| portal.frontend.ingress.hosts[0].paths | list | `[]` |  |
+| portal.frontend.ingress.tls | list | `[]` |  |
 | portal.frontend.replicas | int | `1` |  |
 | portal.frontend.resources | object | `{}` |  |
 | portal.frontend.service.nodePort | string | `""` |  |

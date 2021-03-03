@@ -8,7 +8,9 @@ adminConfig:
   DBUSER: "admin"
   DBPASSWORD: "1234"
   JWTSecret: "litmus-portal@123"
-  DataBaseServer: "mongodb://litmus-portal-mongo:27017"
+  # -- leave empty if uses Mongo DB deployed by this chart
+  DB_SERVER: ""
+  DB_PORT: "27017"
 
 # Optional pod imagePullSecrets
 imagePullSecrets: []

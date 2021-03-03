@@ -37,7 +37,7 @@ spec:
               valueFrom:
                 configMapKeyRef:
                   name: {{ include "litmus-portal.fullname" . }}-admin-config
-                  key: DataBaseServer
+                  key: DB_SERVER
             - name: JWT_SECRET
               valueFrom:
                 configMapKeyRef:
@@ -90,7 +90,7 @@ spec:
               valueFrom:
                 configMapKeyRef:
                   name: {{ include "litmus-portal.fullname" . }}-admin-config
-                  key: DataBaseServer
+                  key: DB_SERVER
             - name: JWT_SECRET
               valueFrom:
                 configMapKeyRef:
