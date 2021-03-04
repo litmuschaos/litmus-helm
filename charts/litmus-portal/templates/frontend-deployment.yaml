@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "litmus-portal.fullname" . }}-frontend
+  namespace:  {{ .Release.Namespace }}
+  labels:
+    {{- include "litmus-portal.labels" . | nindent 4 }}
+    app.kubernetes.io/part-of: {{ include "litmus-portal.fullname" . }}-frontend
+spec:
+  replicas: {{ .Values.portal.frontend.replicas }}
+  selector:
+    matchLabels:
+      {{- include "litmus-portal.selectors" . | nindent 6 }}
+      app.kubernetes.io/part-of: {{ include "litmus-portal.fullname" . }}-frontend
+  template:
+    metadata:
+      labels:
+        {{- include "litmus-portal.labels" . | nindent 8 }}
+        app.kubernetes.io/part-of: {{ include "litmus-portal.fullname" . }}-frontend
+    spec:
+      containers:
+        {{- if .Values.imagePullSecrets }}
+        imagePullSecrets:
+          {{ toYaml .Values.imagePullSecrets | indent 8 }}
+        {{- end }}
+        - name: litmusportal-frontend
+          image: {{ .Values.portal.frontend.image.repository }}:{{ .Values.portal.frontend.image.tag }}
+          imagePullPolicy: {{ .Values.portal.frontend.image.pullPolicy }}
+          resources:
+            {{- toYaml .Values.portal.frontend.resources | nindent 12 }}
+          ports:
+            - containerPort: {{ .Values.portal.frontend.containerPort }}
+              name: http
+          env:
+            - name: AGENT_SCOPE
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "litmus-portal.fullname" . }}-admin-config
+                  key: AgentScope
