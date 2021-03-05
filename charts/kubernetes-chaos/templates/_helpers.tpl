@@ -34,6 +34,7 @@ Create chart name and version as used by the chart label.
 
 {{/* Generate basic labels */}}
 {{- define "kubernetes-chaos.labels" }}
+app.kubernetes.io/component: kubernetes-chaos
 app.kubernetes.io/instance: {{ .Release.Name }}
 app.kubernetes.io/managed-by: {{ .Release.Service }}
 app.kubernetes.io/name: {{ template "kubernetes-chaos.fullname" . }}
