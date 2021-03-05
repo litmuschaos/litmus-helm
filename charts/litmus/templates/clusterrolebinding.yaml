@@ -23,10 +23,8 @@ kind: ClusterRoleBinding
 metadata:
   name: {{ include "litmus.fullname" . }}-admin
   labels:
-    name: {{ include "litmus.name" . }}-admin
-    instance: {{ .Release.Name  }}
-    chart: {{ include "litmus.chart" . }}
-    litmuschaos.io/version: {{ .Chart.AppVersion }}
+    app: {{ template "litmus.name" . }}
+    {{- include "litmus.labels" . | indent 4 }}
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
