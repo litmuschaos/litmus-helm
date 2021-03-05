@@ -49,7 +49,7 @@ litmuschaos.io/version: {{ .Chart.AppVersion }}
 {{/*
 Specify default selectors
 */}}
-{{- define "litmus.selectors" -}}
+{{- define "litmus.selectors" }}
 app.kubernetes.io/name: {{ template "litmus.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
-{{- end -}}
+{{- end }}
