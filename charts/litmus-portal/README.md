@@ -26,6 +26,7 @@ A Helm chart to install litmus portal
 | adminConfig.DB_PORT | string | `"27017"` |  |
 | adminConfig.DB_SERVER | string | `""` | leave empty if uses Mongo DB deployed by this chart |
 | adminConfig.JWTSecret | string | `"litmus-portal@123"` |  |
+| customLabels | object | `{}` |  |
 | imagePullSecrets | list | `[]` |  |
 | mongo.containerPort | int | `27017` |  |
 | mongo.image.pullPolicy | string | `"Always"` |  |

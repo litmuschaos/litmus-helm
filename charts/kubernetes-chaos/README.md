@@ -8,6 +8,7 @@ Current app version is `1.13.0`
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
+| customLabels | object | `{}` |  |
 | fullnameOverride | string | `"k8s"` |  |
 | image.litmus.pullPolicy | string | `"Always"` |  |
 | image.litmus.repository | string | `"litmuschaos/ansible-runner"` |  |

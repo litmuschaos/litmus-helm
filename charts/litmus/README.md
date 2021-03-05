@@ -43,6 +43,7 @@ The following table lists the configurable parameters of the Litmus chart and th
 |-----|------|---------|-------------|
 | operatorMode | string | `standard` | Operational mode of the chaos operator. Supports: `standard`, `namespaced`, `admin` |
 | affinity | object | `{}` | Affinity for operator |
+| customLabels | object | `{}` |  |
 | exporter.affinity | object | `{}` | Affinity for exporter |
 | exporter.enabled | bool | `false` | If metrics exporter enabled  |
 | exporter.image.pullPolicy | string | `"Always"` | Image pill policy for exporter |
