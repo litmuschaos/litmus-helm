@@ -4,6 +4,8 @@
 
 portalScope: cluster
 
+customLabels: {}
+
 adminConfig:
   DBUSER: "admin"
   DBPASSWORD: "1234"
