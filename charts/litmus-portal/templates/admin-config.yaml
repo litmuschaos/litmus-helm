@@ -5,6 +5,7 @@ metadata:
   namespace:  {{ .Release.Namespace }}
   labels:
     {{- include "litmus-portal.labels" . | nindent 4 }}
+    app.kubernetes.io/part-of: {{ include "litmus-portal.fullname" . }}-admin-config
 data:
   AgentScope: "{{ .Values.portalScope }}"
   AgentNamespace: "{{ .Release.Namespace }}"

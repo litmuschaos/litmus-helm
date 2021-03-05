@@ -3,6 +3,9 @@ kind: Service
 metadata:
   name: litmusportal-server-service
   namespace:  {{ .Release.Namespace }}
+  labels:
+    {{- include "litmus-portal.labels" . | nindent 4 }}
+    app.kubernetes.io/part-of: {{ include "litmus-portal.fullname" . }}
 spec:
   type: {{ .Values.portal.server.service.type }}
   ports:
