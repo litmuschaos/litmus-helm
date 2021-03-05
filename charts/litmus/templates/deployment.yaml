@@ -10,7 +10,7 @@ spec:
   selector:
     matchLabels:
       app: {{ template "litmus.name" . }}
-      {{- include "litmus.labels" . | indent 6 }}
+      {{- include "litmus.selectors" . | indent 6 }}
   template:
     metadata:
       labels:
