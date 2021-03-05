@@ -33,11 +33,11 @@ Create chart name and version as used by the chart label.
 
 {{/* Generate basic labels */}}
 {{- define "litmus.labels" }}
-app.kubernetes.io/name: {{ template "litmus.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 app.kubernetes.io/managed-by: {{ .Release.Service }}
-app.kubernetes.io/version: "{{ .Chart.Version }}"
+app.kubernetes.io/name: {{ template "litmus.name" . }}
 app.kubernetes.io/part-of: {{ template "litmus.name" . }} 
+app.kubernetes.io/version: "{{ .Chart.Version }}"
 helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version }} 
 litmuschaos.io/version: {{ .Chart.AppVersion }}
 {{- if .Values.customLabels }}
