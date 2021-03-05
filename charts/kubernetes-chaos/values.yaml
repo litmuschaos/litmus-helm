@@ -5,6 +5,8 @@
 nameOverride: "k8s"
 fullnameOverride: "k8s"
 
+customLabels: {}
+
 image:
   litmus:
     repository: litmuschaos/ansible-runner
