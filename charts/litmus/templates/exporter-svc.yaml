@@ -4,10 +4,8 @@ kind: Service
 metadata:
   name: {{ include "litmus.name" . }}-monitor
   labels:
-    name: {{ include "litmus.name" . }}-monitor
-    chart: {{ include "litmus.chart" . }}
-    instance: {{ .Release.Name }}
-    litmuschaos.io/version: {{ .Chart.AppVersion }} 
+    app: {{ template "litmus.name" . }}
+    {{- include "litmus.labels" . | indent 4 }}
 {{- if .Values.exporter.service.annotations }}
   annotations:
     {{- toYaml .Values.exporter.service.annotations | nindent 4 }}

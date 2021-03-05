@@ -5,10 +5,8 @@ kind: RoleBinding
 metadata:
   name: {{ include "litmus.fullname" . }}
   labels:
-    name: {{ include "litmus.name" . }}
-    instance: {{ .Release.Name  }}
-    chart: {{ include "litmus.chart" . }}
-    litmuschaos.io/version: {{ .Chart.AppVersion }}
+    app: {{ template "litmus.name" . }}
+    {{- include "litmus.labels" . | indent 4 }}
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
