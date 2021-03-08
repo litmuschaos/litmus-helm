@@ -33,7 +33,7 @@ litmuschaos     https://litmuschaos.github.io/litmus-helm/
 ```bash
 root@demo:~# helm search repo litmuschaos
 NAME                    CHART VERSION   APP VERSION     DESCRIPTION
-litmuschaos/litmus      1.9.0           1.9.0           A Helm chart to install litmus infra components...
+litmuschaos/litmus      1.13.0           1.13.0           A Helm chart to install litmus infra components...
 ```
 
 #### Step-2: Create the litmus namespace
