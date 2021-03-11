@@ -1,11 +1,11 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: { { include "litmus-portal.fullname" . } }-mongo
-  namespace: { { .Release.Namespace } }
+  name: {{ include "litmus-portal.fullname" . }}-mongo
+  namespace: {{ .Release.Namespace }}
   labels:
-    { { - include "litmus-portal.labels" . | nindent 4 } }
-    app.kubernetes.io/part-of: { { include "litmus-portal.fullname" . } }-mongo
+    {{- include "litmus-portal.labels" . | nindent 4 }}
+    app.kubernetes.io/part-of: {{ include "litmus-portal.fullname" . }}-mongo
 spec:
   selector:
     matchLabels:
@@ -16,19 +16,19 @@ spec:
   template:
     metadata:
       labels:
-        {{- include "litmus-portal.selectors" . | nindent 6 }}
+        {{- include "litmus-portal.labels" . | nindent 8 }}
         app.kubernetes.io/part-of: {{ include "litmus-portal.fullname" . }}-mongo
     spec:
       {{- if .Values.imagePullSecrets }}
       imagePullSecrets:
         {{ toYaml .Values.imagePullSecrets | indent 8 }}
-      { { - end } }
+      {{- end }}
       containers:
         - name: mongo
           image: {{ .Values.mongo.image.repository }}:{{ .Values.mongo.image.tag }}
           ports:
-            - containerPort: { { .Values.mongo.containerPort } }
-              name: http
+              - containerPort: {{ .Values.mongo.containerPort }}
+                name: http
           imagePullPolicy: {{ .Values.mongo.image.pullPolicy }}
           volumeMounts:
             - name: mongo-persistent-storage
@@ -48,11 +48,11 @@ spec:
     - metadata:
         name: mongo-persistent-storage
       spec:
-        { { - if $persistence.storageClass } }
-        storageClassName: { { $persistence.storageClass } }
-        { { - end } }
+        {{- if .Values.mongo.persistence.storageClass }}
+        storageClassName: {{ .Values.mongo.persistence.storageClass }}
+        {{- end }}
         accessModes:
-          - {{ $persistence.accessMode }}
+          - {{ .Values.mongo.persistence.accessMode }}
         resources:
           requests:
-            storage: {{ $persistence.size }}
+            storage: {{ .Values.mongo.persistence.size }}
