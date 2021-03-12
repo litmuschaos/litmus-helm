@@ -18,11 +18,11 @@ spec:
         {{- include "litmus-portal.labels" . | nindent 8 }}
         app.kubernetes.io/part-of: {{ include "litmus-portal.fullname" . }}-frontend
     spec:
+      {{- if .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{ toYaml .Values.imagePullSecrets | indent 8 }}
+      {{- end }}
       containers:
-        {{- if .Values.imagePullSecrets }}
-        imagePullSecrets:
-          {{ toYaml .Values.imagePullSecrets | indent 8 }}
-        {{- end }}
         - name: litmusportal-frontend
           image: {{ .Values.portal.frontend.image.repository }}:{{ .Values.portal.frontend.image.tag }}
           imagePullPolicy: {{ .Values.portal.frontend.image.pullPolicy }}
