@@ -3,9 +3,6 @@ kind: Service
 metadata:
   name: litmusportal-frontend-service
   namespace:  {{ .Release.Namespace }}
-  labels:
-    {{- include "litmus-portal.labels" . | nindent 4 }}
-    app.kubernetes.io/part-of: {{ include "litmus-portal.fullname" . }}-frontend
 spec:
   {{- if eq .Values.portal.frontend.ingress.enabled false }}
   type: NodePort
@@ -17,5 +14,4 @@ spec:
       port: {{ .Values.portal.frontend.service.port }}
       targetPort: {{ .Values.portal.frontend.service.targetPort }}
   selector:
-    {{- include "litmus-portal.selectors" . | nindent 4 }}
-    app.kubernetes.io/part-of: {{ include "litmus-portal.fullname" . }}-frontend
+    component: litmusportal-frontend

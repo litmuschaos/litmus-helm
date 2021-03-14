@@ -62,6 +62,7 @@ portal:
       containerPort: 8080
       env:
         SUBSCRIBER_IMAGE: "litmuschaos/litmusportal-subscriber:1.13.0"
+        EVENT_TRACKER_IMAGE: "litmuschaos/litmusportal-event-tracker:1.13.0"
         ARGO_SERVER_IMAGE: "argoproj/argocli:v2.9.3"
         ARGO_WORKFLOW_CONTROLLER_IMAGE: "argoproj/workflow-controller:v2.9.3"
         ARGO_WORKFLOW_EXECUTOR_IMAGE: "argoproj/argoexec:v2.9.3"
@@ -132,3 +133,4 @@ mongo:
   service:
     type: ClusterIP
     port: 27017
+    targetPort: 27017

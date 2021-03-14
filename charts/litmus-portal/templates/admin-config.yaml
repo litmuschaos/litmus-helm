@@ -3,8 +3,6 @@ kind: ConfigMap
 metadata:
   name: {{ include "litmus-portal.fullname" . }}-admin-config
   namespace:  {{ .Release.Namespace }}
-  labels:
-    {{- include "litmus-portal.labels" . | nindent 4 }}
 data:
   AgentScope: "{{ .Values.portalScope }}"
   AgentNamespace: "{{ .Release.Namespace }}"

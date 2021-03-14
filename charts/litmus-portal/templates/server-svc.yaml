@@ -16,7 +16,5 @@ spec:
     - name: auth-server
       port: {{ .Values.portal.server.service.authServer.port }}
       targetPort: {{ .Values.portal.server.service.authServer.targetPort }}
-
   selector:
-    {{- include "litmus-portal.selectors" . | nindent 4 }}
-    app.kubernetes.io/part-of: {{ include "litmus-portal.fullname" . }}-server
+    component: litmusportal-server
