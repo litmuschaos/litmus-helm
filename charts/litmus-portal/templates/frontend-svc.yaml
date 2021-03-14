@@ -1,20 +1,21 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "litmus-portal.fullname" . }}-frontend
+  name: litmusportal-frontend-service
   namespace:  {{ .Release.Namespace }}
   labels:
     {{- include "litmus-portal.labels" . | nindent 4 }}
     app.kubernetes.io/part-of: {{ include "litmus-portal.fullname" . }}-frontend
 spec:
-  type: {{ .Values.portal.frontend.service.type }}
+  {{- if eq .Values.portal.frontend.ingress.enabled false }}
+  type: NodePort
+  {{- else }}
+  type: {{ .Values.portal.server.service.type }}
+  {{- end }}
   ports:
     - name: http
       port: {{ .Values.portal.frontend.service.port }}
-      targetPort: http
-      {{- if and (eq .Values.portal.frontend.service.type "NodePort") .Values.portal.frontend.service.nodePort }}
-      nodePort: {{ .Values.portal.frontend.service.nodePort }}
-      {{- end }}
+      targetPort: {{ .Values.portal.frontend.service.targetPort }}
   selector:
     {{- include "litmus-portal.selectors" . | nindent 4 }}
     app.kubernetes.io/part-of: {{ include "litmus-portal.fullname" . }}-frontend

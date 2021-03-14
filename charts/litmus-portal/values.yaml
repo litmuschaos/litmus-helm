@@ -38,7 +38,6 @@ portal:
       type: ClusterIP
       port: 9091
       targetPort: 8080
-      nodePort: ""
     ingress:
       enabled: false
       annotations: {}
@@ -103,9 +102,10 @@ portal:
       type: ClusterIP
       graphqlServer:
         port: 9002
+        targetPort: 8080
       authServer:
         port: 9003
-      nodePort: ""
+        targetPort: 3000
 
 mongo:
   replicas: 1
@@ -132,4 +132,3 @@ mongo:
   service:
     type: ClusterIP
     port: 27017
-    nodePort: ""
