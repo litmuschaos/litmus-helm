@@ -20,7 +20,7 @@ portal:
     replicas: 1
     image:
       repository: litmuschaos/litmusportal-frontend
-      tag: 1.13.0
+      tag: 2.0.0-Beta1
       pullPolicy: "Always"
     containerPort: 8080
     resources: {}
@@ -57,18 +57,18 @@ portal:
     graphqlServer:
       image:
         repository: litmuschaos/litmusportal-server
-        tag: 1.13.0
+        tag: 2.0.0-Beta1
         pullPolicy: "Always"
       containerPort: 8080
       env:
-        SUBSCRIBER_IMAGE: "litmuschaos/litmusportal-subscriber:1.13.0"
-        EVENT_TRACKER_IMAGE: "litmuschaos/litmusportal-event-tracker:1.13.0"
+        SUBSCRIBER_IMAGE: "litmuschaos/litmusportal-subscriber:2.0.0-Beta1"
+        EVENT_TRACKER_IMAGE: "litmuschaos/litmusportal-event-tracker:2.0.0-Beta1"
         ARGO_SERVER_IMAGE: "argoproj/argocli:v2.9.3"
         ARGO_WORKFLOW_CONTROLLER_IMAGE: "argoproj/workflow-controller:v2.9.3"
         ARGO_WORKFLOW_EXECUTOR_IMAGE: "argoproj/argoexec:v2.9.3"
-        LITMUS_CHAOS_OPERATOR_IMAGE: "litmuschaos/chaos-operator:1.13.0"
-        LITMUS_CHAOS_RUNNER_IMAGE: "litmuschaos/chaos-runner:1.13.0"
-        LITMUS_CHAOS_EXPORTER_IMAGE: "litmuschaos/chaos-exporter:1.13.0"
+        LITMUS_CHAOS_OPERATOR_IMAGE: "litmuschaos/chaos-operator:1.13.2"
+        LITMUS_CHAOS_RUNNER_IMAGE: "litmuschaos/chaos-runner:1.13.2"
+        LITMUS_CHAOS_EXPORTER_IMAGE: "litmuschaos/chaos-exporter:1.13.2"
       resources: {}
       # We usually recommend not to specify default resources and to leave this as a conscious
       # choice for the user. This also increases chances charts run on environments with little
@@ -83,7 +83,7 @@ portal:
     authServer:
       image:
         repository: litmuschaos/litmusportal-auth-server
-        tag: 1.13.0
+        tag: 2.0.0-Beta1
         pullPolicy: "Always"
       containerPort: 3000
       env:
