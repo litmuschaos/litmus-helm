@@ -4,19 +4,16 @@ metadata:
   name: {{ include "litmus-portal.fullname" . }}-server
   namespace: {{ .Release.Namespace }}
   labels:
-    {{- include "litmus-portal.labels" . | nindent 4 }}
-    app.kubernetes.io/part-of: {{ include "litmus-portal.fullname" . }}-server
+    component: litmusportal-server
 spec:
   replicas: {{ .Values.portal.server.replicas }}
   selector:
     matchLabels:
-      {{- include "litmus-portal.selectors" . | nindent 6 }}
-      app.kubernetes.io/part-of: {{ include "litmus-portal.fullname" . }}-server
+      component: litmusportal-server
   template:
     metadata:
       labels:
-        {{- include "litmus-portal.labels" . | nindent 8 }}
-        app.kubernetes.io/part-of: {{ include "litmus-portal.fullname" . }}-server
+        component: litmusportal-server
     spec:
       serviceAccountName: {{ .Values.portal.server.serviceAccountName }}
       {{- if .Values.imagePullSecrets }}
