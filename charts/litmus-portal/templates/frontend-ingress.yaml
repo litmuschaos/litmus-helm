@@ -28,13 +28,17 @@ spec:
   {{- end }}
   rules:
     {{- range .Values.portal.frontend.ingress.hosts }}
+    {{- if .host }}
     - host: {{ .host | quote }}
       http:
+    {{- else }}
+    - http: 
+    {{- end }}
         paths:
           {{- range .paths }}
           - path: {{ . }}
             backend:
-              serviceName: {{ $fullName }}-frontend
+              serviceName: litmusportal-frontend-service
               servicePort: {{ $svcPort }}
           {{- end }}
     {{- end }}
