@@ -34,7 +34,7 @@ spec:
           {{- range .paths }}
           - path: {{ . }}
             backend:
-              serviceName: {{ $fullName }}-frontend
+              serviceName: litmusportal-frontend-service
               servicePort: {{ $svcPort }}
           {{- end }}
     {{- end }}
