@@ -40,19 +40,18 @@ portal:
       type: ClusterIP
       port: 9091
       targetPort: 8080
-      nodePort: ""
     ingress:
       enabled: false
       annotations: {}
         # kubernetes.io/ingress.class: nginx
         # kubernetes.io/tls-acme: "true"
-      hosts:
-        - host: chart-example.local
-          paths: []
+      hosts: []
+        # - paths: ["/"] 
+        #   host: ""
+          
       tls: []
       #  - secretName: chart-example-tls
-      #    hosts:
-      #      - chart-example.local
+      #    hosts: []
 
   server:
     replicas: 1
@@ -65,11 +64,13 @@ portal:
       containerPort: 8080
       env:
         SUBSCRIBER_IMAGE: "litmuschaos/litmusportal-subscriber:1.13.0"
+        EVENT_TRACKER_IMAGE: "litmuschaos/litmusportal-event-tracker:1.13.0"
         ARGO_SERVER_IMAGE: "argoproj/argocli:v2.9.3"
         ARGO_WORKFLOW_CONTROLLER_IMAGE: "argoproj/workflow-controller:v2.9.3"
         ARGO_WORKFLOW_EXECUTOR_IMAGE: "argoproj/argoexec:v2.9.3"
         LITMUS_CHAOS_OPERATOR_IMAGE: "litmuschaos/chaos-operator:1.13.0"
         LITMUS_CHAOS_RUNNER_IMAGE: "litmuschaos/chaos-runner:1.13.0"
+        LITMUS_CHAOS_EXPORTER_IMAGE: "litmuschaos/chaos-exporter:1.13.0"
       resources: {}
       # We usually recommend not to specify default resources and to leave this as a conscious
       # choice for the user. This also increases chances charts run on environments with little
@@ -105,9 +106,10 @@ portal:
       type: ClusterIP
       graphqlServer:
         port: 9002
+        targetPort: 8080
       authServer:
         port: 9003
-      nodePort: ""
+        targetPort: 3000
 
 mongo:
   replicas: 1
@@ -134,4 +136,4 @@ mongo:
   service:
     type: ClusterIP
     port: 27017
-    nodePort: ""
+    targetPort: 27017

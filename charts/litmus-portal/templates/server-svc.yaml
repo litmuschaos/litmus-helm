@@ -7,18 +7,17 @@ metadata:
     {{- include "litmus-portal.labels" . | nindent 4 }}
     app.kubernetes.io/part-of: {{ include "litmus-portal.fullname" . }}
 spec:
+  {{- if eq .Values.portal.frontend.ingress.enabled false }}
+  type: NodePort
+  {{- else }}
   type: {{ .Values.portal.server.service.type }}
+  {{- end }}
   ports:
     - name: graphql-server
       port: {{ .Values.portal.server.service.graphqlServer.port }}
-      targetPort: graphql-server
-      {{- if and (eq .Values.portal.frontend.service.type "NodePort") .Values.portal.frontend.service.nodePort }}
-      nodePort: {{ .Values.portal.frontend.service.nodePort }}
-      {{- end }}
+      targetPort: {{ .Values.portal.server.service.graphqlServer.targetPort }}
     - name: auth-server
       port: {{ .Values.portal.server.service.authServer.port }}
-      targetPort: auth-server
-
+      targetPort: {{ .Values.portal.server.service.authServer.targetPort }}
   selector:
-    {{- include "litmus-portal.selectors" . | nindent 4 }}
-    app.kubernetes.io/part-of: {{ include "litmus-portal.fullname" . }}-server
+    component: litmusportal-server

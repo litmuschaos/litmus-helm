@@ -4,17 +4,11 @@ metadata:
   name: {{ include "litmus-portal.fullname" . }}-mongo
   namespace:  {{ .Release.Namespace }}
   labels:
-    {{- include "litmus-portal.labels" . | nindent 4 }}
-    app.kubernetes.io/part-of: {{ include "litmus-portal.fullname" . }}-mongo
+    app: mongo
 spec:
   type: {{ .Values.mongo.service.type }}
   ports:
-    - name: http
-      port: {{ .Values.mongo.service.port }}
-      targetPort: http
-      {{- if and (eq .Values.mongo.service.type "NodePort") .Values.mongo.service.nodePort }}
-      nodePort: {{ .Values.mongo.service.nodePort }}
-      {{- end }}
+    - port: {{ .Values.mongo.service.port }}
+      targetPort: {{ .Values.mongo.service.targetPort }}
   selector:
-    {{- include "litmus-portal.selectors" . | nindent 4 }}
-    app.kubernetes.io/part-of: {{ include "litmus-portal.fullname" . }}-mongo
+    component: database

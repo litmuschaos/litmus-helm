@@ -10,7 +10,6 @@ kind: Ingress
 metadata:
   name: {{ $fullName }}-frontend
   labels:
-    {{- include "litmus-portal.labels" . | nindent 4 }}
     app.kubernetes.io/part-of: {{ include "litmus-portal.fullname" . }}-frontend
   {{- with .Values.portal.frontend.ingress.annotations }}
   annotations:
@@ -29,13 +28,17 @@ spec:
   {{- end }}
   rules:
     {{- range .Values.portal.frontend.ingress.hosts }}
+    {{- if .host }}
     - host: {{ .host | quote }}
       http:
+    {{- else }}
+    - http: 
+    {{- end }}
         paths:
           {{- range .paths }}
           - path: {{ . }}
             backend:
-              serviceName: {{ $fullName }}-frontend
+              serviceName: litmusportal-frontend-service
               servicePort: {{ $svcPort }}
           {{- end }}
     {{- end }}
