@@ -1,6 +1,6 @@
-# litmus-portal
+# litmus-2-0-0-beta
 
-![Version: 1.13.2](https://img.shields.io/badge/Version-1.13.2-informational?style=flat-square) ![AppVersion: 1.13.0](https://img.shields.io/badge/AppVersion-1.13.0-informational?style=flat-square)
+![Version: 2.0.1-beta1](https://img.shields.io/badge/Version-2.0.1--beta1-informational?style=flat-square) ![AppVersion: 2.0.0](https://img.shields.io/badge/AppVersion-2.0.0-informational?style=flat-square)
 
 A Helm chart to install litmus portal
 
@@ -35,8 +35,8 @@ A Helm chart to install litmus portal
 | mongo.persistence.size | string | `"20Gi"` |  |
 | mongo.replicas | int | `1` |  |
 | mongo.resources | object | `{}` |  |
-| mongo.service.nodePort | string | `""` |  |
 | mongo.service.port | int | `27017` |  |
+| mongo.service.targetPort | int | `27017` |  |
 | mongo.service.type | string | `"ClusterIP"` |  |
 | portal.frontend.containerPort | int | `8080` |  |
 | portal.frontend.image.pullPolicy | string | `"Always"` |  |
@@ -44,12 +44,10 @@ A Helm chart to install litmus portal
 | portal.frontend.image.tag | string | `"2.0.0-Beta1"` |  |
 | portal.frontend.ingress.annotations | object | `{}` |  |
 | portal.frontend.ingress.enabled | bool | `false` |  |
-| portal.frontend.ingress.hosts[0].host | string | `"chart-example.local"` |  |
-| portal.frontend.ingress.hosts[0].paths | list | `[]` |  |
+| portal.frontend.ingress.hosts | list | `[]` |  |
 | portal.frontend.ingress.tls | list | `[]` |  |
 | portal.frontend.replicas | int | `1` |  |
 | portal.frontend.resources | object | `{}` |  |
-| portal.frontend.service.nodePort | string | `""` |  |
 | portal.frontend.service.port | int | `9091` |  |
 | portal.frontend.service.targetPort | int | `8080` |  |
 | portal.frontend.service.type | string | `"ClusterIP"` |  |
@@ -64,19 +62,20 @@ A Helm chart to install litmus portal
 | portal.server.graphqlServer.env.ARGO_SERVER_IMAGE | string | `"argoproj/argocli:v2.9.3"` |  |
 | portal.server.graphqlServer.env.ARGO_WORKFLOW_CONTROLLER_IMAGE | string | `"argoproj/workflow-controller:v2.9.3"` |  |
 | portal.server.graphqlServer.env.ARGO_WORKFLOW_EXECUTOR_IMAGE | string | `"argoproj/argoexec:v2.9.3"` |  |
+| portal.server.graphqlServer.env.EVENT_TRACKER_IMAGE | string | `"litmuschaos/litmusportal-event-tracker:2.0.0-Beta1"` |  |
+| portal.server.graphqlServer.env.LITMUS_CHAOS_EXPORTER_IMAGE | string | `"litmuschaos/chaos-exporter:1.13.2"` |  |
 | portal.server.graphqlServer.env.LITMUS_CHAOS_OPERATOR_IMAGE | string | `"litmuschaos/chaos-operator:1.13.2"` |  |
 | portal.server.graphqlServer.env.LITMUS_CHAOS_RUNNER_IMAGE | string | `"litmuschaos/chaos-runner:1.13.2"` |  |
 | portal.server.graphqlServer.env.SUBSCRIBER_IMAGE | string | `"litmuschaos/litmusportal-subscriber:2.0.0-Beta1"` |  |
-| portal.server.graphqlServer.env.EVENT_TRACKER_IMAGE | string | `"litmuschaos/litmusportal-event-tracker:2.0.0-Beta1"` |  |
-| portal.server.graphqlServer.env.LITMUS_CHAOS_EXPORTER_IMAGE | string | `"litmuschaos/chaos-exporter:1.13.2"` |  |
 | portal.server.graphqlServer.image.pullPolicy | string | `"Always"` |  |
 | portal.server.graphqlServer.image.repository | string | `"litmuschaos/litmusportal-server"` |  |
 | portal.server.graphqlServer.image.tag | string | `"2.0.0-Beta1"` |  |
 | portal.server.graphqlServer.resources | object | `{}` |  |
 | portal.server.replicas | int | `1` |  |
 | portal.server.service.authServer.port | int | `9003` |  |
+| portal.server.service.authServer.targetPort | int | `3000` |  |
 | portal.server.service.graphqlServer.port | int | `9002` |  |
-| portal.server.service.nodePort | string | `""` |  |
+| portal.server.service.graphqlServer.targetPort | int | `8080` |  |
 | portal.server.service.type | string | `"ClusterIP"` |  |
 | portal.server.serviceAccountName | string | `"litmus-server-account"` |  |
 | portalScope | string | `"cluster"` |  |

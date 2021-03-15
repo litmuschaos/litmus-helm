@@ -1,75 +1,61 @@
-litmus
-======
-A Helm chart to install litmus infra components on Kubernetes.
+# litmus
 
-Current chart version is `1.13.2`
+![Version: 1.13.4](https://img.shields.io/badge/Version-1.13.4-informational?style=flat-square) ![AppVersion: 1.13.2](https://img.shields.io/badge/AppVersion-1.13.2-informational?style=flat-square)
 
-## Architecture introduction
+A Helm chart to install litmus infra components on Kubernetes
 
-![litmus architecture](https://camo.githubusercontent.com/44801ffbcabc79d86867ea259c0a3046bd124987/68747470733a2f2f646f63732e6c69746d75736368616f732e696f2f646f63732f6173736574732f6172636869746563747572652e706e67)
+**Homepage:** <https://litmuschaos.io>
 
-### Chaos-Operator
+## Maintainers
 
-Chaos-Operator watches for the ChaosEngine CRs across namespaces and executes the Chaos-Experiments mentioned in the CR. By default, it runs in litmus namespace. The Chaos-exporter is used to export chaos metrics about state of experiments listed in the ChaosEngine, to a Prometheus database.
+| Name | Email | Url |
+| ---- | ------ | --- |
+| ksatchit | karthik.s@mayadata.io |  |
+| chandankumar4 | chandan.kumar@mayadata.io |  |
 
-### Chaos-CRDs
+## Source Code
 
-During installation, the following three CRDs are installed on the Kubernetes cluster.
-```
-chaosengines.litmuschaos.io
-chaosexperiments.litmuschaos.io
-chaosresults.litmuschaos.io
-```
+* <https://github.com/litmuschaos/litmus>
 
-### Chaos-Experiments
-
-Chaos Experiment is a CR and are available as YAML files on Chaos Hub. For more details visit ChaosHub [documentation](https://docs.litmuschaos.io/docs/chaoshub/). To view and install chaos charts visit [chaos-charts](https://github.com/litmuschaos/chaos-charts) repository.
-
-### Chaos-Engine
-
-ChaosEngine CR links application to experiments. User has to create ChaosEngine YAML by specifying the application label and experiments and create the CR. The CR is watched by Chaos-Operator and chaos-experiments are executed on a given application.
-
-### Chaos-Exporter
-
-Optionally metrics can be exported to a Prometheus database. Chaos-Exporter implements the Prometheus `/metrics` endpoint in port: `8080`.
-
-Full documentation can be found [here](https://litmuschaos.io)
-
-## Chart Values
-
-The following table lists the configurable parameters of the Litmus chart and their default values.
+## Values
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| operatorMode | string | `standard` | Operational mode of the chaos operator. Supports: `standard`, `namespaced`, `admin` |
-| affinity | object | `{}` | Affinity for operator |
-| exporter.affinity | object | `{}` | Affinity for exporter |
-| exporter.enabled | bool | `false` | If metrics exporter enabled  |
-| exporter.image.pullPolicy | string | `"Always"` | Image pill policy for exporter |
-| exporter.image.repository | string | `"litmuschaos/chaos-exporter"` | Image repository for exporter |
-| exporter.image.tag | string | `"1.13.2"` | Image tag for exporter |
-| exporter.nodeSelector | object | `{}` | Node selector for exporter |
-| exporter.resources | object | `{}` | Resources requests and limits for exporter |
-| exporter.service.annotations | object | `{}` | Annotations for exporter service |
-| exporter.service.port | int | `8080` | Port for exporter service |
-| exporter.service.type | string | `"ClusterIP"` | Type of exporter's service |
-| exporter.serviceMonitor.additionalLabels | object | `{}` | Additional labels for exporter's serviceMonitor |
-| exporter.serviceMonitor.enabled | bool | `false` | If serviceMonitor enabled |
-| exporter.tolerations | list | `[]` | Tolerations for exporter |
-| fullnameOverride | string | `"litmus"` | Full name override |
-| operator.image.pullPolicy | string | `"Always"` | Image operator or runner pull policy |
-| \<operator\|runner\>.image.repository | string | `"litmuschaos/chaos-operator"` | Image operator or runner repository |
-| \<operator\|runner\>.image.tag | string | `"1.13.2"` | Image operator or runner tag |
-| ingress.annotations | object | `{}` | Ingress annotations |
-| ingress.enabled | bool | `false` | Ingress enabled |
-| nameOverride | string | `"litmus"` | Name override |
-| nodeSelector | object | `{}` | Node selector |
-| operatorName | string | `"chaos-operator"` | Operator name |
-| replicaCount | int | `1` | Replica count |
-| resources | object | `{}` | Resources requests and limits |
-| policies.monitoring.disabled | string | false | If google analytics disabled |
-| service.port | int | `80` | Service port |
-| service.type | string | `"ClusterIP"` | Service type |
-| tolerations | list | `[]` | Tolerations |
+| affinity | object | `{}` |  |
+| exporter.affinity | object | `{}` |  |
+| exporter.enabled | bool | `false` |  |
+| exporter.image.pullPolicy | string | `"Always"` |  |
+| exporter.image.repository | string | `"litmuschaos/chaos-exporter"` |  |
+| exporter.image.tag | string | `"1.13.2"` |  |
+| exporter.nodeSelector | object | `{}` |  |
+| exporter.resources | object | `{}` |  |
+| exporter.service.annotations | object | `{}` |  |
+| exporter.service.port | int | `8080` |  |
+| exporter.service.type | string | `"ClusterIP"` |  |
+| exporter.serviceMonitor.additionalLabels | object | `{}` |  |
+| exporter.serviceMonitor.enabled | bool | `false` |  |
+| exporter.tolerations | list | `[]` |  |
+| fullnameOverride | string | `"litmus"` |  |
+| ingress.annotations | object | `{}` |  |
+| ingress.enabled | bool | `false` |  |
+| ingress.hosts[0].host | string | `nil` |  |
+| ingress.hosts[0].paths | list | `[]` |  |
+| ingress.tls | list | `[]` |  |
+| nameOverride | string | `"litmus"` |  |
+| nodeSelector | object | `{}` |  |
+| operator.image.pullPolicy | string | `"Always"` |  |
+| operator.image.repository | string | `"litmuschaos/chaos-operator"` |  |
+| operator.image.tag | string | `"1.13.2"` |  |
+| operatorMode | string | `"standard"` |  |
+| operatorName | string | `"chaos-operator"` |  |
+| policies.monitoring.disabled | bool | `false` |  |
+| replicaCount | int | `1` |  |
+| resources | object | `{}` |  |
+| runner.image.repository | string | `"litmuschaos/chaos-runner"` |  |
+| runner.image.tag | string | `"1.13.2"` |  |
+| service.port | int | `80` |  |
+| service.type | string | `"ClusterIP"` |  |
+| tolerations | list | `[]` |  |
 
-[1]: https://github.com/litmuschaos/chaos-charts
+----------------------------------------------
+Autogenerated from chart metadata using [helm-docs v1.5.0](https://github.com/norwoodj/helm-docs/releases/v1.5.0)
