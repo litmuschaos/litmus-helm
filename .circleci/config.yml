@@ -36,28 +36,30 @@ jobs:
     steps:
       - checkout
       - run:
-          name: install kind
+          name: Install kind
           command: |
             curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.10.0/kind-linux-amd64
             chmod +x ./kind
             sudo mv kind /usr/local/bin/
       - run:
-          name: install helm
+          name: Install helm
           command: |
             curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash
-      - run:
-          name: create cluster
-          command: |
-            kind create cluster --image=kindest/node:v<< parameters.kubernetes_version >>
       - run:
           name: Install kubectl
           command: |
             curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+            chmod +x ./kubectl
+            sudo mv ./kubectl /usr/local/bin/kubectl
       - run:
-          name: test chart deploy
+          name: Create cluster
+          command: |
+            kind create cluster --image=kindest/node:v<< parameters.kubernetes_version >>
+      - run:
+          name: Test chart installation
           command: |
             helm upgrade --install "<< parameters.chart >>" ./charts/"<< parameters.chart >>" -n chaos --wait --create-namespace=true
-            kubectl wait --for=condition=Ready pod --all -n chaos --timeout=300s
+            if [ "<< parameters.chart >>" != "kubernetes-chaos" ]; then kubectl wait --for=condition=Ready pod --all -n chaos --timeout=300s; fi
 workflows:
   version: 2.1
   lint:
