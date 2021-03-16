@@ -57,6 +57,7 @@ jobs:
           name: test chart deploy
           command: |
             helm upgrade --install "<< parameters.chart >>" ./charts/"<< parameters.chart >>" -n chaos --wait --create-namespace=true
+            kubectl wait --for=condition=Ready pod --all -n chaos --timeout=300s
 workflows:
   version: 2.1
   lint:
