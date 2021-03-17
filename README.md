@@ -10,6 +10,7 @@ Helm Charts for the Litmus Chaos Operator &amp; CRDs
 ### PreRequisites
 
 - Install [helm3](https://helm.sh/docs/intro/install/)
+- Kubernetes >= 1.16
 
 **Note**: Litmus uses Kubernetes custom resource definitions (CRDs) to define chaos intent. Helm3 handles CRDs [better](https://helm.sh/docs/chart_best_practices/custom_resource_definitions/#helm) than helm2!!
 
