@@ -1,0 +1,21 @@
+{{ template "chart.header" . }}
+{{ template "chart.description" . }}
+
+{{ template "chart.versionBadge" . }}{{ template "chart.typeBadge" . }}{{ template "chart.appVersionBadge" . }}
+
+## Installing the Chart
+
+To install the chart with the release name `litmus-portal`:
+
+```console
+$ helm repo add litmuschaos https://litmuschaos.github.io/litmus-helm/
+$ helm install litmus-portal litmuschaos/litmus-2-0-0-beta
+```
+
+***Note***: This chart is in its beta release. To find it using `helm search` add `--devel` option.
+
+{{ template "chart.requirementsSection" . }}
+
+{{ template "chart.valuesSection" . }}
+
+{{ template "helm-docs.versionFooter" . }}

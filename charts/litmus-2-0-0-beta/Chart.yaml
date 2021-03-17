@@ -3,6 +3,7 @@ appVersion: "2.0.0"
 description: A Helm chart to install litmus portal
 name: litmus-2-0-0-beta
 version: 2.0.2-Beta1
+kubeVersion: ">=1.16"
 home: https://litmuschaos.io
 sources:
   - https://github.com/litmuschaos/litmus
