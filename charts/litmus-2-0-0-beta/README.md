@@ -1,12 +1,30 @@
 # litmus-2-0-0-beta
 
+![Version: 2.0.3-Beta1](https://img.shields.io/badge/Version-2.0.3--Beta1-informational?style=flat-square) ![AppVersion: 2.0.0](https://img.shields.io/badge/AppVersion-2.0.0-informational?style=flat-square)
+
 A Helm chart to install litmus portal
 
-![Version: 2.0.2-Beta1](https://img.shields.io/badge/Version-2.0.2--Beta1-informational?style=flat-square) ![AppVersion: 2.0.0](https://img.shields.io/badge/AppVersion-2.0.0-informational?style=flat-square)
+**Homepage:** <https://litmuschaos.io>
+
+## Maintainers
+
+| Name | Email | Url |
+| ---- | ------ | --- |
+| rajdas98 | raj.das@mayadata.io |  |
+| ispeakc0de | shubham.chaudhary@mayadata.io |  |
+| jasstkn | jasssstkn@yahoo.com |  |
+
+## Source Code
+
+* <https://github.com/litmuschaos/litmus>
+
+## Requirements
+
+Kubernetes: `>=1.16`
 
 ## Installing the Chart
 
-To install the chart with the release name `litmus-portal`:
+To install this chart with the release name `litmus-portal`:
 
 ```console
 $ helm repo add litmuschaos https://litmuschaos.github.io/litmus-helm/
@@ -14,10 +32,6 @@ $ helm install litmus-portal litmuschaos/litmus-2-0-0-beta
 ```
 
 ***Note***: This chart is in its beta release. To find it using `helm search` add `--devel` option.
-
-## Requirements
-
-Kubernetes: `>=1.16`
 
 ## Values
 
