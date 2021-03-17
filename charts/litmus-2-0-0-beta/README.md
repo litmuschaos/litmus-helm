@@ -1,6 +1,6 @@
 # litmus-2-0-0-beta
 
-![Version: 2.0.1-Beta1](https://img.shields.io/badge/Version-2.0.1--Beta1-informational?style=flat-square) ![AppVersion: 2.0.0](https://img.shields.io/badge/AppVersion-2.0.0-informational?style=flat-square)
+![Version: 2.0.2-Beta1](https://img.shields.io/badge/Version-2.0.2--Beta1-informational?style=flat-square) ![AppVersion: 2.0.0](https://img.shields.io/badge/AppVersion-2.0.0-informational?style=flat-square)
 
 A Helm chart to install litmus portal
 
@@ -12,6 +12,7 @@ A Helm chart to install litmus portal
 | ---- | ------ | --- |
 | rajdas98 | raj.das@mayadata.io |  |
 | ispeakc0de | shubham.chaudhary@mayadata.io |  |
+| jasstkn | jasssstkn@yahoo.com |  |
 
 ## Source Code
 
