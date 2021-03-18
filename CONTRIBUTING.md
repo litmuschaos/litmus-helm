@@ -26,8 +26,9 @@ See `git help commit`:
 ## How to Contribute
 
 1. Fork this repository, develop, and test your changes
-1. Remember to sign off your commits as described above
-1. Submit a pull request
+2. Remember to sign off your commits as described above
+3. Use [helm-docs](https://github.com/norwoodj/helm-docs) to automatically update documentation regarding your changes.
+4. Submit a pull request
 
 ***NOTE***: In order to make testing and merging of PRs easier, please submit changes to multiple charts in separate PRs.
 
