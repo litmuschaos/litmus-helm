@@ -1,6 +1,6 @@
 # litmus-2-0-0-beta
 
-![Version: 2.0.3-Beta1](https://img.shields.io/badge/Version-2.0.3--Beta1-informational?style=flat-square) ![AppVersion: 2.0.0](https://img.shields.io/badge/AppVersion-2.0.0-informational?style=flat-square)
+![Version: 2.0.4-Beta1](https://img.shields.io/badge/Version-2.0.4--Beta1-informational?style=flat-square) ![AppVersion: 2.0.0](https://img.shields.io/badge/AppVersion-2.0.0-informational?style=flat-square)
 
 A Helm chart to install litmus portal
 
@@ -66,7 +66,7 @@ $ helm install litmus-portal litmuschaos/litmus-2-0-0-beta
 | portal.frontend.resources | object | `{}` |  |
 | portal.frontend.service.port | int | `9091` |  |
 | portal.frontend.service.targetPort | int | `8080` |  |
-| portal.frontend.service.type | string | `"ClusterIP"` |  |
+| portal.frontend.service.type | string | `"NodePort"` |  |
 | portal.server.authServer.containerPort | int | `3000` |  |
 | portal.server.authServer.env.ADMIN_PASSWORD | string | `"litmus"` |  |
 | portal.server.authServer.env.ADMIN_USERNAME | string | `"admin"` |  |
@@ -92,7 +92,7 @@ $ helm install litmus-portal litmuschaos/litmus-2-0-0-beta
 | portal.server.service.authServer.targetPort | int | `3000` |  |
 | portal.server.service.graphqlServer.port | int | `9002` |  |
 | portal.server.service.graphqlServer.targetPort | int | `8080` |  |
-| portal.server.service.type | string | `"ClusterIP"` |  |
+| portal.server.service.type | string | `"NodePort"` |  |
 | portal.server.serviceAccountName | string | `"litmus-server-account"` |  |
 | portalScope | string | `"cluster"` |  |
 
