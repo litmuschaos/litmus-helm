@@ -35,7 +35,7 @@ portal:
     #   cpu: 200m
     #   memory: 400Mi
     service:
-      type: ClusterIP
+      type: NodePort
       port: 9091
       targetPort: 8080
     ingress:
@@ -101,7 +101,7 @@ portal:
       #   cpu: 200m
       #   memory: 250Mi
     service:
-      type: ClusterIP
+      type: NodePort
       graphqlServer:
         port: 9002
         targetPort: 8080
