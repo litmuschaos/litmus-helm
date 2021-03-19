@@ -4,7 +4,11 @@ metadata:
   name: litmusportal-frontend-service
   namespace:  {{ .Release.Namespace }}
 spec:
-  type: {{ .Values.portal.server.service.type }}
+  {{- if eq .Values.portal.frontend.ingress.enabled false }}
+  type: NodePort
+  {{- else }}
+  type: {{ .Values.portal.frontend.service.type }}
+  {{- end }}
   ports:
     - name: http
       port: {{ .Values.portal.frontend.service.port }}
