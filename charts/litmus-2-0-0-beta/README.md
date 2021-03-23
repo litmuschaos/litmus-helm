@@ -83,6 +83,7 @@ $ helm install litmus-portal litmuschaos/litmus-2-0-0-beta
 | portal.server.graphqlServer.env.LITMUS_CHAOS_OPERATOR_IMAGE | string | `"litmuschaos/chaos-operator:1.13.2"` |  |
 | portal.server.graphqlServer.env.LITMUS_CHAOS_RUNNER_IMAGE | string | `"litmuschaos/chaos-runner:1.13.2"` |  |
 | portal.server.graphqlServer.env.SUBSCRIBER_IMAGE | string | `"litmuschaos/litmusportal-subscriber:2.0.0-Beta1"` |  |
+| portal.server.graphqlServer.env.SELF_CLUSTER | string | `"true"` |  |
 | portal.server.graphqlServer.image.pullPolicy | string | `"Always"` |  |
 | portal.server.graphqlServer.image.repository | string | `"litmuschaos/litmusportal-server"` |  |
 | portal.server.graphqlServer.image.tag | string | `"2.0.0-Beta1"` |  |
