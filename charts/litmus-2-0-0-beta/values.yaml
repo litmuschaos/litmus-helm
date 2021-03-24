@@ -69,6 +69,7 @@ portal:
         LITMUS_CHAOS_OPERATOR_IMAGE: "litmuschaos/chaos-operator:1.13.2"
         LITMUS_CHAOS_RUNNER_IMAGE: "litmuschaos/chaos-runner:1.13.2"
         LITMUS_CHAOS_EXPORTER_IMAGE: "litmuschaos/chaos-exporter:1.13.2"
+        SELF_CLUSTER: "true"
       resources: {}
       # We usually recommend not to specify default resources and to leave this as a conscious
       # choice for the user. This also increases chances charts run on environments with little

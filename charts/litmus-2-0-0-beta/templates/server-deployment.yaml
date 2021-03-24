@@ -46,8 +46,6 @@ spec:
                   fieldPath: metadata.namespace
             - name: PORTAL_SCOPE
               value: {{ .Values.portalScope }}
-            - name: SELF_CLUSTER
-              value: "true"
             - name: AGENT_SCOPE
               valueFrom:
                 configMapKeyRef:

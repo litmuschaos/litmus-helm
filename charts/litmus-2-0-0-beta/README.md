@@ -1,6 +1,6 @@
 # litmus-2-0-0-beta
 
-![Version: 2.0.4-Beta1](https://img.shields.io/badge/Version-2.0.4--Beta1-informational?style=flat-square) ![AppVersion: 2.0.0](https://img.shields.io/badge/AppVersion-2.0.0-informational?style=flat-square)
+![Version: 2.0.5-Beta1](https://img.shields.io/badge/Version-2.0.5--Beta1-informational?style=flat-square) ![AppVersion: 2.0.0](https://img.shields.io/badge/AppVersion-2.0.0-informational?style=flat-square)
 
 A Helm chart to install litmus portal
 
@@ -82,6 +82,7 @@ $ helm install litmus-portal litmuschaos/litmus-2-0-0-beta
 | portal.server.graphqlServer.env.LITMUS_CHAOS_EXPORTER_IMAGE | string | `"litmuschaos/chaos-exporter:1.13.2"` |  |
 | portal.server.graphqlServer.env.LITMUS_CHAOS_OPERATOR_IMAGE | string | `"litmuschaos/chaos-operator:1.13.2"` |  |
 | portal.server.graphqlServer.env.LITMUS_CHAOS_RUNNER_IMAGE | string | `"litmuschaos/chaos-runner:1.13.2"` |  |
+| portal.server.graphqlServer.env.SELF_CLUSTER | string | `"true"` |  |
 | portal.server.graphqlServer.env.SUBSCRIBER_IMAGE | string | `"litmuschaos/litmusportal-subscriber:2.0.0-Beta1"` |  |
 | portal.server.graphqlServer.image.pullPolicy | string | `"Always"` |  |
 | portal.server.graphqlServer.image.repository | string | `"litmuschaos/litmusportal-server"` |  |
