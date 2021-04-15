@@ -13,7 +13,7 @@ metadata:
     litmuschaos.io/version: {{ .Chart.AppVersion }}
 spec:
   definition:
-    scope: Cluster
+    scope: Namespaced
     permissions:
       - apiGroups:
           - ""

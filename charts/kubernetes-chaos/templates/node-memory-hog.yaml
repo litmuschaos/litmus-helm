@@ -65,6 +65,9 @@ spec:
     - name: MEMORY_CONSUMPTION_MEBIBYTES
       value: ''   
 
+    - name: NUMBER_OF_WORKERS
+      value: '1'
+
      ## enter the comma separated target nodes name
     - name: TARGET_NODES
       value: '' 
