@@ -1,4 +1,4 @@
-{{- if .Values.portal.frontend.ingress.enabled -}}
+{{- if .Values.ingress.enabled -}}
 {{ $fullName := include "litmus-portal.fullname" . }}
 {{- $svcPort := .Values.portal.frontend.service.port -}}
 {{- if semverCompare ">=1.14-0" .Capabilities.KubeVersion.GitVersion -}}
@@ -11,14 +11,14 @@ metadata:
   name: {{ $fullName }}-frontend
   labels:
     app.kubernetes.io/part-of: {{ include "litmus-portal.fullname" . }}-frontend
-  {{- with .Values.portal.frontend.ingress.annotations }}
+  {{- with .Values.ingress.annotations }}
   annotations:
     {{- toYaml . | nindent 4 }}
   {{- end }}
 spec:
-  {{- if .Values.portal.frontend.ingress.tls }}
+  {{- if .Values.ingress.tls }}
   tls:
-    {{- range .Values.portal.frontend.ingress.tls }}
+    {{- range.Values.tls }}
     - hosts:
         {{- range .hosts }}
         - {{ . | quote }}
@@ -27,19 +27,21 @@ spec:
     {{- end }}
   {{- end }}
   rules:
-    {{- range .Values.portal.frontend.ingress.hosts }}
-    {{- if .host }}
+    {{- if .Values.ingress.host }}
     - host: {{ .host | quote }}
       http:
     {{- else }}
     - http: 
     {{- end }}
         paths:
-          {{- range .paths }}
-          - path: {{ . }}
-            backend:
+          - backend:
               serviceName: litmusportal-frontend-service
-              servicePort: {{ $svcPort }}
-          {{- end }}
-    {{- end }}
+              servicePort: 9091
+            path: /(.*)
+            pathType: ImplementationSpecific
+          - backend:
+              serviceName: litmusportal-server-service
+              servicePort: 9002
+            path: /backend/(.*)
+            pathType: ImplementationSpecific
   {{- end }}
