@@ -4,7 +4,11 @@ metadata:
   name: litmusportal-server-service
   namespace:  {{ .Release.Namespace }}
 spec:
+  {{- if .Values.ingress.enabled }}
+  type: ClusterIP
+  {{- else }}
   type: {{ .Values.portal.server.service.type }}
+  {{- end }}
   ports:
     - name: graphql-server
       port: {{ .Values.portal.server.service.graphqlServer.port }}
