@@ -35,7 +35,7 @@ spec:
   {{- else }}
   - http: 
   {{- end }}
-    {{- if semverCompare ">=1.19-0" .Capabilities.KubeVersion.GitVersion -}}
+    {{- if semverCompare ">=1.19-0" .Capabilities.KubeVersion.GitVersion }}
       paths:
       - path: /(.*)
         backend:
