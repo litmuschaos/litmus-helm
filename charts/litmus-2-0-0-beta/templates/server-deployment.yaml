@@ -79,9 +79,9 @@ spec:
               value: {{ $val | quote }}
             {{- end }}
             - name: INGRESS
-              value: {{ .Values.ingress.enabled }}
+              value: "{{ .Values.ingress.enabled }}"
             - name: INGRESS_NAME
-              value: {{ .Values.ingress.name }}
+              value: "{{ .Values.ingress.name }}"
         - name: auth-server
           image: {{ .Values.portal.server.authServer.image.repository }}:{{ .Values.portal.server.authServer.image.tag }}
           imagePullPolicy: {{ .Values.portal.server.authServer.image.pullPolicy }}

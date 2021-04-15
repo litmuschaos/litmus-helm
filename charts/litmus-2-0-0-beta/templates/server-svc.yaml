@@ -4,7 +4,7 @@ metadata:
   name: litmusportal-server-service
   namespace:  {{ .Release.Namespace }}
 spec:
-  {{- if .Values.ingress.enable }}
+  {{- if .Values.ingress.enabled }}
   type: ClusterIP
   {{- else }}
   type: {{ .Values.portal.server.service.type }}
