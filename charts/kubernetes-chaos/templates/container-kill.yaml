@@ -73,7 +73,7 @@ spec:
       value: '20'
 
     # provide the name of container runtime
-    # for litmus LIB, it supports docker, containerd, crio
+    # for litmus LIB, it supports docker, containerd, and crio
     # for pumba LIB, it supports docker only
     - name: CONTAINER_RUNTIME
       value: "{{ .Values.environment.runtime }}"

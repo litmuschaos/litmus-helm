@@ -70,10 +70,18 @@ spec:
                 configMapKeyRef:
                   name: {{ include "litmus-portal.fullname" . }}-admin-config
                   key: DB_PASSWORD
+            - name: NODE_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: spec.nodeName
             {{- range $key, $val := .Values.portal.server.graphqlServer.env }}
             - name: {{ $key }}
               value: {{ $val | quote }}
             {{- end }}
+            - name: INGRESS
+              value: "{{ .Values.ingress.enabled }}"
+            - name: INGRESS_NAME
+              value: "{{ .Values.ingress.name }}"
         - name: auth-server
           image: {{ .Values.portal.server.authServer.image.repository }}:{{ .Values.portal.server.authServer.image.tag }}
           imagePullPolicy: {{ .Values.portal.server.authServer.image.pullPolicy }}
