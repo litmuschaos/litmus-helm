@@ -29,19 +29,37 @@ spec:
     {{- end }}
   {{- end }}
   rules:
-    {{- if .Values.ingress.host }}
-    - host: {{ .host | quote }}
-      http:
-    {{- else }}
-    - http: 
-    {{- end }}
-        paths:
-          - backend:
-              serviceName: litmusportal-frontend-service
-              servicePort: 9091
-            path: /(.*)
-          - backend:
-              serviceName: litmusportal-server-service
-              servicePort: 9002
-            path: /backend/(.*)
+  {{- if .Values.ingress.host }}
+  - host: {{ .host | quote }}
+    http:
+  {{- else }}
+  - http: 
   {{- end }}
+    {{- if semverCompare ">=1.19-0" .Capabilities.KubeVersion.GitVersion -}}
+      paths:
+      - path: /(.*)
+        backend:
+          service:
+            name: litmusportal-frontend-service
+            port:
+              number: 9091
+      - path: /backend/(.*)
+        backend:
+          service:
+            name: litmusportal-server-service
+            port:
+              number: 9002
+    {{- else if semverCompare "<=1.19-0" .Capabilities.KubeVersion.GitVersion }}
+      paths:
+      - path: /(.*)
+        backend:
+          serviceName: litmusportal-frontend-service
+          servicePort: 9091
+      - path: /backend/(.*)
+        backend:
+          serviceName: litmusportal-server-service
+          servicePort: 9002
+    {{- end }}
+  {{- end }}
+
+
