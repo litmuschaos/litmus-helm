@@ -51,15 +51,13 @@ spec:
             name: litmusportal-server-service
             port:
               number: 9002
-    {{- else if semverCompare "<=1.19-0" .Capabilities.KubeVersion.GitVersion }}
+    {{- else if semverCompare "<1.19-0" .Capabilities.KubeVersion.GitVersion }}
       paths:
       - path: /(.*)
-        pathType: ImplementationSpecific
         backend:
           serviceName: litmusportal-frontend-service
           servicePort: 9091
       - path: /backend/(.*)
-        pathType: ImplementationSpecific
         backend:
           serviceName: litmusportal-server-service
           servicePort: 9002
