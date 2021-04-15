@@ -38,10 +38,8 @@ spec:
               serviceName: litmusportal-frontend-service
               servicePort: 9091
             path: /(.*)
-            pathType: ImplementationSpecific
           - backend:
               serviceName: litmusportal-server-service
               servicePort: 9002
             path: /backend/(.*)
-            pathType: ImplementationSpecific
   {{- end }}
