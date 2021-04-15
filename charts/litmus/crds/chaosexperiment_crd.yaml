@@ -61,6 +61,8 @@ spec:
                           type: string
                   image:
                     type: string
+                  imagePullPolicy:
+                    type: string
                   labels:
                     type: object
                     additionalProperties:
@@ -98,7 +100,7 @@ spec:
                           type: array
                           items:
                             type: string
-                  configmaps:
+                  configMaps:
                     type: array
                     items:
                       type: object

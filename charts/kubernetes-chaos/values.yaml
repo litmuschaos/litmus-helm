@@ -8,12 +8,12 @@ fullnameOverride: "k8s"
 image:
   litmus:
     repository: litmuschaos/ansible-runner
-    tag: 1.13.0
+    tag: 1.13.3
     pullPolicy: Always
 
   litmusGO:
     repository: litmuschaos/go-runner
-    tag: 1.13.2
+    tag: 1.13.3
     pullPolicy: Always
 
   pumba:
@@ -21,13 +21,17 @@ image:
 
   litmusLIBImage:
     repository: litmuschaos/go-runner
-    tag: 1.13.2
+    tag: 1.13.3
 
   networkChaos:
     tcImage: gaiadocker/iproute2
 
   stressChaos:
     stressImage: gaiaadm/pumba
+
+  resourceChaos:
+    respository: alexeiled/stress-ng
+    tag: latest-ubuntu
 
 environment:
   # supported: 'docker', 'containerd', 'crio'
