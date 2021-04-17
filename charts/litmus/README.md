@@ -1,6 +1,6 @@
 # litmus
 
-![Version: 1.13.6](https://img.shields.io/badge/Version-1.13.6-informational?style=flat-square) ![AppVersion: 1.13.3](https://img.shields.io/badge/AppVersion-1.13.3-informational?style=flat-square)
+![Version: 1.13.7](https://img.shields.io/badge/Version-1.13.7-informational?style=flat-square) ![AppVersion: 1.13.3](https://img.shields.io/badge/AppVersion-1.13.3-informational?style=flat-square)
 
 A Helm chart to install litmus infra components on Kubernetes
 
