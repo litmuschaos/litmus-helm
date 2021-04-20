@@ -1,6 +1,6 @@
 # litmus-2-0-0-beta
 
-![Version: 2.0.10-Beta3](https://img.shields.io/badge/Version-2.0.10--Beta3-informational?style=flat-square) ![AppVersion: 2.0.0](https://img.shields.io/badge/AppVersion-2.0.0-informational?style=flat-square)
+![Version: 2.0.11-Beta3](https://img.shields.io/badge/Version-2.0.11--Beta3-informational?style=flat-square) ![AppVersion: 2.0.0](https://img.shields.io/badge/AppVersion-2.0.0-informational?style=flat-square)
 
 A Helm chart to install litmus portal
 
@@ -81,6 +81,7 @@ $ helm install litmus-portal litmuschaos/litmus-2-0-0-beta
 | portal.server.graphqlServer.env.ARGO_WORKFLOW_EXECUTOR_IMAGE | string | `"argoproj/argoexec:v2.9.3"` |  |
 | portal.server.graphqlServer.env.CONTAINER_RUNTIME_EXECUTOR | string | `"k8sapi"` |  |
 | portal.server.graphqlServer.env.EVENT_TRACKER_IMAGE | string | `"litmuschaos/litmusportal-event-tracker:2.0.0-Beta3"` |  |
+| portal.server.graphqlServer.env.HUB_BRANCH_NAME | string | `"v1.13.x"` |  |
 | portal.server.graphqlServer.env.LITMUS_CHAOS_EXPORTER_IMAGE | string | `"litmuschaos/chaos-exporter:1.13.3"` |  |
 | portal.server.graphqlServer.env.LITMUS_CHAOS_OPERATOR_IMAGE | string | `"litmuschaos/chaos-operator:1.13.3"` |  |
 | portal.server.graphqlServer.env.LITMUS_CHAOS_RUNNER_IMAGE | string | `"litmuschaos/chaos-runner:1.13.3"` |  |

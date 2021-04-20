@@ -75,6 +75,7 @@ portal:
         SERVER_SERVICE_NAME: "litmusportal-server-service"
         PORTAL_ENDPOINT: "http://litmusportal-server-service:9002"
         CONTAINER_RUNTIME_EXECUTOR: "k8sapi"
+        HUB_BRANCH_NAME: "v1.13.x"
       resources: {}
       # We usually recommend not to specify default resources and to leave this as a conscious
       # choice for the user. This also increases chances charts run on environments with little
