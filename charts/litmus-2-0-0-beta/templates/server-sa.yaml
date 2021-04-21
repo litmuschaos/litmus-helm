@@ -3,3 +3,6 @@ kind: ServiceAccount
 metadata:
   name: {{ .Values.portal.server.serviceAccountName }}
   namespace:  {{ .Release.Namespace }}
+  labels:
+    {{- include "litmus-portal.labels" . | nindent 4 }}
+    app.kubernetes.io/part-of: {{ include "litmus-portal.fullname" . }}
