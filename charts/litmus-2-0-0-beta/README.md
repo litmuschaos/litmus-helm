@@ -1,6 +1,6 @@
 # litmus-2-0-0-beta
 
-![Version: 2.0.12-Beta4](https://img.shields.io/badge/Version-2.0.12--Beta4-informational?style=flat-square) ![AppVersion: 2.0.0](https://img.shields.io/badge/AppVersion-2.0.0-informational?style=flat-square)
+![Version: 2.0.12-Beta5](https://img.shields.io/badge/Version-2.0.12--Beta5-informational?style=flat-square) ![AppVersion: 2.0.0](https://img.shields.io/badge/AppVersion-2.0.0-informational?style=flat-square)
 
 A Helm chart to install litmus portal
 
@@ -42,7 +42,7 @@ $ helm install litmus-portal litmuschaos/litmus-2-0-0-beta
 | adminConfig.DB_PORT | string | `"27017"` |  |
 | adminConfig.DB_SERVER | string | `""` | leave empty if uses Mongo DB deployed by this chart |
 | adminConfig.JWTSecret | string | `"litmus-portal@123"` |  |
-| customLabels | Additional labels | `{}` | |
+| customLabels | object | `{}` | Additional labels |
 | imagePullSecrets | list | `[]` |  |
 | ingress.annotations | object | `{}` |  |
 | ingress.enabled | bool | `false` |  |
