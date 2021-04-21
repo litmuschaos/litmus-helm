@@ -35,10 +35,10 @@ Create chart name and version as used by the chart label.
 Specify default labels
 */}}
 {{- define "litmus-portal.labels" -}}
-app.kubernetes.io/component: portal
 app.kubernetes.io/instance: {{ .Release.Name }}
 app.kubernetes.io/managed-by: {{ .Release.Service }}
 app.kubernetes.io/name: {{ include "litmus-portal.name" . }}
+app.kubernetes.io/part-of: {{ template "litmus-portal.name" . }}
 app.kubernetes.io/version: "{{ .Chart.Version }}"
 helm.sh/chart: {{ include "litmus-portal.chart" . }}
 litmuschaos.io/version: {{ .Chart.AppVersion }}

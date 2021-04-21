@@ -5,6 +5,8 @@ metadata:
   namespace: {{ .Release.Namespace }}
   labels:
     app: mongo
+    app.kubernetes.io/component: {{ include "litmus-portal.name" . }}-database
+    {{- include "litmus-portal.labels" . | nindent 4 }}
 spec:
   selector:
     matchLabels:
@@ -14,7 +16,9 @@ spec:
   template:
     metadata:
       labels:
-        component: database
+        app: mongo
+        app.kubernetes.io/component: {{ include "litmus-portal.name" . }}-database
+        {{- include "litmus-portal.labels" . | nindent 8 }}
     spec:
       {{- if .Values.imagePullSecrets }}
       imagePullSecrets:
