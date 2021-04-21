@@ -42,6 +42,7 @@ $ helm install litmus-portal litmuschaos/litmus-2-0-0-beta
 | adminConfig.DB_PORT | string | `"27017"` |  |
 | adminConfig.DB_SERVER | string | `""` | leave empty if uses Mongo DB deployed by this chart |
 | adminConfig.JWTSecret | string | `"litmus-portal@123"` |  |
+| customLabels | Additional labels | `{}` | |
 | imagePullSecrets | list | `[]` |  |
 | ingress.annotations | object | `{}` |  |
 | ingress.enabled | bool | `false` |  |

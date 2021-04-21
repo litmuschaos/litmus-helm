@@ -22,6 +22,7 @@ A Helm chart to install litmus chaos experiments for kubernetes category (chaos-
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
+| customLabels | Additional labels | `{}` | |
 | environment.containerPath | string | `"/var/lib/docker/containers"` |  |
 | environment.runtime | string | `"docker"` |  |
 | environment.socketPath | string | `"/var/run/docker.sock"` |  |

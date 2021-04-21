@@ -22,6 +22,7 @@ A Helm chart to install litmus infra components on Kubernetes
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | affinity | object | `{}` |  |
+| customLabels | Additional labels | `{}` | |
 | exporter.affinity | object | `{}` |  |
 | exporter.enabled | bool | `false` |  |
 | exporter.image.pullPolicy | string | `"Always"` |  |
