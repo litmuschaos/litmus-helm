@@ -5,6 +5,7 @@
 nameOverride: "litmus"
 fullnameOverride: "litmus"
 
+# Custom labels to add
 customLabels: {}
 
 operatorName: "chaos-operator"

@@ -22,10 +22,14 @@ A Helm chart to install litmus chaos experiments for kubernetes category (chaos-
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
+<<<<<<< HEAD
 | environment.containerPath | string | `"/var/lib/docker/containers"` |  |
 | environment.runtime | string | `"docker"` |  |
 | environment.socketPath | string | `"/var/run/docker.sock"` |  |
 | experiments.disabled | list | `[]` |  |
+=======
+| customLabels | object | `{}` |  |
+>>>>>>> 90ff2ba (Add: custom labels documentation)
 | fullnameOverride | string | `"k8s"` |  |
 | image.litmus.pullPolicy | string | `"Always"` |  |
 | image.litmus.repository | string | `"litmuschaos/ansible-runner"` |  |
