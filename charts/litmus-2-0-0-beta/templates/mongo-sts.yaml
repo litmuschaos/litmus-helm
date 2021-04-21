@@ -10,7 +10,7 @@ metadata:
 spec:
   selector:
     matchLabels:
-      component: database
+      app.kubernetes.io/component: {{ include "litmus-portal.name" . }}-database
   serviceName: mongo
   replicas: {{ .Values.mongo.replicas }}
   template:
