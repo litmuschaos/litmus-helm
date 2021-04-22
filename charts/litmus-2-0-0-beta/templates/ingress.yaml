@@ -9,7 +9,7 @@ apiVersion: extensions/v1beta1
 {{- end }}
 kind: Ingress
 metadata:
-  name: {{ $fullName }}-ingress
+  name: {{ .Values.ingress.name }}
   labels:
     app.kubernetes.io/part-of: {{ $fullName }}-server
     app.kubernetes.io/part-of: {{ $fullName }}-frontend
