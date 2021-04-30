@@ -143,11 +143,11 @@ mongo:
     port: 27017
     targetPort: 27017
 
-# OpenShift specifics
+# OpenShift specific configuration
 openshift:
+  # If service should be exposed using an OpenShift route
   route:
     enabled: false
     name: litmus-portal
     annotations: {}
     host: ""
-
