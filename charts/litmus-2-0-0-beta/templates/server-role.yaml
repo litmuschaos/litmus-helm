@@ -6,18 +6,9 @@ metadata:
   namespace:  {{ .Release.Namespace }}
 rules:
   - apiGroups:
-      - ""
+      - "*"
     resources:
-      - pods
-      - pods/exec
+      - "*"
     verbs:
-      - create
-      - patch
-      - update
-  - apiGroups:
-      - "apps"
-    resources:
-      - deployments
-    verbs:
-      - create
+      - "*"
 {{ end }}
