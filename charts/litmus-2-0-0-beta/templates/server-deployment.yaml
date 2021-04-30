@@ -46,6 +46,10 @@ spec:
                   fieldPath: metadata.namespace
             - name: PORTAL_SCOPE
               value: {{ .Values.portalScope }}
+            {{- if eq .Values.portalScope "namespace" }}
+            - name: PORTAL_ENDPOINT
+              value: "http://{{ .Values.portal.server.graphqlServer.env.SERVER_SERVICE_NAME }}:{{ .Values.portal.server.service.graphqlServer.port }}"
+            {{- end }}
             - name: AGENT_SCOPE
               valueFrom:
                 configMapKeyRef:
