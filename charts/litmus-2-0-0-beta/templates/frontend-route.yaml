@@ -1,4 +1,4 @@
-{{- if .Values.route.enabled -}}
+{{- if .Values.openshift.route.enabled -}}
 {{ $fullName := include "litmus-portal.fullname" . }}
 apiVersion: route.openshift.io/v1
 kind: Route
@@ -8,13 +8,13 @@ metadata:
   labels:
     app.kubernetes.io/part-of: {{ $fullName }}-server
     app.kubernetes.io/part-of: {{ $fullName }}-frontend
-  {{- with .Values.route.annotations }}
+  {{- with .Values.openshift.route.annotations }}
   annotations:
     {{- toYaml . | nindent 4 }}
   {{- end }}
 spec:
-  {{- if .Values.route.host }}
-  host: {{ .Values.route.host }}
+  {{- if .Values.openshift.route.host }}
+  host: {{ .Values.openshift.route.host }}
   {{- end }}
   port:
     targetPort: http

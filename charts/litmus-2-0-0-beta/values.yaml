@@ -29,13 +29,6 @@ ingress:
   #  - secretName: chart-example-tls
   #    hosts: []
 
-# OpenShift Route
-route:
-  enabled: false
-  name: litmus-portal
-  annotations: {}
-  host: ""
-
 portal:
   frontend:
     replicas: 1
@@ -149,3 +142,12 @@ mongo:
     type: ClusterIP
     port: 27017
     targetPort: 27017
+
+# OpenShift specifics
+openshift:
+  route:
+    enabled: false
+    name: litmus-portal
+    annotations: {}
+    host: ""
+
