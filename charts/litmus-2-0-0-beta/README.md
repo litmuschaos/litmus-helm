@@ -1,6 +1,6 @@
 # litmus-2-0-0-beta
 
-![Version: 2.0.15-Beta5](https://img.shields.io/badge/Version-2.0.15--Beta5-informational?style=flat-square) ![AppVersion: 2.0.0](https://img.shields.io/badge/AppVersion-2.0.0-informational?style=flat-square)
+![Version: 2.0.18-Beta5](https://img.shields.io/badge/Version-2.0.18--Beta5-informational?style=flat-square) ![AppVersion: 2.0.0](https://img.shields.io/badge/AppVersion-2.0.0-informational?style=flat-square)
 
 A Helm chart to install litmus portal
 
@@ -63,7 +63,7 @@ $ helm install litmus-portal litmuschaos/litmus-2-0-0-beta
 | portal.frontend.containerPort | int | `8080` |  |
 | portal.frontend.image.pullPolicy | string | `"Always"` |  |
 | portal.frontend.image.repository | string | `"litmuschaos/litmusportal-frontend"` |  |
-| portal.frontend.image.tag | string | `"2.0.0-Beta4"` |  |
+| portal.frontend.image.tag | string | `"2.0.0-Beta5"` |  |
 | portal.frontend.replicas | int | `1` |  |
 | portal.frontend.resources | object | `{}` |  |
 | portal.frontend.service.port | int | `9091` |  |
@@ -74,14 +74,14 @@ $ helm install litmus-portal litmuschaos/litmus-2-0-0-beta
 | portal.server.authServer.env.ADMIN_USERNAME | string | `"admin"` |  |
 | portal.server.authServer.image.pullPolicy | string | `"Always"` |  |
 | portal.server.authServer.image.repository | string | `"litmuschaos/litmusportal-auth-server"` |  |
-| portal.server.authServer.image.tag | string | `"2.0.0-Beta4"` |  |
+| portal.server.authServer.image.tag | string | `"2.0.0-Beta5"` |  |
 | portal.server.authServer.resources | object | `{}` |  |
 | portal.server.graphqlServer.containerPort | int | `8080` |  |
 | portal.server.graphqlServer.env.ARGO_SERVER_IMAGE | string | `"argoproj/argocli:v2.9.3"` |  |
 | portal.server.graphqlServer.env.ARGO_WORKFLOW_CONTROLLER_IMAGE | string | `"argoproj/workflow-controller:v2.9.3"` |  |
 | portal.server.graphqlServer.env.ARGO_WORKFLOW_EXECUTOR_IMAGE | string | `"argoproj/argoexec:v2.9.3"` |  |
 | portal.server.graphqlServer.env.CONTAINER_RUNTIME_EXECUTOR | string | `"k8sapi"` |  |
-| portal.server.graphqlServer.env.EVENT_TRACKER_IMAGE | string | `"litmuschaos/litmusportal-event-tracker:2.0.0-Beta4"` |  |
+| portal.server.graphqlServer.env.EVENT_TRACKER_IMAGE | string | `"litmuschaos/litmusportal-event-tracker:2.0.0-Beta5"` |  |
 | portal.server.graphqlServer.env.HUB_BRANCH_NAME | string | `"v1.13.x"` |  |
 | portal.server.graphqlServer.env.LITMUS_CHAOS_EXPORTER_IMAGE | string | `"litmuschaos/chaos-exporter:1.13.3"` |  |
 | portal.server.graphqlServer.env.LITMUS_CHAOS_OPERATOR_IMAGE | string | `"litmuschaos/chaos-operator:1.13.3"` |  |
@@ -89,10 +89,10 @@ $ helm install litmus-portal litmuschaos/litmus-2-0-0-beta
 | portal.server.graphqlServer.env.PORTAL_ENDPOINT | string | `"http://litmusportal-server-service:9002"` |  |
 | portal.server.graphqlServer.env.SELF_CLUSTER | string | `"true"` |  |
 | portal.server.graphqlServer.env.SERVER_SERVICE_NAME | string | `"litmusportal-server-service"` |  |
-| portal.server.graphqlServer.env.SUBSCRIBER_IMAGE | string | `"litmuschaos/litmusportal-subscriber:2.0.0-Beta4"` |  |
+| portal.server.graphqlServer.env.SUBSCRIBER_IMAGE | string | `"litmuschaos/litmusportal-subscriber:2.0.0-Beta5"` |  |
 | portal.server.graphqlServer.image.pullPolicy | string | `"Always"` |  |
 | portal.server.graphqlServer.image.repository | string | `"litmuschaos/litmusportal-server"` |  |
-| portal.server.graphqlServer.image.tag | string | `"2.0.0-Beta4"` |  |
+| portal.server.graphqlServer.image.tag | string | `"2.0.0-Beta5"` |  |
 | portal.server.graphqlServer.resources | object | `{}` |  |
 | portal.server.replicas | int | `1` |  |
 | portal.server.service.authServer.port | int | `9003` |  |
