@@ -443,7 +443,6 @@ spec:
                                     type: string
                                 type: object
                               type: array
-
           status:
             x-kubernetes-preserve-unknown-fields: true
             type: object
