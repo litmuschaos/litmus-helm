@@ -1,6 +1,6 @@
 # litmus-2-0-0-beta
 
-![Version: 2.0.17-Beta5](https://img.shields.io/badge/Version-2.0.17--Beta5-informational?style=flat-square) ![AppVersion: 2.0.0](https://img.shields.io/badge/AppVersion-2.0.0-informational?style=flat-square)
+![Version: 2.0.18-Beta5](https://img.shields.io/badge/Version-2.0.18--Beta5-informational?style=flat-square) ![AppVersion: 2.0.0](https://img.shields.io/badge/AppVersion-2.0.0-informational?style=flat-square)
 
 A Helm chart to install litmus portal
 
@@ -59,6 +59,10 @@ $ helm install litmus-portal litmuschaos/litmus-2-0-0-beta
 | mongo.service.port | int | `27017` |  |
 | mongo.service.targetPort | int | `27017` |  |
 | mongo.service.type | string | `"ClusterIP"` |  |
+| openshift.route.annotations | object | `{}` |  |
+| openshift.route.enabled | bool | `false` |  |
+| openshift.route.host | string | `""` |  |
+| openshift.route.name | string | `"litmus-portal"` |  |
 | portal.frontend.containerPort | int | `8080` |  |
 | portal.frontend.image.pullPolicy | string | `"Always"` |  |
 | portal.frontend.image.repository | string | `"litmuschaos/litmusportal-frontend"` |  |
