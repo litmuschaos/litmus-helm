@@ -60,6 +60,10 @@ $ helm install litmus-portal litmuschaos/litmus-2-0-0-beta
 | mongo.service.port | int | `27017` |  |
 | mongo.service.targetPort | int | `27017` |  |
 | mongo.service.type | string | `"ClusterIP"` |  |
+| openshift.route.annotations | object | `{}` |  |
+| openshift.route.enabled | bool | `false` |  |
+| openshift.route.host | string | `""` |  |
+| openshift.route.name | string | `"litmus-portal"` |  |
 | portal.frontend.containerPort | int | `8080` |  |
 | portal.frontend.image.pullPolicy | string | `"Always"` |  |
 | portal.frontend.image.repository | string | `"litmuschaos/litmusportal-frontend"` |  |
