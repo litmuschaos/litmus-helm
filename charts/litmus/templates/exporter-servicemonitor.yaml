@@ -7,10 +7,8 @@ metadata:
   namespace: {{ .Values.exporter.serviceMonitor.namespace }}
   {{- end }}
   labels:
-    chart: {{ include "litmus.chart" . }}
-    instance: {{ .Release.Name }}
-    litmuschaos.io/version: {{ .Chart.AppVersion }}
-    name: litmus-monitor
+    app: {{ template "litmus.name" . }}
+    {{- include "litmus.labels" . | indent 4 }}
     {{- if .Values.exporter.serviceMonitor.additionalLabels }}
     {{- toYaml .Values.exporter.serviceMonitor.additionalLabels | nindent 4 }}
     {{- end }}
@@ -33,6 +31,6 @@ spec:
       - {{ .Release.Namespace }}
   selector:
     matchLabels:
-      name: {{ include "litmus.name" . }}-monitor
-      instance: {{ .Release.Name }}
+      app: {{ template "litmus.name" . }}
+      {{- include "litmus.selectors" . | indent 6 }}
 {{- end }}

@@ -5,6 +5,9 @@
 nameOverride: "litmus"
 fullnameOverride: "litmus"
 
+# -- Additional labels
+customLabels: {}
+
 operatorName: "chaos-operator"
 
 replicaCount: 1

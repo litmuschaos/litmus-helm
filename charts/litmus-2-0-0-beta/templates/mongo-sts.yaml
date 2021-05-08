@@ -5,16 +5,20 @@ metadata:
   namespace: {{ .Release.Namespace }}
   labels:
     app: mongo
+    app.kubernetes.io/component: {{ include "litmus-portal.name" . }}-database
+    {{- include "litmus-portal.labels" . | nindent 4 }}
 spec:
   selector:
     matchLabels:
-      component: database
+      app.kubernetes.io/component: {{ include "litmus-portal.name" . }}-database
   serviceName: mongo
   replicas: {{ .Values.mongo.replicas }}
   template:
     metadata:
       labels:
-        component: database
+        app: mongo
+        app.kubernetes.io/component: {{ include "litmus-portal.name" . }}-database
+        {{- include "litmus-portal.labels" . | nindent 8 }}
     spec:
       {{- if .Values.imagePullSecrets }}
       imagePullSecrets:

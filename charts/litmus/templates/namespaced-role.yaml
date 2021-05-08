@@ -5,10 +5,8 @@ kind: Role
 metadata:
   name: {{ include "litmus.fullname" . }}
   labels:
-    name: {{ include "litmus.name" . }}
-    instance: {{ .Release.Name  }}
-    chart: {{ include "litmus.chart" . }}
-    litmuschaos.io/version: {{ .Chart.AppVersion }}
+    app: {{ template "litmus.name" . }}
+    {{- include "litmus.labels" . | indent 4 }}
 rules:
 - apiGroups: ["","apps","batch","extensions","litmuschaos.io", "argoproj.io"]
   resources: ["pods","pods/exec","pods/log","pods/eviction","jobs","deployments","daemonsets","statefulsets","events","configmaps","services","rollouts","chaosengines","chaosexperiments","chaosresults"]
