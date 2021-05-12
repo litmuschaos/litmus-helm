@@ -4,16 +4,18 @@ metadata:
   name: {{ include "litmus-portal.fullname" . }}-server
   namespace: {{ .Release.Namespace }}
   labels:
-    component: litmusportal-server
+    app.kubernetes.io/component: {{ include "litmus-portal.name" . }}-server
+    {{- include "litmus-portal.labels" . | nindent 4 }}
 spec:
   replicas: {{ .Values.portal.server.replicas }}
   selector:
     matchLabels:
-      component: litmusportal-server
+      app.kubernetes.io/component: {{ include "litmus-portal.name" . }}-server
   template:
     metadata:
       labels:
-        component: litmusportal-server
+        app.kubernetes.io/component: {{ include "litmus-portal.name" . }}-server
+        {{- include "litmus-portal.labels" . | nindent 8 }}
     spec:
       serviceAccountName: {{ .Values.portal.server.serviceAccountName }}
       {{- if .Values.imagePullSecrets }}
@@ -46,6 +48,10 @@ spec:
                   fieldPath: metadata.namespace
             - name: PORTAL_SCOPE
               value: {{ .Values.portalScope }}
+            {{- if eq .Values.portalScope "namespace" }}
+            - name: PORTAL_ENDPOINT
+              value: "http://{{ .Values.portal.server.graphqlServer.env.SERVER_SERVICE_NAME }}:{{ .Values.portal.server.service.graphqlServer.port }}"
+            {{- end }}
             - name: AGENT_SCOPE
               valueFrom:
                 configMapKeyRef:
