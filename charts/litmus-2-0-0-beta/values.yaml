@@ -68,9 +68,9 @@ portal:
       env:
         SUBSCRIBER_IMAGE: "litmuschaos/litmusportal-subscriber:2.0.0-Beta5"
         EVENT_TRACKER_IMAGE: "litmuschaos/litmusportal-event-tracker:2.0.0-Beta5"
-        ARGO_SERVER_IMAGE: "argoproj/argocli:v2.9.3"
-        ARGO_WORKFLOW_CONTROLLER_IMAGE: "argoproj/workflow-controller:v2.9.3"
-        ARGO_WORKFLOW_EXECUTOR_IMAGE: "argoproj/argoexec:v2.9.3"
+        ARGO_SERVER_IMAGE: "litmuschaos/argocli:v2.9.3"
+        ARGO_WORKFLOW_CONTROLLER_IMAGE: "litmuschaos/workflow-controller:v2.9.3"
+        ARGO_WORKFLOW_EXECUTOR_IMAGE: "litmuschaos/argoexec:v2.9.3"
         LITMUS_CHAOS_OPERATOR_IMAGE: "litmuschaos/chaos-operator:1.13.3"
         LITMUS_CHAOS_RUNNER_IMAGE: "litmuschaos/chaos-runner:1.13.3"
         LITMUS_CHAOS_EXPORTER_IMAGE: "litmuschaos/chaos-exporter:1.13.3"
@@ -122,7 +122,7 @@ portal:
 mongo:
   replicas: 1
   image:
-    repository: mongo
+    repository: litmuschaos/mongo
     tag: 4.2.8
     pullPolicy: "Always"
   containerPort: 27017
