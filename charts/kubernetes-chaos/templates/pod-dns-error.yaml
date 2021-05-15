@@ -54,46 +54,46 @@ spec:
     env:
 
     - name: TARGET_CONTAINER
-        value: ""
+      value: ""
 
-      # provide lib image
-      - name: LIB_IMAGE
-        value: "{{ .Values.image.litmusLIBImage.repository }}:{{ .Values.image.litmusLIBImage.tag }}"
+    # provide lib image
+    - name: LIB_IMAGE
+      value: "{{ .Values.image.litmusLIBImage.repository }}:{{ .Values.image.litmusLIBImage.tag }}"
 
-      - name: TOTAL_CHAOS_DURATION
-        value: "60" # in seconds
+    - name: TOTAL_CHAOS_DURATION
+      value: "60" # in seconds
 
-      # Time period to wait before and after injection of chaos in sec
-      - name: RAMP_TIME
-        value: ""
+    # Time period to wait before and after injection of chaos in sec
+    - name: RAMP_TIME
+      value: ""
 
-      ## percentage of total pods to target
-      - name: PODS_AFFECTED_PERC
-        value: ""
+    ## percentage of total pods to target
+    - name: PODS_AFFECTED_PERC
+      value: ""
 
-      - name: TARGET_PODS
-        value: ""
+    - name: TARGET_PODS
+      value: ""
 
-      # provide the name of container runtime, it supports docker, containerd, crio
-      - name: CONTAINER_RUNTIME
-        value: "{{ .Values.environment.runtime }}"
+    # provide the name of container runtime, it supports docker, containerd, crio
+    - name: CONTAINER_RUNTIME
+      value: "{{ .Values.environment.runtime }}"
 
-      # provide the socket file path
-      - name: SOCKET_PATH
-        value: "{{ .Values.environment.socketPath }}"
+    # provide the socket file path
+    - name: SOCKET_PATH
+      value: "{{ .Values.environment.socketPath }}"
 
-      ## it defines the sequence of chaos execution for multiple target pods
-      ## supported values: serial, parallel
-      - name: SEQUENCE
-        value: "parallel"
+    ## it defines the sequence of chaos execution for multiple target pods
+    ## supported values: serial, parallel
+    - name: SEQUENCE
+      value: "parallel"
 
-     # list of the target hostnames or kewywords eg. '["litmuschaos","chaosnative.io"]' . If empty all hostnames are targets
-      - name: TARGET_HOSTNAMES
-        value: ""
+    # list of the target hostnames or kewywords eg. '["litmuschaos","chaosnative.io"]' . If empty all hostnames are targets
+    - name: TARGET_HOSTNAMES
+      value: ""
 
-      # can be either exact or substring, determines whether the dns query has to match exactly with one of the targets or can have any of the targets as substring
-      - name: MATCH_SCHEME
-        value: "exact"
+    # can be either exact or substring, determines whether the dns query has to match exactly with one of the targets or can have any of the targets as substring
+    - name: MATCH_SCHEME
+      value: "exact"
             
     labels:
       name: pod-dns-error

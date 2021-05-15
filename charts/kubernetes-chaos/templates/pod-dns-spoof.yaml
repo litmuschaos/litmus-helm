@@ -54,42 +54,42 @@ spec:
     env:
 
     - name: TARGET_CONTAINER
-        value: ""
+      value: ""
 
-      # provide lib image
-      - name: LIB_IMAGE
-        value: "{{ .Values.image.litmusLIBImage.repository }}:{{ .Values.image.litmusLIBImage.tag }}"
+    # provide lib image
+    - name: LIB_IMAGE
+      value: "{{ .Values.image.litmusLIBImage.repository }}:{{ .Values.image.litmusLIBImage.tag }}"
 
-      - name: TOTAL_CHAOS_DURATION
-        value: "60" # in seconds
+    - name: TOTAL_CHAOS_DURATION
+      value: "60" # in seconds
 
-      # Time period to wait before and after injection of chaos in sec
-      - name: RAMP_TIME
-        value: ""
+    # Time period to wait before and after injection of chaos in sec
+    - name: RAMP_TIME
+      value: ""
 
-      ## percentage of total pods to target
-      - name: PODS_AFFECTED_PERC
-        value: ""
+    ## percentage of total pods to target
+    - name: PODS_AFFECTED_PERC
+      value: ""
 
-      - name: TARGET_PODS
-        value: ""
+    - name: TARGET_PODS
+      value: ""
 
-      # provide the name of container runtime, it supports docker, containerd, crio
-      - name: CONTAINER_RUNTIME
-        value: "{{ .Values.environment.runtime }}"
+    # provide the name of container runtime, it supports docker, containerd, crio
+    - name: CONTAINER_RUNTIME
+      value: "{{ .Values.environment.runtime }}"
 
-      # provide the socket file path
-      - name: SOCKET_PATH
-        value: "{{ .Values.environment.socketPath }}"
+    # provide the socket file path
+    - name: SOCKET_PATH
+      value: "{{ .Values.environment.socketPath }}"
 
-      ## it defines the sequence of chaos execution for multiple target pods
-      ## supported values: serial, parallel
-      - name: SEQUENCE
-        value: "parallel"
+    ## it defines the sequence of chaos execution for multiple target pods
+    ## supported values: serial, parallel
+    - name: SEQUENCE
+      value: "parallel"
 
-      # map of the target hostnames eg. '{"abc.com":"spoofabc.com"}' . If empty no queries will be spoofed
-      - name: SPOOF_MAP
-        value: ""
+    # map of the target hostnames eg. '{"abc.com":"spoofabc.com"}' . If empty no queries will be spoofed
+    - name: SPOOF_MAP
+      value: ""
             
     labels:
       name: pod-dns-spoof
