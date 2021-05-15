@@ -1,6 +1,6 @@
 # litmus-2-0-0-beta
 
-![Version: 2.0.18-Beta6](https://img.shields.io/badge/Version-2.0.18--Beta6-informational?style=flat-square) ![AppVersion: 2.0.0](https://img.shields.io/badge/AppVersion-2.0.0-informational?style=flat-square)
+![Version: 2.0.19-Beta6](https://img.shields.io/badge/Version-2.0.19--Beta6-informational?style=flat-square) ![AppVersion: 2.0.0](https://img.shields.io/badge/AppVersion-2.0.0-informational?style=flat-square)
 
 A Helm chart to install litmus portal
 
@@ -51,7 +51,7 @@ $ helm install litmus-portal litmuschaos/litmus-2-0-0-beta
 | ingress.tls | list | `[]` |  |
 | mongo.containerPort | int | `27017` |  |
 | mongo.image.pullPolicy | string | `"Always"` |  |
-| mongo.image.repository | string | `"mongo"` |  |
+| mongo.image.repository | string | `"litmuschaos/mongo"` |  |
 | mongo.image.tag | string | `"4.2.8"` |  |
 | mongo.persistence.accessMode | string | `"ReadWriteOnce"` |  |
 | mongo.persistence.size | string | `"20Gi"` |  |
@@ -81,9 +81,9 @@ $ helm install litmus-portal litmuschaos/litmus-2-0-0-beta
 | portal.server.authServer.image.tag | string | `"2.0.0-Beta5"` |  |
 | portal.server.authServer.resources | object | `{}` |  |
 | portal.server.graphqlServer.containerPort | int | `8080` |  |
-| portal.server.graphqlServer.env.ARGO_SERVER_IMAGE | string | `"argoproj/argocli:v2.9.3"` |  |
-| portal.server.graphqlServer.env.ARGO_WORKFLOW_CONTROLLER_IMAGE | string | `"argoproj/workflow-controller:v2.9.3"` |  |
-| portal.server.graphqlServer.env.ARGO_WORKFLOW_EXECUTOR_IMAGE | string | `"argoproj/argoexec:v2.9.3"` |  |
+| portal.server.graphqlServer.env.ARGO_SERVER_IMAGE | string | `"litmuschaos/argocli:v2.9.3"` |  |
+| portal.server.graphqlServer.env.ARGO_WORKFLOW_CONTROLLER_IMAGE | string | `"litmuschaos/workflow-controller:v2.9.3"` |  |
+| portal.server.graphqlServer.env.ARGO_WORKFLOW_EXECUTOR_IMAGE | string | `"litmuschaos/argoexec:v2.9.3"` |  |
 | portal.server.graphqlServer.env.CONTAINER_RUNTIME_EXECUTOR | string | `"k8sapi"` |  |
 | portal.server.graphqlServer.env.EVENT_TRACKER_IMAGE | string | `"litmuschaos/litmusportal-event-tracker:2.0.0-Beta5"` |  |
 | portal.server.graphqlServer.env.HUB_BRANCH_NAME | string | `"v1.13.x"` |  |
