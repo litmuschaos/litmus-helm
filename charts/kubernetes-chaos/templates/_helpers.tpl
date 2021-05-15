@@ -42,6 +42,6 @@ app.kubernetes.io/version: "{{ .Chart.Version }}"
 helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version }} 
 litmuschaos.io/version: {{ .Chart.AppVersion }}
 {{- if .Values.customLabels }}
-{{ toYaml .Values.customLabels | indent 4 }}
+{{ toYaml .Values.customLabels }}
 {{- end }}
 {{- end }}
