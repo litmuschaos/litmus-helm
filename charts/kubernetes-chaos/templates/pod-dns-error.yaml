@@ -1,12 +1,12 @@
-{{ if not (has "disk-fill" .Values.experiments.disabled) }}
+{{ if not (has "pod-dns-error" .Values.experiments.disabled) }}
 ---
 apiVersion: litmuschaos.io/v1alpha1
 description:
   message: |
-    Fillup Ephemeral Storage of a Resource
+    Pod DNS Error injects dns failure/error in target pod containers
 kind: ChaosExperiment
 metadata:
-  name: disk-fill
+  name: pod-dns-error
   labels:
     {{- include "kubernetes-chaos.labels" . | indent 4 }}
 spec:
@@ -15,16 +15,16 @@ spec:
     permissions:
       - apiGroups:
           - ""
-          - "apps"
           - "batch"
+          - "apps"
           - "apps.openshift.io"
           - "argoproj.io"
           - "litmuschaos.io"
         resources:
           - "jobs"
           - "pods"
-          - "pods/exec"
           - "pods/log"
+          - "events"
           - "replicationcontrollers"
           - "deployments"
           - "statefulsets"
@@ -32,7 +32,7 @@ spec:
           - "replicasets"
           - "deploymentconfigs"
           - "rollouts"
-          - "events"
+          - "pods/exec"
           - "chaosengines"
           - "chaosexperiments"
           - "chaosresults"
@@ -48,55 +48,54 @@ spec:
     imagePullPolicy: {{ .Values.image.litmusGO.pullPolicy }}
     args:
     - -c
-    - ./experiments -name disk-fill
+    - ./experiments -name pod-dns-error
     command:
     - /bin/bash
     env:
 
     - name: TARGET_CONTAINER
-      value: ''
+      value: ""
 
-    - name: FILL_PERCENTAGE
-      value: '80'
-
-    - name: TOTAL_CHAOS_DURATION
-      value: '60'
-
-    # Period to wait before injection of chaos in sec
-    - name: RAMP_TIME
-      value: ''
-
-    - name: LIB
-      value: 'litmus'
-
+    # provide lib image
     - name: LIB_IMAGE
       value: "{{ .Values.image.litmusLIBImage.repository }}:{{ .Values.image.litmusLIBImage.tag }}"
 
-    # provide the data block size
-    # supported unit is KB
-    - name: DATA_BLOCK_SIZE
-      value: '256'
+    - name: TOTAL_CHAOS_DURATION
+      value: "60" # in seconds
+
+    # Time period to wait before and after injection of chaos in sec
+    - name: RAMP_TIME
+      value: ""
+
+    ## percentage of total pods to target
+    - name: PODS_AFFECTED_PERC
+      value: ""
 
     - name: TARGET_PODS
-      value: ''
+      value: ""
 
-    - name: EPHEMERAL_STORAGE_MEBIBYTES
-      value: ''
+    # provide the name of container runtime, it supports docker, containerd, crio
+    - name: CONTAINER_RUNTIME
+      value: "{{ .Values.environment.runtime }}"
 
-    - name: PODS_AFFECTED_PERC
-      value: ''
+    # provide the socket file path
+    - name: SOCKET_PATH
+      value: "{{ .Values.environment.socketPath }}"
 
     ## it defines the sequence of chaos execution for multiple target pods
     ## supported values: serial, parallel
     - name: SEQUENCE
-      value: 'parallel'      
+      value: "parallel"
 
-    # Provide the container runtime path
-    # Default set to docker container path
-    - name: CONTAINER_PATH
-      value: "{{ .Values.environment.containerPath }}"
+    # list of the target hostnames or kewywords eg. '["litmuschaos","chaosnative.io"]' . If empty all hostnames are targets
+    - name: TARGET_HOSTNAMES
+      value: ""
 
+    # can be either exact or substring, determines whether the dns query has to match exactly with one of the targets or can have any of the targets as substring
+    - name: MATCH_SCHEME
+      value: "exact"
+            
     labels:
-      name: disk-fill
+      name: pod-dns-error
       app.kubernetes.io/part-of: litmus
 {{ end }}

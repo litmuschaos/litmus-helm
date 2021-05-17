@@ -64,6 +64,9 @@ spec:
     # ENTER THE COMMA SEPARATED TARGET NODES NAME
     - name: TARGET_NODES
       value: ''
+
+    - name: NODE_LABEL
+      value: ''
     
     - name: LIB
       value: 'litmus'
