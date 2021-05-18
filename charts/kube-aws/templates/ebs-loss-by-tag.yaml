@@ -1,0 +1,76 @@
+{{ if not (has "ebs-loss-by-tag" .Values.experiments.disabled) }}
+---
+apiVersion: litmuschaos.io/v1alpha1
+description:
+  message: "Detaching ebs volumes from ec2 instances using common tag on volume\n"
+kind: ChaosExperiment
+metadata:
+  name: ebs-loss-by-tag
+  labels:
+    {{- include "kube-aws.labels" . | indent 4 }}
+spec:
+  definition:
+    scope: Cluster
+    permissions:
+      - apiGroups:
+          - ""
+          - "batch"
+          - "litmuschaos.io"
+        resources:
+          - "jobs"
+          - "pods"
+          - "events"
+          - "pods/log"
+          - "pods/exec"
+          - "secrets"
+          - "chaosengines"
+          - "chaosexperiments"
+          - "chaosresults"
+        verbs:
+          - "create"
+          - "list"
+          - "get"
+          - "patch"
+          - "update"
+          - "delete"
+    image: "{{ .Values.image.litmusGO.repository }}:{{ .Values.image.litmusGO.tag }}"
+    imagePullPolicy: {{ .Values.image.litmusGO.pullPolicy }}
+    args:
+    - -c
+    - ./experiments -name ebs-loss-by-tag
+    command:
+    - /bin/bash
+    env:
+    - name: TOTAL_CHAOS_DURATION
+      value: '30'
+
+    - name: CHAOS_INTERVAL
+      value: '30'
+
+    - name: RAMP_TIME
+      value: ''
+
+    - name: EBS_VOLUME_TAG
+      value: ''
+
+    - name: REGION
+      value: ''
+
+    - name: SEQUENCE
+      value: 'parallel' 
+
+    - name: VOLUME_AFFECTED_PERC
+      value: ''             
+
+    # Provide the path of aws credentials mounted from secret
+    - name: AWS_SHARED_CREDENTIALS_FILE
+      value: '/tmp/cloud_config.yml'
+
+    # provide the LIB
+    # only litmus supported
+    - name: LIB
+      value: 'litmus'
+    labels:
+      name: ebs-loss-by-tag
+      app.kubernetes.io/part-of: litmus
+{{ end }}
