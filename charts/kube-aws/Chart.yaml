@@ -12,6 +12,10 @@ keywords:
   - aws
   - kubernetes
 maintainers:
+  - name: jasstkn
+    email: jasssstkn@yahoo.com
+  - name: ksatchit
+    email: karthik@chaosnative.com    
   - name: uditgaurav
     email: udit@chaosnative.com
 icon: https://raw.githubusercontent.com/litmuschaos/icons/master/litmus.png

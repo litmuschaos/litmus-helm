@@ -77,4 +77,7 @@ spec:
     labels:
       name: ec2-terminate-by-id
       app.kubernetes.io/part-of: litmus
+    secrets:
+    - name: cloud-secret
+      mountPath: /tmp/      
 {{ end }}

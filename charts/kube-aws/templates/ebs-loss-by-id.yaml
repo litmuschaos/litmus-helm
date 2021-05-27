@@ -72,4 +72,7 @@ spec:
     labels:
       name: ebs-loss-by-id
       app.kubernetes.io/part-of: litmus
+    secrets:
+    - name: cloud-secret
+      mountPath: /tmp/      
 {{ end }}

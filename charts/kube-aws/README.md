@@ -10,6 +10,8 @@ A Helm chart to install litmus aws chaos experiments
 
 | Name | Email | Url |
 | ---- | ------ | --- |
+| jasstkn | jasssstkn@yahoo.com |  |
+| ksatchit | karthik@chaosnative.com |  |
 | uditgaurav | udit@chaosnative.com |  |
 
 ## Source Code
