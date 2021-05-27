@@ -8,9 +8,7 @@ kind: ChaosExperiment
 metadata:
   name: node-io-stress
   labels: 
-    instance: {{ .Release.Name }}
-    chart: {{ include "kubernetes-chaos.chart" . }}
-    litmuschaos.io/version: {{ .Chart.AppVersion }}
+    {{- include "kubernetes-chaos.labels" . | indent 4 }}
 spec:
   definition:
     scope: Cluster
@@ -79,7 +77,10 @@ spec:
 
     ## enter the comma separated target nodes name
     - name: TARGET_NODES
-      value: ''    
+      value: ''   
+
+    - name: NODE_LABEL
+      value: '' 
 
     # Period to wait before and after injection of chaos in sec
     - name: RAMP_TIME

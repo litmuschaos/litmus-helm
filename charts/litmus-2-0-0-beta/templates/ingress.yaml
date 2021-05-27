@@ -11,8 +11,8 @@ kind: Ingress
 metadata:
   name: {{ .Values.ingress.name }}
   labels:
-    app.kubernetes.io/part-of: {{ $fullName }}-server
-    app.kubernetes.io/part-of: {{ $fullName }}-frontend
+    app.kubernetes.io/component: {{ include "litmus-portal.name" . }}-frontend
+    {{- include "litmus-portal.labels" . | nindent 4 }}
   {{- with .Values.ingress.annotations }}
   annotations:
     {{- toYaml . | nindent 4 }}
