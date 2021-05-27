@@ -8,9 +8,7 @@ kind: ChaosExperiment
 metadata:
   name: node-taint
   labels:
-    instance: {{ .Release.Name }}
-    chart: {{ include "kubernetes-chaos.chart" . }}
-    litmuschaos.io/version: {{ .Chart.AppVersion }}
+    {{- include "kubernetes-chaos.labels" . | indent 4 }}
 spec:
   definition:
     scope: Cluster
@@ -58,6 +56,9 @@ spec:
     env:
 
     - name: TARGET_NODE
+      value: ''
+
+    - name: NODE_LABEL
       value: ''
 
     - name: TOTAL_CHAOS_DURATION

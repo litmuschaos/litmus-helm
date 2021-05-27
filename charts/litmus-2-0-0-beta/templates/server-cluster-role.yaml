@@ -3,6 +3,9 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
   name: {{ include "litmus-portal.fullname" . }}-server
+  labels:
+    app.kubernetes.io/component: {{ include "litmus-portal.name" . }}-server
+    {{- include "litmus-portal.labels" . | nindent 4 }}
 rules:
   - apiGroups:
       - "*"

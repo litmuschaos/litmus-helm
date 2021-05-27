@@ -4,6 +4,9 @@ kind: RoleBinding
 metadata:
   name: {{ include "litmus-portal.fullname" . }}-server-rb
   namespace:  {{ .Release.Namespace }}
+  labels:
+    app.kubernetes.io/component: {{ include "litmus-portal.name" . }}-server
+    {{- include "litmus-portal.labels" . | nindent 4 }}
 subjects:
   - kind: ServiceAccount
     name: {{ .Values.portal.server.serviceAccountName }}

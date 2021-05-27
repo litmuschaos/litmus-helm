@@ -3,21 +3,19 @@ kind: Deployment
 metadata:
   name: {{ include "litmus.fullname" . }}
   labels:
-    name: {{ include "litmus.name" . }}
-    chart: {{ include "litmus.chart" . }}
-    litmuschaos.io/version: {{ .Chart.AppVersion }}
-    instance: {{ .Release.Name }}
+    app: {{ template "litmus.name" . }}
+    {{- include "litmus.labels" . | indent 4 }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      name: {{ include "litmus.name" . }}
-      instance: {{ .Release.Name }}
+      app: {{ template "litmus.name" . }}
+      {{- include "litmus.selectors" . | indent 6 }}
   template:
     metadata:
       labels:
-        name: {{ include "litmus.name" . }}
-        instance: {{ .Release.Name }}
+        app: {{ template "litmus.name" . }}
+        {{- include "litmus.labels" . | indent 8 }}
     spec:
       serviceAccountName: {{ include "litmus.fullname" . }}
       {{- if .Values.priorityClassName }}

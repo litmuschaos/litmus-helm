@@ -30,3 +30,26 @@ Create chart name and version as used by the chart label.
 {{- define "litmus.chart" -}}
 {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
+
+{{/* Generate basic labels */}}
+{{- define "litmus.labels" }}
+app.kubernetes.io/component: litmus-infra
+app.kubernetes.io/instance: {{ .Release.Name }}
+app.kubernetes.io/managed-by: {{ .Release.Service }}
+app.kubernetes.io/name: {{ template "litmus.name" . }}
+app.kubernetes.io/part-of: {{ template "litmus.name" . }} 
+app.kubernetes.io/version: "{{ .Chart.Version }}"
+helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version }} 
+litmuschaos.io/version: {{ .Chart.AppVersion }}
+{{- if .Values.customLabels }}
+{{ toYaml .Values.customLabels }}
+{{- end }}
+{{- end }}
+
+{{/*
+Specify default selectors
+*/}}
+{{- define "litmus.selectors" }}
+app.kubernetes.io/name: {{ template "litmus.name" . }}
+app.kubernetes.io/instance: {{ .Release.Name }}
+{{- end }}
