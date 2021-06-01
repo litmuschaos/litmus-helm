@@ -5,7 +5,7 @@ metadata:
   name: {{ include "litmus.name" . }}-monitor
   labels:
     app: {{ template "litmus.name" . }}
-    {{- include "litmus.labels" . | indent 4 }}
+    {{- include "litmus.labels" . | nindent 4 }}
 {{- if .Values.exporter.service.annotations }}
   annotations:
     {{- toYaml .Values.exporter.service.annotations | nindent 4 }}
@@ -19,5 +19,5 @@ spec:
   type: {{ .Values.exporter.service.type }}
   selector:
     app: {{ template "litmus.name" . }}
-      {{- include "litmus.selectors" . | indent 6 }}
+    {{- include "litmus.selectors" . | nindent 4 }}
 {{- end -}}
