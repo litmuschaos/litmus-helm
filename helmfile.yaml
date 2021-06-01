@@ -12,3 +12,5 @@ releases:
   - name: litmus-2-0-0-beta
     chart: ./charts/litmus-2-0-0-beta
  
+  - name: kube-aws
+    chart: ./charts/kube-aws
