@@ -1,6 +1,6 @@
 # litmus
 
-![Version: 1.14.1](https://img.shields.io/badge/Version-1.14.1-informational?style=flat-square) ![AppVersion: 1.13.5](https://img.shields.io/badge/AppVersion-1.13.5-informational?style=flat-square)
+![Version: 1.14.2](https://img.shields.io/badge/Version-1.14.2-informational?style=flat-square) ![AppVersion: 1.13.5](https://img.shields.io/badge/AppVersion-1.13.5-informational?style=flat-square)
 
 A Helm chart to install litmus infra components on Kubernetes
 
@@ -29,6 +29,7 @@ A Helm chart to install litmus infra components on Kubernetes
 | exporter.image.repository | string | `"litmuschaos/chaos-exporter"` |  |
 | exporter.image.tag | string | `"1.13.5"` |  |
 | exporter.nodeSelector | object | `{}` |  |
+| exporter.priorityClassName | string | `nil` |  |
 | exporter.resources | object | `{}` |  |
 | exporter.service.annotations | object | `{}` |  |
 | exporter.service.port | int | `8080` |  |
