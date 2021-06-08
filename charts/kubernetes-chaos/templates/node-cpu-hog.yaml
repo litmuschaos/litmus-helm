@@ -8,9 +8,7 @@ kind: ChaosExperiment
 metadata:
   name: node-cpu-hog
   labels:
-    instance: {{ .Release.Name }}
-    chart: {{ include "kubernetes-chaos.chart" . }}
-    litmuschaos.io/version: {{ .Chart.AppVersion }}
+    {{- include "kubernetes-chaos.labels" . | indent 4 }}
 spec:
   definition:
     scope: Cluster
@@ -65,6 +63,9 @@ spec:
 
     # ENTER THE COMMA SEPARATED TARGET NODES NAME
     - name: TARGET_NODES
+      value: ''
+
+    - name: NODE_LABEL
       value: ''
     
     - name: LIB

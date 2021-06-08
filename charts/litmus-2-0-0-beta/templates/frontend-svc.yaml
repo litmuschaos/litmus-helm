@@ -3,6 +3,9 @@ kind: Service
 metadata:
   name: litmusportal-frontend-service
   namespace:  {{ .Release.Namespace }}
+  labels:
+    app.kubernetes.io/component: {{ include "litmus-portal.name" . }}-frontend
+    {{- include "litmus-portal.labels" . | nindent 4 }}
 spec:
   {{- if .Values.ingress.enabled }}
   type: ClusterIP
@@ -14,4 +17,4 @@ spec:
       port: {{ .Values.portal.frontend.service.port }}
       targetPort: {{ .Values.portal.frontend.service.targetPort }}
   selector:
-    component: litmusportal-frontend
+    app.kubernetes.io/component: {{ include "litmus-portal.name" . }}-frontend

@@ -8,9 +8,7 @@ kind: ChaosExperiment
 metadata:
   name: disk-fill
   labels:
-    instance: {{ .Release.Name }}
-    chart: {{ include "kubernetes-chaos.chart" . }}
-    litmuschaos.io/version: {{ .Chart.AppVersion }}
+    {{- include "kubernetes-chaos.labels" . | indent 4 }}
 spec:
   definition:
     scope: Namespaced
@@ -73,6 +71,11 @@ spec:
 
     - name: LIB_IMAGE
       value: "{{ .Values.image.litmusLIBImage.repository }}:{{ .Values.image.litmusLIBImage.tag }}"
+
+    # provide the data block size
+    # supported unit is KB
+    - name: DATA_BLOCK_SIZE
+      value: '256'
 
     - name: TARGET_PODS
       value: ''

@@ -36,10 +36,10 @@ spec:
             x-kubernetes-preserve-unknown-fields: true
             type: object            
           spec:
-            x-kubernetes-preserve-unknown-fields: true
             type: object
             properties:
               definition:
+                x-kubernetes-preserve-unknown-fields: true
                 type: object
                 properties:
                   args:
@@ -147,6 +147,7 @@ spec:
                           allowEmptyValue: false
                           minLength: 1
                   securityContext:
+                    x-kubernetes-preserve-unknown-fields: true
                     type: object
                   hostPID:
                     type: boolean
@@ -156,3 +157,4 @@ spec:
     subresources: {}
   conversion:
     strategy: None
+    

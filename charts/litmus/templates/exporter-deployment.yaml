@@ -4,24 +4,25 @@ kind: Deployment
 metadata:
   name: {{ include "litmus.fullname" . }}-monitor
   labels:
-    name: {{ include "litmus.name" . }}-monitor
-    chart: {{ include "litmus.chart" . }}
-    litmuschaos.io/version: {{ .Chart.AppVersion }}
-    instance: {{ .Release.Name }}
+    app: {{ template "litmus.name" . }}
+    {{- include "litmus.labels" . | indent 4 }}
 spec:
   replicas: 1
   selector:
     matchLabels:
-      name: {{ include "litmus.name" . }}-monitor
-      instance: {{ .Release.Name }}
+      app: {{ template "litmus.name" . }}
+      {{- include "litmus.selectors" . | indent 6 }}
   template:
     metadata:
       labels:
-        name: {{ include "litmus.name" . }}-monitor
-        instance: {{ .Release.Name }}
+        app: {{ template "litmus.name" . }}
+        {{- include "litmus.labels" . | indent 8 }}
     spec:
       serviceAccountName: {{ include "litmus.fullname" . }}
       serviceAccount: {{ include "litmus.fullname" . }}
+      {{- if .Values.priorityClassName }}
+      priorityClassName: {{ .Values.priorityClassName | quote }}
+      {{- end }}
       containers:
         - name: exporter
           image: "{{ .Values.exporter.image.repository }}:{{ .Values.exporter.image.tag }}"
