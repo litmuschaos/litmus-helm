@@ -16,7 +16,7 @@ adminConfig:
   DB_PORT: "27017"
 
 image:
-  imageRegistryName:  litmuschaos
+  imageRegistryName: litmuschaos
   # Optional pod imagePullSecrets
   imagePullSecrets: []
 
