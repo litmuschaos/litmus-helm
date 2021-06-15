@@ -18,13 +18,13 @@ spec:
         {{- include "litmus-portal.labels" . | nindent 8 }}
     spec:
       serviceAccountName: {{ .Values.portal.server.serviceAccountName }}
-      {{- if .Values.imagePullSecrets }}
+      {{- if .Values.image.imagePullSecrets }}
       imagePullSecrets:
-        {{ toYaml .Values.imagePullSecrets | indent 8 }}
+        {{ toYaml .Values.image.imagePullSecrets | indent 8 }}
       {{- end }}
       containers:
         - name: graphql-server
-          image: {{ .Values.portal.server.graphqlServer.image.repository }}:{{ .Values.portal.server.graphqlServer.image.tag }}
+          image: {{ .Values.image.imageRegistryName }}/{{ .Values.portal.server.graphqlServer.image.repository }}:{{ .Values.portal.server.graphqlServer.image.tag }}
           imagePullPolicy: {{ .Values.portal.server.graphqlServer.image.pullPolicy }}
           ports:
             - containerPort: {{ .Values.portal.server.graphqlServer.containerPort }}
@@ -76,7 +76,12 @@ spec:
               valueFrom:
                 fieldRef:
                   fieldPath: spec.nodeName
-            {{- range $key, $val := .Values.portal.server.graphqlServer.env }}
+            {{- $imageRegistry := .Values.image.imageRegistryName -}}
+            {{- range $key, $val := .Values.portal.server.graphqlServer.imageEnv }}
+            - name: {{ $key }}
+              value: {{ $imageRegistry }}/{{ $val }}
+            {{- end }}
+            {{- range $key, $val := .Values.portal.server.graphqlServer.genericEnv }}
             - name: {{ $key }}
               value: {{ $val | quote }}
             {{- end }}
@@ -85,7 +90,7 @@ spec:
             - name: INGRESS_NAME
               value: "{{ .Values.ingress.name }}"
         - name: auth-server
-          image: {{ .Values.portal.server.authServer.image.repository }}:{{ .Values.portal.server.authServer.image.tag }}
+          image: {{ .Values.image.imageRegistryName }}/{{ .Values.portal.server.authServer.image.repository }}:{{ .Values.portal.server.authServer.image.tag }}
           imagePullPolicy: {{ .Values.portal.server.authServer.image.pullPolicy }}
           ports:
             - containerPort: {{ .Values.portal.server.authServer.containerPort }}

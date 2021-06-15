@@ -17,13 +17,13 @@ spec:
         app.kubernetes.io/component: {{ include "litmus-portal.name" . }}-frontend
         {{- include "litmus-portal.labels" . | nindent 8 }}
     spec:
-      {{- if .Values.imagePullSecrets }}
+      {{- if .Values.image.imagePullSecrets }}
       imagePullSecrets:
-        {{ toYaml .Values.imagePullSecrets | indent 8 }}
+        {{ toYaml .Values.image.imagePullSecrets | indent 8 }}
       {{- end }}
       containers:
         - name: litmusportal-frontend
-          image: {{ .Values.portal.frontend.image.repository }}:{{ .Values.portal.frontend.image.tag }}
+          image: {{ .Values.image.imageRegistryName }}/{{ .Values.portal.frontend.image.repository }}:{{ .Values.portal.frontend.image.tag }}
           imagePullPolicy: {{ .Values.portal.frontend.image.pullPolicy }}
           resources:
             {{- toYaml .Values.portal.frontend.resources | nindent 12 }}

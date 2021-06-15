@@ -20,16 +20,16 @@ spec:
         app.kubernetes.io/component: {{ include "litmus-portal.name" . }}-database
         {{- include "litmus-portal.labels" . | nindent 8 }}
     spec:
-      {{- if .Values.imagePullSecrets }}
+      {{- if .Values.image.imagePullSecrets }}
       imagePullSecrets:
-        {{ toYaml .Values.imagePullSecrets | indent 8 }}
+        {{ toYaml .Values.image.imagePullSecrets | indent 8 }}
       {{- end }}
       containers:
         - name: mongo
-          image: {{ .Values.mongo.image.repository }}:{{ .Values.mongo.image.tag }}
+          image: {{ .Values.image.imageRegistryName }}/{{ .Values.mongo.image.repository }}:{{ .Values.mongo.image.tag }}
           ports:
-              - containerPort: {{ .Values.mongo.containerPort }}
-                name: http
+            - containerPort: {{ .Values.mongo.containerPort }}
+              name: http
           imagePullPolicy: {{ .Values.mongo.image.pullPolicy }}
           volumeMounts:
             - name: mongo-persistent-storage

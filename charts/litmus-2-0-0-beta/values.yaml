@@ -15,8 +15,10 @@ adminConfig:
   DB_SERVER: ""
   DB_PORT: "27017"
 
-# Optional pod imagePullSecrets
-imagePullSecrets: []
+image:
+  imageRegistryName: litmuschaos
+  # Optional pod imagePullSecrets
+  imagePullSecrets: []
 
 ingress:
   enabled: false
@@ -36,8 +38,8 @@ portal:
   frontend:
     replicas: 1
     image:
-      repository: litmuschaos/litmusportal-frontend
-      tag: 2.0.0-Beta7
+      repository: litmusportal-frontend
+      tag: 2.0.0-Beta8
       pullPolicy: "Always"
     containerPort: 8080
     resources: {}
@@ -61,19 +63,19 @@ portal:
     serviceAccountName: litmus-server-account
     graphqlServer:
       image:
-        repository: litmuschaos/litmusportal-server
-        tag: 2.0.0-Beta7
+        repository: litmusportal-server
+        tag: 2.0.0-Beta8
         pullPolicy: "Always"
       containerPort: 8080
-      env:
-        SUBSCRIBER_IMAGE: "litmuschaos/litmusportal-subscriber:2.0.0-Beta7"
-        EVENT_TRACKER_IMAGE: "litmuschaos/litmusportal-event-tracker:2.0.0-Beta7"
-        ARGO_SERVER_IMAGE: "litmuschaos/argocli:v2.9.3"
-        ARGO_WORKFLOW_CONTROLLER_IMAGE: "litmuschaos/workflow-controller:v2.9.3"
-        ARGO_WORKFLOW_EXECUTOR_IMAGE: "litmuschaos/argoexec:v2.9.3"
-        LITMUS_CHAOS_OPERATOR_IMAGE: "litmuschaos/chaos-operator:1.13.3"
-        LITMUS_CHAOS_RUNNER_IMAGE: "litmuschaos/chaos-runner:1.13.3"
-        LITMUS_CHAOS_EXPORTER_IMAGE: "litmuschaos/chaos-exporter:1.13.3"
+      imageEnv:
+        SUBSCRIBER_IMAGE: "litmusportal-subscriber:2.0.0-Beta8"
+        EVENT_TRACKER_IMAGE: "litmusportal-event-tracker:2.0.0-Beta8"
+        ARGO_WORKFLOW_CONTROLLER_IMAGE: "workflow-controller:v2.9.3"
+        ARGO_WORKFLOW_EXECUTOR_IMAGE: "argoexec:v2.9.3"
+        LITMUS_CHAOS_OPERATOR_IMAGE: "chaos-operator:1.13.5"
+        LITMUS_CHAOS_RUNNER_IMAGE: "chaos-runner:1.13.5"
+        LITMUS_CHAOS_EXPORTER_IMAGE: "chaos-exporter:1.13.5"
+      genericEnv:
         SELF_CLUSTER: "true"
         SERVER_SERVICE_NAME: "litmusportal-server-service"
         PORTAL_ENDPOINT: "http://litmusportal-server-service:9002"
@@ -92,8 +94,8 @@ portal:
       #   memory: 400Mi
     authServer:
       image:
-        repository: litmuschaos/litmusportal-auth-server
-        tag: 2.0.0-Beta7
+        repository: litmusportal-auth-server
+        tag: 2.0.0-Beta8
         pullPolicy: "Always"
       containerPort: 3000
       env:
@@ -122,7 +124,7 @@ portal:
 mongo:
   replicas: 1
   image:
-    repository: litmuschaos/mongo
+    repository: mongo
     tag: 4.2.8
     pullPolicy: "Always"
   containerPort: 27017
