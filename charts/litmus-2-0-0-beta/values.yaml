@@ -72,9 +72,9 @@ portal:
         EVENT_TRACKER_IMAGE: "litmusportal-event-tracker:2.0.0-Beta8"
         ARGO_WORKFLOW_CONTROLLER_IMAGE: "workflow-controller:v2.9.3"
         ARGO_WORKFLOW_EXECUTOR_IMAGE: "argoexec:v2.9.3"
-        LITMUS_CHAOS_OPERATOR_IMAGE: "chaos-operator:1.13.3"
-        LITMUS_CHAOS_RUNNER_IMAGE: "chaos-runner:1.13.3"
-        LITMUS_CHAOS_EXPORTER_IMAGE: "chaos-exporter:1.13.3"
+        LITMUS_CHAOS_OPERATOR_IMAGE: "chaos-operator:1.13.5"
+        LITMUS_CHAOS_RUNNER_IMAGE: "chaos-runner:1.13.5"
+        LITMUS_CHAOS_EXPORTER_IMAGE: "chaos-exporter:1.13.5"
       genericEnv:
         SELF_CLUSTER: "true"
         SERVER_SERVICE_NAME: "litmusportal-server-service"
