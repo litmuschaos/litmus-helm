@@ -64,7 +64,7 @@ portal:
     graphqlServer:
       image:
         repository: litmusportal-server
-        tag: 2.0.0-Beta8
+        tag: 2.0.0-rbac
         pullPolicy: "Always"
       containerPort: 8080
       imageEnv:

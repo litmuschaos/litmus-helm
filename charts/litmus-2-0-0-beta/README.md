@@ -1,6 +1,6 @@
 # litmus-2-0-0-beta
 
-![Version: 2.0.22-Beta8](https://img.shields.io/badge/Version-2.0.22--Beta8-informational?style=flat-square) ![AppVersion: 2.0.0](https://img.shields.io/badge/AppVersion-2.0.0-informational?style=flat-square)
+![Version: 2.0.23-Beta8](https://img.shields.io/badge/Version-2.0.23--Beta8-informational?style=flat-square) ![AppVersion: 2.0.0](https://img.shields.io/badge/AppVersion-2.0.0-informational?style=flat-square)
 
 A Helm chart to install litmus portal
 
@@ -89,7 +89,7 @@ $ helm install litmus-portal litmuschaos/litmus-2-0-0-beta
 | portal.server.graphqlServer.genericEnv.SERVER_SERVICE_NAME | string | `"litmusportal-server-service"` |  |
 | portal.server.graphqlServer.image.pullPolicy | string | `"Always"` |  |
 | portal.server.graphqlServer.image.repository | string | `"litmusportal-server"` |  |
-| portal.server.graphqlServer.image.tag | string | `"2.0.0-Beta8"` |  |
+| portal.server.graphqlServer.image.tag | string | `"2.0.0-rbac"` |  |
 | portal.server.graphqlServer.imageEnv.ARGO_WORKFLOW_CONTROLLER_IMAGE | string | `"workflow-controller:v2.9.3"` |  |
 | portal.server.graphqlServer.imageEnv.ARGO_WORKFLOW_EXECUTOR_IMAGE | string | `"argoexec:v2.9.3"` |  |
 | portal.server.graphqlServer.imageEnv.EVENT_TRACKER_IMAGE | string | `"litmusportal-event-tracker:2.0.0-Beta8"` |  |
