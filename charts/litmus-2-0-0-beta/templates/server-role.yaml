@@ -8,142 +8,63 @@ metadata:
     app.kubernetes.io/component: {{ include "litmus-portal.name" . }}-server
     {{- include "litmus-portal.labels" . | nindent 4 }}
 rules:
-  - apiGroups:
-      - "apps"
-    resources:
-      - "deployments"
-    verbs:
-      - "create"
-  - apiGroups:
-    - ""
-    resources:
-    - "services"
-    - "pods/log"
-    verbs:
-    - "get"
-    - "watch"
-  - apiGroups:
-    - "extensions"
-    resources:
-    - "ingresses"
-    verbs:
-    - "get"
-  #
-  - apiGroups:
-    - "networking.k8s.io"
-    resources:
-    - "ingresses"
-    verbs:
-    - "get"
-  - apiGroups:
-    - ""
-    resources:
-    - "configmaps"
-    verbs:
-    - "get"
-  #
-  - apiGroups:
-    - ""
-    resources:
-    - "serviceaccounts"
-    verbs:
-    - "create"
-  # 
-  - apiGroups:
-    - "rbac.authorization.k8s.io"
-    resources:
-    - "rolebindings"
-    - "roles"
-    - "clusterrolebindings"
-    - "clusterroles"
-    verbs:
-    - "create"
-  - apiGroups:
-      - ""
-    resources:
-      - pods
-      - pods/exec
-    verbs:
-      - create
-      - get
-      - list
-      - watch
-      - update
-      - patch
-      - delete
-  - apiGroups:
-      - ""
-    resources:
-      - configmaps
-    verbs:
-      - get
-      - watch
-      - list
-  - apiGroups:
-      - ""
-    resources:
-      - persistentvolumeclaims
-    verbs:
-      - create
-      - delete
-  - apiGroups:
-      - argoproj.io
-    resources:
-      - workflows
-      - workflows/finalizers
-    verbs:
-      - get
-      - list
-      - watch
-      - update
-      - patch
-      - delete
-      - create
-  - apiGroups:
-      - argoproj.io
-    resources:
-      - workflowtemplates
-      - workflowtemplates/finalizers
-      - clusterworkflowtemplates
-      - clusterworkflowtemplates/finalizers
-    verbs:
-      - get
-      - list
-      - watch
-  - apiGroups:
-      - ""
-    resources:
-      - serviceaccounts
-    verbs:
-      - get
-      - list
-  - apiGroups:
-      - argoproj.io
-    resources:
-      - cronworkflows
-      - cronworkflows/finalizers
-    verbs:
-      - get
-      - list
-      - watch
-      - update
-      - patch
-      - delete
-  - apiGroups:
-      - ""
-    resources:
-      - events
-    verbs:
-      - create
-      - patch
-  - apiGroups:
-      - policy
-    resources:
-      - poddisruptionbudgets
-    verbs:
-      - create
-      - get
-      - delete
+  - apiGroups: ["apps"]
+    resources: [ "deployments" ]
+    verbs: [ "create" ]
+  - apiGroups: [ "" ]
+    resources: [ "services", "pods/log"]
+    verbs: [ "get", "watch" ]
+  - apiGroups: [ "extensions"]
+    resources: [ "ingresses" ]
+    verbs: ["get" ]
+  - apiGroups: [ "networking.k8s.io" ]
+    resources: [ "ingresses" ] 
+    verbs: [ "get" ]
+  - apiGroups: [ "" ]
+    resources: [ "configmaps" ]
+    verbs: [ "get"]
+  - apiGroups: [ "" ]
+    resources: [ "serviceaccounts" ]
+    verbs: [ "create" ]
+  - apiGroups: [ "rbac.authorization.k8s.io" ]
+    resources: [ "rolebindings", "roles", "clusterrolebindings", "clusterroles" ]
+    verbs: [ "create" ]
+  - apiGroups: [ "" ]
+    resources: [ "pods", "pods/exec" ]
+    verbs: [
+      "create",
+      "get",
+      "list",
+      "watch",
+      "update",
+      "patch",
+      "delete",
+    ]
+  - apiGroups: [ "" ]
+    resources: [ "configmaps" ]
+    verbs: [ "get", "watch", "list" ]
+  - apiGroups: [ "" ]
+    resources: [ "persistentvolumeclaims" ]
+    verbs: [ "create", "delete" ]
+  - apiGroups:  [ "" ]
+    resources: [ "serviceaccounts" ]
+    verbs: [ "get", "list" ]
+  - apiGroups: [ "argoproj.io" ]
+    resources: [ "cronworkflows", "cronworkflows/finalizers" ]
+    verbs: [
+      "get",
+      "list",
+      "watch",
+      "update",
+      "patch",
+      "delete",
+    ]
+  - apiGroups: [ "" ]
+    resources: [ "events" ]
+    verbs: [ "create", "patch" ]
+  - apiGroups: [ "policy" ]
+    resources: [ "poddisruptionbudgets" ]
+    verbs:  [ "create", "get", "delete" ]
   - apiGroups: [""]
     resources: ["replicationcontrollers", "secrets"]
     verbs: ["get", "list"]
@@ -161,19 +82,6 @@ rules:
     verbs: ["get", "list"]
   - apiGroups: [""]
     resources: ["pods", "configmaps", "events", "services"]
-    verbs:
-      [
-        "get",
-        "create",
-        "update",
-        "patch",
-        "delete",
-        "list",
-        "watch",
-        "deletecollection",
-      ]
-  - apiGroups: ["litmuschaos.io"]
-    resources: ["chaosengines", "chaosexperiments", "chaosresults"]
     verbs:
       [
         "get",
@@ -218,56 +126,42 @@ rules:
           "storageclasses",
           "services",
           "events",
+          "chaosschedules"
       ]
-    verbs: ["create", "delete", "get", "list", "patch", "update", "deletecollection"]
+    verbs: ["create", "delete", "get", "list", "patch", "update", "deletecollection", "watch"]
   - apiGroups: [""]
-    resources: ["nodes"]
-    verbs: ["get", "list", "patch", "update"]
-  - apiGroups: [""] 
     resources: ["pods/log"]
-    verbs: ["watch"]
-  - apiGroups: ["argoproj.io"] 
-    resources: ["clusterworkflowtemplates"]
-    verbs: ["create", "delete", "update"]
-  - apiGroups: ["argoproj.io"]
-    resources: ["clusterworkflowtemplates/finalizers"]
-    verbs: ["create", "delete", "update"]
-  - apiGroups: ["argoproj.io"]
-    resources: ["cronworkflows"]
-    verbs: ["create"]
-  - apiGroups: ["argoproj.io"]
-    resources: ["cronworkflows/finalizers"]
-    verbs: ["create"]
-  - apiGroups: ["argoproj.io"]
-    resources: ["rollouts"]
-    verbs: ["create","watch","delete","update"]
-  - apiGroups: ["argoproj.io"]
-    resources: ["workflowtemplates"]
-    verbs: ["create","delete","update"]
-  - apiGroups: ["argoproj.io"]
-    resources: ["workflowtemplates/finalizers"]
-    verbs: ["create","delete","update"]
-  - apiGroups: ["litmuschaos.io"]
-    resources: ["chaosschedules"]
-    verbs: ["create", "get", "list","watch","delete","update"]
+    verbs: ["get", "list", "patch", "update", "watch", "create"]
+  - apiGroups: [ "argoproj.io" ]
+    resources: [ 
+      "workflows",
+      "cronworkflows",
+      "cronworkflows/finalizers",
+      "workflows/finalizers",
+      "workflowtemplates",
+      "workflowtemplates/finalizers",
+      "clusterworkflowtemplates",
+      "clusterworkflowtemplates/finalizers",
+      "rollouts",
+    ]
+    verbs: [
+      "get",
+      "list",
+      "watch",
+      "update",
+      "patch",
+      "delete",
+      "create",
+    ]
   - apiGroups: [""] 
-    resources: ["daemonsets"]
-    verbs: ["watch"]
-  - apiGroups: [""]
-    resources: ["deployments"]
-    verbs: ["watch"]
-  - apiGroups: [""]
-    resources: ["statefulsets"]
+    resources: ["daemonsets", "deployments", "statefulsets"]
     verbs: ["watch"]
   - apiGroups: ["apps"]
     resources: ["configmaps", "daemonsets", "deployments", "pods", "statefulsets"]
     verbs: ["watch"]
   - apiGroups: ["eventtracker.litmuschaos.io"]
-    resources: ["eventtrackerpolicies"]
+    resources: ["eventtrackerpolicies", "eventtrackerpolicies/status"]
     verbs: ["create","delete","get","list","patch","update","watch"]
-  - apiGroups: ["eventtracker.litmuschaos.io"]
-    resources: ["eventtrackerpolicies/status"]
-    verbs: ["get", "patch", "update"]
   - apiGroups: ["extensions"]
     resources: ["configmaps", "daemonsets", "deployments", "pods", "statefulsets"]
     verbs: ["watch"]
