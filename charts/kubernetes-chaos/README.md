@@ -1,6 +1,6 @@
 # kubernetes-chaos
 
-![Version: 2.11.0](https://img.shields.io/badge/Version-2.11.0-informational?style=flat-square) ![AppVersion: 1.13.6](https://img.shields.io/badge/AppVersion-1.13.6-informational?style=flat-square)
+![Version: 2.12.0](https://img.shields.io/badge/Version-2.12.0-informational?style=flat-square) ![AppVersion: 1.13.7](https://img.shields.io/badge/AppVersion-1.13.7-informational?style=flat-square)
 
 A Helm chart to install litmus chaos experiments for kubernetes category (chaos-chart)
 
@@ -33,9 +33,9 @@ A Helm chart to install litmus chaos experiments for kubernetes category (chaos-
 | image.litmus.tag | string | `"1.13.6"` |  |
 | image.litmusGO.pullPolicy | string | `"Always"` |  |
 | image.litmusGO.repository | string | `"litmuschaos/go-runner"` |  |
-| image.litmusGO.tag | string | `"1.13.6"` |  |
+| image.litmusGO.tag | string | `"1.13.7"` |  |
 | image.litmusLIBImage.repository | string | `"litmuschaos/go-runner"` |  |
-| image.litmusLIBImage.tag | string | `"1.13.6"` |  |
+| image.litmusLIBImage.tag | string | `"1.13.7"` |  |
 | image.networkChaos.tcImage | string | `"gaiadocker/iproute2"` |  |
 | image.pumba.libName | string | `"pumba"` |  |
 | image.resourceChaos.respository | string | `"alexeiled/stress-ng"` |  |
