@@ -16,7 +16,7 @@ image:
 
   litmusGO:
     repository: litmuschaos/go-runner
-    tag: 1.13.6
+    tag: 1.13.7
     pullPolicy: Always
 
   pumba:
@@ -24,7 +24,7 @@ image:
 
   litmusLIBImage:
     repository: litmuschaos/go-runner
-    tag: 1.13.6
+    tag: 1.13.7
 
   networkChaos:
     tcImage: gaiadocker/iproute2
