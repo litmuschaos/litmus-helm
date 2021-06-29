@@ -1,4 +1,4 @@
-name: LitmusPortal-E2E
+name: LitmusPortalHelm-E2E
 on:
   issue_comment:
     types: [created]
@@ -39,11 +39,16 @@ jobs:
         with:
           ref: ${{steps.getcommit.outputs.sha}}
           fetch-depth: 0
+
+      - name: Checkout litmus-E2E Repository
+        uses: actions/checkout@v2
+        with:
+          repository: litmuschaos/litmus-e2e
+          path: litmus-e2e
+
       # Setting up KinD Cluster
       - name: Setting up KinD Cluster
         uses: engineerd/setup-kind@v0.5.0
-        with:
-          version: "v0.7.0"
 
       - name: Configuring and Testing the Cluster Installation
         run: |
@@ -56,29 +61,52 @@ jobs:
       - name: Deploying Litmus-Portal using **Helm chart**
         run: |
           kubectl create ns litmus
+          echo -e "\n-------- Installing Checked out Helm-Chart ----------\n"
           helm install litmuschaos --namespace litmus ./charts/litmus-2-0-0-beta/
+          source ./litmus-e2e/litmus/utils.sh
+          echo -e "\n-------- Verifying Control-Plane Components ----------\n"
+          verify_all_components frontend,server litmus
+          echo -e "\n-------- Waiting for pods to be ready ----------\n"
+          wait_for_pods litmus 720
 
-      - name: Waiting for Litmus-Portal to be ready and port-forwarding the frontend port
+      - name: Getting the Access URL for Litmus-Portal
         run: |
-          kubectl get pods -n litmus
-          kubectl get deployments -o wide -n litmus
-          kubectl wait --for=condition=Ready pods --all --namespace litmus --timeout=120s
-          export frontendPodName=$(kubectl get pods -l component=litmusportal-frontend --template '{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}' -n litmus)
-          export frontendPodPort=$(kubectl get pod $frontendPodName --template='{{(index (index .spec.containers 0).ports 0).containerPort}}{{"\n"}}' --namespace litmus)
-          kubectl port-forward $frontendPodName -n litmus 3001:$frontendPodPort &
+          export NODE_NAME=$(kubectl -n litmus get pod  -l "app.kubernetes.io/component=litmus-2-0-0-beta-frontend" -o=jsonpath='{.items[*].spec.nodeName}')
+          export NODE_IP=$(kubectl -n litmus get nodes $NODE_NAME -o jsonpath='{.status.addresses[?(@.type=="InternalIP")].address}')
+          export NODE_PORT=$(kubectl -n litmus get -o jsonpath="{.spec.ports[0].nodePort}" services litmusportal-frontend-service)
+          export AccessURL="http://$NODE_IP:$NODE_PORT"
+          echo "URL=$AccessURL" >> $GITHUB_ENV
 
-      # Cloning the litmus-e2e repo for E2E tests.
-      - name: Cloning the litmus-e2e Repo
-        run: |
-          git clone https://github.com/litmuschaos/litmus-e2e.git -b litmus-portal
-
-      - name: Running basic tests (Login and Onboarding Tests)
+      - name: Portal Authentication Tests
         uses: cypress-io/github-action@v2
         continue-on-error: false
         with:
           spec: cypress/integration/Basic_Setup/**/*.spec.js
           working-directory: litmus-e2e/Cypress/
           config-file: cypress.prod.json
+          env: true
+        env:
+          CYPRESS_BASE_URL: ${{ env.URL }}
+
+      - name: Verifying Execution-Plane Components
+        if: always()
+        run: |
+          source ./litmus-e2e/litmus/utils.sh
+          verify_all_components ${COMPONENTS} litmus
+          wait_for_pods litmus 720
+        env:
+          COMPONENTS: subscriber,chaos-exporter,chaos-operator-ce,event-tracker,workflow-controller
+
+      - name: Post Authentication Tests
+        uses: cypress-io/github-action@v2
+        continue-on-error: false
+        with:
+          spec: cypress/integration/Parallel_Tests/**/*.spec.js
+          working-directory: litmus-e2e/Cypress/
+          config-file: cypress.prod.json
+          env: true
+        env:
+          CYPRESS_BASE_URL: ${{ env.URL }}
 
       # TODO: Now new tests will have to be added from here ----------
       - name: Check for all the jobs are succeeded
