@@ -18,6 +18,9 @@ spec:
         {{- include "litmus.labels" . | indent 8 }}
     spec:
       serviceAccountName: {{ include "litmus.fullname" . }}
+      {{- if .Values.priorityClassName }}
+      priorityClassName: {{ .Values.priorityClassName | quote }}
+      {{- end }}
       containers:
         - name: {{ .Values.operatorName }}
           image: "{{ .Values.operator.image.repository }}:{{ .Values.operator.image.tag }}"

@@ -1,20 +1,21 @@
 apiVersion: v1
 appVersion: "1.13.7"
-description: A Helm chart to install litmus chaos experiments for kubernetes category (chaos-chart)
-name: kubernetes-chaos
-version: 2.12.0
+description: A Helm chart to install litmus aws chaos experiments
+name: kube-aws
+version: 1.14.0
 home: https://litmuschaos.io
 sources:
   - https://github.com/litmuschaos/litmus
 keywords:
   - chaos-engineering
   - resiliency
+  - aws
   - kubernetes
 maintainers:
-  - name: ksatchit
-    email: karthik.s@mayadata.io
-  - name: chandankumar4
-    email: chandan.kumar@zopsmart.com
   - name: jasstkn
     email: jasssstkn@yahoo.com
+  - name: ksatchit
+    email: karthik@chaosnative.com    
+  - name: uditgaurav
+    email: udit@chaosnative.com
 icon: https://raw.githubusercontent.com/litmuschaos/icons/master/litmus.png

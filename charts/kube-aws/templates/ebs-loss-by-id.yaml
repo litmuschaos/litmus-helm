@@ -1,14 +1,13 @@
-{{ if not (has "node-taint" .Values.experiments.disabled) }}
+{{ if not (has "ebs-loss-by-id" .Values.experiments.disabled) }}
 ---
 apiVersion: litmuschaos.io/v1alpha1
 description:
-  message: |
-    Taint the node where application pod is scheduled
+  message: "Detaching ebs volumes from ec2 instances using volume id \n"
 kind: ChaosExperiment
 metadata:
-  name: node-taint
+  name: ebs-loss-by-id
   labels:
-    {{- include "kubernetes-chaos.labels" . | indent 4 }}
+    {{- include "kube-aws.labels" . | indent 4 }}
 spec:
   definition:
     scope: Cluster
@@ -16,7 +15,6 @@ spec:
       - apiGroups:
           - ""
           - "batch"
-          - "apps"
           - "litmuschaos.io"
         resources:
           - "jobs"
@@ -24,8 +22,7 @@ spec:
           - "events"
           - "pods/log"
           - "pods/exec"
-          - "daemonsets"
-          - "pods/eviction"
+          - "secrets"
           - "chaosengines"
           - "chaosexperiments"
           - "chaosresults"
@@ -36,49 +33,46 @@ spec:
           - "patch"
           - "update"
           - "delete"
-          - "deletecollection"
-      - apiGroups:
-          - ""
-        resources: 
-          - "nodes"
-        verbs:
-          - "get"
-          - "list"
-          - "patch"
-          - "update"
     image: "{{ .Values.image.litmusGO.repository }}:{{ .Values.image.litmusGO.tag }}"
     imagePullPolicy: {{ .Values.image.litmusGO.pullPolicy }}
     args:
     - -c
-    - ./experiments -name node-taint
+    - ./experiments -name ebs-loss-by-id
     command:
     - /bin/bash
     env:
-
-    - name: TARGET_NODE
-      value: ''
-
-    - name: NODE_LABEL
-      value: ''
-
     - name: TOTAL_CHAOS_DURATION
-      value: '60'
+      value: '30'
 
-    # Provide the LIB here
-    # Only litmus supported
-    - name: LIB
-      value: 'litmus'
+    - name: CHAOS_INTERVAL
+      value: '30'
 
     # Period to wait before and after injection of chaos in sec
     - name: RAMP_TIME
       value: ''
 
-    # set taint label & effect
-    # key=value:effect or key:effect
-    - name: TAINTS
+    - name: EBS_VOLUME_ID
       value: ''
 
+    - name: REGION
+      value: ''
+
+    - name: SEQUENCE
+      value: 'parallel'      
+
+    # Provide the path of aws credentials mounted from secret
+    - name: AWS_SHARED_CREDENTIALS_FILE
+      value: '/tmp/cloud_config.yml'
+
+    # provide the LIB
+    # only litmus supported
+    - name: LIB
+      value: 'litmus'
+      
     labels:
-      name: node-taint
+      name: ebs-loss-by-id
       app.kubernetes.io/part-of: litmus
+    secrets:
+    - name: cloud-secret
+      mountPath: /tmp/      
 {{ end }}
