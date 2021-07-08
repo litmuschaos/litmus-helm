@@ -24,6 +24,9 @@ spec:
       imagePullSecrets:
         {{ toYaml .Values.image.imagePullSecrets | indent 8 }}
       {{- end }}
+      {{- if .Values.mongo.serviceAccountName }}
+      serviceAccountName: {{ .Values.mongo.serviceAccountName }}
+      {{- end }}
       containers:
         - name: mongo
           image: {{ .Values.image.imageRegistryName }}/{{ .Values.mongo.image.repository }}:{{ .Values.mongo.image.tag }}
