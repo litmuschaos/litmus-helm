@@ -147,6 +147,8 @@ mongo:
     type: ClusterIP
     port: 27017
     targetPort: 27017
+  # Service account to be used by mongo pods
+  # serviceAccountName: "mongo-service-account"
 
 # OpenShift specific configuration
 openshift:
