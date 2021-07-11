@@ -1,5 +1,6 @@
 {{- if .Values.ingress.enabled -}}
 {{ $fullName := include "litmus-portal.fullname" . }}
+{{- $ingressPath := .Values.ingress.path -}}
 {{- if semverCompare ">=1.19-0" .Capabilities.KubeVersion.GitVersion -}}
 apiVersion: networking.k8s.io/v1
 {{- else if semverCompare ">=1.14-0" .Capabilities.KubeVersion.GitVersion -}}
@@ -37,14 +38,14 @@ spec:
   {{- end }}
     {{- if semverCompare ">=1.19-0" .Capabilities.KubeVersion.GitVersion }}
       paths:
-      - path: /(.*)
+      - path: {{ $ingressPath }}
         pathType: ImplementationSpecific
         backend:
           service:
             name: litmusportal-frontend-service
             port:
               number: 9091
-      - path: /backend/(.*)
+      - path: /backend{{ $ingressPath }}
         pathType: ImplementationSpecific
         backend:
           service:
@@ -53,11 +54,11 @@ spec:
               number: 9002
     {{- else if semverCompare "<1.19-0" .Capabilities.KubeVersion.GitVersion }}
       paths:
-      - path: /(.*)
+      - path: {{ $ingressPath }}
         backend:
           serviceName: litmusportal-frontend-service
           servicePort: 9091
-      - path: /backend/(.*)
+      - path: /backend{{ $ingressPath }}
         backend:
           serviceName: litmusportal-server-service
           servicePort: 9002
