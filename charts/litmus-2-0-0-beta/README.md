@@ -50,6 +50,7 @@ $ helm install litmus-portal litmuschaos/litmus-2-0-0-beta
 | ingress.host | string | `""` |  |
 | ingress.name | string | `"litmus-ingress"` |  |
 | ingress.tls | list | `[]` |  |
+| ingress.path | string | `/(*)` |  |
 | mongo.containerPort | int | `27017` |  |
 | mongo.image.pullPolicy | string | `"Always"` |  |
 | mongo.image.repository | string | `"mongo"` |  |
