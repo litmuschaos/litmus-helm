@@ -1,0 +1,136 @@
+name: LitmusPortalHelm-E2E
+on:
+  issue_comment:
+    types: [created]
+    branches:
+      - master
+
+jobs:
+  tests:
+    if: contains(github.event.comment.html_url, '/pull/') && startsWith(github.event.comment.body, '/run-portal-e2e')
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Notification for Starting Testing.
+        uses: peter-evans/create-or-update-comment@v1
+        with:
+          comment-id: "${{ github.event.comment.id }}"
+          body: |
+            ****
+            **Test Status:** The testing has been started please wait for the results ...
+      #Using the last commit id of pull request
+      - uses: octokit/request-action@v2.x
+        id: get_PR_commits
+        with:
+          route: GET /repos/:repo/pulls/:pull_number/commits
+          repo: ${{ github.repository }}
+          pull_number: ${{ github.event.issue.number }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: set commit to output
+        id: getcommit
+        run: |
+          prsha=$(echo $response | jq '.[-1].sha'  | tr -d '"')
+          echo "::set-output name=sha::$prsha"
+        env:
+          response: ${{ steps.get_PR_commits.outputs.data }}
+
+      - uses: actions/checkout@v2
+        with:
+          ref: ${{steps.getcommit.outputs.sha}}
+          fetch-depth: 0
+
+      - name: Checkout litmus-E2E Repository
+        uses: actions/checkout@v2
+        with:
+          repository: litmuschaos/litmus-e2e
+          path: litmus-e2e
+
+      # Setting up KinD Cluster
+      - name: Setting up KinD Cluster
+        uses: engineerd/setup-kind@v0.5.0
+
+      - name: Configuring and Testing the Cluster Installation
+        run: |
+          kubectl cluster-info --context kind-kind
+          kubectl get nodes
+          kubectl get pods -n kube-system
+
+      # Deploying Portal Helm-Chart using the checkedout chart from PR.
+      - name: Deploying Litmus-Portal using **Helm chart**
+        run: |
+          kubectl create ns litmus
+          echo -e "\n-------- Installing Checked out Helm-Chart ----------\n"
+          helm install litmuschaos --namespace litmus ./charts/litmus-2-0-0-beta/
+          source ./litmus-e2e/litmus/utils.sh
+          echo -e "\n-------- Verifying Control-Plane Components ----------\n"
+          verify_all_components frontend,server litmus
+          echo -e "\n-------- Waiting for pods to be ready ----------\n"
+          wait_for_pods litmus 720
+
+      - name: Getting the Access URL for Litmus-Portal
+        run: |
+          export NODE_NAME=$(kubectl -n litmus get pod  -l "app.kubernetes.io/component=litmus-2-0-0-beta-frontend" -o=jsonpath='{.items[*].spec.nodeName}')
+          export NODE_IP=$(kubectl -n litmus get nodes $NODE_NAME -o jsonpath='{.status.addresses[?(@.type=="InternalIP")].address}')
+          export NODE_PORT=$(kubectl -n litmus get -o jsonpath="{.spec.ports[0].nodePort}" services litmusportal-frontend-service)
+          export AccessURL="http://$NODE_IP:$NODE_PORT"
+          echo "URL=$AccessURL" >> $GITHUB_ENV
+
+      - name: Portal Authentication Tests
+        uses: cypress-io/github-action@v2
+        continue-on-error: false
+        with:
+          spec: cypress/integration/Basic_Setup/**/*.spec.js
+          working-directory: litmus-e2e/Cypress/
+          config-file: cypress.prod.json
+          env: true
+        env:
+          CYPRESS_BASE_URL: ${{ env.URL }}
+
+      - name: Verifying Execution-Plane Components
+        if: always()
+        run: |
+          source ./litmus-e2e/litmus/utils.sh
+          verify_all_components ${COMPONENTS} litmus
+          wait_for_pods litmus 720
+        env:
+          COMPONENTS: subscriber,chaos-exporter,chaos-operator-ce,event-tracker,workflow-controller
+
+      - name: Post Authentication Tests
+        uses: cypress-io/github-action@v2
+        continue-on-error: false
+        with:
+          spec: cypress/integration/Parallel_Tests/**/*.spec.js
+          working-directory: litmus-e2e/Cypress/
+          config-file: cypress.prod.json
+          env: true
+        env:
+          CYPRESS_BASE_URL: ${{ env.URL }}
+
+      - name: Check for all the jobs are succeeded
+        if: ${{ success() }}
+        uses: peter-evans/create-or-update-comment@v1
+        with:
+          comment-id: "${{ github.event.comment.id }}"
+          body: |
+            **Test Result:** All tests are passed
+            **Run ID:** [${{ env.RUN_ID }}](https://github.com/litmuschaos/litmus-helm/actions/runs/${{ env.RUN_ID }})
+          reactions: hooray
+        env:
+          RUN_ID: ${{ github.run_id }}
+
+      - name: Check for any job failed
+        if: ${{ failure() }}
+        uses: peter-evans/create-or-update-comment@v1
+        with:
+          comment-id: "${{ github.event.comment.id }}"
+          body: |
+            **Test Failed:** Some tests are failed please check
+            **Run ID:** [${{ env.RUN_ID }}](https://github.com/litmuschaos/litmus-helm/actions/runs/${{ env.RUN_ID }})
+          reactions: confused
+        env:
+          RUN_ID: ${{ github.run_id }}
+
+      - name: Deleting KinD cluster
+        if: ${{ always() }}
+        run: kind delete cluster
