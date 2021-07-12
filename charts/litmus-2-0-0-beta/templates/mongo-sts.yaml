@@ -27,6 +27,8 @@ spec:
       {{- if .Values.mongo.serviceAccountName }}
       serviceAccountName: {{ .Values.mongo.serviceAccountName }}
       {{- end }}
+      securityContext:
+        runAsNonRoot: false
       containers:
         - name: mongo
           image: {{ .Values.image.imageRegistryName }}/{{ .Values.mongo.image.repository }}:{{ .Values.mongo.image.tag }}
@@ -34,6 +36,12 @@ spec:
             - containerPort: {{ .Values.mongo.containerPort }}
               name: http
           imagePullPolicy: {{ .Values.mongo.image.pullPolicy }}
+          securityContext:
+            capabilities:
+              add:
+                - CHOWN
+                - SETUID
+                - SETGID
           volumeMounts:
             - name: mongo-persistent-storage
               mountPath: /data/db
