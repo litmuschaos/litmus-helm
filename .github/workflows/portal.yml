@@ -53,7 +53,6 @@ jobs:
       - name: Configuring and Testing the Cluster Installation
         run: |
           kubectl cluster-info --context kind-kind
-          kind get kubeconfig --internal >$HOME/.kube/config
           kubectl get nodes
           kubectl get pods -n kube-system
 
@@ -108,7 +107,6 @@ jobs:
         env:
           CYPRESS_BASE_URL: ${{ env.URL }}
 
-      # TODO: Now new tests will have to be added from here ----------
       - name: Check for all the jobs are succeeded
         if: ${{ success() }}
         uses: peter-evans/create-or-update-comment@v1
