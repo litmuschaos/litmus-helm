@@ -128,6 +128,7 @@ mongo:
     tag: 4.2.8
     pullPolicy: "Always"
   containerPort: 27017
+  resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
   # choice for the user. This also increases chances charts run on environments with little
   # resources, such as Minikube. If you do want to specify resources, uncomment the following
@@ -138,7 +139,6 @@ mongo:
   # requests:
   #   cpu: 200m
   #   memory: 400Mi
-  resources: {}
   persistence:
     size: 20Gi
     accessMode: ReadWriteOnce

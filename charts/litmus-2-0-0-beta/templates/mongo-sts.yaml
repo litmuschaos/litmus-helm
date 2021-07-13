@@ -34,8 +34,10 @@ spec:
             - containerPort: {{ .Values.mongo.containerPort }}
               name: http
           imagePullPolicy: {{ .Values.mongo.image.pullPolicy }}
+          {{- if .Values.mongo.resources }}
           resources:
             {{- toYaml .Values.mongo.resources | nindent 12 }}
+          {{- end }}
           volumeMounts:
             - name: mongo-persistent-storage
               mountPath: /data/db
