@@ -95,6 +95,8 @@ spec:
           ports:
             - containerPort: {{ .Values.portal.server.authServer.containerPort }}
               name: auth-server
+          resources:
+            {{- toYaml .Values.portal.server.authServer.resources | nindent 12 }}
           env:
             - name: DB_SERVER
               valueFrom:
