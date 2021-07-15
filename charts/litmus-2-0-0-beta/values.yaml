@@ -38,6 +38,10 @@ ingress:
 portal:
   frontend:
     replicas: 1
+    rollingUpdate:
+      enabled: false
+      maxSurge: "100%"
+      maxUnavailable: "50%"
     image:
       repository: litmusportal-frontend
       tag: 2.0.0-Beta8
@@ -64,6 +68,10 @@ portal:
 
   server:
     replicas: 1
+    rollingUpdate:
+      enabled: false
+      maxSurge: "100%"
+      maxUnavailable: "50%"
     serviceAccountName: litmus-server-account
     customLabels: {}
     # my.company.com/tier: "backend"

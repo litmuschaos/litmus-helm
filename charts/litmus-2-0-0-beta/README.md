@@ -73,6 +73,9 @@ $ helm install litmus-portal litmuschaos/litmus-2-0-0-beta
 | portal.frontend.image.tag | string | `"2.0.0-Beta8"` |  |
 | portal.frontend.replicas | int | `1` |  |
 | portal.frontend.resources | object | `{}` |  |
+| portal.frontend.rollingUpdate.enabled | bool | `false` |  |
+| portal.frontend.rollingUpdate.maxSurge | string | `"100%"` |  |
+| portal.frontend.rollingUpdate.maxUnavailable | string | `"50%"` |  |
 | portal.frontend.service.port | int | `9091` |  |
 | portal.frontend.service.targetPort | int | `8080` |  |
 | portal.frontend.service.type | string | `"NodePort"` |  |
@@ -102,6 +105,9 @@ $ helm install litmus-portal litmuschaos/litmus-2-0-0-beta
 | portal.server.graphqlServer.imageEnv.SUBSCRIBER_IMAGE | string | `"litmusportal-subscriber:2.0.0-Beta8"` |  |
 | portal.server.graphqlServer.resources | object | `{}` |  |
 | portal.server.replicas | int | `1` |  |
+| portal.server.rollingUpdate.enabled | bool | `false` |  |
+| portal.server.rollingUpdate.maxSurge | string | `"100%"` |  |
+| portal.server.rollingUpdate.maxUnavailable | string | `"50%"` |  |
 | portal.server.service.authServer.port | int | `9003` |  |
 | portal.server.service.authServer.targetPort | int | `3000` |  |
 | portal.server.service.graphqlServer.port | int | `9002` |  |

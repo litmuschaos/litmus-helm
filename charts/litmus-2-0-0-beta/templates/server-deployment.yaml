@@ -11,6 +11,13 @@ metadata:
     {{- end }}
 spec:
   replicas: {{ .Values.portal.server.replicas }}
+  {{- if .Values.portal.server.rollingUpdate.enabled }}
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: {{ .Values.portal.server.rollingUpdate.maxUnavailable }}
+      maxSurge: {{ .Values.portal.server.rollingUpdate.maxSurge }}
+  {{- end }}
   selector:
     matchLabels:
       app.kubernetes.io/component: {{ include "litmus-portal.name" . }}-server
