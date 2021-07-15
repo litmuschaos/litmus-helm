@@ -57,7 +57,7 @@ $ helm install litmus-portal litmuschaos/litmus-2-0-0-beta
 | mongo.persistence.accessMode | string | `"ReadWriteOnce"` |  |
 | mongo.persistence.size | string | `"20Gi"` |  |
 | mongo.replicas | int | `1` |  |
-| mongo.resources | object | `{}` |  choice for the user. This also increases chances charts run on environments with little resources, such as Minikube. If you do want to specify resources, uncomment the following lines, adjust them as necessary, and remove the curly braces after 'resources:'. limits:   cpu: 200m   memory: 400Mi requests:   cpu: 200m   memory: 400Mi |
+| mongo.resources | object | `{}` |  |
 | mongo.service.port | int | `27017` |  |
 | mongo.service.targetPort | int | `27017` |  |
 | mongo.service.type | string | `"ClusterIP"` |  |
@@ -71,7 +71,9 @@ $ helm install litmus-portal litmuschaos/litmus-2-0-0-beta
 | portal.frontend.image.tag | string | `"2.0.0-Beta9"` |  |
 | portal.frontend.replicas | int | `1` |  |
 | portal.frontend.resources | object | `{}` |  |
-| portal.frontend.service | object | `{"port":9091,"targetPort":8080,"type":"NodePort"}` |  choice for the user. This also increases chances charts run on environments with little resources, such as Minikube. If you do want to specify resources, uncomment the following lines, adjust them as necessary, and remove the curly braces after 'resources:'. limits:   cpu: 200m   memory: 400Mi requests:   cpu: 200m   memory: 400Mi |
+| portal.frontend.service.port | int | `9091` |  |
+| portal.frontend.service.targetPort | int | `8080` |  |
+| portal.frontend.service.type | string | `"NodePort"` |  |
 | portal.server.authServer.containerPort | int | `3000` |  |
 | portal.server.authServer.env.ADMIN_PASSWORD | string | `"litmus"` |  |
 | portal.server.authServer.env.ADMIN_USERNAME | string | `"admin"` |  |
