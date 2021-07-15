@@ -1,4 +1,4 @@
-{{ if not (has "pod-memory-hog" .Values.experiments.disabled) }}
+{{ if not (has "pod-memory-hog-exec" .Values.experiments.disabled) }}
 ---
 apiVersion: litmuschaos.io/v1alpha1
 description:
@@ -6,7 +6,7 @@ description:
     Injects memory consumption on pods belonging to an app deployment
 kind: ChaosExperiment
 metadata:
-  name: pod-memory-hog
+  name: pod-memory-hog-exec
   labels:
     {{- include "kubernetes-chaos.labels" . | indent 4 }}
 spec:
@@ -48,7 +48,7 @@ spec:
     imagePullPolicy: {{ .Values.image.litmusGO.pullPolicy }}
     args:
     - -c
-    - ./experiments -name pod-memory-hog
+    - ./experiments -name pod-memory-hog-exec
     command:
     - /bin/bash
     env:
@@ -70,17 +70,9 @@ spec:
       value: ''
 
     # Env var that describes the library used to execute the chaos
-    # Default: litmus. Supported values: litmus, pumba
+    # Default: litmus. Supported values: litmus
     - name: LIB
       value: 'litmus'
-
-    # It is used in pumba lib only   
-    - name: LIB_IMAGE
-      value: "{{ .Values.image.litmusLIBImage.repository }}:{{ .Values.image.litmusLIBImage.tag }}"
-
-     ## It is used in pumba lib only    
-    - name: STRESS_IMAGE
-      value: "{{ .Values.image.resourceChaos.repository }}:{{ .Values.image.resourceChaos.tag }}"
 
     - name: TARGET_PODS
       value: ''
@@ -88,20 +80,9 @@ spec:
     ## it defines the sequence of chaos execution for multiple target pods
     ## supported values: serial, parallel
     - name: SEQUENCE
-      value: 'parallel'     
-
-    # provide the name of container runtime
-    # for litmus LIB, it supports docker, containerd, crio
-    # for pumba LIB, it supports docker only
-    - name: CONTAINER_RUNTIME
-      value: "{{ .Values.environment.runtime }}"
-    
-    # provide the container runtime socket path
-    # default set to std docker sock file path
-    - name: SOCKET_PATH
-      value: "{{ .Values.environment.socketPath }}"
+      value: 'parallel'
 
     labels:
-      name: pod-memory-hog
+      name: pod-memory-hog-exec
       app.kubernetes.io/part-of: litmus
 {{ end }}
