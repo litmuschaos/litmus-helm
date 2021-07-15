@@ -4,10 +4,12 @@
 
 portalScope: cluster
 
+nameOverride: ""
+
 # -- Additional labels
 customLabels: {}
   # my.company.com/concourse-cd: 2  
- 
+
 adminConfig:
   DBUSER: "admin"
   DBPASSWORD: "1234"
