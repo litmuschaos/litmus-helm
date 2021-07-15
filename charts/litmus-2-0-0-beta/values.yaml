@@ -39,7 +39,7 @@ portal:
     replicas: 1
     image:
       repository: litmusportal-frontend
-      tag: 2.0.0-Beta8
+      tag: 2.0.0-Beta9
       pullPolicy: "Always"
     containerPort: 8080
     resources: {}
@@ -64,12 +64,12 @@ portal:
     graphqlServer:
       image:
         repository: litmusportal-server
-        tag: 2.0.0-Beta8
+        tag: 2.0.0-Beta9
         pullPolicy: "Always"
       containerPort: 8080
       imageEnv:
-        SUBSCRIBER_IMAGE: "litmusportal-subscriber:2.0.0-Beta8"
-        EVENT_TRACKER_IMAGE: "litmusportal-event-tracker:2.0.0-Beta8"
+        SUBSCRIBER_IMAGE: "litmusportal-subscriber:2.0.0-Beta9"
+        EVENT_TRACKER_IMAGE: "litmusportal-event-tracker:2.0.0-Beta9"
         ARGO_WORKFLOW_CONTROLLER_IMAGE: "workflow-controller:v2.9.3"
         ARGO_WORKFLOW_EXECUTOR_IMAGE: "argoexec:v2.9.3"
         LITMUS_CHAOS_OPERATOR_IMAGE: "chaos-operator:1.13.5"
@@ -95,7 +95,7 @@ portal:
     authServer:
       image:
         repository: litmusportal-auth-server
-        tag: 2.0.0-Beta8
+        tag: 2.0.0-Beta9
         pullPolicy: "Always"
       containerPort: 3000
       env:
