@@ -44,6 +44,22 @@ spec:
           resources:
             {{- toYaml .Values.mongo.resources | nindent 12 }}
           {{- end }}
+          livenessProbe:
+            exec:
+              command:
+              - bash
+              - "-c"
+              - |
+                mongo -u $MONGO_INITDB_ROOT_USERNAME -p $MONGO_INITDB_ROOT_PASSWORD --eval db.adminCommand\(\"ping\"\)
+            {{- toYaml .Values.mongo.livenessProbe | nindent 12 }}
+          readinessProbe:
+            exec:
+              command:
+              - bash
+              - "-c"
+              - |
+                mongo -u $MONGO_INITDB_ROOT_USERNAME -p $MONGO_INITDB_ROOT_PASSWORD --eval db.adminCommand\(\"ping\"\)
+            {{- toYaml .Values.mongo.readinessProbe | nindent 12 }}
           volumeMounts:
             - name: mongo-persistent-storage
               mountPath: /data/db

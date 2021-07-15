@@ -46,6 +46,16 @@ spec:
           resources:
             {{- toYaml .Values.portal.server.graphqlServer.resources | nindent 12 }}
           {{- end }}
+          livenessProbe:
+            httpGet:
+              path: /
+              port: graphql-srver
+            {{- toYaml .Values.portal.server.graphqlServer.livenessProbe | nindent 12 }}
+          readinessProbe:
+            httpGet:
+              path: /
+              port: graphql-srver
+            {{- toYaml .Values.portal.server.graphqlServer.readinessProbe | nindent 12 }}
           env:
             - name: DB_SERVER
               valueFrom:
