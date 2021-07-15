@@ -6,7 +6,8 @@ portalScope: cluster
 
 # -- Additional labels
 customLabels: {}
-
+  # my.company.com/concourse-cd: 2  
+ 
 adminConfig:
   DBUSER: "admin"
   DBPASSWORD: "1234"
@@ -42,6 +43,9 @@ portal:
       tag: 2.0.0-Beta8
       pullPolicy: "Always"
     containerPort: 8080
+    customLabels: {}
+    # my.company.com/tier: "frontend"
+
     resources: {}
     # We usually recommend not to specify default resources and to leave this as a conscious
     # choice for the user. This also increases chances charts run on environments with little
@@ -61,6 +65,9 @@ portal:
   server:
     replicas: 1
     serviceAccountName: litmus-server-account
+    customLabels: {}
+    # my.company.com/tier: "backend"
+
     graphqlServer:
       image:
         repository: litmusportal-server
@@ -123,6 +130,8 @@ portal:
 
 mongo:
   replicas: 1
+  customLabels: {}
+    # my.company.com/tier: "database"
   image:
     repository: mongo
     tag: 4.2.8

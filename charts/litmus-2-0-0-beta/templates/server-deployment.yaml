@@ -6,6 +6,9 @@ metadata:
   labels:
     app.kubernetes.io/component: {{ include "litmus-portal.name" . }}-server
     {{- include "litmus-portal.labels" . | nindent 4 }}
+    {{- if .Values.portal.server.customLabels }}
+      {{ toYaml .Values.portal.server.customLabels | nindent 4 }}
+    {{- end }}
 spec:
   replicas: {{ .Values.portal.server.replicas }}
   selector:
@@ -16,6 +19,9 @@ spec:
       labels:
         app.kubernetes.io/component: {{ include "litmus-portal.name" . }}-server
         {{- include "litmus-portal.labels" . | nindent 8 }}
+        {{- if .Values.portal.server.customLabels }}
+          {{ toYaml .Values.portal.server.customLabels | nindent 8 }}
+        {{- end }}
     spec:
       serviceAccountName: {{ .Values.portal.server.serviceAccountName }}
       {{- if .Values.image.imagePullSecrets }}

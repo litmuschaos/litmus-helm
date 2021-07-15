@@ -7,6 +7,9 @@ metadata:
     app: mongo
     app.kubernetes.io/component: {{ include "litmus-portal.name" . }}-database
     {{- include "litmus-portal.labels" . | nindent 4 }}
+    {{- if .Values.mongo.customLabels }}
+      {{ toYaml .Values.mongo.customLabels | nindent 4 }}
+    {{- end }}
 spec:
   selector:
     matchLabels:
@@ -19,6 +22,9 @@ spec:
         app: mongo
         app.kubernetes.io/component: {{ include "litmus-portal.name" . }}-database
         {{- include "litmus-portal.labels" . | nindent 8 }}
+        {{- if .Values.mongo.customLabels }}
+          {{ toYaml .Values.mongo.customLabels | nindent 8 }}
+        {{- end }}
     spec:
       {{- if .Values.image.imagePullSecrets }}
       imagePullSecrets:

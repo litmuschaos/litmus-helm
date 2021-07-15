@@ -51,6 +51,7 @@ $ helm install litmus-portal litmuschaos/litmus-2-0-0-beta
 | ingress.name | string | `"litmus-ingress"` |  |
 | ingress.tls | list | `[]` |  |
 | mongo.containerPort | int | `27017` |  |
+| mongo.customLabels | object | `{}` |  |
 | mongo.image.pullPolicy | string | `"Always"` |  |
 | mongo.image.repository | string | `"mongo"` |  |
 | mongo.image.tag | string | `"4.2.8"` |  |
@@ -66,6 +67,7 @@ $ helm install litmus-portal litmuschaos/litmus-2-0-0-beta
 | openshift.route.host | string | `""` |  |
 | openshift.route.name | string | `"litmus-portal"` |  |
 | portal.frontend.containerPort | int | `8080` |  |
+| portal.frontend.customLabels | object | `{}` |  |
 | portal.frontend.image.pullPolicy | string | `"Always"` |  |
 | portal.frontend.image.repository | string | `"litmusportal-frontend"` |  |
 | portal.frontend.image.tag | string | `"2.0.0-Beta8"` |  |
@@ -81,6 +83,7 @@ $ helm install litmus-portal litmuschaos/litmus-2-0-0-beta
 | portal.server.authServer.image.repository | string | `"litmusportal-auth-server"` |  |
 | portal.server.authServer.image.tag | string | `"2.0.0-Beta8"` |  |
 | portal.server.authServer.resources | object | `{}` |  |
+| portal.server.customLabels | object | `{}` |  |
 | portal.server.graphqlServer.containerPort | int | `8080` |  |
 | portal.server.graphqlServer.genericEnv.CONTAINER_RUNTIME_EXECUTOR | string | `"k8sapi"` |  |
 | portal.server.graphqlServer.genericEnv.HUB_BRANCH_NAME | string | `"v1.13.x"` |  |
