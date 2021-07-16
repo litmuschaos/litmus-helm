@@ -1,6 +1,6 @@
 # litmus-2-0-0-beta
 
-![Version: 2.0.24-Beta9](https://img.shields.io/badge/Version-2.0.24--Beta9-informational?style=flat-square) ![AppVersion: 2.0.0](https://img.shields.io/badge/AppVersion-2.0.0-informational?style=flat-square)
+![Version: 2.0.25-Beta9](https://img.shields.io/badge/Version-2.0.25--Beta9-informational?style=flat-square) ![AppVersion: 2.0.0](https://img.shields.io/badge/AppVersion-2.0.0-informational?style=flat-square)
 
 A Helm chart to install litmus portal
 
