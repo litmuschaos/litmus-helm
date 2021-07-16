@@ -328,7 +328,7 @@ metadata:
     app.kubernetes.io/component: litmus-server-role-for-{{ include "litmus-portal.name" . }}-server
     {{- include "litmus-portal.labels" . | nindent 4 }}
 rules:
-  - apiGroups: [networking.k8s.io/v1, extensions/v1beta1]
+  - apiGroups: [networking.k8s.io, extensions]
     resources: [ingresses]
     verbs: [get]
   - apiGroups: [""]
