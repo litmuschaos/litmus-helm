@@ -46,7 +46,7 @@ portal:
       maxUnavailable: "50%"
     image:
       repository: litmusportal-frontend
-      tag: 2.0.0-Beta8
+      tag: 2.0.0-Beta9
       pullPolicy: "Always"
     containerPort: 8080
     customLabels: {}
@@ -92,17 +92,17 @@ portal:
     graphqlServer:
       image:
         repository: litmusportal-server
-        tag: 2.0.0-Beta8
+        tag: 2.0.0-Beta9
         pullPolicy: "Always"
       containerPort: 8080
       imageEnv:
-        SUBSCRIBER_IMAGE: "litmusportal-subscriber:2.0.0-Beta8"
-        EVENT_TRACKER_IMAGE: "litmusportal-event-tracker:2.0.0-Beta8"
-        ARGO_WORKFLOW_CONTROLLER_IMAGE: "workflow-controller:v2.9.3"
-        ARGO_WORKFLOW_EXECUTOR_IMAGE: "argoexec:v2.9.3"
-        LITMUS_CHAOS_OPERATOR_IMAGE: "chaos-operator:1.13.5"
-        LITMUS_CHAOS_RUNNER_IMAGE: "chaos-runner:1.13.5"
-        LITMUS_CHAOS_EXPORTER_IMAGE: "chaos-exporter:1.13.5"
+        SUBSCRIBER_IMAGE: "litmusportal-subscriber:2.0.0-Beta9"
+        EVENT_TRACKER_IMAGE: "litmusportal-event-tracker:2.0.0-Beta9"
+        ARGO_WORKFLOW_CONTROLLER_IMAGE: "workflow-controller:v2.11.0"
+        ARGO_WORKFLOW_EXECUTOR_IMAGE: "argoexec:v2.11.0"
+        LITMUS_CHAOS_OPERATOR_IMAGE: "chaos-operator:1.13.6"
+        LITMUS_CHAOS_RUNNER_IMAGE: "chaos-runner:1.13.6"
+        LITMUS_CHAOS_EXPORTER_IMAGE: "chaos-exporter:1.13.6"
       genericEnv:
         SELF_CLUSTER: "true"
         SERVER_SERVICE_NAME: "litmusportal-server-service"
@@ -134,7 +134,7 @@ portal:
     authServer:
       image:
         repository: litmusportal-auth-server
-        tag: 2.0.0-Beta8
+        tag: 2.0.0-Beta9
         pullPolicy: "Always"
       containerPort: 3000
       env:

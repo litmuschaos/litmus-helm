@@ -11,12 +11,12 @@ customLabels: {}
 image:
   litmus:
     repository: litmuschaos/ansible-runner
-    tag: 1.13.6
+    tag: 1.13.8
     pullPolicy: Always
 
   litmusGO:
     repository: litmuschaos/go-runner
-    tag: 1.13.7
+    tag: 1.13.8
     pullPolicy: Always
 
   pumba:
@@ -24,7 +24,7 @@ image:
 
   litmusLIBImage:
     repository: litmuschaos/go-runner
-    tag: 1.13.7
+    tag: 1.13.8
 
   networkChaos:
     tcImage: gaiadocker/iproute2
