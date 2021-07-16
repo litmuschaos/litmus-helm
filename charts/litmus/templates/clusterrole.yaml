@@ -29,6 +29,9 @@ rules:
 - apiGroups: ["litmuschaos.io"]
   resources: ["chaosengines","chaosexperiments","chaosresults"]
   verbs: ["get","create","update","patch","delete","list","watch","deletecollection"]
+- apiGroups: ["apiextensions.k8s.io"]
+  resources: ["customresourcedefinitions"]
+  verbs: ["list","get"]  
 {{ end }} 
 {{ if eq .Values.operatorMode "admin" }}
 ---

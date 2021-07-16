@@ -1,12 +1,12 @@
-{{ if not (has "pod-memory-hog" .Values.experiments.disabled) }}
+{{ if not (has "pod-cpu-hog-exec" .Values.experiments.disabled) }}
 ---
 apiVersion: litmuschaos.io/v1alpha1
 description:
   message: |
-    Injects memory consumption on pods belonging to an app deployment
+    Injects cpu consumption on pods belonging to an app deployment
 kind: ChaosExperiment
 metadata:
-  name: pod-memory-hog
+  name: pod-cpu-hog-exec
   labels:
     {{- include "kubernetes-chaos.labels" . | indent 4 }}
 spec:
@@ -24,6 +24,7 @@ spec:
           - "jobs"
           - "pods"
           - "pods/log"
+          - "events"
           - "replicationcontrollers"
           - "deployments"
           - "statefulsets"
@@ -32,7 +33,6 @@ spec:
           - "deploymentconfigs"
           - "rollouts"
           - "pods/exec"
-          - "events"
           - "chaosengines"
           - "chaosexperiments"
           - "chaosresults"
@@ -48,7 +48,7 @@ spec:
     imagePullPolicy: {{ .Values.image.litmusGO.pullPolicy }}
     args:
     - -c
-    - ./experiments -name pod-memory-hog
+    - ./experiments -name pod-cpu-hog-exec
     command:
     - /bin/bash
     env:
@@ -56,10 +56,8 @@ spec:
     - name: TOTAL_CHAOS_DURATION
       value: '60'
 
-    # Enter the amount of memory in megabytes to be consumed by the application pod
-    # default: 500 (Megabytes)
-    - name: MEMORY_CONSUMPTION
-      value: '500'
+    - name: CPU_CORES
+      value: '1'
 
     # Percentage of total pods to target
     - name: PODS_AFFECTED_PERC
@@ -70,38 +68,19 @@ spec:
       value: ''
 
     # Env var that describes the library used to execute the chaos
-    # Default: litmus. Supported values: litmus, pumba
+    # Default: litmus. Supported values: litmus
     - name: LIB
       value: 'litmus'
-
-    # It is used in pumba lib only   
-    - name: LIB_IMAGE
-      value: "{{ .Values.image.litmusLIBImage.repository }}:{{ .Values.image.litmusLIBImage.tag }}"
-
-     ## It is used in pumba lib only    
-    - name: STRESS_IMAGE
-      value: "{{ .Values.image.resourceChaos.repository }}:{{ .Values.image.resourceChaos.tag }}"
-
-    - name: TARGET_PODS
-      value: ''
 
     ## it defines the sequence of chaos execution for multiple target pods
     ## supported values: serial, parallel
     - name: SEQUENCE
-      value: 'parallel'     
-
-    # provide the name of container runtime
-    # for litmus LIB, it supports docker, containerd, crio
-    # for pumba LIB, it supports docker only
-    - name: CONTAINER_RUNTIME
-      value: "{{ .Values.environment.runtime }}"
-    
-    # provide the container runtime socket path
-    # default set to std docker sock file path
-    - name: SOCKET_PATH
-      value: "{{ .Values.environment.socketPath }}"
-
+      value: 'parallel'      
+      
+    - name: TARGET_PODS
+      value: ''
+            
     labels:
-      name: pod-memory-hog
+      name: pod-cpu-hog-exec
       app.kubernetes.io/part-of: litmus
 {{ end }}
