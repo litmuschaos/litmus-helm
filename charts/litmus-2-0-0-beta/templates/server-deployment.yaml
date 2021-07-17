@@ -11,12 +11,9 @@ metadata:
     {{- end }}
 spec:
   replicas: {{ .Values.portal.server.replicas }}
-  {{- if .Values.portal.server.rollingUpdate.enabled }}
+  {{- if .Values.portal.server.strategy }}
   strategy:
-    type: RollingUpdate
-    rollingUpdate:
-      maxUnavailable: {{ .Values.portal.server.rollingUpdate.maxUnavailable }}
-      maxSurge: {{ .Values.portal.server.rollingUpdate.maxSurge }}
+  {{- toYaml .Values.portal.server.strategy | nindent 4 }}
   {{- end }}
   selector:
     matchLabels:

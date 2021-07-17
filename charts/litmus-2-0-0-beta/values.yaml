@@ -40,10 +40,16 @@ ingress:
 portal:
   frontend:
     replicas: 1
-    rollingUpdate:
-      enabled: false
-      maxSurge: "100%"
-      maxUnavailable: "50%"
+    strategy: {}
+    ## Strategy for deployment updates.
+    ##
+    ## Example:
+    ##
+    ##   strategy:
+    ##     type: RollingUpdate
+    ##     rollingUpdate:
+    ##       maxSurge: 1
+    ##       maxUnavailable: 25%
     image:
       repository: litmusportal-frontend
       tag: 2.0.0-Beta9
@@ -81,10 +87,16 @@ portal:
 
   server:
     replicas: 1
-    rollingUpdate:
-      enabled: false
-      maxSurge: "100%"
-      maxUnavailable: "50%"
+    strategy: {}
+    ## Strategy for deployment updates.
+    ##
+    ## Example:
+    ##
+    ##   strategy:
+    ##     type: RollingUpdate
+    ##     rollingUpdate:
+    ##       maxSurge: 1
+    ##       maxUnavailable: 25%
     serviceAccountName: litmus-server-account
     customLabels: {}
     # my.company.com/tier: "backend"

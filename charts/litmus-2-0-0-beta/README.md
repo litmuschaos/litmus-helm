@@ -92,12 +92,10 @@ $ helm install litmus-portal litmuschaos/litmus-2-0-0-beta
 | portal.frontend.readinessProbe.timeoutSeconds | int | `1` |  |
 | portal.frontend.replicas | int | `1` |  |
 | portal.frontend.resources | object | `{}` |  |
-| portal.frontend.rollingUpdate.enabled | bool | `false` |  |
-| portal.frontend.rollingUpdate.maxSurge | string | `"100%"` |  |
-| portal.frontend.rollingUpdate.maxUnavailable | string | `"50%"` |  |
 | portal.frontend.service.port | int | `9091` |  |
 | portal.frontend.service.targetPort | int | `8080` |  |
 | portal.frontend.service.type | string | `"NodePort"` |  |
+| portal.frontend.strategy | object | `{}` |  |
 | portal.server.authServer.containerPort | int | `3000` |  |
 | portal.server.authServer.env.ADMIN_PASSWORD | string | `"litmus"` |  |
 | portal.server.authServer.env.ADMIN_USERNAME | string | `"admin"` |  |
@@ -133,15 +131,13 @@ $ helm install litmus-portal litmuschaos/litmus-2-0-0-beta
 | portal.server.graphqlServer.readinessProbe.timeoutSeconds | int | `1` |  |
 | portal.server.graphqlServer.resources | object | `{}` |  |
 | portal.server.replicas | int | `1` |  |
-| portal.server.rollingUpdate.enabled | bool | `false` |  |
-| portal.server.rollingUpdate.maxSurge | string | `"100%"` |  |
-| portal.server.rollingUpdate.maxUnavailable | string | `"50%"` |  |
 | portal.server.service.authServer.port | int | `9003` |  |
 | portal.server.service.authServer.targetPort | int | `3000` |  |
 | portal.server.service.graphqlServer.port | int | `9002` |  |
 | portal.server.service.graphqlServer.targetPort | int | `8080` |  |
 | portal.server.service.type | string | `"NodePort"` |  |
 | portal.server.serviceAccountName | string | `"litmus-server-account"` |  |
+| portal.server.strategy | object | `{}` |  |
 | portalScope | string | `"cluster"` |  |
 
 ----------------------------------------------
