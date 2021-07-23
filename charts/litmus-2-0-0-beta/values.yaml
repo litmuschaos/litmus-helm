@@ -171,7 +171,17 @@ portal:
       authServer:
         port: 9003
         targetPort: 3000
-
+      livenessProbe:
+        failureThreshold: 5
+        initialDelaySeconds: 30
+        periodSeconds: 10
+        successThreshold: 1
+        timeoutSeconds: 5
+      readinessProbe:
+        initialDelaySeconds: 5
+        periodSeconds: 10
+        successThreshold: 1
+        timeoutSeconds: 1
 mongo:
   replicas: 1
   customLabels: {}

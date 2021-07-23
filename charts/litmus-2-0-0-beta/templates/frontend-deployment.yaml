@@ -11,9 +11,9 @@ metadata:
     {{- end }}
 spec:
   replicas: {{ .Values.portal.frontend.replicas }}
-  {{- if .Values.portal.frontend.strategy }}
+  {{- if .Values.frontend.updateStrategy }}
   strategy:
-  {{- toYaml .Values.portal.frontend.strategy | nindent 4 }}
+  {{ toYaml .Values.frontend.updateStrategy | indent 2 }}
   {{- end }}
   selector:
     matchLabels:
@@ -35,10 +35,8 @@ spec:
         - name: litmusportal-frontend
           image: {{ .Values.image.imageRegistryName }}/{{ .Values.portal.frontend.image.repository }}:{{ .Values.portal.frontend.image.tag }}
           imagePullPolicy: {{ .Values.portal.frontend.image.pullPolicy }}
-          {{- if .Values.portal.frontend.resources }}
           resources:
             {{- toYaml .Values.portal.frontend.resources | nindent 12 }}
-          {{- end }}
           livenessProbe:
             httpGet:
               path: /

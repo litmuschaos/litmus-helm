@@ -38,7 +38,7 @@ spec:
           image: {{ .Values.image.imageRegistryName }}/{{ .Values.mongo.image.repository }}:{{ .Values.mongo.image.tag }}
           ports:
             - containerPort: {{ .Values.mongo.containerPort }}
-              name: http
+              name: mongodb
           imagePullPolicy: {{ .Values.mongo.image.pullPolicy }}
           {{- if .Values.mongo.resources }}
           resources:

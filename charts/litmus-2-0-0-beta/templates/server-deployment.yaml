@@ -11,9 +11,9 @@ metadata:
     {{- end }}
 spec:
   replicas: {{ .Values.portal.server.replicas }}
-  {{- if .Values.portal.server.strategy }}
+  {{- if .Values.portal.server.updateStrategy }}
   strategy:
-  {{- toYaml .Values.portal.server.strategy | nindent 4 }}
+  {{- toYaml .Values.portal.server.updateStrategy | nindent 4 }}
   {{- end }}
   selector:
     matchLabels:
@@ -38,20 +38,18 @@ spec:
           imagePullPolicy: {{ .Values.portal.server.graphqlServer.image.pullPolicy }}
           ports:
             - containerPort: {{ .Values.portal.server.graphqlServer.containerPort }}
-              name: graphql-srver
-          {{- if .Values.portal.server.graphqlServer.resources }}
+              name: graphql-server
           resources:
             {{- toYaml .Values.portal.server.graphqlServer.resources | nindent 12 }}
-          {{- end }}
           livenessProbe:
             httpGet:
               path: /
-              port: graphql-srver
+              port: graphql-server
             {{- toYaml .Values.portal.server.graphqlServer.livenessProbe | nindent 12 }}
           readinessProbe:
             httpGet:
               path: /
-              port: graphql-srver
+              port: graphql-server
             {{- toYaml .Values.portal.server.graphqlServer.readinessProbe | nindent 12 }}
           env:
             - name: DB_SERVER
@@ -117,10 +115,18 @@ spec:
           ports:
             - containerPort: {{ .Values.portal.server.authServer.containerPort }}
               name: auth-server
-          {{- if .Values.portal.server.authServer.resources }}
           resources:
             {{- toYaml .Values.portal.server.authServer.resources | nindent 12 }}
-          {{- end }}
+          livenessProbe:
+            httpGet:
+              path: /status
+              port: auth-server
+            {{- toYaml .Values.portal.server.authServer.livenessProbe | nindent 12 }}
+          readinessProbe:
+            httpGet:
+              path: /status
+              port: auth-server
+            {{- toYaml .Values.portal.server.authServer.readinessProbe | nindent 12 }}
           env:
             - name: DB_SERVER
               valueFrom:
