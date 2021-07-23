@@ -1,6 +1,6 @@
 # litmus-2-0-0-beta
 
-![Version: 2.0.25-Beta9](https://img.shields.io/badge/Version-2.0.25--Beta9-informational?style=flat-square) ![AppVersion: 2.0.0](https://img.shields.io/badge/AppVersion-2.0.0-informational?style=flat-square)
+![Version: 2.0.26-Beta9](https://img.shields.io/badge/Version-2.0.26--Beta9-informational?style=flat-square) ![AppVersion: 2.0.0](https://img.shields.io/badge/AppVersion-2.0.0-informational?style=flat-square)
 
 A Helm chart to install litmus portal
 
@@ -51,36 +51,68 @@ $ helm install litmus-portal litmuschaos/litmus-2-0-0-beta
 | ingress.name | string | `"litmus-ingress"` |  |
 | ingress.tls | list | `[]` |  |
 | mongo.containerPort | int | `27017` |  |
+| mongo.customLabels | object | `{}` |  |
 | mongo.image.pullPolicy | string | `"Always"` |  |
 | mongo.image.repository | string | `"mongo"` |  |
 | mongo.image.tag | string | `"4.2.8"` |  |
+| mongo.livenessProbe.failureThreshold | int | `5` |  |
+| mongo.livenessProbe.initialDelaySeconds | int | `30` |  |
+| mongo.livenessProbe.periodSeconds | int | `10` |  |
+| mongo.livenessProbe.successThreshold | int | `1` |  |
+| mongo.livenessProbe.timeoutSeconds | int | `5` |  |
 | mongo.persistence.accessMode | string | `"ReadWriteOnce"` |  |
 | mongo.persistence.size | string | `"20Gi"` |  |
+| mongo.readinessProbe.initialDelaySeconds | int | `5` |  |
+| mongo.readinessProbe.periodSeconds | int | `10` |  |
+| mongo.readinessProbe.successThreshold | int | `1` |  |
+| mongo.readinessProbe.timeoutSeconds | int | `1` |  |
 | mongo.replicas | int | `1` |  |
 | mongo.resources | object | `{}` |  |
 | mongo.service.port | int | `27017` |  |
 | mongo.service.targetPort | int | `27017` |  |
 | mongo.service.type | string | `"ClusterIP"` |  |
+| nameOverride | string | `""` |  |
 | openshift.route.annotations | object | `{}` |  |
 | openshift.route.enabled | bool | `false` |  |
 | openshift.route.host | string | `""` |  |
 | openshift.route.name | string | `"litmus-portal"` |  |
 | portal.frontend.containerPort | int | `8080` |  |
+| portal.frontend.customLabels | object | `{}` |  |
 | portal.frontend.image.pullPolicy | string | `"Always"` |  |
 | portal.frontend.image.repository | string | `"litmusportal-frontend"` |  |
 | portal.frontend.image.tag | string | `"2.0.0-Beta9"` |  |
+| portal.frontend.livenessProbe.failureThreshold | int | `5` |  |
+| portal.frontend.livenessProbe.initialDelaySeconds | int | `30` |  |
+| portal.frontend.livenessProbe.periodSeconds | int | `10` |  |
+| portal.frontend.livenessProbe.successThreshold | int | `1` |  |
+| portal.frontend.livenessProbe.timeoutSeconds | int | `5` |  |
+| portal.frontend.readinessProbe.initialDelaySeconds | int | `5` |  |
+| portal.frontend.readinessProbe.periodSeconds | int | `10` |  |
+| portal.frontend.readinessProbe.successThreshold | int | `1` |  |
+| portal.frontend.readinessProbe.timeoutSeconds | int | `1` |  |
 | portal.frontend.replicas | int | `1` |  |
 | portal.frontend.resources | object | `{}` |  |
 | portal.frontend.service.port | int | `9091` |  |
 | portal.frontend.service.targetPort | int | `8080` |  |
 | portal.frontend.service.type | string | `"NodePort"` |  |
+| portal.frontend.updateStrategy | object | `{}` |  |
 | portal.server.authServer.containerPort | int | `3000` |  |
 | portal.server.authServer.env.ADMIN_PASSWORD | string | `"litmus"` |  |
 | portal.server.authServer.env.ADMIN_USERNAME | string | `"admin"` |  |
 | portal.server.authServer.image.pullPolicy | string | `"Always"` |  |
 | portal.server.authServer.image.repository | string | `"litmusportal-auth-server"` |  |
 | portal.server.authServer.image.tag | string | `"2.0.0-Beta9"` |  |
+| portal.server.authServer.livenessProbe.failureThreshold | int | `5` |  |
+| portal.server.authServer.livenessProbe.initialDelaySeconds | int | `30` |  |
+| portal.server.authServer.livenessProbe.periodSeconds | int | `10` |  |
+| portal.server.authServer.livenessProbe.successThreshold | int | `1` |  |
+| portal.server.authServer.livenessProbe.timeoutSeconds | int | `5` |  |
+| portal.server.authServer.readinessProbe.initialDelaySeconds | int | `30` |  |
+| portal.server.authServer.readinessProbe.periodSeconds | int | `10` |  |
+| portal.server.authServer.readinessProbe.successThreshold | int | `1` |  |
+| portal.server.authServer.readinessProbe.timeoutSeconds | int | `1` |  |
 | portal.server.authServer.resources | object | `{}` |  |
+| portal.server.customLabels | object | `{}` |  |
 | portal.server.graphqlServer.containerPort | int | `8080` |  |
 | portal.server.graphqlServer.genericEnv.CONTAINER_RUNTIME_EXECUTOR | string | `"k8sapi"` |  |
 | portal.server.graphqlServer.genericEnv.HUB_BRANCH_NAME | string | `"v1.13.x"` |  |
@@ -97,6 +129,15 @@ $ helm install litmus-portal litmuschaos/litmus-2-0-0-beta
 | portal.server.graphqlServer.imageEnv.LITMUS_CHAOS_OPERATOR_IMAGE | string | `"chaos-operator:1.13.6"` |  |
 | portal.server.graphqlServer.imageEnv.LITMUS_CHAOS_RUNNER_IMAGE | string | `"chaos-runner:1.13.6"` |  |
 | portal.server.graphqlServer.imageEnv.SUBSCRIBER_IMAGE | string | `"litmusportal-subscriber:2.0.0-Beta9"` |  |
+| portal.server.graphqlServer.livenessProbe.failureThreshold | int | `5` |  |
+| portal.server.graphqlServer.livenessProbe.initialDelaySeconds | int | `30` |  |
+| portal.server.graphqlServer.livenessProbe.periodSeconds | int | `10` |  |
+| portal.server.graphqlServer.livenessProbe.successThreshold | int | `1` |  |
+| portal.server.graphqlServer.livenessProbe.timeoutSeconds | int | `5` |  |
+| portal.server.graphqlServer.readinessProbe.initialDelaySeconds | int | `5` |  |
+| portal.server.graphqlServer.readinessProbe.periodSeconds | int | `10` |  |
+| portal.server.graphqlServer.readinessProbe.successThreshold | int | `1` |  |
+| portal.server.graphqlServer.readinessProbe.timeoutSeconds | int | `1` |  |
 | portal.server.graphqlServer.resources | object | `{}` |  |
 | portal.server.replicas | int | `1` |  |
 | portal.server.service.authServer.port | int | `9003` |  |
@@ -105,6 +146,7 @@ $ helm install litmus-portal litmuschaos/litmus-2-0-0-beta
 | portal.server.service.graphqlServer.targetPort | int | `8080` |  |
 | portal.server.service.type | string | `"NodePort"` |  |
 | portal.server.serviceAccountName | string | `"litmus-server-account"` |  |
+| portal.server.updateStrategy | object | `{}` |  |
 | portalScope | string | `"cluster"` |  |
 
 ----------------------------------------------
