@@ -102,15 +102,6 @@ $ helm install litmus-portal litmuschaos/litmus-2-0-0-beta
 | portal.server.authServer.image.pullPolicy | string | `"Always"` |  |
 | portal.server.authServer.image.repository | string | `"litmusportal-auth-server"` |  |
 | portal.server.authServer.image.tag | string | `"2.0.0-Beta9"` |  |
-| portal.server.authServer.livenessProbe.failureThreshold | int | `5` |  |
-| portal.server.authServer.livenessProbe.initialDelaySeconds | int | `30` |  |
-| portal.server.authServer.livenessProbe.periodSeconds | int | `10` |  |
-| portal.server.authServer.livenessProbe.successThreshold | int | `1` |  |
-| portal.server.authServer.livenessProbe.timeoutSeconds | int | `5` |  |
-| portal.server.authServer.readinessProbe.initialDelaySeconds | int | `30` |  |
-| portal.server.authServer.readinessProbe.periodSeconds | int | `10` |  |
-| portal.server.authServer.readinessProbe.successThreshold | int | `1` |  |
-| portal.server.authServer.readinessProbe.timeoutSeconds | int | `1` |  |
 | portal.server.authServer.resources | object | `{}` |  |
 | portal.server.customLabels | object | `{}` |  |
 | portal.server.graphqlServer.containerPort | int | `8080` |  |
