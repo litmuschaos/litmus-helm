@@ -40,7 +40,7 @@ ingress:
 portal:
   frontend:
     replicas: 1
-    strategy: {}
+    updateStrategy: {}
     ## Strategy for deployment updates.
     ##
     ## Example:
@@ -87,7 +87,7 @@ portal:
 
   server:
     replicas: 1
-    strategy: {}
+    updateStrategy: {}
     ## Strategy for deployment updates.
     ##
     ## Example:
@@ -163,14 +163,6 @@ portal:
       # requests:
       #   cpu: 200m
       #   memory: 250Mi
-    service:
-      type: NodePort
-      graphqlServer:
-        port: 9002
-        targetPort: 8080
-      authServer:
-        port: 9003
-        targetPort: 3000
       livenessProbe:
         failureThreshold: 5
         initialDelaySeconds: 30
@@ -182,6 +174,14 @@ portal:
         periodSeconds: 10
         successThreshold: 1
         timeoutSeconds: 1
+    service:
+      type: NodePort
+      graphqlServer:
+        port: 9002
+        targetPort: 8080
+      authServer:
+        port: 9003
+        targetPort: 3000
 mongo:
   replicas: 1
   customLabels: {}

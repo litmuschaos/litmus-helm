@@ -95,13 +95,22 @@ $ helm install litmus-portal litmuschaos/litmus-2-0-0-beta
 | portal.frontend.service.port | int | `9091` |  |
 | portal.frontend.service.targetPort | int | `8080` |  |
 | portal.frontend.service.type | string | `"NodePort"` |  |
-| portal.frontend.strategy | object | `{}` |  |
+| portal.frontend.updateStrategy | object | `{}` |  |
 | portal.server.authServer.containerPort | int | `3000` |  |
 | portal.server.authServer.env.ADMIN_PASSWORD | string | `"litmus"` |  |
 | portal.server.authServer.env.ADMIN_USERNAME | string | `"admin"` |  |
 | portal.server.authServer.image.pullPolicy | string | `"Always"` |  |
 | portal.server.authServer.image.repository | string | `"litmusportal-auth-server"` |  |
 | portal.server.authServer.image.tag | string | `"2.0.0-Beta9"` |  |
+| portal.server.authServer.livenessProbe.failureThreshold | int | `5` |  |
+| portal.server.authServer.livenessProbe.initialDelaySeconds | int | `30` |  |
+| portal.server.authServer.livenessProbe.periodSeconds | int | `10` |  |
+| portal.server.authServer.livenessProbe.successThreshold | int | `1` |  |
+| portal.server.authServer.livenessProbe.timeoutSeconds | int | `5` |  |
+| portal.server.authServer.readinessProbe.initialDelaySeconds | int | `5` |  |
+| portal.server.authServer.readinessProbe.periodSeconds | int | `10` |  |
+| portal.server.authServer.readinessProbe.successThreshold | int | `1` |  |
+| portal.server.authServer.readinessProbe.timeoutSeconds | int | `1` |  |
 | portal.server.authServer.resources | object | `{}` |  |
 | portal.server.customLabels | object | `{}` |  |
 | portal.server.graphqlServer.containerPort | int | `8080` |  |
@@ -137,7 +146,7 @@ $ helm install litmus-portal litmuschaos/litmus-2-0-0-beta
 | portal.server.service.graphqlServer.targetPort | int | `8080` |  |
 | portal.server.service.type | string | `"NodePort"` |  |
 | portal.server.serviceAccountName | string | `"litmus-server-account"` |  |
-| portal.server.strategy | object | `{}` |  |
+| portal.server.updateStrategy | object | `{}` |  |
 | portalScope | string | `"cluster"` |  |
 
 ----------------------------------------------
