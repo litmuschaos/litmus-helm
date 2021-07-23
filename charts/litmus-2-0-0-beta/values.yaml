@@ -163,17 +163,6 @@ portal:
       # requests:
       #   cpu: 200m
       #   memory: 250Mi
-      livenessProbe:
-        failureThreshold: 5
-        initialDelaySeconds: 30
-        periodSeconds: 10
-        successThreshold: 1
-        timeoutSeconds: 5
-      readinessProbe:
-        initialDelaySeconds: 30
-        periodSeconds: 10
-        successThreshold: 1
-        timeoutSeconds: 1
     service:
       type: NodePort
       graphqlServer:

@@ -117,16 +117,6 @@ spec:
               name: auth-server
           resources:
             {{- toYaml .Values.portal.server.authServer.resources | nindent 12 }}
-          livenessProbe:
-            httpGet:
-              path: /status
-              port: auth-server
-            {{- toYaml .Values.portal.server.authServer.livenessProbe | nindent 12 }}
-          readinessProbe:
-            httpGet:
-              path: /status
-              port: auth-server
-            {{- toYaml .Values.portal.server.authServer.readinessProbe | nindent 12 }}
           env:
             - name: DB_SERVER
               valueFrom:
