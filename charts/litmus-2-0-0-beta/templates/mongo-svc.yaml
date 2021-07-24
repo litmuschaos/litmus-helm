@@ -10,7 +10,8 @@ metadata:
 spec:
   type: {{ .Values.mongo.service.type }}
   ports:
-    - port: {{ .Values.mongo.service.port }}
+    - name: mongodb
+      port: {{ .Values.mongo.service.port }}
       targetPort: {{ .Values.mongo.service.targetPort }}
   selector:
     app.kubernetes.io/component: {{ include "litmus-portal.name" . }}-database

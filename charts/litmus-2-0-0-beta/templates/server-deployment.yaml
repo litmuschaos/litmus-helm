@@ -6,8 +6,15 @@ metadata:
   labels:
     app.kubernetes.io/component: {{ include "litmus-portal.name" . }}-server
     {{- include "litmus-portal.labels" . | nindent 4 }}
+    {{- if .Values.portal.server.customLabels }}
+      {{ toYaml .Values.portal.server.customLabels | nindent 4 }}
+    {{- end }}
 spec:
   replicas: {{ .Values.portal.server.replicas }}
+  {{- if .Values.portal.server.updateStrategy }}
+  strategy:
+  {{- toYaml .Values.portal.server.updateStrategy | nindent 4 }}
+  {{- end }}
   selector:
     matchLabels:
       app.kubernetes.io/component: {{ include "litmus-portal.name" . }}-server
@@ -16,6 +23,9 @@ spec:
       labels:
         app.kubernetes.io/component: {{ include "litmus-portal.name" . }}-server
         {{- include "litmus-portal.labels" . | nindent 8 }}
+        {{- if .Values.portal.server.customLabels }}
+          {{ toYaml .Values.portal.server.customLabels | nindent 8 }}
+        {{- end }}
     spec:
       serviceAccountName: {{ .Values.portal.server.serviceAccountName }}
       {{- if .Values.image.imagePullSecrets }}
@@ -28,9 +38,19 @@ spec:
           imagePullPolicy: {{ .Values.portal.server.graphqlServer.image.pullPolicy }}
           ports:
             - containerPort: {{ .Values.portal.server.graphqlServer.containerPort }}
-              name: graphql-srver
+              name: graphql-server
           resources:
             {{- toYaml .Values.portal.server.graphqlServer.resources | nindent 12 }}
+          livenessProbe:
+            httpGet:
+              path: /
+              port: graphql-server
+            {{- toYaml .Values.portal.server.graphqlServer.livenessProbe | nindent 12 }}
+          readinessProbe:
+            httpGet:
+              path: /
+              port: graphql-server
+            {{- toYaml .Values.portal.server.graphqlServer.readinessProbe | nindent 12 }}
           env:
             - name: DB_SERVER
               valueFrom:
@@ -95,6 +115,8 @@ spec:
           ports:
             - containerPort: {{ .Values.portal.server.authServer.containerPort }}
               name: auth-server
+          resources:
+            {{- toYaml .Values.portal.server.authServer.resources | nindent 12 }}
           env:
             - name: DB_SERVER
               valueFrom:
