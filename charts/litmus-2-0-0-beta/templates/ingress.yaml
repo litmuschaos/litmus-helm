@@ -37,7 +37,7 @@ spec:
   {{- end }}
     {{- if semverCompare ">=1.19-0" .Capabilities.KubeVersion.GitVersion }}
       paths:
-      - path: /(.*))
+      - path: /(.*)
         pathType: ImplementationSpecific
         backend:
           service:
