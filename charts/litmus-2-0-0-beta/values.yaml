@@ -27,10 +27,16 @@ ingress:
   enabled: false
   name: litmus-ingress
   annotations:
-    {}
-    # kubernetes.io/ingress.class: nginx
-    # kubernetes.io/tls-acme: "true"
-    # nginx.ingress.kubernetes.io/rewrite-target: /$1
+    backend: []
+      # nginx.ingress.kubernetes.io/rewrite-target: /$1
+      # traefik.ingress.kubernetes.io/rewrite-target: $1
+      # kubernetes.io/ingress.class: nginx
+      # kubernetes.io/tls-acme: "true"
+    
+    frontend: []
+      # kubernetes.io/ingress.class: nginx
+      # kubernetes.io/tls-acme: "true"
+
 
   host: ""
   tls: []

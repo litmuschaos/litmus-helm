@@ -108,7 +108,9 @@ spec:
             - name: INGRESS
               value: "{{ .Values.ingress.enabled }}"
             - name: INGRESS_NAME
-              value: "{{ .Values.ingress.name }}"
+              value: "{{ .Values.ingress.name }}-frontend"
+            - name: AGENT_DEPLOYMENTS
+              value: '["app=chaos-exporter", "name=chaos-operator", "app=event-tracker", "app=workflow-controller"]'
         - name: auth-server
           image: {{ .Values.image.imageRegistryName }}/{{ .Values.portal.server.authServer.image.repository }}:{{ .Values.portal.server.authServer.image.tag }}
           imagePullPolicy: {{ .Values.portal.server.authServer.image.pullPolicy }}
