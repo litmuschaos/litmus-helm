@@ -45,7 +45,8 @@ $ helm install litmus-portal litmuschaos/litmus-2-0-0-beta
 | customLabels | object | `{}` | Additional labels |
 | image.imagePullSecrets | list | `[]` |  |
 | image.imageRegistryName | string | `"litmuschaos"` |  |
-| ingress.annotations | object | `{}` |  |
+| ingress.annotations.backend | list | `[]` |  |
+| ingress.annotations.frontend | list | `[]` |  |
 | ingress.enabled | bool | `false` |  |
 | ingress.host | string | `""` |  |
 | ingress.name | string | `"litmus-ingress"` |  |
