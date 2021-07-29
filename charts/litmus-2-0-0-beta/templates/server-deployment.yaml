@@ -108,7 +108,7 @@ spec:
             - name: INGRESS
               value: "{{ .Values.ingress.enabled }}"
             - name: INGRESS_NAME
-              value: "{{ .Values.ingress.name }}-frontend"
+              value: "{{ .Values.ingress.name }}"
             - name: AGENT_DEPLOYMENTS
               value: '["app=chaos-exporter", "name=chaos-operator", "app=event-tracker", "app=workflow-controller"]'
         - name: auth-server

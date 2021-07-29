@@ -1,6 +1,6 @@
 # litmus-2-0-0-beta
 
-![Version: 2.0.27-Beta9](https://img.shields.io/badge/Version-2.0.27--Beta9-informational?style=flat-square) ![AppVersion: 2.0.0](https://img.shields.io/badge/AppVersion-2.0.0-informational?style=flat-square)
+![Version: 2.0.28-Beta9](https://img.shields.io/badge/Version-2.0.28--Beta9-informational?style=flat-square) ![AppVersion: 2.0.0](https://img.shields.io/badge/AppVersion-2.0.0-informational?style=flat-square)
 
 A Helm chart to install litmus portal
 
@@ -45,11 +45,10 @@ $ helm install litmus-portal litmuschaos/litmus-2-0-0-beta
 | customLabels | object | `{}` | Additional labels |
 | image.imagePullSecrets | list | `[]` |  |
 | image.imageRegistryName | string | `"litmuschaos"` |  |
-| ingress.annotations.backend | list | `[]` |  |
-| ingress.annotations.frontend | list | `[]` |  |
+| ingress.annotations | object | `{}` |  |
 | ingress.enabled | bool | `false` |  |
 | ingress.host | string | `""` |  |
-| ingress.name | string | `"litmus-ingress"` |  |
+| ingress.name | string | `"litmus-portal"` |  |
 | ingress.tls | list | `[]` |  |
 | mongo.containerPort | int | `27017` |  |
 | mongo.customLabels | object | `{}` |  |
