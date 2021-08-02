@@ -37,13 +37,14 @@ spec:
   {{- end }}
     {{- if semverCompare ">=1.19-0" .Capabilities.KubeVersion.GitVersion }}
       paths:
-      - pathType: ImplementationSpecific
+      - path: /
+        pathType: ImplementationSpecific
         backend:
           service:
             name: litmusportal-frontend-service
             port:
               number: 9091
-      - path: /backend/(.*)
+      - path: /backend
         pathType: ImplementationSpecific
         backend:
           service:
