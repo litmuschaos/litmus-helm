@@ -31,8 +31,6 @@ $ helm repo add litmuschaos https://litmuschaos.github.io/litmus-helm/
 $ helm install litmus-portal litmuschaos/litmus
 ```
 
-***Note***: This chart is in its beta release. To find it using `helm search` add `--devel` option.
-
 ## Values
 
 | Key | Type | Default | Description |
