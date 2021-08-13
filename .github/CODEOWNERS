@@ -14,9 +14,9 @@
 # Global rule:
 *                        @ksatchit @jasstkn @ajeshbaby @gdsoumya @rajdas98 @ispeakc0de
 
-charts/litmus-2-0-0-beta @rajdas98 @ispeakc0de @jasstkn
+charts/litmus            @rajdas98 @ispeakc0de @jasstkn
 
-charts/litmus            @ksatchit @chandankumar4
+charts/litmus-1-x        @ksatchit @chandankumar4
 
 charts/kubernetes-chaos  @jasstkn @chandankumar4 @ksatchit
 

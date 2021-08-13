@@ -1,8 +1,8 @@
 # litmus
 
-![Version: 1.16.0](https://img.shields.io/badge/Version-1.16.0-informational?style=flat-square) ![AppVersion: 1.13.8](https://img.shields.io/badge/AppVersion-1.13.8-informational?style=flat-square)
+![Version: 2.0.28](https://img.shields.io/badge/Version-2.0.28-informational?style=flat-square) ![AppVersion: 2.0.0](https://img.shields.io/badge/AppVersion-2.0.0-informational?style=flat-square)
 
-A Helm chart to install litmus infra components on Kubernetes
+A Helm chart to install ChaosCenter
 
 **Homepage:** <https://litmuschaos.io>
 
@@ -10,54 +10,135 @@ A Helm chart to install litmus infra components on Kubernetes
 
 | Name | Email | Url |
 | ---- | ------ | --- |
-| ksatchit | karthik.s@mayadata.io |  |
-| chandankumar4 | chandan.kumar@zopsmart.com |  |
+| rajdas98 | raj.das@mayadata.io |  |
+| ispeakc0de | shubham.chaudhary@mayadata.io |  |
+| jasstkn | jasssstkn@yahoo.com |  |
 
 ## Source Code
 
 * <https://github.com/litmuschaos/litmus>
 
+## Requirements
+
+Kubernetes: `>=1.16.0-0`
+
+## Installing the Chart
+
+To install this chart with the release name `litmus-portal`:
+
+```console
+$ helm repo add litmuschaos https://litmuschaos.github.io/litmus-helm/
+$ helm install litmus-portal litmuschaos/litmus
+```
+
 ## Values
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| affinity | object | `{}` |  |
+| adminConfig.DBPASSWORD | string | `"1234"` |  |
+| adminConfig.DBUSER | string | `"admin"` |  |
+| adminConfig.DB_PORT | string | `"27017"` |  |
+| adminConfig.DB_SERVER | string | `""` | leave empty if uses Mongo DB deployed by this chart |
+| adminConfig.JWTSecret | string | `"litmus-portal@123"` |  |
+| adminConfig.VERSION | string | `"2.0.0"` |  |
 | customLabels | object | `{}` | Additional labels |
-| exporter.affinity | object | `{}` |  |
-| exporter.enabled | bool | `false` |  |
-| exporter.image.pullPolicy | string | `"Always"` |  |
-| exporter.image.repository | string | `"litmuschaos/chaos-exporter"` |  |
-| exporter.image.tag | string | `"1.13.8"` |  |
-| exporter.nodeSelector | object | `{}` |  |
-| exporter.priorityClassName | string | `nil` |  |
-| exporter.resources | object | `{}` |  |
-| exporter.service.annotations | object | `{}` |  |
-| exporter.service.port | int | `8080` |  |
-| exporter.service.type | string | `"ClusterIP"` |  |
-| exporter.serviceMonitor.additionalLabels | object | `{}` |  |
-| exporter.serviceMonitor.enabled | bool | `false` |  |
-| exporter.tolerations | list | `[]` |  |
-| fullnameOverride | string | `"litmus"` |  |
+| image.imagePullSecrets | list | `[]` |  |
+| image.imageRegistryName | string | `"litmuschaos"` |  |
 | ingress.annotations | object | `{}` |  |
 | ingress.enabled | bool | `false` |  |
-| ingress.hosts[0].host | string | `nil` |  |
-| ingress.hosts[0].paths | list | `[]` |  |
+| ingress.host | string | `""` |  |
+| ingress.name | string | `"litmus-ingress"` |  |
 | ingress.tls | list | `[]` |  |
-| nameOverride | string | `"litmus"` |  |
-| nodeSelector | object | `{}` |  |
-| operator.image.pullPolicy | string | `"Always"` |  |
-| operator.image.repository | string | `"litmuschaos/chaos-operator"` |  |
-| operator.image.tag | string | `"1.13.8"` |  |
-| operatorMode | string | `"standard"` |  |
-| operatorName | string | `"chaos-operator"` |  |
-| policies.monitoring.disabled | bool | `false` |  |
-| replicaCount | int | `1` |  |
-| resources | object | `{}` |  |
-| runner.image.repository | string | `"litmuschaos/chaos-runner"` |  |
-| runner.image.tag | string | `"1.13.8"` |  |
-| service.port | int | `80` |  |
-| service.type | string | `"ClusterIP"` |  |
-| tolerations | list | `[]` |  |
+| mongo.containerPort | int | `27017` |  |
+| mongo.customLabels | object | `{}` |  |
+| mongo.image.pullPolicy | string | `"Always"` |  |
+| mongo.image.repository | string | `"mongo"` |  |
+| mongo.image.tag | string | `"4.2.8"` |  |
+| mongo.livenessProbe.failureThreshold | int | `5` |  |
+| mongo.livenessProbe.initialDelaySeconds | int | `30` |  |
+| mongo.livenessProbe.periodSeconds | int | `10` |  |
+| mongo.livenessProbe.successThreshold | int | `1` |  |
+| mongo.livenessProbe.timeoutSeconds | int | `5` |  |
+| mongo.persistence.accessMode | string | `"ReadWriteOnce"` |  |
+| mongo.persistence.size | string | `"20Gi"` |  |
+| mongo.readinessProbe.initialDelaySeconds | int | `5` |  |
+| mongo.readinessProbe.periodSeconds | int | `10` |  |
+| mongo.readinessProbe.successThreshold | int | `1` |  |
+| mongo.readinessProbe.timeoutSeconds | int | `1` |  |
+| mongo.replicas | int | `1` |  |
+| mongo.resources | object | `{}` |  |
+| mongo.service.port | int | `27017` |  |
+| mongo.service.targetPort | int | `27017` |  |
+| mongo.service.type | string | `"ClusterIP"` |  |
+| nameOverride | string | `""` |  |
+| openshift.route.annotations | object | `{}` |  |
+| openshift.route.enabled | bool | `false` |  |
+| openshift.route.host | string | `""` |  |
+| openshift.route.name | string | `"litmus-portal"` |  |
+| portal.frontend.containerPort | int | `8080` |  |
+| portal.frontend.customLabels | object | `{}` |  |
+| portal.frontend.image.pullPolicy | string | `"Always"` |  |
+| portal.frontend.image.repository | string | `"litmusportal-frontend"` |  |
+| portal.frontend.image.tag | string | `"2.0.0"` |  |
+| portal.frontend.livenessProbe.failureThreshold | int | `5` |  |
+| portal.frontend.livenessProbe.initialDelaySeconds | int | `30` |  |
+| portal.frontend.livenessProbe.periodSeconds | int | `10` |  |
+| portal.frontend.livenessProbe.successThreshold | int | `1` |  |
+| portal.frontend.livenessProbe.timeoutSeconds | int | `5` |  |
+| portal.frontend.readinessProbe.initialDelaySeconds | int | `5` |  |
+| portal.frontend.readinessProbe.periodSeconds | int | `10` |  |
+| portal.frontend.readinessProbe.successThreshold | int | `1` |  |
+| portal.frontend.readinessProbe.timeoutSeconds | int | `1` |  |
+| portal.frontend.replicas | int | `1` |  |
+| portal.frontend.resources | object | `{}` |  |
+| portal.frontend.service.port | int | `9091` |  |
+| portal.frontend.service.targetPort | int | `8080` |  |
+| portal.frontend.service.type | string | `"NodePort"` |  |
+| portal.frontend.updateStrategy | object | `{}` |  |
+| portal.server.authServer.containerPort | int | `3000` |  |
+| portal.server.authServer.env.ADMIN_PASSWORD | string | `"litmus"` |  |
+| portal.server.authServer.env.ADMIN_USERNAME | string | `"admin"` |  |
+| portal.server.authServer.image.pullPolicy | string | `"Always"` |  |
+| portal.server.authServer.image.repository | string | `"litmusportal-auth-server"` |  |
+| portal.server.authServer.image.tag | string | `"2.0.0"` |  |
+| portal.server.authServer.resources | object | `{}` |  |
+| portal.server.customLabels | object | `{}` |  |
+| portal.server.graphqlServer.containerPort | int | `8080` |  |
+| portal.server.graphqlServer.genericEnv.AGENT_DEPLOYMENTS | string | `"[\"app=chaos-exporter\", \"name=chaos-operator\", \"app=event-tracker\", \"app=workflow-controller\"]"` |  |
+| portal.server.graphqlServer.genericEnv.CONTAINER_RUNTIME_EXECUTOR | string | `"k8sapi"` |  |
+| portal.server.graphqlServer.genericEnv.HUB_BRANCH_NAME | string | `"v2.0.x"` |  |
+| portal.server.graphqlServer.genericEnv.PORTAL_ENDPOINT | string | `"http://litmusportal-server-service:9002"` |  |
+| portal.server.graphqlServer.genericEnv.SELF_CLUSTER | string | `"true"` |  |
+| portal.server.graphqlServer.genericEnv.SERVER_SERVICE_NAME | string | `"litmusportal-server-service"` |  |
+| portal.server.graphqlServer.image.pullPolicy | string | `"Always"` |  |
+| portal.server.graphqlServer.image.repository | string | `"litmusportal-server"` |  |
+| portal.server.graphqlServer.image.tag | string | `"2.0.0"` |  |
+| portal.server.graphqlServer.imageEnv.ARGO_WORKFLOW_CONTROLLER_IMAGE | string | `"workflow-controller:v2.11.0"` |  |
+| portal.server.graphqlServer.imageEnv.ARGO_WORKFLOW_EXECUTOR_IMAGE | string | `"argoexec:v2.11.0"` |  |
+| portal.server.graphqlServer.imageEnv.EVENT_TRACKER_IMAGE | string | `"litmusportal-event-tracker:2.0.0"` |  |
+| portal.server.graphqlServer.imageEnv.LITMUS_CHAOS_EXPORTER_IMAGE | string | `"chaos-exporter:2.0.0"` |  |
+| portal.server.graphqlServer.imageEnv.LITMUS_CHAOS_OPERATOR_IMAGE | string | `"chaos-operator:2.0.0"` |  |
+| portal.server.graphqlServer.imageEnv.LITMUS_CHAOS_RUNNER_IMAGE | string | `"chaos-runner:2.0.0"` |  |
+| portal.server.graphqlServer.imageEnv.SUBSCRIBER_IMAGE | string | `"litmusportal-subscriber:2.0.0"` |  |
+| portal.server.graphqlServer.livenessProbe.failureThreshold | int | `5` |  |
+| portal.server.graphqlServer.livenessProbe.initialDelaySeconds | int | `30` |  |
+| portal.server.graphqlServer.livenessProbe.periodSeconds | int | `10` |  |
+| portal.server.graphqlServer.livenessProbe.successThreshold | int | `1` |  |
+| portal.server.graphqlServer.livenessProbe.timeoutSeconds | int | `5` |  |
+| portal.server.graphqlServer.readinessProbe.initialDelaySeconds | int | `5` |  |
+| portal.server.graphqlServer.readinessProbe.periodSeconds | int | `10` |  |
+| portal.server.graphqlServer.readinessProbe.successThreshold | int | `1` |  |
+| portal.server.graphqlServer.readinessProbe.timeoutSeconds | int | `1` |  |
+| portal.server.graphqlServer.resources | object | `{}` |  |
+| portal.server.replicas | int | `1` |  |
+| portal.server.service.authServer.port | int | `9003` |  |
+| portal.server.service.authServer.targetPort | int | `3000` |  |
+| portal.server.service.graphqlServer.port | int | `9002` |  |
+| portal.server.service.graphqlServer.targetPort | int | `8080` |  |
+| portal.server.service.type | string | `"NodePort"` |  |
+| portal.server.serviceAccountName | string | `"litmus-server-account"` |  |
+| portal.server.updateStrategy | object | `{}` |  |
+| portalScope | string | `"cluster"` |  |
 
 ----------------------------------------------
 Autogenerated from chart metadata using [helm-docs v1.5.0](https://github.com/norwoodj/helm-docs/releases/v1.5.0)

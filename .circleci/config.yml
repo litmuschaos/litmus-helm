@@ -110,4 +110,4 @@ workflows:
           matrix:
             parameters:
               kubernetes_version: [1.16.15, 1.17.17, 1.18.19, 1.19.11, 1.20.7, 1.21.1]
-              chart: [litmus-2-0-0-beta, litmus, kubernetes-chaos, kube-aws]
+              chart: [litmus-1-x, litmus, kubernetes-chaos, kube-aws]
