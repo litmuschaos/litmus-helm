@@ -92,6 +92,11 @@ spec:
                 configMapKeyRef:
                   name: {{ include "litmus-portal.fullname" . }}-admin-config
                   key: DB_PASSWORD
+            - name: VERSION
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "litmus-portal.fullname" . }}-admin-config
+                  key: VERSION
             - name: NODE_NAME
               valueFrom:
                 fieldRef:
