@@ -1,4 +1,4 @@
-# litmus-2-0-0-beta
+# litmus
 
 ![Version: 2.0.28](https://img.shields.io/badge/Version-2.0.28-informational?style=flat-square) ![AppVersion: 2.0.0](https://img.shields.io/badge/AppVersion-2.0.0-informational?style=flat-square)
 
@@ -28,7 +28,7 @@ To install this chart with the release name `litmus-portal`:
 
 ```console
 $ helm repo add litmuschaos https://litmuschaos.github.io/litmus-helm/
-$ helm install litmus-portal litmuschaos/litmus-2-0-0-beta
+$ helm install litmus-portal litmuschaos/litmus-2-0-0
 ```
 
 ***Note***: This chart is in its beta release. To find it using `helm search` add `--devel` option.

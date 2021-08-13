@@ -61,7 +61,7 @@ jobs:
         run: |
           kubectl create ns litmus
           echo -e "\n-------- Installing Checked out Helm-Chart ----------\n"
-          helm install litmuschaos --namespace litmus ./charts/litmus-2-0-0-beta/
+          helm install litmuschaos --namespace litmus ./charts/litmus/
           source ./litmus-e2e/litmus/utils.sh
           echo -e "\n-------- Verifying Control-Plane Components ----------\n"
           verify_all_components frontend,server litmus
@@ -70,7 +70,7 @@ jobs:
 
       - name: Getting the Access URL for Litmus-Portal
         run: |
-          export NODE_NAME=$(kubectl -n litmus get pod  -l "app.kubernetes.io/component=litmus-2-0-0-beta-frontend" -o=jsonpath='{.items[*].spec.nodeName}')
+          export NODE_NAME=$(kubectl -n litmus get pod  -l "app.kubernetes.io/component=litmus-2-0-0-frontend" -o=jsonpath='{.items[*].spec.nodeName}')
           export NODE_IP=$(kubectl -n litmus get nodes $NODE_NAME -o jsonpath='{.status.addresses[?(@.type=="InternalIP")].address}')
           export NODE_PORT=$(kubectl -n litmus get -o jsonpath="{.spec.ports[0].nodePort}" services litmusportal-frontend-service)
           export AccessURL="http://$NODE_IP:$NODE_PORT"
