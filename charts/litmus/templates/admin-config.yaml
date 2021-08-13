@@ -17,3 +17,4 @@ data:
   JWTSecret: "{{ .Values.adminConfig.JWTSecret }}"
   DB_USER: "{{ .Values.adminConfig.DBUSER }}"
   DB_PASSWORD: "{{ .Values.adminConfig.DBPASSWORD }}"
+  VERSION: "{{ .Values.adminConfig.VERSION }}"

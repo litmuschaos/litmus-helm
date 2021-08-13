@@ -4,13 +4,13 @@ repositories:
 
 releases:
   - name: litmus-chaos-infra
-    chart: ./charts/litmus
+    chart: ./charts/litmus-1-x
 
   - name: kubernetes-chaos-experiments
     chart: ./charts/kubernetes-chaos
 
-  - name: litmus-2-0-0-beta
-    chart: ./charts/litmus-2-0-0-beta
+  - name: litmus
+    chart: ./charts/litmus
  
   - name: kube-aws
     chart: ./charts/kube-aws
