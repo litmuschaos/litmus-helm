@@ -46,11 +46,9 @@ $ helm install litmus-portal litmuschaos/litmus
 | image.imageRegistryName | string | `"litmuschaos"` |  |
 | ingress.annotations | object | `{}` |  |
 | ingress.enabled | bool | `false` |  |
-| ingress.hosts[0] | object | `{"host":"","paths":[{"path":"/(.*)","svcName":"litmusportal-frontend-service","svcPort":9091},{"path":"/backend/(.*)","svcName":"litmusportal-backend-service","svcPort":9002}]}` | This is ingress hostname (ex: my-domain.com) |
-| ingress.hosts[0].paths[0] | object | `{"path":"/(.*)","svcName":"litmusportal-frontend-service","svcPort":9091}` | You may need adapt the path depending your ingress-controller |
-| ingress.hosts[0].paths[0].svcName | string | `"litmusportal-frontend-service"` | Link Ingress to FrontendService |
-| ingress.hosts[0].paths[1] | object | `{"path":"/backend/(.*)","svcName":"litmusportal-backend-service","svcPort":9002}` | You may need adapt the path depending your ingress-controller |
-| ingress.hosts[0].paths[1].svcName | string | `"litmusportal-backend-service"` | Link Ingress to BackendService |
+| ingress.host.name | string | `""` | This is ingress hostname (ex: my-domain.com) |
+| ingress.host.paths.backend | string | `"/backend/(.*)"` | You may need adapt the path depending your ingress-controller |
+| ingress.host.paths.frontend | string | `"/(.*)"` | You may need adapt the path depending your ingress-controller |
 | ingress.name | string | `"litmus-ingress"` |  |
 | ingress.tls | list | `[]` |  |
 | mongo.containerPort | int | `27017` |  |

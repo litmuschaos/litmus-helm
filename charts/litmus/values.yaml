@@ -33,20 +33,14 @@ ingress:
     # kubernetes.io/tls-acme: "true"
     # nginx.ingress.kubernetes.io/rewrite-target: /$1
 
-  hosts:
-      # -- This is ingress hostname (ex: my-domain.com)
-    - host: ""
-      paths:
-        # -- You may need adapt the path depending your ingress-controller
-        - path: /(.*)
-          # -- Link Ingress to FrontendService
-          svcName: litmusportal-frontend-service
-          svcPort: 9091
-        # -- You may need adapt the path depending your ingress-controller
-        - path: /backend/(.*)
-          # -- Link Ingress to BackendService
-          svcName: litmusportal-backend-service
-          svcPort: 9002
+  host:
+    # -- This is ingress hostname (ex: my-domain.com)
+    name: ""
+    paths:
+      # -- You may need adapt the path depending your ingress-controller
+      frontend: /(.*)
+      # -- You may need adapt the path depending your ingress-controller
+      backend: /backend/(.*)
   tls: []
   #  - secretName: chart-example-tls
   #    hosts: []
