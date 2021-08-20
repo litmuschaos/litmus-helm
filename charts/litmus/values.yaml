@@ -38,6 +38,13 @@ ingress:
   #  - secretName: chart-example-tls
   #    hosts: []
 
+upgradeAgent:
+  controlPlane:
+    image:
+      repository: upgrade-agent-cp
+      tag: 2.0.0
+      pullPolicy: "Always"
+
 portal:
   frontend:
     replicas: 1
