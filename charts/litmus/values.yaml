@@ -33,7 +33,15 @@ ingress:
     # kubernetes.io/tls-acme: "true"
     # nginx.ingress.kubernetes.io/rewrite-target: /$1
 
-  host: ""
+  hosts:
+    - host: ""
+      paths:
+        - path: /(.*)
+          svcName: litmusportal-frontend-service
+          svcPort: 9091
+        - path: /backend/(.*)
+          svcName: litmusportal-server-service
+          svcPort: 9002
   tls: []
   #  - secretName: chart-example-tls
   #    hosts: []

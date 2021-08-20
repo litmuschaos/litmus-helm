@@ -20,7 +20,7 @@ metadata:
 spec:
   {{- if .Values.ingress.tls }}
   tls:
-    {{- range.Values.tls }}
+    {{- range .Values.ingress.tls }}
     - hosts:
         {{- range .hosts }}
         - {{ . | quote }}
@@ -28,38 +28,32 @@ spec:
       secretName: {{ .secretName }}
     {{- end }}
   {{- end }}
+  {{- range .Values.ingress.hosts }}
   rules:
-  {{- if .Values.ingress.host }}
-  - host: {{ .Values.ingress.host | quote }}
+  {{- if .host }}
+  - host: {{ .host | quote }}
     http:
   {{- else }}
   - http: 
   {{- end }}
-    {{- if semverCompare ">=1.19-0" .Capabilities.KubeVersion.GitVersion }}
       paths:
-      - path: /(.*)
+    {{- if semverCompare ">=1.19-0" $.Capabilities.KubeVersion.GitVersion }}
+      {{- range .paths }}
+      - path: {{ .path }}
         pathType: ImplementationSpecific
         backend:
           service:
-            name: litmusportal-frontend-service
+            name: {{ .svcName }}
             port:
-              number: 9091
-      - path: /backend/(.*)
-        pathType: ImplementationSpecific
+              number: {{ .svcPort }}
+      {{- end }}
+    {{- else if semverCompare "<1.19-0" $.Capabilities.KubeVersion.GitVersion }}
+      {{- range .paths }}
+      - path: {{ .path }}
         backend:
-          service:
-            name: litmusportal-server-service
-            port:
-              number: 9002
-    {{- else if semverCompare "<1.19-0" .Capabilities.KubeVersion.GitVersion }}
-      paths:
-      - path: /(.*)
-        backend:
-          serviceName: litmusportal-frontend-service
-          servicePort: 9091
-      - path: /backend/(.*)
-        backend:
-          serviceName: litmusportal-server-service
-          servicePort: 9002
+          serviceName: {{ .svcName }}
+          servicePort: {{ .svcPort }}
+      {{- end }}
     {{- end }}
   {{- end }}
+{{- end }}

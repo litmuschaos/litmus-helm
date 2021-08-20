@@ -46,7 +46,13 @@ $ helm install litmus-portal litmuschaos/litmus
 | image.imageRegistryName | string | `"litmuschaos"` |  |
 | ingress.annotations | object | `{}` |  |
 | ingress.enabled | bool | `false` |  |
-| ingress.host | string | `""` |  |
+| ingress.hosts[0].host | string | `""` |  |
+| ingress.hosts[0].paths[0].path | string | `"/(.*)"` |  |
+| ingress.hosts[0].paths[0].svcName | string | `"litmusportal-frontend-service"` |  |
+| ingress.hosts[0].paths[0].svcPort | int | `9091` |  |
+| ingress.hosts[0].paths[1].path | string | `"/backend/(.*)"` |  |
+| ingress.hosts[0].paths[1].svcName | string | `"litmusportal-server-service"` |  |
+| ingress.hosts[0].paths[1].svcPort | int | `9002` |  |
 | ingress.name | string | `"litmus-ingress"` |  |
 | ingress.tls | list | `[]` |  |
 | mongo.containerPort | int | `27017` |  |
