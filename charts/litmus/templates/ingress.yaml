@@ -37,28 +37,28 @@ spec:
   {{- end }}
       paths:
     {{- if semverCompare ">=1.19-0" .Capabilities.KubeVersion.GitVersion }}
-      - path: {{ .Values.ingress.host.frontend }}
+      - path: {{ .Values.ingress.host.paths.frontend }}
         pathType: ImplementationSpecific
         backend:
           service:
             name: litmusportal-frontend-service
             port:
               number: 9001
-      - path: {{ .Values.ingress.host.backend }}
+      - path: {{ .Values.ingress.host.paths.backend }}
         pathType: ImplementationSpecific
         backend:
           service: 
-            name: litmusportal-backend-service
+            name: litmusportal-server-service
             port: 
               number: 9002
     {{- else if semverCompare "<1.19-0" .Capabilities.KubeVersion.GitVersion }}
-      - path: {{ .Values.ingress.host.frontend }}
+      - path: {{ .Values.ingress.host.paths.frontend }}
         backend:
           serviceName: litmusportal-frontend-service
           servicePort: 9001
-      - path: {{ .Values.ingress.host.backend }}
+      - path: {{ .Values.ingress.host.paths.backend }}
         backend: 
-          serviceName: litmusportal-backend-service
+          serviceName: litmusportal-server-service
           servicePort: 9002
     {{- end }}
 {{- end }}
