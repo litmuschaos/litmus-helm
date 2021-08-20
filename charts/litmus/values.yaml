@@ -38,8 +38,8 @@ ingress:
   #  - secretName: chart-example-tls
   #    hosts: []
 
-upgrade-agent:
-  control-plane:
+upgradeAgent:
+  controlPlane:
     image:
       repository: upgrade-agent-cp
       tag: 2.0.0

@@ -25,8 +25,8 @@ spec:
       restartPolicy: Never
       containers:
         - name: upgrade-agent
-          image: {{ .Values.image.imageRegistryName }}/{{ .Values.upgrade-agent.control-plane.image.repository }}:{{ .Values.upgrade-agent.control-plane.image.tag }}
-          imagePullPolicy: {{ .Values.upgrade-agent.control-plane.image.pullPolicy }}
+          image: {{ .Values.image.imageRegistryName }}/{{ .Values.upgradeAgent.controlPlane.image.repository }}:{{ .Values.upgradeAgent.controlPlane.image.tag }}
+          imagePullPolicy: {{ .Values.upgradeAgent.controlPlane.image.pullPolicy }}
           envFrom:
             - configMapRef:
                 name: {{ include "litmus-portal.fullname" . }}-admin-config
