@@ -54,7 +54,11 @@ $ helm install litmus-portal litmuschaos/litmus
 | mongo.image.pullPolicy | string | `"Always"` |  |
 | mongo.image.repository | string | `"mongo"` |  |
 | mongo.image.tag | string | `"4.2.8"` |  |
-| mongo.livenessProbe | object | `{"failureThreshold":5,"initialDelaySeconds":30,"periodSeconds":10,"successThreshold":1,"timeoutSeconds":5}` |  choice for the user. This also increases chances charts run on environments with little resources, such as Minikube. If you do want to specify resources, uncomment the following lines, adjust them as necessary, and remove the curly braces after 'resources:'. limits:   cpu: 200m   memory: 400Mi requests:   cpu: 200m   memory: 400Mi |
+| mongo.livenessProbe.failureThreshold | int | `5` |  |
+| mongo.livenessProbe.initialDelaySeconds | int | `30` |  |
+| mongo.livenessProbe.periodSeconds | int | `10` |  |
+| mongo.livenessProbe.successThreshold | int | `1` |  |
+| mongo.livenessProbe.timeoutSeconds | int | `5` |  |
 | mongo.persistence.accessMode | string | `"ReadWriteOnce"` |  |
 | mongo.persistence.size | string | `"20Gi"` |  |
 | mongo.readinessProbe.initialDelaySeconds | int | `5` |  |
@@ -76,7 +80,11 @@ $ helm install litmus-portal litmuschaos/litmus
 | portal.frontend.image.pullPolicy | string | `"Always"` |  |
 | portal.frontend.image.repository | string | `"litmusportal-frontend"` |  |
 | portal.frontend.image.tag | string | `"2.0.0"` |  |
-| portal.frontend.livenessProbe | object | `{"failureThreshold":5,"initialDelaySeconds":30,"periodSeconds":10,"successThreshold":1,"timeoutSeconds":5}` |  choice for the user. This also increases chances charts run on environments with little resources, such as Minikube. If you do want to specify resources, uncomment the following lines, adjust them as necessary, and remove the curly braces after 'resources:'. limits:   cpu: 200m   memory: 400Mi requests:   cpu: 200m   memory: 400Mi |
+| portal.frontend.livenessProbe.failureThreshold | int | `5` |  |
+| portal.frontend.livenessProbe.initialDelaySeconds | int | `30` |  |
+| portal.frontend.livenessProbe.periodSeconds | int | `10` |  |
+| portal.frontend.livenessProbe.successThreshold | int | `1` |  |
+| portal.frontend.livenessProbe.timeoutSeconds | int | `5` |  |
 | portal.frontend.readinessProbe.initialDelaySeconds | int | `5` |  |
 | portal.frontend.readinessProbe.periodSeconds | int | `10` |  |
 | portal.frontend.readinessProbe.successThreshold | int | `1` |  |
@@ -112,7 +120,11 @@ $ helm install litmus-portal litmuschaos/litmus
 | portal.server.graphqlServer.imageEnv.LITMUS_CHAOS_OPERATOR_IMAGE | string | `"chaos-operator:2.0.0"` |  |
 | portal.server.graphqlServer.imageEnv.LITMUS_CHAOS_RUNNER_IMAGE | string | `"chaos-runner:2.0.0"` |  |
 | portal.server.graphqlServer.imageEnv.SUBSCRIBER_IMAGE | string | `"litmusportal-subscriber:2.0.0"` |  |
-| portal.server.graphqlServer.livenessProbe | object | `{"failureThreshold":5,"initialDelaySeconds":30,"periodSeconds":10,"successThreshold":1,"timeoutSeconds":5}` |  choice for the user. This also increases chances charts run on environments with little resources, such as Minikube. If you do want to specify resources, uncomment the following lines, adjust them as necessary, and remove the curly braces after 'resources:'. limits:   cpu: 200m   memory: 400Mi requests:   cpu: 200m   memory: 400Mi |
+| portal.server.graphqlServer.livenessProbe.failureThreshold | int | `5` |  |
+| portal.server.graphqlServer.livenessProbe.initialDelaySeconds | int | `30` |  |
+| portal.server.graphqlServer.livenessProbe.periodSeconds | int | `10` |  |
+| portal.server.graphqlServer.livenessProbe.successThreshold | int | `1` |  |
+| portal.server.graphqlServer.livenessProbe.timeoutSeconds | int | `5` |  |
 | portal.server.graphqlServer.readinessProbe.initialDelaySeconds | int | `5` |  |
 | portal.server.graphqlServer.readinessProbe.periodSeconds | int | `10` |  |
 | portal.server.graphqlServer.readinessProbe.successThreshold | int | `1` |  |
