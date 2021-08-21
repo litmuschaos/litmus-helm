@@ -1,3 +1,4 @@
+{{ if eq .Values.upgradeAgent.enabled true }}
 apiVersion: batch/v1
 kind: Job
 metadata:
@@ -30,3 +31,4 @@ spec:
           envFrom:
             - configMapRef:
                 name: {{ include "litmus-portal.fullname" . }}-admin-config
+{{ end }}
