@@ -74,6 +74,18 @@ spec:
                 configMapKeyRef:
                   name: {{ include "litmus-portal.fullname" . }}-admin-config
                   key: DB_PASSWORD
+    {{- with .Values.mongo.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+    {{- with .Values.mongo.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+    {{- with .Values.mongo.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
   volumeClaimTemplates:
     - metadata:
         name: mongo-persistent-storage
