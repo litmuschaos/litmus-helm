@@ -51,6 +51,9 @@ upgradeAgent:
       repository: upgrade-agent-cp
       tag: "ci"
       pullPolicy: "Always"
+  nodeSelector: {}
+  tolerations: []
+  affinity: {}
 
 portal:
   frontend:
@@ -99,6 +102,13 @@ portal:
       type: NodePort
       port: 9091
       targetPort: 8080
+    virtualService:
+      enabled: false
+      hosts: []
+      gateways: []
+    nodeSelector: {}
+    tolerations: []
+    affinity: {}
 
   server:
     replicas: 1
@@ -187,6 +197,10 @@ portal:
       authServer:
         port: 9003
         targetPort: 3000
+    nodeSelector: {}
+    tolerations: []
+    affinity: {}
+
 mongo:
   replicas: 1
   customLabels: {}
@@ -228,6 +242,9 @@ mongo:
     targetPort: 27017
   # Service account to be used by mongo pods
   # serviceAccountName: "mongo-service-account"
+  nodeSelector: {}
+  tolerations: []
+  affinity: {}
 
 # OpenShift specific configuration
 openshift:

@@ -30,3 +30,16 @@ spec:
           envFrom:
             - configMapRef:
                 name: {{ include "litmus-portal.fullname" . }}-admin-config
+    {{- with .Values.upgradeAgent.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+    {{- with .Values.upgradeAgent.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+    {{- with .Values.upgradeAgent.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+
