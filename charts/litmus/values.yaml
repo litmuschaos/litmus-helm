@@ -98,7 +98,7 @@ portal:
       initialDelaySeconds: 5
       periodSeconds: 10
       successThreshold: 1
-      timeoutSeconds: 1
+      timeoutSeconds: 
     service:
       type: NodePort
       port: 9091
@@ -233,7 +233,7 @@ mongo:
     initialDelaySeconds: 5
     periodSeconds: 10
     successThreshold: 1
-    timeoutSeconds: 1
+    timeoutSeconds: 2
   persistence:
     size: 20Gi
     accessMode: ReadWriteOnce
