@@ -1,6 +1,6 @@
 # litmus
 
-![Version: 2.0.32](https://img.shields.io/badge/Version-2.0.32-informational?style=flat-square) ![AppVersion: 2.0.0](https://img.shields.io/badge/AppVersion-2.0.0-informational?style=flat-square)
+![Version: 2.0.33](https://img.shields.io/badge/Version-2.0.33-informational?style=flat-square) ![AppVersion: 2.0.0](https://img.shields.io/badge/AppVersion-2.0.0-informational?style=flat-square)
 
 A Helm chart to install ChaosCenter
 
@@ -54,7 +54,7 @@ $ helm install litmus-portal litmuschaos/litmus
 | mongo.affinity | object | `{}` |  |
 | mongo.containerPort | int | `27017` |  |
 | mongo.customLabels | object | `{}` |  |
-| mongo.image.pullPolicy | string | `"Always"` |  |
+| mongo.image.pullPolicy | string | `"IfNotPresent"` |  |
 | mongo.image.repository | string | `"mongo"` |  |
 | mongo.image.tag | string | `"4.2.8"` |  |
 | mongo.livenessProbe.failureThreshold | int | `5` |  |
@@ -68,7 +68,7 @@ $ helm install litmus-portal litmuschaos/litmus
 | mongo.readinessProbe.initialDelaySeconds | int | `5` |  |
 | mongo.readinessProbe.periodSeconds | int | `10` |  |
 | mongo.readinessProbe.successThreshold | int | `1` |  |
-| mongo.readinessProbe.timeoutSeconds | int | `1` |  |
+| mongo.readinessProbe.timeoutSeconds | int | `2` |  |
 | mongo.replicas | int | `1` |  |
 | mongo.resources | object | `{}` |  |
 | mongo.service.port | int | `27017` |  |
@@ -83,7 +83,7 @@ $ helm install litmus-portal litmuschaos/litmus
 | portal.frontend.affinity | object | `{}` |  |
 | portal.frontend.containerPort | int | `8080` |  |
 | portal.frontend.customLabels | object | `{}` |  |
-| portal.frontend.image.pullPolicy | string | `"Always"` |  |
+| portal.frontend.image.pullPolicy | string | `"IfNotPresent"` |  |
 | portal.frontend.image.repository | string | `"litmusportal-frontend"` |  |
 | portal.frontend.image.tag | string | `"2.0.0"` |  |
 | portal.frontend.livenessProbe.failureThreshold | int | `5` |  |
@@ -110,7 +110,7 @@ $ helm install litmus-portal litmuschaos/litmus
 | portal.server.authServer.containerPort | int | `3000` |  |
 | portal.server.authServer.env.ADMIN_PASSWORD | string | `"litmus"` |  |
 | portal.server.authServer.env.ADMIN_USERNAME | string | `"admin"` |  |
-| portal.server.authServer.image.pullPolicy | string | `"Always"` |  |
+| portal.server.authServer.image.pullPolicy | string | `"IfNotPresent"` |  |
 | portal.server.authServer.image.repository | string | `"litmusportal-auth-server"` |  |
 | portal.server.authServer.image.tag | string | `"2.0.0"` |  |
 | portal.server.authServer.resources | object | `{}` |  |
@@ -122,7 +122,7 @@ $ helm install litmus-portal litmuschaos/litmus
 | portal.server.graphqlServer.genericEnv.PORTAL_ENDPOINT | string | `"http://litmusportal-server-service:9002"` |  |
 | portal.server.graphqlServer.genericEnv.SELF_CLUSTER | string | `"true"` |  |
 | portal.server.graphqlServer.genericEnv.SERVER_SERVICE_NAME | string | `"litmusportal-server-service"` |  |
-| portal.server.graphqlServer.image.pullPolicy | string | `"Always"` |  |
+| portal.server.graphqlServer.image.pullPolicy | string | `"IfNotPresent"` |  |
 | portal.server.graphqlServer.image.repository | string | `"litmusportal-server"` |  |
 | portal.server.graphqlServer.image.tag | string | `"2.0.0"` |  |
 | portal.server.graphqlServer.imageEnv.ARGO_WORKFLOW_CONTROLLER_IMAGE | string | `"workflow-controller:v2.11.0"` |  |
@@ -154,7 +154,7 @@ $ helm install litmus-portal litmuschaos/litmus
 | portal.server.updateStrategy | object | `{}` |  |
 | portalScope | string | `"cluster"` |  |
 | upgradeAgent.affinity | object | `{}` |  |
-| upgradeAgent.controlPlane.image.pullPolicy | string | `"Always"` |  |
+| upgradeAgent.controlPlane.image.pullPolicy | string | `"IfNotPresent"` |  |
 | upgradeAgent.controlPlane.image.repository | string | `"upgrade-agent-cp"` |  |
 | upgradeAgent.controlPlane.image.tag | string | `"ci"` |  |
 | upgradeAgent.nodeSelector | object | `{}` |  |
