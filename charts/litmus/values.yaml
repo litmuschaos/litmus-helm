@@ -7,8 +7,9 @@ portalScope: cluster
 nameOverride: ""
 
 # -- Additional labels
-customLabels: {}
-  # my.company.com/concourse-cd: 2  
+customLabels:
+  {}
+  # my.company.com/concourse-cd: 2
 
 adminConfig:
   DBUSER: "admin"
@@ -50,7 +51,7 @@ upgradeAgent:
     image:
       repository: upgrade-agent-cp
       tag: "ci"
-      pullPolicy: "Always"
+      pullPolicy: "IfNotPresent"
   nodeSelector: {}
   tolerations: []
   affinity: {}
@@ -71,7 +72,7 @@ portal:
     image:
       repository: litmusportal-frontend
       tag: 2.0.0
-      pullPolicy: "Always"
+      pullPolicy: "IfNotPresent"
     containerPort: 8080
     customLabels: {}
     # my.company.com/tier: "frontend"
@@ -130,7 +131,7 @@ portal:
       image:
         repository: litmusportal-server
         tag: 2.0.0
-        pullPolicy: "Always"
+        pullPolicy: "IfNotPresent"
       containerPort: 8080
       imageEnv:
         SUBSCRIBER_IMAGE: "litmusportal-subscriber:2.0.0"
@@ -146,7 +147,7 @@ portal:
         PORTAL_ENDPOINT: "http://litmusportal-server-service:9002"
         CONTAINER_RUNTIME_EXECUTOR: "k8sapi"
         HUB_BRANCH_NAME: "v2.0.x"
-        AGENT_DEPLOYMENTS: "[\"app=chaos-exporter\", \"name=chaos-operator\", \"app=event-tracker\", \"app=workflow-controller\"]"
+        AGENT_DEPLOYMENTS: '["app=chaos-exporter", "name=chaos-operator", "app=event-tracker", "app=workflow-controller"]'
       resources: {}
       # We usually recommend not to specify default resources and to leave this as a conscious
       # choice for the user. This also increases chances charts run on environments with little
@@ -173,7 +174,7 @@ portal:
       image:
         repository: litmusportal-auth-server
         tag: 2.0.0
-        pullPolicy: "Always"
+        pullPolicy: "IfNotPresent"
       containerPort: 3000
       env:
         ADMIN_USERNAME: "admin"
@@ -203,12 +204,13 @@ portal:
 
 mongo:
   replicas: 1
-  customLabels: {}
+  customLabels:
+    {}
     # my.company.com/tier: "database"
   image:
     repository: mongo
     tag: 4.2.8
-    pullPolicy: "Always"
+    pullPolicy: "IfNotPresent"
   containerPort: 27017
   resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
