@@ -95,7 +95,7 @@ $ helm install litmus-portal litmuschaos/litmus
 | portal.frontend.readinessProbe.initialDelaySeconds | int | `5` |  |
 | portal.frontend.readinessProbe.periodSeconds | int | `10` |  |
 | portal.frontend.readinessProbe.successThreshold | int | `1` |  |
-| portal.frontend.readinessProbe.timeoutSeconds | int | `1` |  |
+| portal.frontend.readinessProbe.timeoutSeconds | string | `nil` |  |
 | portal.frontend.replicas | int | `1` |  |
 | portal.frontend.resources | object | `{}` |  |
 | portal.frontend.service.port | int | `9091` |  |
