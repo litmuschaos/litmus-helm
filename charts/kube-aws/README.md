@@ -1,6 +1,6 @@
 # kube-aws
 
-![Version: 1.16.0](https://img.shields.io/badge/Version-1.16.0-informational?style=flat-square) ![AppVersion: 2.0.0](https://img.shields.io/badge/AppVersion-2.0.0-informational?style=flat-square)
+![Version: 1.17.0](https://img.shields.io/badge/Version-1.17.0-informational?style=flat-square) ![AppVersion: 2.1.0](https://img.shields.io/badge/AppVersion-2.1.0-informational?style=flat-square)
 
 A Helm chart to install litmus aws chaos experiments
 
@@ -27,7 +27,7 @@ A Helm chart to install litmus aws chaos experiments
 | fullnameOverride | string | `"kube-aws"` |  |
 | image.litmusGO.pullPolicy | string | `"Always"` |  |
 | image.litmusGO.repository | string | `"litmuschaos/go-runner"` |  |
-| image.litmusGO.tag | string | `"2.0.0"` |  |
+| image.litmusGO.tag | string | `"2.1.0"` |  |
 | nameOverride | string | `"kube-aws"` |  |
 
 ----------------------------------------------
