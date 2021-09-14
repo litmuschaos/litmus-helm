@@ -56,3 +56,16 @@ spec:
                 configMapKeyRef:
                   name: {{ include "litmus-portal.fullname" . }}-admin-config
                   key: AgentScope
+    {{- with .Values.portal.frontend.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+    {{- with .Values.portal.frontend.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+    {{- with .Values.portal.frontend.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+
