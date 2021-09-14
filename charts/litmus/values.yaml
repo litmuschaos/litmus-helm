@@ -14,7 +14,7 @@ adminConfig:
   DBUSER: "admin"
   DBPASSWORD: "1234"
   JWTSecret: "litmus-portal@123"
-  VERSION: "2.0.0"
+  VERSION: "2.1.0"
   # -- leave empty if uses Mongo DB deployed by this chart
   DB_SERVER: ""
   DB_PORT: "27017"
@@ -70,7 +70,7 @@ portal:
     ##       maxUnavailable: 25%
     image:
       repository: litmusportal-frontend
-      tag: 2.0.0
+      tag: 2.1.0
       pullPolicy: "Always"
     containerPort: 8080
     customLabels: {}
@@ -125,16 +125,21 @@ portal:
     serviceAccountName: litmus-server-account
     customLabels: {}
     # my.company.com/tier: "backend"
+    waitForMongodb:
+      image: 
+        repository: curl
+        tag: latest
+        pullPolicy: "Always"
 
     graphqlServer:
       image:
         repository: litmusportal-server
-        tag: 2.0.0
+        tag: 2.1.0
         pullPolicy: "Always"
       containerPort: 8080
       imageEnv:
-        SUBSCRIBER_IMAGE: "litmusportal-subscriber:2.0.0"
-        EVENT_TRACKER_IMAGE: "litmusportal-event-tracker:2.0.0"
+        SUBSCRIBER_IMAGE: "litmusportal-subscriber:2.1.0"
+        EVENT_TRACKER_IMAGE: "litmusportal-event-tracker:2.1.0"
         ARGO_WORKFLOW_CONTROLLER_IMAGE: "workflow-controller:v2.11.0"
         ARGO_WORKFLOW_EXECUTOR_IMAGE: "argoexec:v2.11.0"
         LITMUS_CHAOS_OPERATOR_IMAGE: "chaos-operator:2.0.0"
@@ -172,7 +177,7 @@ portal:
     authServer:
       image:
         repository: litmusportal-auth-server
-        tag: 2.0.0
+        tag: 2.1.0
         pullPolicy: "Always"
       containerPort: 3000
       env:
