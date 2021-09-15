@@ -7,14 +7,14 @@ metadata:
     {{- include "litmus-portal.labels" . | nindent 4 }}
     app.kubernetes.io/component: {{ include "litmus-portal.name" . }}-admin-config
 data:
-  AgentScope: "{{ .Values.portalScope }}"
-  AgentNamespace: "{{ .Release.Namespace }}"
+  AGENT_SCOPE: "{{ .Values.portalScope }}"
+  AGENT_NAMESPACE: "{{ .Release.Namespace }}"
   {{- if .Values.adminConfig.DB_SERVER }}
   DB_SERVER: "mongodb://{{ .Values.adminConfig.DB_SERVER }}:{{ .Values.adminConfig.DB_PORT }}"
   {{- else }}
   DB_SERVER: "mongodb://{{ include "litmus-portal.fullname" . }}-mongo:{{ .Values.adminConfig.DB_PORT }}"
   {{- end }}
-  JWTSecret: "{{ .Values.adminConfig.JWTSecret }}"
+  JWT_SECRET: "{{ .Values.adminConfig.JWTSecret }}"
   DB_USER: "{{ .Values.adminConfig.DBUSER }}"
   DB_PASSWORD: "{{ .Values.adminConfig.DBPASSWORD }}"
   VERSION: "{{ .Values.adminConfig.VERSION }}"
