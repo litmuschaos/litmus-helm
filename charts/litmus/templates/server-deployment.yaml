@@ -32,6 +32,7 @@ spec:
       imagePullSecrets:
         {{ toYaml .Values.image.imagePullSecrets | indent 8 }}
       {{- end }}
+      {{- if eq .Values.adminConfig.DB_SERVER "" }}
       initContainers:
         - name: wait-for-mongodb
           image: {{ .Values.image.imageRegistryName }}/{{ .Values.portal.server.waitForMongodb.image.repository }}:{{ .Values.portal.server.waitForMongodb.image.tag }}
@@ -41,6 +42,7 @@ spec:
             [
               "while [[ $(curl -sw '%{http_code}' http://{{ include "litmus-portal.fullname" . }}-mongo:{{ .Values.adminConfig.DB_PORT }} -o /dev/null) -ne 200 ]]; do sleep 5; echo 'Waiting for the MongoDB to be ready...'; done; echo 'Connection with MongoDB established'",
             ]
+      {{- end }}
       containers:
         - name: graphql-server
           image: {{ .Values.image.imageRegistryName }}/{{ .Values.portal.server.graphqlServer.image.repository }}:{{ .Values.portal.server.graphqlServer.image.tag }}
@@ -61,11 +63,16 @@ spec:
               port: graphql-server
             {{- toYaml .Values.portal.server.graphqlServer.readinessProbe | nindent 12 }}
           envFrom:
-            - secretRef:
-                name: {{ include "litmus-portal.fullname" . }}-admin-secret
-            - configMapRef:
-                name: {{ include "litmus-portal.fullname" . }}-admin-config
+          - secretRef:
+              name: {{ include "litmus-portal.fullname" . }}-admin-secret
+          - configMapRef:
+              name: {{ include "litmus-portal.fullname" . }}-admin-config
           env:
+            - name: DB_SERVER
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "litmus-portal.fullname" . }}-admin-config
+                  key: DB_SERVER
             - name: LITMUS_PORTAL_NAMESPACE
               valueFrom:
                 fieldRef:
@@ -82,6 +89,26 @@ spec:
               value: "{{ .Values.ingress.enabled }}"
             - name: INGRESS_NAME
               value: "{{ .Values.ingress.name }}"
+            - name: AGENT_SCOPE
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "litmus-portal.fullname" . }}-admin-config
+                  key: AGENT_SCOPE
+            - name: AGENT_NAMESPACE
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "litmus-portal.fullname" . }}-admin-config
+                  key: AGENT_NAMESPACE
+            - name: DB_USER
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "litmus-portal.fullname" . }}-admin-config
+                  key: DB_USER
+            - name: VERSION
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "litmus-portal.fullname" . }}-admin-config
+                  key: VERSION
             - name: NODE_NAME
               valueFrom:
                 fieldRef:
@@ -104,10 +131,10 @@ spec:
           resources:
             {{- toYaml .Values.portal.server.authServer.resources | nindent 12 }}
           envFrom:
-            - secretRef:
-                name: {{ include "litmus-portal.fullname" . }}-admin-secret
-            - configMapRef:
-                name: {{ include "litmus-portal.fullname" . }}-admin-config
+          - secretRef:
+              name: {{ include "litmus-portal.fullname" . }}-admin-secret
+          - configMapRef:
+              name: {{ include "litmus-portal.fullname" . }}-admin-config
           env:
             {{- range $key, $val := .Values.portal.server.authServer.env }}
             - name: {{ $key }}
