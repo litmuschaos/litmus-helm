@@ -72,4 +72,5 @@ spec:
     labels:
       name: docker-service-kill
       app.kubernetes.io/part-of: litmus
+      app.kubernetes.io/host-path-usage: "true"
 {{ end }}

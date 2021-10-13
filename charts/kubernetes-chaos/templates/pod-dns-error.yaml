@@ -98,4 +98,5 @@ spec:
     labels:
       name: pod-dns-error
       app.kubernetes.io/part-of: litmus
+      app.kubernetes.io/runtime-api-usage: "true"
 {{ end }}
