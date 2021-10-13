@@ -55,7 +55,7 @@ spec:
               valueFrom:
                 configMapKeyRef:
                   name: {{ include "litmus-portal.fullname" . }}-admin-config
-                  key: AgentScope
+                  key: AGENT_SCOPE
     {{- with .Values.portal.frontend.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
