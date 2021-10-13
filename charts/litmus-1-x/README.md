@@ -1,6 +1,6 @@
 # litmus-1-x
 
-![Version: 1.18.0](https://img.shields.io/badge/Version-1.18.0-informational?style=flat-square) ![AppVersion: 2.1.0](https://img.shields.io/badge/AppVersion-2.1.0-informational?style=flat-square)
+![Version: 1.19.0](https://img.shields.io/badge/Version-1.19.0-informational?style=flat-square) ![AppVersion: 2.2.0](https://img.shields.io/badge/AppVersion-2.2.0-informational?style=flat-square)
 
 A Helm chart to install litmus infra components on Kubernetes
 
@@ -27,7 +27,7 @@ A Helm chart to install litmus infra components on Kubernetes
 | exporter.enabled | bool | `false` |  |
 | exporter.image.pullPolicy | string | `"Always"` |  |
 | exporter.image.repository | string | `"litmuschaos/chaos-exporter"` |  |
-| exporter.image.tag | string | `"2.1.0"` |  |
+| exporter.image.tag | string | `"2.2.0"` |  |
 | exporter.nodeSelector | object | `{}` |  |
 | exporter.priorityClassName | string | `nil` |  |
 | exporter.resources | object | `{}` |  |
@@ -47,14 +47,14 @@ A Helm chart to install litmus infra components on Kubernetes
 | nodeSelector | object | `{}` |  |
 | operator.image.pullPolicy | string | `"Always"` |  |
 | operator.image.repository | string | `"litmuschaos/chaos-operator"` |  |
-| operator.image.tag | string | `"2.1.0"` |  |
+| operator.image.tag | string | `"2.2.0"` |  |
 | operatorMode | string | `"standard"` |  |
 | operatorName | string | `"chaos-operator"` |  |
 | policies.monitoring.disabled | bool | `false` |  |
 | replicaCount | int | `1` |  |
 | resources | object | `{}` |  |
 | runner.image.repository | string | `"litmuschaos/chaos-runner"` |  |
-| runner.image.tag | string | `"2.1.0"` |  |
+| runner.image.tag | string | `"2.2.0"` |  |
 | service.port | int | `80` |  |
 | service.type | string | `"ClusterIP"` |  |
 | tolerations | list | `[]` |  |
