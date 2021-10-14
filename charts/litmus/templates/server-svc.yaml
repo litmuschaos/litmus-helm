@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: litmusportal-server-service
+  name: {{ include "litmus-portal.fullname" . }}-server-service
   namespace:  {{ .Release.Namespace }}
   labels:
     app.kubernetes.io/component: {{ include "litmus-portal.name" . }}-server
