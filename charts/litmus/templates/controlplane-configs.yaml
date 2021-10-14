@@ -14,9 +14,6 @@ data:
   {{- else }}
   DB_SERVER: "mongodb://{{ include "litmus-portal.fullname" . }}-mongo:{{ .Values.adminConfig.DB_PORT }}"
   {{- end }}
-  JWT_SECRET: "{{ .Values.adminConfig.JWTSecret }}"
-  DB_USER: "{{ .Values.adminConfig.DBUSER }}"
-  DB_PASSWORD: "{{ .Values.adminConfig.DBPASSWORD }}"
   VERSION: "{{ .Values.adminConfig.VERSION }}"
 ---
 apiVersion: v1
