@@ -40,7 +40,7 @@ $ helm install litmus-portal litmuschaos/litmus
 | adminConfig.DB_PORT | string | `"27017"` |  |
 | adminConfig.DB_SERVER | string | `""` | leave empty if uses Mongo DB deployed by this chart |
 | adminConfig.JWTSecret | string | `"litmus-portal@123"` |  |
-| adminConfig.VERSION | string | `"2.2.0"` |  |
+| adminConfig.VERSION | string | `"2.3.0"` |  |
 | customLabels | object | `{}` | Additional labels |
 | image.imagePullSecrets | list | `[]` |  |
 | image.imageRegistryName | string | `"litmuschaos"` |  |
@@ -85,7 +85,7 @@ $ helm install litmus-portal litmuschaos/litmus
 | portal.frontend.customLabels | object | `{}` |  |
 | portal.frontend.image.pullPolicy | string | `"Always"` |  |
 | portal.frontend.image.repository | string | `"litmusportal-frontend"` |  |
-| portal.frontend.image.tag | string | `"2.2.0"` |  |
+| portal.frontend.image.tag | string | `"2.3.0"` |  |
 | portal.frontend.livenessProbe.failureThreshold | int | `5` |  |
 | portal.frontend.livenessProbe.initialDelaySeconds | int | `30` |  |
 | portal.frontend.livenessProbe.periodSeconds | int | `10` |  |
@@ -112,7 +112,7 @@ $ helm install litmus-portal litmuschaos/litmus
 | portal.server.authServer.env.ADMIN_USERNAME | string | `"admin"` |  |
 | portal.server.authServer.image.pullPolicy | string | `"Always"` |  |
 | portal.server.authServer.image.repository | string | `"litmusportal-auth-server"` |  |
-| portal.server.authServer.image.tag | string | `"2.2.0"` |  |
+| portal.server.authServer.image.tag | string | `"2.3.0"` |  |
 | portal.server.authServer.resources | object | `{}` |  |
 | portal.server.customLabels | object | `{}` |  |
 | portal.server.graphqlServer.containerPort | int | `8080` |  |
@@ -122,14 +122,14 @@ $ helm install litmus-portal litmuschaos/litmus
 | portal.server.graphqlServer.genericEnv.SELF_CLUSTER | string | `"true"` |  |
 | portal.server.graphqlServer.image.pullPolicy | string | `"Always"` |  |
 | portal.server.graphqlServer.image.repository | string | `"litmusportal-server"` |  |
-| portal.server.graphqlServer.image.tag | string | `"2.2.0"` |  |
+| portal.server.graphqlServer.image.tag | string | `"2.3.0"` |  |
 | portal.server.graphqlServer.imageEnv.ARGO_WORKFLOW_CONTROLLER_IMAGE | string | `"workflow-controller:v2.11.0"` |  |
 | portal.server.graphqlServer.imageEnv.ARGO_WORKFLOW_EXECUTOR_IMAGE | string | `"argoexec:v2.11.0"` |  |
-| portal.server.graphqlServer.imageEnv.EVENT_TRACKER_IMAGE | string | `"litmusportal-event-tracker:2.2.0"` |  |
-| portal.server.graphqlServer.imageEnv.LITMUS_CHAOS_EXPORTER_IMAGE | string | `"chaos-exporter:2.1.1"` |  |
-| portal.server.graphqlServer.imageEnv.LITMUS_CHAOS_OPERATOR_IMAGE | string | `"chaos-operator:2.1.1"` |  |
-| portal.server.graphqlServer.imageEnv.LITMUS_CHAOS_RUNNER_IMAGE | string | `"chaos-runner:2.1.1"` |  |
-| portal.server.graphqlServer.imageEnv.SUBSCRIBER_IMAGE | string | `"litmusportal-subscriber:2.2.0"` |  |
+| portal.server.graphqlServer.imageEnv.EVENT_TRACKER_IMAGE | string | `"litmusportal-event-tracker:2.3.0"` |  |
+| portal.server.graphqlServer.imageEnv.LITMUS_CHAOS_EXPORTER_IMAGE | string | `"chaos-exporter:2.2.0"` |  |
+| portal.server.graphqlServer.imageEnv.LITMUS_CHAOS_OPERATOR_IMAGE | string | `"chaos-operator:2.2.0` |  |
+| portal.server.graphqlServer.imageEnv.LITMUS_CHAOS_RUNNER_IMAGE | string | `"chaos-runner:2.2.0"` |  |
+| portal.server.graphqlServer.imageEnv.SUBSCRIBER_IMAGE | string | `"litmusportal-subscriber:2.3.0"` |  |
 | portal.server.graphqlServer.livenessProbe.failureThreshold | int | `5` |  |
 | portal.server.graphqlServer.livenessProbe.initialDelaySeconds | int | `30` |  |
 | portal.server.graphqlServer.livenessProbe.periodSeconds | int | `10` |  |
