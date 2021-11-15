@@ -99,4 +99,5 @@ spec:
     labels:
       name: disk-fill
       app.kubernetes.io/part-of: litmus
+      app.kubernetes.io/host-path-usage: "true"
 {{ end }}

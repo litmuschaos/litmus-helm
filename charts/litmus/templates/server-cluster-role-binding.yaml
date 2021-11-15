@@ -18,38 +18,6 @@ subjects:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
-  name: argo-aggregate-to-view-crb-for-{{ include "litmus-portal.fullname" . }}-server
-  labels:
-    app.kubernetes.io/component: argo-aggregate-to-view-crb-for-{{ include "litmus-portal.name" . }}-server
-    {{- include "litmus-portal.labels" . | nindent 4 }}
-roleRef:
-  apiGroup: rbac.authorization.k8s.io
-  kind: ClusterRole
-  name: argo-aggregate-to-view-for-{{ include "litmus-portal.fullname" . }}-server
-subjects:
-  - kind: ServiceAccount
-    name: {{ .Values.portal.server.serviceAccountName }}
-    namespace: {{ .Release.Namespace }}
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRoleBinding
-metadata:
-  name: argo-aggregate-to-admin-crb-for-{{ include "litmus-portal.fullname" . }}-server
-  labels:
-    app.kubernetes.io/component: argo-aggregate-to-admin-crb-for-{{ include "litmus-portal.name" . }}-server
-    {{- include "litmus-portal.labels" . | nindent 4 }}
-roleRef:
-  apiGroup: rbac.authorization.k8s.io
-  kind: ClusterRole
-  name: argo-aggregate-to-admin-for-{{ include "litmus-portal.fullname" . }}-server
-subjects:
-  - kind: ServiceAccount
-    name: {{ .Values.portal.server.serviceAccountName }}
-    namespace: {{ .Release.Namespace }}
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRoleBinding
-metadata:
   name: litmus-cluster-scope-crb-for-{{ include "litmus-portal.fullname" . }}-server
   labels:
     app.kubernetes.io/name: litmus

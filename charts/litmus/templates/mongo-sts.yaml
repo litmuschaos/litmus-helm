@@ -66,13 +66,13 @@ spec:
           env:
             - name: MONGO_INITDB_ROOT_USERNAME
               valueFrom:
-                configMapKeyRef:
-                  name: {{ include "litmus-portal.fullname" . }}-admin-config
+                secretKeyRef:
+                  name: {{ include "litmus-portal.fullname" . }}-admin-secret
                   key: DB_USER
             - name: MONGO_INITDB_ROOT_PASSWORD
               valueFrom:
-                configMapKeyRef:
-                  name: {{ include "litmus-portal.fullname" . }}-admin-config
+                secretKeyRef:
+                  name: {{ include "litmus-portal.fullname" . }}-admin-secret
                   key: DB_PASSWORD
     {{- with .Values.mongo.nodeSelector }}
       nodeSelector:

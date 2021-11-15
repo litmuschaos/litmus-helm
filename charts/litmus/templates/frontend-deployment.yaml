@@ -31,6 +31,10 @@ spec:
       imagePullSecrets:
         {{ toYaml .Values.image.imagePullSecrets | indent 8 }}
       {{- end }}
+      volumes:
+        - name: nginx-config
+          configMap:
+            name: {{ include "litmus-portal.fullname" . }}-frontend-nginx-configuration
       containers:
         - name: litmusportal-frontend
           image: {{ .Values.image.imageRegistryName }}/{{ .Values.portal.frontend.image.repository }}:{{ .Values.portal.frontend.image.tag }}
@@ -56,6 +60,10 @@ spec:
                 configMapKeyRef:
                   name: {{ include "litmus-portal.fullname" . }}-admin-config
                   key: AGENT_SCOPE
+          volumeMounts:
+            - name: nginx-config
+              mountPath: /etc/nginx/conf.d/default.conf
+              subPath: default.conf
     {{- with .Values.portal.frontend.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
