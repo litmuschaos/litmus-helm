@@ -1,6 +1,6 @@
 # litmus
 
-![Version: 2.1.3](https://img.shields.io/badge/Version-2.1.3-informational?style=flat-square) ![AppVersion: 2.1.1](https://img.shields.io/badge/AppVersion-2.1.1-informational?style=flat-square)
+![Version: 2.1.4](https://img.shields.io/badge/Version-2.1.4-informational?style=flat-square) ![AppVersion: 2.1.1](https://img.shields.io/badge/AppVersion-2.1.1-informational?style=flat-square)
 
 A Helm chart to install ChaosCenter
 
@@ -118,7 +118,7 @@ $ helm install litmus-portal litmuschaos/litmus
 | portal.server.graphqlServer.containerPort | int | `8080` |  |
 | portal.server.graphqlServer.genericEnv.AGENT_DEPLOYMENTS | string | `"[\"app=chaos-exporter\", \"name=chaos-operator\", \"app=event-tracker\", \"app=workflow-controller\"]"` |  |
 | portal.server.graphqlServer.genericEnv.CONTAINER_RUNTIME_EXECUTOR | string | `"k8sapi"` |  |
-| portal.server.graphqlServer.genericEnv.HUB_BRANCH_NAME | string | `"v2.1.x"` |  |
+| portal.server.graphqlServer.genericEnv.HUB_BRANCH_NAME | string | `"v2.2.x"` |  |
 | portal.server.graphqlServer.genericEnv.SELF_CLUSTER | string | `"true"` |  |
 | portal.server.graphqlServer.image.pullPolicy | string | `"Always"` |  |
 | portal.server.graphqlServer.image.repository | string | `"litmusportal-server"` |  |
@@ -127,7 +127,7 @@ $ helm install litmus-portal litmuschaos/litmus
 | portal.server.graphqlServer.imageEnv.ARGO_WORKFLOW_EXECUTOR_IMAGE | string | `"argoexec:v2.11.0"` |  |
 | portal.server.graphqlServer.imageEnv.EVENT_TRACKER_IMAGE | string | `"litmusportal-event-tracker:2.3.0"` |  |
 | portal.server.graphqlServer.imageEnv.LITMUS_CHAOS_EXPORTER_IMAGE | string | `"chaos-exporter:2.2.0"` |  |
-| portal.server.graphqlServer.imageEnv.LITMUS_CHAOS_OPERATOR_IMAGE | string | `"chaos-operator:2.2.0` |  |
+| portal.server.graphqlServer.imageEnv.LITMUS_CHAOS_OPERATOR_IMAGE | string | `"chaos-operator:2.2.0"` |  |
 | portal.server.graphqlServer.imageEnv.LITMUS_CHAOS_RUNNER_IMAGE | string | `"chaos-runner:2.2.0"` |  |
 | portal.server.graphqlServer.imageEnv.SUBSCRIBER_IMAGE | string | `"litmusportal-subscriber:2.3.0"` |  |
 | portal.server.graphqlServer.livenessProbe.failureThreshold | int | `5` |  |
@@ -142,6 +142,9 @@ $ helm install litmus-portal litmuschaos/litmus
 | portal.server.graphqlServer.resources | object | `{}` |  |
 | portal.server.nodeSelector | object | `{}` |  |
 | portal.server.replicas | int | `1` |  |
+| portal.server.serverVersionUpdater.image.pullPolicy | string | `"Always"` |  |
+| portal.server.serverVersionUpdater.image.repository | string | `"mongo-utils"` |  |
+| portal.server.serverVersionUpdater.image.tag | string | `"latest"` |  |
 | portal.server.service.authServer.port | int | `9003` |  |
 | portal.server.service.authServer.targetPort | int | `3000` |  |
 | portal.server.service.graphqlServer.port | int | `9002` |  |

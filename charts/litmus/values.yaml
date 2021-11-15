@@ -131,6 +131,12 @@ portal:
         tag: latest
         pullPolicy: "Always"
 
+    serverVersionUpdater:
+      image:
+        repository: mongo-utils
+        tag: latest
+        pullPolicy: "Always"
+
     graphqlServer:
       image:
         repository: litmusportal-server
