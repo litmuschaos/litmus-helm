@@ -148,7 +148,7 @@ portal:
       genericEnv:
         SELF_CLUSTER: "true"
         CONTAINER_RUNTIME_EXECUTOR: "k8sapi"
-        HUB_BRANCH_NAME: "v2.1.x"
+        HUB_BRANCH_NAME: "v2.2.x"
         AGENT_DEPLOYMENTS: "[\"app=chaos-exporter\", \"name=chaos-operator\", \"app=event-tracker\", \"app=workflow-controller\"]"
       resources: {}
       # We usually recommend not to specify default resources and to leave this as a conscious
