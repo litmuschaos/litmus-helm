@@ -1,6 +1,6 @@
 # litmus
 
-![Version: 2.1.4](https://img.shields.io/badge/Version-2.1.4-informational?style=flat-square) ![AppVersion: 2.1.1](https://img.shields.io/badge/AppVersion-2.1.1-informational?style=flat-square)
+![Version: 2.1.5](https://img.shields.io/badge/Version-2.1.5-informational?style=flat-square) ![AppVersion: 2.1.1](https://img.shields.io/badge/AppVersion-2.1.1-informational?style=flat-square)
 
 A Helm chart to install ChaosCenter
 
@@ -35,6 +35,8 @@ $ helm install litmus-portal litmuschaos/litmus
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
+| adminConfig.ADMIN_PASSWORD | string | `"litmus"` |  |
+| adminConfig.ADMIN_USERNAME | string | `"admin"` |  |
 | adminConfig.DBPASSWORD | string | `"1234"` |  |
 | adminConfig.DBUSER | string | `"admin"` |  |
 | adminConfig.DB_PORT | string | `"27017"` |  |
@@ -108,8 +110,7 @@ $ helm install litmus-portal litmuschaos/litmus
 | portal.frontend.virtualService.hosts | list | `[]` |  |
 | portal.server.affinity | object | `{}` |  |
 | portal.server.authServer.containerPort | int | `3000` |  |
-| portal.server.authServer.env.ADMIN_PASSWORD | string | `"litmus"` |  |
-| portal.server.authServer.env.ADMIN_USERNAME | string | `"admin"` |  |
+| portal.server.authServer.env | object | `{}` |  |
 | portal.server.authServer.image.pullPolicy | string | `"Always"` |  |
 | portal.server.authServer.image.repository | string | `"litmusportal-auth-server"` |  |
 | portal.server.authServer.image.tag | string | `"2.3.0"` |  |

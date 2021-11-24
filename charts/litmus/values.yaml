@@ -18,7 +18,9 @@ adminConfig:
   # -- leave empty if uses Mongo DB deployed by this chart
   DB_SERVER: ""
   DB_PORT: "27017"
-
+  ADMIN_USERNAME: "admin"
+  ADMIN_PASSWORD: "litmus"
+  
 image:
   imageRegistryName: litmuschaos
   # Optional pod imagePullSecrets
@@ -184,9 +186,7 @@ portal:
         tag: 2.3.0
         pullPolicy: "Always"
       containerPort: 3000
-      env:
-        ADMIN_USERNAME: "admin"
-        ADMIN_PASSWORD: "litmus"
+      env: {}
       resources: {}
       # We usually recommend not to specify default resources and to leave this as a conscious
       # choice for the user. This also increases chances charts run on environments with little
