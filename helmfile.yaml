@@ -4,7 +4,7 @@ repositories:
 
 releases:
   - name: litmus-chaos-infra
-    chart: ./charts/litmus-1-x
+    chart: ./charts/litmus-core
 
   - name: kubernetes-chaos-experiments
     chart: ./charts/kubernetes-chaos

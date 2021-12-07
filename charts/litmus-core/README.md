@@ -1,4 +1,4 @@
-# litmus-1-x
+# litmus-core
 
 ![Version: 1.20.0](https://img.shields.io/badge/Version-1.20.0-informational?style=flat-square) ![AppVersion: 2.3.0](https://img.shields.io/badge/AppVersion-2.3.0-informational?style=flat-square)
 
