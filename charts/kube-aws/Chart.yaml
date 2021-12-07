@@ -2,7 +2,7 @@ apiVersion: v1
 appVersion: "2.3.0"
 description: A Helm chart to install litmus aws chaos experiments
 name: kube-aws
-version: 1.19.0
+version: 2.3.0
 home: https://litmuschaos.io
 sources:
   - https://github.com/litmuschaos/litmus
