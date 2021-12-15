@@ -43,7 +43,7 @@ $ helm install litmus-portal litmuschaos/litmus
 | adminConfig.DB_SERVER | string | `""` | leave empty if uses Mongo DB deployed by this chart |
 | adminConfig.JWTSecret | string | `"litmus-portal@123"` |  |
 | adminConfig.SKIP_SSL_VERIFY | string | `"false"` |  |
-| adminConfig.VERSION | string | `"2.3.0"` |  |
+| adminConfig.VERSION | string | `"2.4.0"` |  |
 | customLabels | object | `{}` | Additional labels |
 | image.imagePullSecrets | list | `[]` |  |
 | image.imageRegistryName | string | `"litmuschaos"` |  |
@@ -172,7 +172,7 @@ $ helm install litmus-portal litmuschaos/litmus
 | upgradeAgent.affinity | object | `{}` |  |
 | upgradeAgent.controlPlane.image.pullPolicy | string | `"Always"` |  |
 | upgradeAgent.controlPlane.image.repository | string | `"upgrade-agent-cp"` |  |
-| upgradeAgent.controlPlane.image.tag | string | `"ci"` |  |
+| upgradeAgent.controlPlane.image.tag | string | `"2.4.0"` |  |
 | upgradeAgent.nodeSelector | object | `{}` |  |
 | upgradeAgent.tolerations | list | `[]` |  |
 
