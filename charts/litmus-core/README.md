@@ -40,7 +40,8 @@ A Helm chart to install litmus infra components on Kubernetes
 | fullnameOverride | string | `"litmus"` |  |
 | ingress.annotations | object | `{}` |  |
 | ingress.enabled | bool | `false` |  |
-| ingress.hosts | list | `[{"host":null,"paths":[]}]` |  kubernetes.io/tls-acme: "true" |
+| ingress.hosts[0].host | string | `nil` |  |
+| ingress.hosts[0].paths | list | `[]` |  |
 | ingress.tls | list | `[]` |  |
 | nameOverride | string | `"litmus"` |  |
 | nodeSelector | object | `{}` |  |
@@ -49,7 +50,7 @@ A Helm chart to install litmus infra components on Kubernetes
 | operator.image.tag | string | `"2.4.0"` |  |
 | operatorMode | string | `"standard"` |  |
 | operatorName | string | `"chaos-operator"` |  |
-| policies | object | `{"monitoring":{"disabled":false}}` |  https://docs.litmuschaos.io/docs/faq-general/#does-litmus-track-any-usage-metrics-on-the-test-clusters |
+| policies.monitoring.disabled | bool | `false` |  |
 | replicaCount | int | `1` |  |
 | resources | object | `{}` |  |
 | runner.image.repository | string | `"litmuschaos/chaos-runner"` |  |
