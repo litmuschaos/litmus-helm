@@ -52,7 +52,7 @@ upgradeAgent:
   controlPlane:
     image:
       repository: upgrade-agent-cp
-      tag: "ci"
+      tag: "2.4.0"
       pullPolicy: "Always"
   nodeSelector: {}
   tolerations: []
