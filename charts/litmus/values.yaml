@@ -14,7 +14,7 @@ adminConfig:
   DBUSER: "admin"
   DBPASSWORD: "1234"
   JWTSecret: "litmus-portal@123"
-  VERSION: "2.3.0"
+  VERSION: "2.4.0"
   SKIP_SSL_VERIFY: "false"
   # -- leave empty if uses Mongo DB deployed by this chart
   DB_SERVER: ""
