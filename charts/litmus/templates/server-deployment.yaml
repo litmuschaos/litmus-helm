@@ -81,9 +81,9 @@ spec:
               value: "{{ .Values.ingress.enabled }}"
             - name: INGRESS_NAME
               value: "{{ .Values.ingress.name }}"
-            {{ if .Values.minikube.grpcSvcEndpoint }}
+            {{ if .Values.minikube }}
             - name: LITMUS_AUTH_GRPC_ENDPOINT
-              value:  {{ .Values.minikube.grpcSvcEndpoint }}
+              value: 127.0.0.1
             {{ else }}
             - name: LITMUS_AUTH_GRPC_ENDPOINT
               value: "{{ include "litmus-portal.fullname" . }}-server-service.{{ .Release.Namespace }}.svc.cluster.local"
@@ -114,9 +114,9 @@ spec:
             - configMapRef:
                 name: {{ include "litmus-portal.fullname" . }}-admin-config
           env:
-            {{ if .Values.minikube.grpcSvcEndpoint }}
+            {{ if .Values.minikube }}
             - name: LITMUS_SVC_ENDPOINT
-              value:  {{ .Values.minikube.grpcSvcEndpoint }}
+              value: 127.0.0.1
             {{ else }}
             - name: LITMUS_SVC_ENDPOINT
               value: "{{ include "litmus-portal.fullname" . }}-server-service.{{ .Release.Namespace }}.svc.cluster.local"

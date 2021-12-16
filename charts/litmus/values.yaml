@@ -279,5 +279,4 @@ openshift:
     annotations: {}
     host: ""
 
-minikube:
-  grpcSvcEndpoint: ""
+minikube: false
