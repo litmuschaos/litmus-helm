@@ -54,6 +54,7 @@ upgradeAgent:
       repository: upgrade-agent-cp
       tag: "2.4.0"
       pullPolicy: "Always"
+    restartPolicy: OnFailure
   nodeSelector: {}
   tolerations: []
   affinity: {}
