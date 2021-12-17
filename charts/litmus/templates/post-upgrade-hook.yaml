@@ -13,7 +13,7 @@ metadata:
     "helm.sh/hook": post-upgrade
     "helm.sh/hook-delete-policy": hook-succeeded
 spec:
-  backoffLimit: 0
+  backoffLimit: 2
   ttlSecondsAfterFinished: 60
   template:
     metadata:
@@ -22,7 +22,7 @@ spec:
         app.kubernetes.io/instance: {{ .Release.Name | quote }}
         helm.sh/chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
     spec:
-      restartPolicy: Never
+      restartPolicy: {{ .Values.upgradeAgent.controlPlane.restartPolicy }}
       containers:
         - name: upgrade-agent
           image: {{ .Values.image.imageRegistryName }}/{{ .Values.upgradeAgent.controlPlane.image.repository }}:{{ .Values.upgradeAgent.controlPlane.image.tag }}
