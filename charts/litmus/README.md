@@ -1,6 +1,6 @@
 # litmus
 
-![Version: 2.4.4](https://img.shields.io/badge/Version-2.4.4-informational?style=flat-square) ![AppVersion: 2.4.0](https://img.shields.io/badge/AppVersion-2.4.0-informational?style=flat-square)
+![Version: 2.4.5](https://img.shields.io/badge/Version-2.4.5-informational?style=flat-square) ![AppVersion: 2.4.0](https://img.shields.io/badge/AppVersion-2.4.0-informational?style=flat-square)
 
 A Helm chart to install ChaosCenter
 
@@ -102,6 +102,7 @@ $ helm install litmus-portal litmuschaos/litmus
 | portal.frontend.readinessProbe.timeoutSeconds | int | `1` |  |
 | portal.frontend.replicas | int | `1` |  |
 | portal.frontend.resources | object | `{}` |  |
+| portal.frontend.service.annotations | object | `{}` |  |
 | portal.frontend.service.port | int | `9091` |  |
 | portal.frontend.service.targetPort | int | `8080` |  |
 | portal.frontend.service.type | string | `"NodePort"` |  |
