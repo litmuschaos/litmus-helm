@@ -6,6 +6,14 @@ A Helm chart to install litmus gcp chaos experiments
 
 **Homepage:** <https://litmuschaos.io>
 
+## Maintainers
+
+| Name | Email | Url |
+| ---- | ------ | --- |
+| jasstkn | jasssstkn@yahoo.com |  |
+| ksatchit | karthik@chaosnative.com |  |
+| uditgaurav | udit@chaosnative.com |  |
+
 ## Source Code
 
 * <https://github.com/litmuschaos/litmus>
