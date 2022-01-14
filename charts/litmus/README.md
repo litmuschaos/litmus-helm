@@ -174,7 +174,7 @@ $ helm install litmus-portal litmuschaos/litmus
 | upgradeAgent.affinity | object | `{}` |  |
 | upgradeAgent.controlPlane.image.pullPolicy | string | `"Always"` |  |
 | upgradeAgent.controlPlane.image.repository | string | `"upgrade-agent-cp"` |  |
-| upgradeAgent.controlPlane.image.tag | string | `"2.5.0"` |  |
+| upgradeAgent.controlPlane.image.tag | string | `"ci"` |  |
 | upgradeAgent.controlPlane.restartPolicy | string | `"OnFailure"` |  |
 | upgradeAgent.nodeSelector | object | `{}` |  |
 | upgradeAgent.tolerations | list | `[]` |  |
