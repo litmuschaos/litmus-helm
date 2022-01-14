@@ -1,0 +1,86 @@
+{{ if not (has "pod-cpu-hog-exec" .Values.experiments.disabled) }}
+---
+apiVersion: litmuschaos.io/v1alpha1
+description:
+  message: |
+    Injects cpu consumption on pods belonging to an app deployment
+kind: ChaosExperiment
+metadata:
+  name: pod-cpu-hog-exec
+  labels:
+    {{- include "kubernetes-chaos.labels" . | indent 4 }}
+spec:
+  definition:
+    scope: Namespaced
+    permissions:
+      - apiGroups:
+          - ""
+          - "batch"
+          - "apps"
+          - "apps.openshift.io"
+          - "argoproj.io"
+          - "litmuschaos.io"
+        resources:
+          - "jobs"
+          - "pods"
+          - "pods/log"
+          - "events"
+          - "replicationcontrollers"
+          - "deployments"
+          - "statefulsets"
+          - "daemonsets"
+          - "replicasets"
+          - "deploymentconfigs"
+          - "rollouts"
+          - "pods/exec"
+          - "chaosengines"
+          - "chaosexperiments"
+          - "chaosresults"
+        verbs:
+          - "create"
+          - "list"
+          - "get"
+          - "patch"
+          - "update"
+          - "delete"
+          - "deletecollection"
+    image: "{{ .Values.image.litmusGO.repository }}:{{ .Values.image.litmusGO.tag }}"
+    imagePullPolicy: {{ .Values.image.litmusGO.pullPolicy }}
+    args:
+    - -c
+    - ./experiments -name pod-cpu-hog-exec
+    command:
+    - /bin/bash
+    env:
+
+    - name: TOTAL_CHAOS_DURATION
+      value: '60'
+
+    - name: CPU_CORES
+      value: '1'
+
+    # Percentage of total pods to target
+    - name: PODS_AFFECTED_PERC
+      value: ''
+
+    # Period to wait before injection of chaos in sec
+    - name: RAMP_TIME
+      value: ''
+
+    # Env var that describes the library used to execute the chaos
+    # Default: litmus. Supported values: litmus
+    - name: LIB
+      value: 'litmus'
+
+    ## it defines the sequence of chaos execution for multiple target pods
+    ## supported values: serial, parallel
+    - name: SEQUENCE
+      value: 'parallel'      
+      
+    - name: TARGET_PODS
+      value: ''
+            
+    labels:
+      name: pod-cpu-hog-exec
+      app.kubernetes.io/part-of: litmus
+{{ end }}

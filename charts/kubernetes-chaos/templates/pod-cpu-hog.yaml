@@ -81,6 +81,9 @@ spec:
     - name: LIB_IMAGE
       value: "{{ .Values.image.litmusLIBImage.repository }}:{{ .Values.image.litmusLIBImage.tag }}"
 
+    - name: CHAOS_KILL_COMMAND
+      value: "kill $(find /proc -name exe -lname '*/md5sum' 2>&1 | grep -v 'Permission denied' | awk -F/ '{print $(NF-1)}')"
+
      ## It is used in pumba lib only    
     - name: STRESS_IMAGE
       value: "{{ .Values.image.resourceChaos.repository }}:{{ .Values.image.resourceChaos.tag }}" 
@@ -88,10 +91,19 @@ spec:
     - name: TARGET_PODS
       value: ''
 
+    # provide the name of container runtime
+    # for litmus LIB, it supports docker, containerd, crio
+    # for pumba LIB, it supports docker only
+    - name: CONTAINER_RUNTIME
+      value: "{{ .Values.environment.runtime }}"
+    
+    # provide the container runtime socket path
+    # default set to std docker sock file path
     - name: SOCKET_PATH
       value: "{{ .Values.environment.socketPath }}"
             
     labels:
       name: pod-cpu-hog
       app.kubernetes.io/part-of: litmus
+      app.kubernetes.io/runtime-api-usage: "true"
 {{ end }}

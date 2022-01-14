@@ -1,0 +1,46 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ include "litmus-portal.fullname" . }}-upgrade-agent-cp
+  labels:
+    app.kubernetes.io/managed-by: {{ .Release.Service | quote }}
+    app.kubernetes.io/instance: {{ .Release.Name | quote }}
+    app.kubernetes.io/version: {{ .Chart.AppVersion }}
+    helm.sh/chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+  annotations:
+    # This is what defines this resource as a hook. Without this line, the
+    # job is considered part of the release.
+    "helm.sh/hook": post-upgrade
+    "helm.sh/hook-delete-policy": hook-succeeded
+spec:
+  backoffLimit: 2
+  ttlSecondsAfterFinished: 60
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/managed-by: {{ .Release.Service | quote }}
+        app.kubernetes.io/instance: {{ .Release.Name | quote }}
+        helm.sh/chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    spec:
+      restartPolicy: {{ .Values.upgradeAgent.controlPlane.restartPolicy }}
+      containers:
+        - name: upgrade-agent
+          image: {{ .Values.image.imageRegistryName }}/{{ .Values.upgradeAgent.controlPlane.image.repository }}:{{ .Values.upgradeAgent.controlPlane.image.tag }}
+          imagePullPolicy: {{ .Values.upgradeAgent.controlPlane.image.pullPolicy }}
+          envFrom:
+            - configMapRef:
+                name: {{ include "litmus-portal.fullname" . }}-admin-config
+            - secretRef:
+                name: {{ include "litmus-portal.fullname" . }}-admin-secret
+    {{- with .Values.upgradeAgent.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+    {{- with .Values.upgradeAgent.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+    {{- with .Values.upgradeAgent.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}

@@ -1,0 +1,52 @@
+{{ if .Values.exporter.enabled }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "litmus.fullname" . }}-monitor
+  namespace:  {{ .Release.Namespace }}
+  labels:
+    app: {{ template "litmus.name" . }}
+    {{- include "litmus.labels" . | indent 4 }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ template "litmus.name" . }}
+      {{- include "litmus.selectors" . | indent 6 }}
+  template:
+    metadata:
+      labels:
+        app: {{ template "litmus.name" . }}
+        {{- include "litmus.labels" . | indent 8 }}
+    spec:
+      serviceAccountName: {{ include "litmus.fullname" . }}
+      serviceAccount: {{ include "litmus.fullname" . }}
+      {{- if .Values.priorityClassName }}
+      priorityClassName: {{ .Values.priorityClassName | quote }}
+      {{- end }}
+      containers:
+        - name: exporter
+          image: "{{ .Values.exporter.image.repository }}:{{ .Values.exporter.image.tag }}"
+          imagePullPolicy: {{ .Values.exporter.image.pullPolicy }}
+          env: 
+            - name: WATCH_NAMESPACE
+              value: ''
+          ports:
+            - name: http
+              containerPort: 8080
+              protocol: TCP
+          resources:
+            {{- toYaml .Values.exporter.resources | nindent 12 }}
+      {{- with .Values.exporter.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+    {{- with .Values.exporter.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+    {{- with .Values.exporter.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+{{ end }}

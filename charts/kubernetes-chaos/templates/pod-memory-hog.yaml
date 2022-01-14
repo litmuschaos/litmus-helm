@@ -90,10 +90,19 @@ spec:
     - name: SEQUENCE
       value: 'parallel'     
 
+    # provide the name of container runtime
+    # for litmus LIB, it supports docker, containerd, crio
+    # for pumba LIB, it supports docker only
+    - name: CONTAINER_RUNTIME
+      value: "{{ .Values.environment.runtime }}"
+    
+    # provide the container runtime socket path
+    # default set to std docker sock file path
     - name: SOCKET_PATH
-      value: "{{ .Values.environment.socketPath }}" 
+      value: "{{ .Values.environment.socketPath }}"
 
     labels:
       name: pod-memory-hog
       app.kubernetes.io/part-of: litmus
+      app.kubernetes.io/runtime-api-usage: "true"
 {{ end }}

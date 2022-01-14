@@ -1,0 +1,91 @@
+{{ if not (has "pod-memory-hog-exec" .Values.experiments.disabled) }}
+---
+apiVersion: litmuschaos.io/v1alpha1
+description:
+  message: |
+    Injects memory consumption on pods belonging to an app deployment
+kind: ChaosExperiment
+metadata:
+  name: pod-memory-hog-exec
+  labels:
+    {{- include "kubernetes-chaos.labels" . | indent 4 }}
+spec:
+  definition:
+    scope: Namespaced
+    permissions:
+      - apiGroups:
+          - ""
+          - "batch"
+          - "apps"
+          - "apps.openshift.io"
+          - "argoproj.io"
+          - "litmuschaos.io"
+        resources:
+          - "jobs"
+          - "pods"
+          - "pods/log"
+          - "replicationcontrollers"
+          - "deployments"
+          - "statefulsets"
+          - "daemonsets"
+          - "replicasets"
+          - "deploymentconfigs"
+          - "rollouts"
+          - "pods/exec"
+          - "events"
+          - "chaosengines"
+          - "chaosexperiments"
+          - "chaosresults"
+        verbs:
+          - "create"
+          - "list"
+          - "get"
+          - "patch"
+          - "update"
+          - "delete"
+          - "deletecollection"
+    image: "{{ .Values.image.litmusGO.repository }}:{{ .Values.image.litmusGO.tag }}"
+    imagePullPolicy: {{ .Values.image.litmusGO.pullPolicy }}
+    args:
+    - -c
+    - ./experiments -name pod-memory-hog-exec
+    command:
+    - /bin/bash
+    env:
+
+    - name: TOTAL_CHAOS_DURATION
+      value: '60'
+
+    # Enter the amount of memory in megabytes to be consumed by the application pod
+    # default: 500 (Megabytes)
+    - name: MEMORY_CONSUMPTION
+      value: '500'
+
+    # Percentage of total pods to target
+    - name: PODS_AFFECTED_PERC
+      value: ''
+
+    # Period to wait before injection of chaos in sec
+    - name: RAMP_TIME
+      value: ''
+
+    # Env var that describes the library used to execute the chaos
+    # Default: litmus. Supported values: litmus
+    - name: LIB
+      value: 'litmus'
+
+    - name: CHAOS_KILL_COMMAND
+      value: "kill $(find /proc -name exe -lname '*/dd' 2>&1 | grep -v 'Permission denied' | awk -F/ '{print $(NF-1)}' | head -n 1)"
+
+    - name: TARGET_PODS
+      value: ''
+
+    ## it defines the sequence of chaos execution for multiple target pods
+    ## supported values: serial, parallel
+    - name: SEQUENCE
+      value: 'parallel'
+
+    labels:
+      name: pod-memory-hog-exec
+      app.kubernetes.io/part-of: litmus
+{{ end }}
