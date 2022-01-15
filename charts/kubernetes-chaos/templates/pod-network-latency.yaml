@@ -75,6 +75,9 @@ spec:
     # Time period to wait before injection of chaos in sec
     - name: RAMP_TIME
       value: ''
+    
+    - name: JITTER
+      value: '0'
 
     - name: LIB
       value: 'litmus'
