@@ -8,16 +8,19 @@ nameOverride: ""
 
 # -- Additional labels
 customLabels: {}
-  # my.company.com/concourse-cd: 2  
+  # my.company.com/concourse-cd: 2
 
 adminConfig:
   DBUSER: "admin"
   DBPASSWORD: "1234"
   JWTSecret: "litmus-portal@123"
-  VERSION: "2.3.0"
+  VERSION: "2.4.0"
+  SKIP_SSL_VERIFY: "false"
   # -- leave empty if uses Mongo DB deployed by this chart
   DB_SERVER: ""
   DB_PORT: "27017"
+  ADMIN_USERNAME: "admin"
+  ADMIN_PASSWORD: "litmus"
 
 image:
   imageRegistryName: litmuschaos
@@ -49,8 +52,9 @@ upgradeAgent:
   controlPlane:
     image:
       repository: upgrade-agent-cp
-      tag: "ci"
+      tag: "2.4.0"
       pullPolicy: "Always"
+    restartPolicy: OnFailure
   nodeSelector: {}
   tolerations: []
   affinity: {}
@@ -70,7 +74,7 @@ portal:
     ##       maxUnavailable: 25%
     image:
       repository: litmusportal-frontend
-      tag: 2.3.0
+      tag: 2.4.0
       pullPolicy: "Always"
     containerPort: 8080
     customLabels: {}
@@ -126,7 +130,7 @@ portal:
     customLabels: {}
     # my.company.com/tier: "backend"
     waitForMongodb:
-      image: 
+      image:
         repository: curl
         tag: latest
         pullPolicy: "Always"
@@ -140,21 +144,25 @@ portal:
     graphqlServer:
       image:
         repository: litmusportal-server
-        tag: 2.3.0
+        tag: 2.4.0
         pullPolicy: "Always"
-      containerPort: 8080
+      ports:
+        - name: gql-server
+          containerPort: 8080
+        - name: gql-rpc-server
+          containerPort: 8000
       imageEnv:
-        SUBSCRIBER_IMAGE: "litmusportal-subscriber:2.3.0"
-        EVENT_TRACKER_IMAGE: "litmusportal-event-tracker:2.3.0"
-        ARGO_WORKFLOW_CONTROLLER_IMAGE: "workflow-controller:v2.11.0"
-        ARGO_WORKFLOW_EXECUTOR_IMAGE: "argoexec:v2.11.0"
-        LITMUS_CHAOS_OPERATOR_IMAGE: "chaos-operator:2.2.0"
-        LITMUS_CHAOS_RUNNER_IMAGE: "chaos-runner:2.2.0"
-        LITMUS_CHAOS_EXPORTER_IMAGE: "chaos-exporter:2.2.0"
+        SUBSCRIBER_IMAGE: "litmusportal-subscriber:2.4.0"
+        EVENT_TRACKER_IMAGE: "litmusportal-event-tracker:2.4.0"
+        ARGO_WORKFLOW_CONTROLLER_IMAGE: "workflow-controller:v3.2.3"
+        ARGO_WORKFLOW_EXECUTOR_IMAGE: "argoexec:v3.2.3"
+        LITMUS_CHAOS_OPERATOR_IMAGE: "chaos-operator:2.3.0"
+        LITMUS_CHAOS_RUNNER_IMAGE: "chaos-runner:2.3.0"
+        LITMUS_CHAOS_EXPORTER_IMAGE: "chaos-exporter:2.3.0"
       genericEnv:
         SELF_CLUSTER: "true"
         CONTAINER_RUNTIME_EXECUTOR: "k8sapi"
-        HUB_BRANCH_NAME: "v2.2.x"
+        HUB_BRANCH_NAME: "v2.3.x"
         AGENT_DEPLOYMENTS: "[\"app=chaos-exporter\", \"name=chaos-operator\", \"app=event-tracker\", \"app=workflow-controller\"]"
       resources: {}
       # We usually recommend not to specify default resources and to leave this as a conscious
@@ -181,12 +189,14 @@ portal:
     authServer:
       image:
         repository: litmusportal-auth-server
-        tag: 2.3.0
+        tag: 2.4.0
         pullPolicy: "Always"
-      containerPort: 3000
-      env:
-        ADMIN_USERNAME: "admin"
-        ADMIN_PASSWORD: "litmus"
+      ports:
+        - name: auth-server
+          containerPort: 3030
+        - name: auth-rpc-server
+          containerPort: 3000
+      env: {}
       resources: {}
       # We usually recommend not to specify default resources and to leave this as a conscious
       # choice for the user. This also increases chances charts run on environments with little
@@ -203,9 +213,15 @@ portal:
       graphqlServer:
         port: 9002
         targetPort: 8080
+      graphqlRpcServer:
+        port: 8000
+        targetPort: 8000
       authServer:
         port: 9003
         targetPort: 3000
+      authRpcServer:
+        port: 3030
+        targetPort: 3030
     nodeSelector: {}
     tolerations: []
     affinity: {}
@@ -263,3 +279,5 @@ openshift:
     name: litmus-portal
     annotations: {}
     host: ""
+
+minikube: false

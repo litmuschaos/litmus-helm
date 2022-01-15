@@ -15,6 +15,7 @@ data:
   DB_SERVER: "mongodb://{{ include "litmus-portal.fullname" . }}-mongo:{{ .Values.adminConfig.DB_PORT }}"
   {{- end }}
   VERSION: "{{ .Values.adminConfig.VERSION }}"
+  SKIP_SSL_VERIFY: "{{ .Values.adminConfig.SKIP_SSL_VERIFY }}"
 ---
 apiVersion: v1
 kind: ConfigMap
