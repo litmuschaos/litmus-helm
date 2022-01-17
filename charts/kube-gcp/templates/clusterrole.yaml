@@ -1,0 +1,47 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: {{ include "kube-gcp.name" . }}-chaos-admin
+  labels:
+    {{- include "kube-gcp.labels" . | indent 4 }}
+rules:
+- apiGroups:
+  - ""
+  - "apps"
+  - "batch"
+  - "extensions"
+  - "litmuschaos.io"
+  resources:
+  - "jobs"
+  - "pods"
+  - "pods/exec"
+  - "pods/log"
+  - "pods/eviction"
+  - "daemonsets"
+  - "replicasets"
+  - "deployments"
+  - "statefulsets"
+  - "services"
+  - "events"
+  - "configmaps"
+  - "secrets"
+  - "chaosengines"
+  - "chaosexperiments"
+  - "chaosresults"
+  verbs:
+  - "create"
+  - "delete"
+  - "get"
+  - "list"
+  - "patch"
+  - "update"
+  - "deletecollection"
+- apiGroups:
+  - ""
+  resources:
+  - "nodes"
+  verbs:
+  - "get"
+  - "list"
+  - "patch"
+  - "update"
