@@ -53,7 +53,7 @@ upgradeAgent:
   controlPlane:
     image:
       repository: upgrade-agent-cp
-      tag: "ci"
+      tag: "2.5.0"
       pullPolicy: "Always"
     restartPolicy: OnFailure
   nodeSelector: {}
