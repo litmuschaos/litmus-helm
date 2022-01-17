@@ -75,7 +75,7 @@ jobs:
           name: Test chart installation
           command: |
             helm upgrade --install "<< parameters.chart >>" ./charts/<< parameters.chart >> -n chaos --wait --create-namespace=true
-            if [ "<< parameters.chart >>" != "kubernetes-chaos" ] && [ "<< parameters.chart >>" != "kube-aws" ]; then kubectl wait --for=condition=Ready pod --all -n chaos --timeout=300s; fi
+            if [ "<< parameters.chart >>" != "kubernetes-chaos" ] && [ "<< parameters.chart >>" != "kube-aws" ] && && [ "<< parameters.chart >>" != "kube-gcp" ]; then kubectl wait --for=condition=Ready pod --all -n chaos --timeout=300s; fi
 workflows:
   version: 2.1
   lint:
