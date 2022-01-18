@@ -7,14 +7,15 @@ portalScope: cluster
 nameOverride: ""
 
 # -- Additional labels
-customLabels: {}
+customLabels:
+  {}
   # my.company.com/concourse-cd: 2
 
 adminConfig:
   DBUSER: "admin"
   DBPASSWORD: "1234"
   JWTSecret: "litmus-portal@123"
-  VERSION: "2.4.0"
+  VERSION: "2.5.0"
   SKIP_SSL_VERIFY: "false"
   # -- leave empty if uses Mongo DB deployed by this chart
   DB_SERVER: ""
@@ -52,7 +53,7 @@ upgradeAgent:
   controlPlane:
     image:
       repository: upgrade-agent-cp
-      tag: "2.4.0"
+      tag: "2.5.0"
       pullPolicy: "Always"
     restartPolicy: OnFailure
   nodeSelector: {}
@@ -74,7 +75,7 @@ portal:
     ##       maxUnavailable: 25%
     image:
       repository: litmusportal-frontend
-      tag: 2.4.0
+      tag: 2.5.0
       pullPolicy: "Always"
     containerPort: 8080
     customLabels: {}
@@ -145,7 +146,7 @@ portal:
     graphqlServer:
       image:
         repository: litmusportal-server
-        tag: 2.4.0
+        tag: 2.5.0
         pullPolicy: "Always"
       ports:
         - name: gql-server
@@ -153,18 +154,21 @@ portal:
         - name: gql-rpc-server
           containerPort: 8000
       imageEnv:
-        SUBSCRIBER_IMAGE: "litmusportal-subscriber:2.4.0"
-        EVENT_TRACKER_IMAGE: "litmusportal-event-tracker:2.4.0"
+        SUBSCRIBER_IMAGE: "litmusportal-subscriber:2.5.0"
+        EVENT_TRACKER_IMAGE: "litmusportal-event-tracker:2.5.0"
         ARGO_WORKFLOW_CONTROLLER_IMAGE: "workflow-controller:v3.2.3"
         ARGO_WORKFLOW_EXECUTOR_IMAGE: "argoexec:v3.2.3"
-        LITMUS_CHAOS_OPERATOR_IMAGE: "chaos-operator:2.3.0"
-        LITMUS_CHAOS_RUNNER_IMAGE: "chaos-runner:2.3.0"
-        LITMUS_CHAOS_EXPORTER_IMAGE: "chaos-exporter:2.3.0"
+        LITMUS_CHAOS_OPERATOR_IMAGE: "chaos-operator:2.4.0"
+        LITMUS_CHAOS_RUNNER_IMAGE: "chaos-runner:2.4.0"
+        LITMUS_CHAOS_EXPORTER_IMAGE: "chaos-exporter:2.4.0"
       genericEnv:
+        TLS_SECRET_NAME: ""
+        TLS_CERT_64: ""
         SELF_CLUSTER: "true"
         CONTAINER_RUNTIME_EXECUTOR: "k8sapi"
-        HUB_BRANCH_NAME: "v2.3.x"
-        AGENT_DEPLOYMENTS: "[\"app=chaos-exporter\", \"name=chaos-operator\", \"app=event-tracker\", \"app=workflow-controller\"]"
+        HUB_BRANCH_NAME: "v2.4.x"
+        AGENT_DEPLOYMENTS: '["app=chaos-exporter", "name=chaos-operator", "app=event-tracker", "app=workflow-controller"]'
+
       resources: {}
       # We usually recommend not to specify default resources and to leave this as a conscious
       # choice for the user. This also increases chances charts run on environments with little
@@ -190,7 +194,7 @@ portal:
     authServer:
       image:
         repository: litmusportal-auth-server
-        tag: 2.4.0
+        tag: 2.5.0
         pullPolicy: "Always"
       ports:
         - name: auth-server
@@ -210,6 +214,7 @@ portal:
       #   cpu: 200m
       #   memory: 250Mi
     service:
+      annotations: {}
       type: NodePort
       graphqlServer:
         port: 9002
@@ -229,7 +234,8 @@ portal:
 
 mongo:
   replicas: 1
-  customLabels: {}
+  customLabels:
+    {}
     # my.company.com/tier: "database"
   image:
     repository: mongo
