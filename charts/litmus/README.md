@@ -155,6 +155,7 @@ $ helm install litmus-portal litmuschaos/litmus
 | portal.server.serverVersionUpdater.image.pullPolicy | string | `"Always"` |  |
 | portal.server.serverVersionUpdater.image.repository | string | `"mongo-utils"` |  |
 | portal.server.serverVersionUpdater.image.tag | string | `"latest"` |  |
+| portal.server.service.annotations | object | `{}` |  |
 | portal.server.service.authRpcServer.port | int | `3030` |  |
 | portal.server.service.authRpcServer.targetPort | int | `3030` |  |
 | portal.server.service.authServer.port | int | `9003` |  |
