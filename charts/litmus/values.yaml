@@ -286,5 +286,3 @@ openshift:
     name: litmus-portal
     annotations: {}
     host: ""
-
-minikube: false

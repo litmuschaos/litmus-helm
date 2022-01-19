@@ -54,7 +54,6 @@ $ helm install litmus-portal litmuschaos/litmus
 | ingress.host.paths.frontend | string | `"/(.*)"` | You may need adapt the path depending your ingress-controller |
 | ingress.name | string | `"litmus-ingress"` |  |
 | ingress.tls | list | `[]` |  |
-| minikube | bool | `false` |  |
 | mongo.affinity | object | `{}` |  |
 | mongo.containerPort | int | `27017` |  |
 | mongo.customLabels | object | `{}` |  |
