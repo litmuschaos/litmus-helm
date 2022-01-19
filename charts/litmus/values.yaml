@@ -104,6 +104,7 @@ portal:
       successThreshold: 1
       timeoutSeconds: 1
     service:
+      annotations: {}
       type: NodePort
       port: 9091
       targetPort: 8080
@@ -213,6 +214,7 @@ portal:
       #   cpu: 200m
       #   memory: 250Mi
     service:
+      annotations: {}
       type: NodePort
       graphqlServer:
         port: 9002
