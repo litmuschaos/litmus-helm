@@ -1,0 +1,41 @@
+# Default values for litmus-agent.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+AGENT_NAME: "helm-agent"
+AGENT_DESCRIPTION: "chaos agent deployed with helm"
+LITMUS_URL: "https://my-domain.com"
+LITMUS_BACKEND_URL: ""
+LITMUS_USERNAME: "admin"
+LITMUS_PASSWORD: "litmus"
+LITMUS_PROJECT_ID: ""
+
+crds:
+  create: true
+
+chaos-operator:
+  enabled: true
+  image:
+    pullPolicy: Always
+
+chaos-exporter:
+  enabled: true
+  image:
+    pullPolicy: Always
+
+event-tracker:
+  enabled: true
+  image:
+    pullPolicy: Always
+
+subscriber:
+  enabled: true
+  image:
+    pullPolicy: Always
+
+workflow-controller:
+  crds:
+    create: true
+  enabled: true
+  image:
+    pullPolicy: Always

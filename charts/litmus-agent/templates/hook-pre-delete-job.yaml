@@ -1,0 +1,49 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: delete-{{ include "litmus-agent.fullname" . }}
+  labels:
+    {{- include "litmus-agent.labels" . | nindent 4 }}
+  annotations:
+    # This is what defines this resource as a hook. Without this line, the
+    # job is considered part of the release.
+    "helm.sh/hook": pre-delete
+    "helm.sh/hook-weight": "1"
+    "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded,hook-failed
+spec:
+  backoffLimit: 1
+  template:
+    metadata:
+      name: "{{ .Release.Name }}"
+      labels:
+        app.kubernetes.io/managed-by: {{ .Release.Service | quote }}
+        app.kubernetes.io/instance: {{ .Release.Name | quote }}
+        helm.sh/chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    spec:
+      restartPolicy: Never
+      serviceAccountName: {{ include "litmus-agent.serviceAccountName" . }}
+      containers:
+      - name: {{ .Chart.Name }}
+        imagePullPolicy: Always
+        image: vr00mm/litmus-agent:latest
+        args: ["/app", "--action", "delete"]
+        envFrom:
+          - secretRef:
+              name: {{ include "litmus-agent.fullname" . }}-hook
+          - configMapRef:
+              name: "agent-config"
+        env:
+          - name: AGENT_NAME
+            value: {{ .Values.AGENT_NAME }}
+          - name: AGENT_DESCRIPTION
+            value: {{ .Values.AGENT_DESCRIPTION }}
+          - name: NAMESPACE
+            value: {{ .Release.Namespace }}
+          - name: APP_VERSION
+            value: {{ .Chart.AppVersion }}
+          - name: CONFIG_MAP_NAME
+            value: "agent-config"
+          - name: SERVICE_ACCOUNT_NAME
+            value: {{ include "litmus-agent.serviceAccountName" . }}
+          - name: RELEASE_NAME
+            value: {{ .Release.Name }}
