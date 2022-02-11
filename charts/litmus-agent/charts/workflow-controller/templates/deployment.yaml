@@ -35,11 +35,11 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           args:
             - --configmap
-            - workflow-controller-configmap
+            - ${{ .Values.appSettings.configmapName }}
             - --executor-image
-            -  litmuschaos/argoexec:v2.11.0
+            -  ${{ .Values.appSettings.executorImage | quote }}
             - --container-runtime-executor
-            -  k8sapi
+            -  ${{ .Values.global.containerRuntimeExecutor }}
           command:
             - workflow-controller
           ports:

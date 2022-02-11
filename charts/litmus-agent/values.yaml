@@ -39,3 +39,7 @@ workflow-controller:
   enabled: true
   image:
     pullPolicy: Always
+  appSettings: 
+    configmapName: "workflow-controller-configmap"
+    executorImage: "litmuschaos/argoexec:v2.11.0"
+    containerRuntimeExecutor: "k8sapi"
