@@ -1,0 +1,13 @@
+AGENT_NAME: agent-pov"
+AGENT_DESCRIPTION: My first agent deployed with helm !
+LITMUS_URL: http://192.168.49.2:32179
+LITMUS_BACKEND_URL: http://192.168.49.2:30595
+
+LITMUS_USERNAME: admin
+LITMUS_PASSWORD: litmus
+LITMUS_PROJECT_ID: 34f043ed-a858-4c12-aac7-eff161d8abaf
+crds:
+  create: true
+workflow-controller:
+  crds:
+    create: true

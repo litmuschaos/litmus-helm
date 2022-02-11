@@ -4,6 +4,18 @@
 
 AGENT_NAME: "helm-agent"
 AGENT_DESCRIPTION: "chaos agent deployed with helm"
+
+# AGENT_MODE: cluster, namespace
+AGENT_MODE: "cluster"
+AGENT_CONFIGMAP_NAME: "agent-config"
+AGENT_NODE_SELECTOR: ""
+SA_EXISTS: true
+NS_EXISTS: true
+CLUSTER_TYPE: "external"
+
+# PLATFORM_NAME: AWS, GKE, Openshift, Rancher, Others
+PLATFORM_NAME: "Others"
+
 LITMUS_URL: "https://my-domain.com"
 LITMUS_BACKEND_URL: ""
 LITMUS_USERNAME: "admin"
@@ -34,9 +46,9 @@ subscriber:
     pullPolicy: Always
 
 workflow-controller:
+  enabled: true
   crds:
     create: true
-  enabled: true
   image:
     pullPolicy: Always
   appSettings: 
