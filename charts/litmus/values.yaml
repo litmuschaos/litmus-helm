@@ -134,7 +134,7 @@ portal:
     waitForMongodb:
       image:
         repository: curl
-        tag: latest
+        tag: 2.5.0
         pullPolicy: "Always"
 
     serverVersionUpdater:
