@@ -6,6 +6,10 @@ metadata:
   labels:
     app.kubernetes.io/component: {{ include "litmus-portal.name" . }}-frontend
     {{- include "litmus-portal.labels" . | nindent 4 }}
+  {{- with .Values.portal.frontend.service.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
 spec:
   {{- if .Values.ingress.enabled }}
   type: ClusterIP

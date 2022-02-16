@@ -1,21 +1,21 @@
 apiVersion: v1
-appVersion: "2.6.0"
-description: A Helm chart to install ChaosCenter
-name: litmus
-version: 2.6.0
-kubeVersion: ">=1.16.0-0"
+appVersion: "2.5.0"
+description: A Helm chart to install litmus gcp chaos experiments
+name: kube-gcp
+version: 2.5.0
 home: https://litmuschaos.io
 sources:
   - https://github.com/litmuschaos/litmus
 keywords:
   - chaos-engineering
   - resiliency
+  - gcp
   - kubernetes
 maintainers:
-  - name: rajdas98
-    email: raj.das@mayadata.io
-  - name: ispeakc0de
-    email: shubham.chaudhary@mayadata.io
   - name: jasstkn
     email: jasssstkn@yahoo.com
+  - name: ksatchit
+    email: karthik@chaosnative.com    
+  - name: uditgaurav
+    email: udit@chaosnative.com
 icon: https://raw.githubusercontent.com/litmuschaos/icons/master/litmus.png

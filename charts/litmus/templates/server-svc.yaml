@@ -6,6 +6,10 @@ metadata:
   labels:
     app.kubernetes.io/component: {{ include "litmus-portal.name" . }}-server
     {{- include "litmus-portal.labels" . | nindent 4 }}
+  {{- with .Values.portal.server.service.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
 spec:
   {{- if .Values.ingress.enabled }}
   type: ClusterIP
@@ -25,6 +29,5 @@ spec:
     - name: auth-rpc-server
       port: {{ .Values.portal.server.service.authRpcServer.port }}
       targetPort: {{ .Values.portal.server.service.authRpcServer.targetPort }}
-
   selector:
     app.kubernetes.io/component: {{ include "litmus-portal.name" . }}-server
