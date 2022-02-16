@@ -59,6 +59,9 @@ spec:
     - name: CPU_CORES
       value: '1'
 
+    - name: CPU_LOAD
+      value: '100'
+
     # Percentage of total pods to target
     - name: PODS_AFFECTED_PERC
       value: ''
@@ -80,9 +83,6 @@ spec:
     # It is used in pumba lib only  
     - name: LIB_IMAGE
       value: "{{ .Values.image.litmusLIBImage.repository }}:{{ .Values.image.litmusLIBImage.tag }}"
-
-    - name: CHAOS_KILL_COMMAND
-      value: "kill $(find /proc -name exe -lname '*/md5sum' 2>&1 | grep -v 'Permission denied' | awk -F/ '{print $(NF-1)}')"
 
      ## It is used in pumba lib only    
     - name: STRESS_IMAGE
