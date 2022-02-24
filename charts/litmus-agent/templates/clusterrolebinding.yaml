@@ -1,0 +1,88 @@
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: litmus-cluster-scope
+  labels:
+    app.kubernetes.io/name: litmus
+    app.kubernetes.io/version: v2.0.0
+    app.kubernetes.io/component: operator-clusterrolebinding
+    app.kubernetes.io/part-of: litmus
+    app.kubernetes.io/managed-by: kubectl
+    name: litmus-cluster-scope
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: litmus-cluster-scope
+subjects:
+- kind: ServiceAccount
+  name: litmus-cluster-scope
+  namespace: {{ .Release.Namespace }}
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: argo-binding
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: argo-cluster-role
+subjects:
+- kind: ServiceAccount
+  name: argo
+  namespace: {{ .Release.Namespace }}
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: litmus-admin
+  labels:
+    name: litmus-admin
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: litmus-admin
+subjects:
+- kind: ServiceAccount
+  name: litmus-admin
+  namespace: {{ .Release.Namespace }}
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: chaos-cluster-role-binding
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: chaos-cluster-role
+subjects:
+- kind: ServiceAccount
+  name: argo-chaos
+  namespace: {{ .Release.Namespace }}
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: subscriber-cluster-role-binding
+  namespace: {{ .Release.Namespace }}
+subjects:
+- kind: ServiceAccount
+  name: litmus
+  namespace: {{ .Release.Namespace }}
+roleRef:
+  kind: ClusterRole
+  name: subscriber-cluster-role
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: event-tracker-clusterole-binding
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: event-tracker-cluster-role
+subjects:
+  - kind: ServiceAccount
+    name: event-tracker-sa
+    namespace: {{ .Release.Namespace }}

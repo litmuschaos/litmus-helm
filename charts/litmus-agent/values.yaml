@@ -1,0 +1,39 @@
+# Default values for litmus-agent.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+credentials:
+  username: admin
+  password: litmus
+image:
+  subscriber:
+    repository: litmuschaos/litmusportal-subscriber
+    tag: "2.6.0"
+  chaosExporter:
+    repository: litmuschaos/chaos-exporter
+    tag: "2.5.0"
+  eventTracker:
+    repository: litmuschaos/litmusportal-event-tracker
+    tag: "2.6.0"
+  chaosRunner:
+    repository: litmuschaos/chaos-runner
+    tag: "2.5.0"
+  chaosOperator:
+    repository: litmuschaos/chaos-operator
+    tag: "2.5.0"
+  argoExecutor:
+    repository: litmuschaos/argoexec
+    tag: "v3.2.3"
+  workflowController:
+    repository: litmuschaos/workflow-controller
+    tag: "v3.2.3"
+  hook:
+    repository: litmuschaos/litmus-agent-installation
+    tag: "latest"
+
+serviceAccount: {}
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}

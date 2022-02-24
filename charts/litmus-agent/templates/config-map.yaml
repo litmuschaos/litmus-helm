@@ -1,0 +1,14 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: agent-config
+  namespace: {{ .Release.Namespace }}
+data:
+  SERVER_ADDR: "{{ .Values.hostname }}/backend/query"
+  AGENT_SCOPE: "cluster"
+  VERSION: "{{ .Chart.AppVersion }}"
+  START_TIME: "{{ now | unixEpoch }}"
+  IS_CLUSTER_CONFIRMED: "false"
+  COMPONENTS: |
+    DEPLOYMENTS: ["app=chaos-exporter", "name=chaos-operator", "app=event-tracker", "app=workflow-controller"]

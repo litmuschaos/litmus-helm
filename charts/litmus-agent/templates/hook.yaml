@@ -1,0 +1,52 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: register-agent-hook
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app.kubernetes.io/managed-by: {{ .Release.Service | quote }}
+    app.kubernetes.io/instance: {{ .Release.Name | quote }}
+    app.kubernetes.io/version: {{ .Chart.AppVersion }}
+    helm.sh/chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+  annotations:
+    "helm.sh/hook": post-install
+    "helm.sh/hook-delete-policy": hook-succeeded
+spec:
+  template:
+    metadata:
+      name: register-agent-hook
+      labels:
+        app.kubernetes.io/managed-by: {{ .Release.Service | quote }}
+        app.kubernetes.io/instance: {{ .Release.Name | quote }}
+        helm.sh/chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+      annotations:
+    spec:
+      restartPolicy: Never
+      serviceAccountName: litmus
+      containers:
+      - name: register-agent
+        image: {{ .Values.image.hook.repository }}:{{ .Values.image.hook.tag | default "latest" }}
+        imagePullPolicy: Always
+        env:
+          - name: AGENT_NAME
+            value: {{ required "Agent name is required" .Values.agentName }}
+          - name: PROJECT_ID
+            value: {{ required "Project id is required" .Values.projectId }}
+          - name: LITMUS_HOSTNAME
+            value:  {{ required "Litmus Portal hostname is required" .Values.hostname }}
+          - name: LITMUS_USERNAME
+            value: {{ required "credentials.username is required"  .Values.credentials.username | quote }}
+          - name: LITMUS_PASSWORD
+            value: {{ required "credentials.password is required" . Values.credentials.password | quote }}    
+          - name: NAMESPACE
+            valueFrom:
+              fieldRef:
+                fieldPath: metadata.namespace
+          - name:       
+        resources:
+            requests:
+              cpu: "100m"
+              memory: "48Mi"
+            limits:
+              cpu: "100m"
+              memory: "48Mi"

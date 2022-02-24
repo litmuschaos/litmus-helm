@@ -1,0 +1,26 @@
+{{ template "chart.header" . }}
+
+{{ template "chart.versionBadge" . }}{{ template "chart.typeBadge" . }}{{ template "chart.appVersionBadge" . }}
+
+{{ template "chart.description" . }}
+
+{{ template "chart.homepageLine" . }}
+
+{{ template "chart.maintainersSection" . }}
+
+{{ template "chart.sourcesSection" . }}
+
+{{ template "chart.requirementsSection" . }}
+
+## Installing the Chart
+
+To install this chart with the release name `litmus-agent`:
+
+```console
+$ helm repo add litmuschaos https://litmuschaos.github.io/litmus-helm/
+$ helm install litmus-agent litmuschaos/litmus-agent
+```
+
+{{ template "chart.valuesSection" . }}
+
+{{ template "helm-docs.versionFooter" . }}
