@@ -1,6 +1,6 @@
 # litmus-core
 
-![Version: 2.6.0](https://img.shields.io/badge/Version-2.6.0-informational?style=flat-square) ![AppVersion: 2.6.0](https://img.shields.io/badge/AppVersion-2.6.0-informational?style=flat-square)
+![Version: 2.6.1](https://img.shields.io/badge/Version-2.6.1-informational?style=flat-square) ![AppVersion: 2.6.0](https://img.shields.io/badge/AppVersion-2.6.0-informational?style=flat-square)
 
 A Helm chart to install litmus infra components on Kubernetes
 
@@ -52,7 +52,10 @@ A Helm chart to install litmus infra components on Kubernetes
 | operatorName | string | `"chaos-operator"` |  |
 | policies.monitoring.disabled | bool | `false` |  |
 | replicaCount | int | `1` |  |
-| resources | object | `{}` |  |
+| resources.limits.cpu | string | `"100m"` |  |
+| resources.limits.memory | string | `"128Mi"` |  |
+| resources.requests.cpu | string | `"100m"` |  |
+| resources.requests.memory | string | `"128Mi"` |  |
 | runner.image.repository | string | `"litmuschaos/chaos-runner"` |  |
 | runner.image.tag | string | `"2.6.0"` |  |
 | service.port | int | `80` |  |
