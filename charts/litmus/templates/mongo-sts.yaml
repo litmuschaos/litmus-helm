@@ -14,7 +14,7 @@ spec:
   selector:
     matchLabels:
       app.kubernetes.io/component: {{ include "litmus-portal.name" . }}-database
-  serviceName: mongo
+  serviceName: {{ include "litmus-portal.fullname" . }}-headless-mongo
   replicas: {{ .Values.mongo.replicas }}
   template:
     metadata:
