@@ -26,6 +26,7 @@ spec:
           {{ toYaml .Values.mongo.customLabels | nindent 8 }}
         {{- end }}
     spec:
+      automountServiceAccountToken: false
       {{- if .Values.image.imagePullSecrets }}
       imagePullSecrets:
         {{ toYaml .Values.image.imagePullSecrets | indent 8 }}
