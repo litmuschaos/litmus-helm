@@ -49,6 +49,8 @@ spec:
             {{- toYaml .Values.portal.server.graphqlServer.ports | nindent 12 }}
           resources:
             {{- toYaml .Values.portal.server.graphqlServer.resources | nindent 12 }}
+          securityContext:
+            {{- toYaml .Values.portal.server.graphqlServer.securityContext | nindent 12 }}
           livenessProbe:
             httpGet:
               path: /
@@ -103,6 +105,8 @@ spec:
             {{- toYaml .Values.portal.server.authServer.ports | nindent 12 }}
           resources:
             {{- toYaml .Values.portal.server.authServer.resources | nindent 12 }}
+          securityContext:
+            {{- toYaml .Values.portal.server.authServer.securityContext | nindent 12 }}
           envFrom:
             - secretRef:
                 name: {{ include "litmus-portal.fullname" . }}-admin-secret
