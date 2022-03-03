@@ -1,6 +1,7 @@
 # litmus
 
-![Version: 2.6.3](https://img.shields.io/badge/Version-2.6.3-informational?style=flat-square) ![AppVersion: 2.6.0](https://img.shields.io/badge/AppVersion-2.6.0-informational?style=flat-square)
+
+![Version: 2.6.4](https://img.shields.io/badge/Version-2.6.4-informational?style=flat-square) ![AppVersion: 2.6.0](https://img.shields.io/badge/AppVersion-2.6.0-informational?style=flat-square) 
 
 A Helm chart to install ChaosCenter
 
@@ -21,6 +22,8 @@ A Helm chart to install ChaosCenter
 ## Requirements
 
 Kubernetes: `>=1.16.0-0`
+
+
 
 ## Installing the Chart
 
@@ -73,10 +76,12 @@ $ helm install litmus-portal litmuschaos/litmus
 | mongo.readinessProbe.successThreshold | int | `1` |  |
 | mongo.readinessProbe.timeoutSeconds | int | `1` |  |
 | mongo.replicas | int | `1` |  |
-| mongo.resources.limits.cpu | string | `"250m"` |  |
-| mongo.resources.limits.memory | string | `"500Mi"` |  |
-| mongo.resources.requests.cpu | string | `"75m"` |  |
-| mongo.resources.requests.memory | string | `"250Mi"` |  |
+| mongo.resources.limits.cpu | string | `"550m"` |  |
+| mongo.resources.limits.ephemeral-storage | string | `"3Gi"` |  |
+| mongo.resources.limits.memory | string | `"712Mi"` |  |
+| mongo.resources.requests.cpu | string | `"225m"` |  |
+| mongo.resources.requests.ephemeral-storage | string | `"1Gi"` |  |
+| mongo.resources.requests.memory | string | `"300Mi"` |  |
 | mongo.securityContext.allowPrivilegeEscalation | bool | `false` |  |
 | mongo.service.port | int | `27017` |  |
 | mongo.service.targetPort | int | `27017` |  |
@@ -104,10 +109,10 @@ $ helm install litmus-portal litmuschaos/litmus
 | portal.frontend.readinessProbe.successThreshold | int | `1` |  |
 | portal.frontend.readinessProbe.timeoutSeconds | int | `1` |  |
 | portal.frontend.replicas | int | `1` |  |
-| portal.frontend.resources.limits.cpu | string | `"25m"` |  |
+| portal.frontend.resources.limits.cpu | string | `"520m"` |  |
 | portal.frontend.resources.limits.ephemeral-storage | string | `"1Gi"` |  |
-| portal.frontend.resources.limits.memory | string | `"300Mi"` |  |
-| portal.frontend.resources.requests.cpu | string | `"25m"` |  |
+| portal.frontend.resources.limits.memory | string | `"500Mi"` |  |
+| portal.frontend.resources.requests.cpu | string | `"125m"` |  |
 | portal.frontend.resources.requests.ephemeral-storage | string | `"500Mi"` |  |
 | portal.frontend.resources.requests.memory | string | `"300Mi"` |  |
 | portal.frontend.securityContext.allowPrivilegeEscalation | bool | `false` |  |
@@ -131,10 +136,12 @@ $ helm install litmus-portal litmuschaos/litmus
 | portal.server.authServer.ports[0].name | string | `"auth-server"` |  |
 | portal.server.authServer.ports[1].containerPort | int | `3000` |  |
 | portal.server.authServer.ports[1].name | string | `"auth-rpc-server"` |  |
-| portal.server.authServer.resources.limits.cpu | string | `"25m"` |  |
-| portal.server.authServer.resources.limits.memory | string | `"150Mi"` |  |
-| portal.server.authServer.resources.requests.cpu | string | `"25m"` |  |
-| portal.server.authServer.resources.requests.memory | string | `"150Mi"` |  |
+| portal.server.authServer.resources.limits.cpu | string | `"525m"` |  |
+| portal.server.authServer.resources.limits.ephemeral-storage | string | `"1Gi"` |  |
+| portal.server.authServer.resources.limits.memory | string | `"712Mi"` |  |
+| portal.server.authServer.resources.requests.cpu | string | `"125m"` |  |
+| portal.server.authServer.resources.requests.ephemeral-storage | string | `"500Mi"` |  |
+| portal.server.authServer.resources.requests.memory | string | `"300Mi"` |  |
 | portal.server.authServer.securityContext.allowPrivilegeEscalation | bool | `false` |  |
 | portal.server.authServer.securityContext.runAsNonRoot | bool | `true` |  |
 | portal.server.authServer.securityContext.runAsUser | int | `2000` |  |
@@ -168,18 +175,17 @@ $ helm install litmus-portal litmuschaos/litmus
 | portal.server.graphqlServer.readinessProbe.periodSeconds | int | `10` |  |
 | portal.server.graphqlServer.readinessProbe.successThreshold | int | `1` |  |
 | portal.server.graphqlServer.readinessProbe.timeoutSeconds | int | `1` |  |
-| portal.server.graphqlServer.resources.limits.cpu | string | `"25m"` |  |
-| portal.server.graphqlServer.resources.limits.memory | string | `"350Mi"` |  |
-| portal.server.graphqlServer.resources.requests.cpu | string | `"25m"` |  |
-| portal.server.graphqlServer.resources.requests.memory | string | `"350Mi"` |  |
+| portal.server.graphqlServer.resources.limits.cpu | string | `"550m"` |  |
+| portal.server.graphqlServer.resources.limits.ephemeral-storage | string | `"1Gi"` |  |
+| portal.server.graphqlServer.resources.limits.memory | string | `"712Mi"` |  |
+| portal.server.graphqlServer.resources.requests.cpu | string | `"125m"` |  |
+| portal.server.graphqlServer.resources.requests.ephemeral-storage | string | `"500Mi"` |  |
+| portal.server.graphqlServer.resources.requests.memory | string | `"500Mi"` |  |
 | portal.server.graphqlServer.securityContext.allowPrivilegeEscalation | bool | `false` |  |
 | portal.server.graphqlServer.securityContext.runAsNonRoot | bool | `true` |  |
 | portal.server.graphqlServer.securityContext.runAsUser | int | `2000` |  |
 | portal.server.nodeSelector | object | `{}` |  |
 | portal.server.replicas | int | `1` |  |
-| portal.server.serverVersionUpdater.image.pullPolicy | string | `"Always"` |  |
-| portal.server.serverVersionUpdater.image.repository | string | `"mongo-utils"` |  |
-| portal.server.serverVersionUpdater.image.tag | string | `"latest"` |  |
 | portal.server.service.annotations | object | `{}` |  |
 | portal.server.service.authRpcServer.port | int | `3030` |  |
 | portal.server.service.authRpcServer.targetPort | int | `3030` |  |
@@ -196,6 +202,12 @@ $ helm install litmus-portal litmuschaos/litmus
 | portal.server.waitForMongodb.image.pullPolicy | string | `"Always"` |  |
 | portal.server.waitForMongodb.image.repository | string | `"curl"` |  |
 | portal.server.waitForMongodb.image.tag | string | `"2.5.0"` |  |
+| portal.server.waitForMongodb.resources.limits.cpu | string | `"525m"` |  |
+| portal.server.waitForMongodb.resources.limits.ephemeral-storage | string | `"1Gi"` |  |
+| portal.server.waitForMongodb.resources.limits.memory | string | `"712Mi"` |  |
+| portal.server.waitForMongodb.resources.requests.cpu | string | `"125m"` |  |
+| portal.server.waitForMongodb.resources.requests.ephemeral-storage | string | `"500Mi"` |  |
+| portal.server.waitForMongodb.resources.requests.memory | string | `"300Mi"` |  |
 | portalScope | string | `"cluster"` |  |
 | upgradeAgent.affinity | object | `{}` |  |
 | upgradeAgent.controlPlane.image.pullPolicy | string | `"Always"` |  |
@@ -204,6 +216,7 @@ $ helm install litmus-portal litmuschaos/litmus
 | upgradeAgent.controlPlane.restartPolicy | string | `"OnFailure"` |  |
 | upgradeAgent.nodeSelector | object | `{}` |  |
 | upgradeAgent.tolerations | list | `[]` |  |
+
 
 ----------------------------------------------
 Autogenerated from chart metadata using [helm-docs v1.5.0](https://github.com/norwoodj/helm-docs/releases/v1.5.0)

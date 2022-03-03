@@ -92,7 +92,7 @@ portal:
       # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
       requests:
         memory: "300Mi"
-        cpu: "225m"
+        cpu: "125m"
         ephemeral-storage: "500Mi"
       limits:
         memory: "500Mi"
@@ -193,7 +193,7 @@ portal:
         # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
         requests:
           memory: "500Mi"
-          cpu: "225m"
+          cpu: "125m"
           ephemeral-storage: "500Mi"
         limits:
           memory: "712Mi"
@@ -232,7 +232,7 @@ portal:
         # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
         requests:
           memory: "300Mi"
-          cpu: "225m"
+          cpu: "125m"
           ephemeral-storage: "500Mi"
         limits:
           memory: "712Mi"
