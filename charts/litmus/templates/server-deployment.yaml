@@ -41,6 +41,8 @@ spec:
             [
               "while [[ $(curl -sw '%{http_code}' http://{{ include "litmus-portal.fullname" . }}-mongo:{{ .Values.adminConfig.DB_PORT }} -o /dev/null) -ne 200 ]]; do sleep 5; echo 'Waiting for the MongoDB to be ready...'; done; echo 'Connection with MongoDB established'",
             ]
+          resources:
+            {{- toYaml .Values.portal.server.waitForMongodb.resources | nindent 12 }}
       containers:
         - name: graphql-server
           image: {{ .Values.image.imageRegistryName }}/{{ .Values.portal.server.graphqlServer.image.repository }}:{{ .Values.portal.server.graphqlServer.image.tag }}
