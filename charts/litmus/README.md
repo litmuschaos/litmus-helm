@@ -1,6 +1,6 @@
 # litmus
 
-![Version: 2.6.4](https://img.shields.io/badge/Version-2.6.4-informational?style=flat-square) ![AppVersion: 2.6.0](https://img.shields.io/badge/AppVersion-2.6.0-informational?style=flat-square)
+![Version: 2.6.5](https://img.shields.io/badge/Version-2.6.5-informational?style=flat-square) ![AppVersion: 2.6.0](https://img.shields.io/badge/AppVersion-2.6.0-informational?style=flat-square)
 
 A Helm chart to install ChaosCenter
 
@@ -55,6 +55,7 @@ $ helm install litmus-portal litmuschaos/litmus
 | ingress.name | string | `"litmus-ingress"` |  |
 | ingress.tls | list | `[]` |  |
 | mongo.affinity | object | `{}` |  |
+| mongo.automountServiceAccountToken | bool | `false` |  |
 | mongo.containerPort | int | `27017` |  |
 | mongo.customLabels | object | `{}` |  |
 | mongo.image.pullPolicy | string | `"Always"` |  |
@@ -90,6 +91,7 @@ $ helm install litmus-portal litmuschaos/litmus
 | openshift.route.host | string | `""` |  |
 | openshift.route.name | string | `"litmus-portal"` |  |
 | portal.frontend.affinity | object | `{}` |  |
+| portal.frontend.automountServiceAccountToken | bool | `false` |  |
 | portal.frontend.containerPort | int | `8080` |  |
 | portal.frontend.customLabels | object | `{}` |  |
 | portal.frontend.image.pullPolicy | string | `"Always"` |  |

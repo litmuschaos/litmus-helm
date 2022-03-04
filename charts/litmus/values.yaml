@@ -73,6 +73,7 @@ portal:
     ##     rollingUpdate:
     ##       maxSurge: 1
     ##       maxUnavailable: 25%
+    automountServiceAccountToken: false
     securityContext:
       runAsUser: 2000
       allowPrivilegeEscalation: false
@@ -262,6 +263,7 @@ mongo:
   customLabels:
     {}
     # my.company.com/tier: "database"
+  automountServiceAccountToken: false
   securityContext:
     # runAsUser: 2000
     allowPrivilegeEscalation: false
