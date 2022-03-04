@@ -45,6 +45,8 @@ spec:
           resources:
             {{- toYaml .Values.mongo.resources | nindent 12 }}
           {{- end }}
+          securityContext:
+            {{- toYaml .Values.mongo.securityContext | nindent 12 }}
           livenessProbe:
             exec:
               command:

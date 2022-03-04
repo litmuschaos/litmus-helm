@@ -74,6 +74,10 @@ portal:
     ##       maxSurge: 1
     ##       maxUnavailable: 25%
     automountServiceAccountToken: false
+    securityContext:
+      runAsUser: 2000
+      allowPrivilegeEscalation: false
+      runAsNonRoot: true
     image:
       repository: litmusportal-frontend
       tag: 2.6.0
@@ -89,11 +93,11 @@ portal:
       # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
       requests:
         memory: "300Mi"
-        cpu: "25m"
+        cpu: "125m"
         ephemeral-storage: "500Mi"
       limits:
-        memory: "300Mi"
-        cpu: "25m"
+        memory: "500Mi"
+        cpu: "520m"
         ephemeral-storage: "1Gi"
     livenessProbe:
       failureThreshold: 5
@@ -139,14 +143,25 @@ portal:
         repository: curl
         tag: 2.5.0
         pullPolicy: "Always"
-
-    serverVersionUpdater:
-      image:
-        repository: mongo-utils
-        tag: latest
-        pullPolicy: "Always"
+      resources:
+        # We usually recommend not to specify default resources and to leave this as a conscious
+        # choice for the user. This also increases chances charts run on environments with little
+        # resources, such as Minikube. If you do want to specify resources, uncomment the following
+        # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+        requests:
+          memory: "300Mi"
+          cpu: "125m"
+          ephemeral-storage: "500Mi"
+        limits:
+          memory: "712Mi"
+          cpu: "525m"
+          ephemeral-storage: "1Gi"
 
     graphqlServer:
+      securityContext:
+        runAsUser: 2000
+        allowPrivilegeEscalation: false
+        runAsNonRoot: true
       image:
         repository: litmusportal-server
         tag: 2.6.0
@@ -177,12 +192,14 @@ portal:
         # choice for the user. This also increases chances charts run on environments with little
         # resources, such as Minikube. If you do want to specify resources, uncomment the following
         # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
-        limits:
-          cpu: 25m
-          memory: 350Mi
         requests:
-          cpu: 25m
-          memory: 350Mi
+          memory: "500Mi"
+          cpu: "125m"
+          ephemeral-storage: "500Mi"
+        limits:
+          memory: "712Mi"
+          cpu: "550m"
+          ephemeral-storage: "1Gi"
       livenessProbe:
         failureThreshold: 5
         initialDelaySeconds: 30
@@ -195,6 +212,10 @@ portal:
         successThreshold: 1
         timeoutSeconds: 1
     authServer:
+      securityContext:
+        runAsUser: 2000
+        allowPrivilegeEscalation: false
+        runAsNonRoot: true
       image:
         repository: litmusportal-auth-server
         tag: 2.6.0
@@ -210,12 +231,14 @@ portal:
         # choice for the user. This also increases chances charts run on environments with little
         # resources, such as Minikube. If you do want to specify resources, uncomment the following
         # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
-        limits:
-          cpu: 25m
-          memory: 150Mi
         requests:
-          cpu: 25m
-          memory: 150Mi
+          memory: "300Mi"
+          cpu: "125m"
+          ephemeral-storage: "500Mi"
+        limits:
+          memory: "712Mi"
+          cpu: "525m"
+          ephemeral-storage: "1Gi"
     service:
       annotations: {}
       type: NodePort
@@ -241,6 +264,10 @@ mongo:
     {}
     # my.company.com/tier: "database"
   automountServiceAccountToken: false
+  securityContext:
+    # runAsUser: 2000
+    allowPrivilegeEscalation: false
+    # runAsNonRoot: true
   image:
     repository: mongo
     tag: 4.2.8
@@ -251,12 +278,14 @@ mongo:
     # choice for the user. This also increases chances charts run on environments with little
     # resources, such as Minikube. If you do want to specify resources, uncomment the following
     # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
-    limits:
-      cpu: 250m
-      memory: 500Mi
     requests:
-      cpu: 75m
-      memory: 250Mi
+      memory: "300Mi"
+      cpu: "225m"
+      ephemeral-storage: "1Gi"
+    limits:
+      memory: "712Mi"
+      cpu: "550m"
+      ephemeral-storage: "3Gi"
   livenessProbe:
     failureThreshold: 5
     initialDelaySeconds: 30
