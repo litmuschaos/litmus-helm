@@ -27,6 +27,7 @@ spec:
           {{ toYaml .Values.portal.frontend.customLabels | nindent 8 }}
         {{- end }}
     spec:
+      automountServiceAccountToken: {{ .Values.portal.frontend.automountServiceAccountToken }}
       {{- if .Values.image.imagePullSecrets }}
       imagePullSecrets:
         {{ toYaml .Values.image.imagePullSecrets | indent 8 }}
@@ -41,6 +42,8 @@ spec:
           imagePullPolicy: {{ .Values.portal.frontend.image.pullPolicy }}
           resources:
             {{- toYaml .Values.portal.frontend.resources | nindent 12 }}
+          securityContext:
+            {{- toYaml .Values.portal.frontend.securityContext | nindent 12 }}
           livenessProbe:
             httpGet:
               path: /

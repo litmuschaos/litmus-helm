@@ -73,6 +73,11 @@ portal:
     ##     rollingUpdate:
     ##       maxSurge: 1
     ##       maxUnavailable: 25%
+    automountServiceAccountToken: false
+    securityContext:
+      runAsUser: 2000
+      allowPrivilegeEscalation: false
+      runAsNonRoot: true
     image:
       repository: litmusportal-frontend
       tag: 2.6.0
@@ -81,17 +86,19 @@ portal:
     customLabels: {}
     # my.company.com/tier: "frontend"
 
-    resources: {}
-    # We usually recommend not to specify default resources and to leave this as a conscious
-    # choice for the user. This also increases chances charts run on environments with little
-    # resources, such as Minikube. If you do want to specify resources, uncomment the following
-    # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
-    # limits:
-    #   cpu: 200m
-    #   memory: 400Mi
-    # requests:
-    #   cpu: 200m
-    #   memory: 400Mi
+    resources:
+      # We usually recommend not to specify default resources and to leave this as a conscious
+      # choice for the user. This also increases chances charts run on environments with little
+      # resources, such as Minikube. If you do want to specify resources, uncomment the following
+      # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+      requests:
+        memory: "300Mi"
+        cpu: "125m"
+        ephemeral-storage: "500Mi"
+      limits:
+        memory: "500Mi"
+        cpu: "520m"
+        ephemeral-storage: "1Gi"
     livenessProbe:
       failureThreshold: 5
       initialDelaySeconds: 30
@@ -136,14 +143,25 @@ portal:
         repository: curl
         tag: 2.5.0
         pullPolicy: "Always"
-
-    serverVersionUpdater:
-      image:
-        repository: mongo-utils
-        tag: latest
-        pullPolicy: "Always"
+      resources:
+        # We usually recommend not to specify default resources and to leave this as a conscious
+        # choice for the user. This also increases chances charts run on environments with little
+        # resources, such as Minikube. If you do want to specify resources, uncomment the following
+        # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+        requests:
+          memory: "300Mi"
+          cpu: "125m"
+          ephemeral-storage: "500Mi"
+        limits:
+          memory: "712Mi"
+          cpu: "525m"
+          ephemeral-storage: "1Gi"
 
     graphqlServer:
+      securityContext:
+        runAsUser: 2000
+        allowPrivilegeEscalation: false
+        runAsNonRoot: true
       image:
         repository: litmusportal-server
         tag: 2.6.0
@@ -169,17 +187,19 @@ portal:
         HUB_BRANCH_NAME: "v2.5.x"
         AGENT_DEPLOYMENTS: '["app=chaos-exporter", "name=chaos-operator", "app=event-tracker", "app=workflow-controller"]'
 
-      resources: {}
-      # We usually recommend not to specify default resources and to leave this as a conscious
-      # choice for the user. This also increases chances charts run on environments with little
-      # resources, such as Minikube. If you do want to specify resources, uncomment the following
-      # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
-      # limits:
-      #   cpu: 200m
-      #   memory: 400Mi
-      # requests:
-      #   cpu: 200m
-      #   memory: 400Mi
+      resources:
+        # We usually recommend not to specify default resources and to leave this as a conscious
+        # choice for the user. This also increases chances charts run on environments with little
+        # resources, such as Minikube. If you do want to specify resources, uncomment the following
+        # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+        requests:
+          memory: "500Mi"
+          cpu: "125m"
+          ephemeral-storage: "500Mi"
+        limits:
+          memory: "712Mi"
+          cpu: "550m"
+          ephemeral-storage: "1Gi"
       livenessProbe:
         failureThreshold: 5
         initialDelaySeconds: 30
@@ -192,6 +212,10 @@ portal:
         successThreshold: 1
         timeoutSeconds: 1
     authServer:
+      securityContext:
+        runAsUser: 2000
+        allowPrivilegeEscalation: false
+        runAsNonRoot: true
       image:
         repository: litmusportal-auth-server
         tag: 2.6.0
@@ -202,17 +226,19 @@ portal:
         - name: auth-rpc-server
           containerPort: 3000
       env: {}
-      resources: {}
-      # We usually recommend not to specify default resources and to leave this as a conscious
-      # choice for the user. This also increases chances charts run on environments with little
-      # resources, such as Minikube. If you do want to specify resources, uncomment the following
-      # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
-      # limits:
-      #   cpu: 200m
-      #   memory: 250Mi
-      # requests:
-      #   cpu: 200m
-      #   memory: 250Mi
+      resources:
+        # We usually recommend not to specify default resources and to leave this as a conscious
+        # choice for the user. This also increases chances charts run on environments with little
+        # resources, such as Minikube. If you do want to specify resources, uncomment the following
+        # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+        requests:
+          memory: "300Mi"
+          cpu: "125m"
+          ephemeral-storage: "500Mi"
+        limits:
+          memory: "712Mi"
+          cpu: "525m"
+          ephemeral-storage: "1Gi"
     service:
       annotations: {}
       type: NodePort
@@ -237,22 +263,29 @@ mongo:
   customLabels:
     {}
     # my.company.com/tier: "database"
+  automountServiceAccountToken: false
+  securityContext:
+    # runAsUser: 2000
+    allowPrivilegeEscalation: false
+    # runAsNonRoot: true
   image:
     repository: mongo
     tag: 4.2.8
     pullPolicy: "Always"
   containerPort: 27017
-  resources: {}
-  # We usually recommend not to specify default resources and to leave this as a conscious
-  # choice for the user. This also increases chances charts run on environments with little
-  # resources, such as Minikube. If you do want to specify resources, uncomment the following
-  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
-  # limits:
-  #   cpu: 200m
-  #   memory: 400Mi
-  # requests:
-  #   cpu: 200m
-  #   memory: 400Mi
+  resources:
+    # We usually recommend not to specify default resources and to leave this as a conscious
+    # choice for the user. This also increases chances charts run on environments with little
+    # resources, such as Minikube. If you do want to specify resources, uncomment the following
+    # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+    requests:
+      memory: "300Mi"
+      cpu: "225m"
+      ephemeral-storage: "1Gi"
+    limits:
+      memory: "712Mi"
+      cpu: "550m"
+      ephemeral-storage: "3Gi"
   livenessProbe:
     failureThreshold: 5
     initialDelaySeconds: 30
