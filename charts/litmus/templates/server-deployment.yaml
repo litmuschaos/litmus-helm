@@ -43,6 +43,8 @@ spec:
             ]
           resources:
             {{- toYaml .Values.portal.server.waitForMongodb.resources | nindent 12 }}
+          securityContext:
+            {{- toYaml .Values.portal.server.waitForMongodb.securityContext | nindent 12 }}
       containers:
         - name: graphql-server
           image: {{ .Values.image.imageRegistryName }}/{{ .Values.portal.server.graphqlServer.image.repository }}:{{ .Values.portal.server.graphqlServer.image.tag }}

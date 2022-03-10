@@ -1,6 +1,6 @@
 # litmus
 
-![Version: 2.6.5](https://img.shields.io/badge/Version-2.6.5-informational?style=flat-square) ![AppVersion: 2.6.0](https://img.shields.io/badge/AppVersion-2.6.0-informational?style=flat-square)
+![Version: 2.6.6](https://img.shields.io/badge/Version-2.6.6-informational?style=flat-square) ![AppVersion: 2.6.0](https://img.shields.io/badge/AppVersion-2.6.0-informational?style=flat-square)
 
 A Helm chart to install ChaosCenter
 
@@ -207,6 +207,9 @@ $ helm install litmus-portal litmuschaos/litmus
 | portal.server.waitForMongodb.resources.requests.cpu | string | `"125m"` |  |
 | portal.server.waitForMongodb.resources.requests.ephemeral-storage | string | `"500Mi"` |  |
 | portal.server.waitForMongodb.resources.requests.memory | string | `"300Mi"` |  |
+| portal.server.waitForMongodb.securityContext.allowPrivilegeEscalation | bool | `false` |  |
+| portal.server.waitForMongodb.securityContext.runAsNonRoot | bool | `true` |  |
+| portal.server.waitForMongodb.securityContext.runAsUser | int | `2000` |  |
 | portalScope | string | `"cluster"` |  |
 | upgradeAgent.affinity | object | `{}` |  |
 | upgradeAgent.controlPlane.image.pullPolicy | string | `"Always"` |  |
