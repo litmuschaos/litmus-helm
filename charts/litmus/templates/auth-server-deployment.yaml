@@ -27,6 +27,7 @@ spec:
           {{ toYaml .Values.portal.server.customLabels | nindent 8 }}
         {{- end }}
     spec:
+      automountServiceAccountToken: {{ .Values.portal.server.authServer.automountServiceAccountToken }}
       serviceAccountName: {{ .Values.portal.server.serviceAccountName }}
       {{- if .Values.image.imagePullSecrets }}
       imagePullSecrets:
@@ -59,8 +60,8 @@ spec:
             - configMapRef:
                 name: {{ include "litmus-portal.fullname" . }}-admin-config
           env:
-            - name: LITMUS_SVC_ENDPOINT
-              value: 127.0.0.1
+            - name: LITMUS_GQL_GRPC_ENDPOINT
+              value: "{{ include "litmus-portal.fullname" . }}-server-service"
             {{- range $key, $val := .Values.portal.server.authServer.env }}
             - name: {{ $key }}
               value: {{ $val | quote }}

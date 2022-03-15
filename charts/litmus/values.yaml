@@ -182,21 +182,21 @@ portal:
         - name: gql-rpc-server
           containerPort: 8000
       imageEnv:
-        SUBSCRIBER_IMAGE: "litmusportal-subscriber:2.6.0"
-        EVENT_TRACKER_IMAGE: "litmusportal-event-tracker:2.6.0"
+        SUBSCRIBER_IMAGE: "litmusportal-subscriber:2.7.0"
+        EVENT_TRACKER_IMAGE: "litmusportal-event-tracker:2.7.0"
         ARGO_WORKFLOW_CONTROLLER_IMAGE: "workflow-controller:v3.2.3"
         ARGO_WORKFLOW_EXECUTOR_IMAGE: "argoexec:v3.2.3"
-        LITMUS_CHAOS_OPERATOR_IMAGE: "chaos-operator:2.5.0"
-        LITMUS_CHAOS_RUNNER_IMAGE: "chaos-runner:2.5.0"
-        LITMUS_CHAOS_EXPORTER_IMAGE: "chaos-exporter:2.5.0"
+        LITMUS_CHAOS_OPERATOR_IMAGE: "chaos-operator:2.6.0"
+        LITMUS_CHAOS_RUNNER_IMAGE: "chaos-runner:2.6.0"
+        LITMUS_CHAOS_EXPORTER_IMAGE: "chaos-exporter:2.6.0"
       genericEnv:
         TLS_SECRET_NAME: ""
         TLS_CERT_64: ""
         SELF_CLUSTER: "true"
         CONTAINER_RUNTIME_EXECUTOR: "k8sapi"
-        HUB_BRANCH_NAME: "v2.5.x"
+        HUB_BRANCH_NAME: "v2.6.x"
         AGENT_DEPLOYMENTS: '["app=chaos-exporter", "name=chaos-operator", "app=event-tracker", "app=workflow-controller"]'
-
+        LITMUS_AUTH_GRPC_PORT: ":3030"
       resources:
         # We usually recommend not to specify default resources and to leave this as a conscious
         # choice for the user. This also increases chances charts run on environments with little
@@ -227,6 +227,7 @@ portal:
         allowPrivilegeEscalation: false
         runAsNonRoot: true
         readOnlyRootFilesystem: true
+      automountServiceAccountToken: false
       image:
         repository: litmusportal-auth-server
         tag: 2.7.0
@@ -236,7 +237,8 @@ portal:
           containerPort: 3030
         - name: auth-rpc-server
           containerPort: 3000
-      env: {}
+      env:
+        LITMUS_GQL_GRPC_PORT: ":8000"
       resources:
         # We usually recommend not to specify default resources and to leave this as a conscious
         # choice for the user. This also increases chances charts run on environments with little
