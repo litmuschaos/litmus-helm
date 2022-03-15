@@ -20,14 +20,8 @@ spec:
     - name: graphql-server
       port: {{ .Values.portal.server.service.graphqlServer.port }}
       targetPort: {{ .Values.portal.server.service.graphqlServer.targetPort }}
-    - name: auth-server
-      port: {{ .Values.portal.server.service.authServer.port }}
-      targetPort: {{ .Values.portal.server.service.authServer.targetPort }}
     - name: graphql-rpc-server
       port: {{ .Values.portal.server.service.graphqlRpcServer.port }}
       targetPort: {{ .Values.portal.server.service.graphqlRpcServer.targetPort }}
-    - name: auth-rpc-server
-      port: {{ .Values.portal.server.service.authRpcServer.port }}
-      targetPort: {{ .Values.portal.server.service.authRpcServer.targetPort }}
   selector:
     app.kubernetes.io/component: {{ include "litmus-portal.name" . }}-server

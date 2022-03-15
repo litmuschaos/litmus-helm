@@ -15,7 +15,7 @@ adminConfig:
   DBUSER: "admin"
   DBPASSWORD: "1234"
   JWTSecret: "litmus-portal@123"
-  VERSION: "2.6.0"
+  VERSION: "2.7.0"
   SKIP_SSL_VERIFY: "false"
   # -- leave empty if uses Mongo DB deployed by this chart
   DB_SERVER: ""
@@ -53,7 +53,7 @@ upgradeAgent:
   controlPlane:
     image:
       repository: upgrade-agent-cp
-      tag: "2.6.0"
+      tag: "2.7.0"
       pullPolicy: "Always"
     restartPolicy: OnFailure
   nodeSelector: {}
@@ -80,7 +80,7 @@ portal:
       runAsNonRoot: true
     image:
       repository: litmusportal-frontend
-      tag: 2.6.0
+      tag: 2.7.0
       pullPolicy: "Always"
     containerPort: 8080
     customLabels: {}
@@ -141,7 +141,7 @@ portal:
     waitForMongodb:
       image:
         repository: curl
-        tag: 2.5.0
+        tag: 2.7.0
         pullPolicy: "Always"
       resources:
         # We usually recommend not to specify default resources and to leave this as a conscious
@@ -158,13 +158,24 @@ portal:
           ephemeral-storage: "1Gi"
 
     graphqlServer:
+      volumes:
+        - name: gitops-storage
+          emptyDir: {}
+        - name: hub-storage
+          emptyDir: {}
+      volumeMounts:
+        - mountPath: /tmp/gitops
+          name: gitops-storage
+        - mountPath: /tmp/version
+          name: hub-storage
       securityContext:
         runAsUser: 2000
         allowPrivilegeEscalation: false
         runAsNonRoot: true
+        readOnlyRootFilesystem: true
       image:
         repository: litmusportal-server
-        tag: 2.6.0
+        tag: 2.7.0
         pullPolicy: "Always"
       ports:
         - name: gql-server
@@ -216,9 +227,10 @@ portal:
         runAsUser: 2000
         allowPrivilegeEscalation: false
         runAsNonRoot: true
+        readOnlyRootFilesystem: true
       image:
         repository: litmusportal-auth-server
-        tag: 2.6.0
+        tag: 2.7.0
         pullPolicy: "Always"
       ports:
         - name: auth-server
