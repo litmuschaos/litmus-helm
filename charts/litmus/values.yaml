@@ -92,12 +92,12 @@ portal:
       # resources, such as Minikube. If you do want to specify resources, uncomment the following
       # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
       requests:
-        memory: "300Mi"
+        memory: "150Mi"
         cpu: "125m"
         ephemeral-storage: "500Mi"
       limits:
-        memory: "500Mi"
-        cpu: "520m"
+        memory: "512Mi"
+        cpu: "550m"
         ephemeral-storage: "1Gi"
     livenessProbe:
       failureThreshold: 5
@@ -141,7 +141,7 @@ portal:
     waitForMongodb:
       image:
         repository: curl
-        tag: 2.7.0
+        tag: 2.6.0
         pullPolicy: "Always"
       resources:
         # We usually recommend not to specify default resources and to leave this as a conscious
@@ -149,14 +149,13 @@ portal:
         # resources, such as Minikube. If you do want to specify resources, uncomment the following
         # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
         requests:
-          memory: "300Mi"
-          cpu: "125m"
+          memory: "150Mi"
+          cpu: "25m"
           ephemeral-storage: "500Mi"
         limits:
-          memory: "712Mi"
-          cpu: "525m"
+          memory: "512Mi"
+          cpu: "250m"
           ephemeral-storage: "1Gi"
-
     graphqlServer:
       volumes:
         - name: gitops-storage
@@ -204,8 +203,8 @@ portal:
         # resources, such as Minikube. If you do want to specify resources, uncomment the following
         # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
         requests:
-          memory: "500Mi"
-          cpu: "125m"
+          memory: "250Mi"
+          cpu: "225m"
           ephemeral-storage: "500Mi"
         limits:
           memory: "712Mi"
@@ -244,12 +243,12 @@ portal:
         # resources, such as Minikube. If you do want to specify resources, uncomment the following
         # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
         requests:
-          memory: "300Mi"
-          cpu: "125m"
+          memory: "250Mi"
+          cpu: "225m"
           ephemeral-storage: "500Mi"
         limits:
           memory: "712Mi"
-          cpu: "525m"
+          cpu: "550m"
           ephemeral-storage: "1Gi"
     service:
       annotations: {}
