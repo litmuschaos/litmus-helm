@@ -86,7 +86,7 @@ spec:
       value: "{{ .Values.image.litmusLIBImage.repository }}:{{ .Values.image.litmusLIBImage.tag }}"
 
     - name: TARGET_PODS
-      value: ''    
+      value: ''  
 
     - name: PODS_AFFECTED_PERC
       value: ''
