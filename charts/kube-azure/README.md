@@ -1,6 +1,6 @@
 # kube-azure
 
-![Version: 2.6.0](https://img.shields.io/badge/Version-2.6.0-informational?style=flat-square) ![AppVersion: 2.6.0](https://img.shields.io/badge/AppVersion-2.6.0-informational?style=flat-square)
+![Version: 2.7.0](https://img.shields.io/badge/Version-2.7.0-informational?style=flat-square) ![AppVersion: 2.7.0](https://img.shields.io/badge/AppVersion-2.7.0-informational?style=flat-square)
 
 A Helm chart to install litmus Azure chaos experiments
 
@@ -27,7 +27,7 @@ A Helm chart to install litmus Azure chaos experiments
 | fullnameOverride | string | `"kube-azure"` |  |
 | image.litmusGO.pullPolicy | string | `"Always"` |  |
 | image.litmusGO.repository | string | `"litmuschaos/go-runner"` |  |
-| image.litmusGO.tag | string | `"2.6.0"` |  |
+| image.litmusGO.tag | string | `"2.7.0"` |  |
 | nameOverride | string | `"kube-azure"` |  |
 
 ----------------------------------------------
