@@ -1,6 +1,6 @@
 # litmus
 
-![Version: 2.7.1](https://img.shields.io/badge/Version-2.7.1-informational?style=flat-square) ![AppVersion: 2.7.0](https://img.shields.io/badge/AppVersion-2.7.0-informational?style=flat-square)
+![Version: 2.7.2](https://img.shields.io/badge/Version-2.7.2-informational?style=flat-square) ![AppVersion: 2.7.0](https://img.shields.io/badge/AppVersion-2.7.0-informational?style=flat-square)
 
 A Helm chart to install ChaosCenter
 
@@ -52,6 +52,7 @@ $ helm install litmus-portal litmuschaos/litmus
 | ingress.host.name | string | `""` | This is ingress hostname (ex: my-domain.com) |
 | ingress.host.paths.backend | string | `"/backend/(.*)"` | You may need adapt the path depending your ingress-controller |
 | ingress.host.paths.frontend | string | `"/(.*)"` | You may need adapt the path depending your ingress-controller |
+| ingress.ingressClassName | string | `""` |  |
 | ingress.name | string | `"litmus-ingress"` |  |
 | ingress.tls | list | `[]` |  |
 | mongo.affinity | object | `{}` |  |
