@@ -79,7 +79,7 @@ spec:
 
        ## specify the comma separated target pods
       - name: TARGET_PODS
-        value: ''      
+        value: ''   
 
       # Period to wait before and after injection of chaos in sec
       - name: RAMP_TIME

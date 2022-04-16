@@ -14,7 +14,7 @@ jobs:
             ct lint --config .circleci/ct.yaml --lint-conf .circleci/lintconf.yaml
   check-docs-update:
     docker:
-      - image: jnorwood/helm-docs:v1.5.0
+      - image: jnorwood/helm-docs:v1.7.0
     steps:
       - checkout
       - run:
@@ -43,7 +43,8 @@ jobs:
             apk add bash openssl
             wget -O - https://raw.githubusercontent.com/litmuschaos/helm-github-pages/master/publish.sh | bash
   deploy:
-    machine: true
+    machine:
+      image: ubuntu-2004:202201-02
     parameters:
       chart:
         type: string
@@ -111,4 +112,3 @@ workflows:
             parameters:
               kubernetes_version: [1.16.15, 1.17.17, 1.18.19, 1.19.11, 1.20.7, 1.21.2, 1.22.4, 1.23.1]
               chart: [litmus-core, litmus, kubernetes-chaos, kube-aws, kube-azure, kube-gcp]
-              
