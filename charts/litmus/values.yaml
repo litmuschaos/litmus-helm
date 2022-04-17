@@ -192,13 +192,13 @@ portal:
       genericEnv:
         TLS_SECRET_NAME: ""
         TLS_CERT_64: ""
-        SELF_CLUSTER: "true"
+        SELF_AGENT: "true"
+        SELF_AGENT_NODE_SELECTOR: ""
+        SELF_AGENT_TOLERATIONS: ""
         CONTAINER_RUNTIME_EXECUTOR: "k8sapi"
         HUB_BRANCH_NAME: "v2.7.x"
         AGENT_DEPLOYMENTS: '["app=chaos-exporter", "name=chaos-operator", "app=event-tracker", "app=workflow-controller"]'
         LITMUS_AUTH_GRPC_PORT: ":3030"
-        SELF_AGENT_NODE_SELECTOR: ""
-        SELF_AGENT_TOLERATIONS: ""
       resources:
         # We usually recommend not to specify default resources and to leave this as a conscious
         # choice for the user. This also increases chances charts run on environments with little

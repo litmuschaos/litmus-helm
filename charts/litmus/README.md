@@ -152,9 +152,9 @@ $ helm install litmus-portal litmuschaos/litmus
 | portal.server.graphqlServer.genericEnv.CONTAINER_RUNTIME_EXECUTOR | string | `"k8sapi"` |  |
 | portal.server.graphqlServer.genericEnv.HUB_BRANCH_NAME | string | `"v2.7.x"` |  |
 | portal.server.graphqlServer.genericEnv.LITMUS_AUTH_GRPC_PORT | string | `":3030"` |  |
+| portal.server.graphqlServer.genericEnv.SELF_AGENT | string | `"true"` |  |
 | portal.server.graphqlServer.genericEnv.SELF_AGENT_NODE_SELECTOR | string | `""` |  |
 | portal.server.graphqlServer.genericEnv.SELF_AGENT_TOLERATIONS | string | `""` |  |
-| portal.server.graphqlServer.genericEnv.SELF_CLUSTER | string | `"true"` |  |
 | portal.server.graphqlServer.genericEnv.TLS_CERT_64 | string | `""` |  |
 | portal.server.graphqlServer.genericEnv.TLS_SECRET_NAME | string | `""` |  |
 | portal.server.graphqlServer.image.pullPolicy | string | `"Always"` |  |
