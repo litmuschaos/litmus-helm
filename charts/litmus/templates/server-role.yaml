@@ -90,7 +90,7 @@ metadata:
     {{- include "litmus-portal.labels" . | nindent 4 }}
 rules:
   - apiGroups: [""]
-    resources: [configmaps]
+    resources: [configmaps, secrets]
     verbs: [get, create, delete, update]
 
   - apiGroups: [""]
@@ -272,7 +272,7 @@ rules:
   resources: [eventtrackerpolicies/status]
   verbs: [get, patch, update]
 - apiGroups: ["", extensions, apps]
-  resources: [deployments, daemonsets, statefulsets, pods, configmaps]
+  resources: [deployments, daemonsets, statefulsets, pods, configmaps, secrets]
   verbs: [get, list, watch]
 # litmus-server-role is used by the litmusportal-server
 # If SELF_CLUSTER=false, then only litmus-server-role and litmus-server-rb are required.
