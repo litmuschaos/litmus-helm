@@ -1,6 +1,6 @@
 # litmus
 
-![Version: 2.8.2](https://img.shields.io/badge/Version-2.8.2-informational?style=flat-square) ![AppVersion: 2.8.0](https://img.shields.io/badge/AppVersion-2.8.0-informational?style=flat-square)
+![Version: 2.8.3](https://img.shields.io/badge/Version-2.8.3-informational?style=flat-square) ![AppVersion: 2.8.0](https://img.shields.io/badge/AppVersion-2.8.0-informational?style=flat-square)
 
 A Helm chart to install ChaosCenter
 
@@ -45,6 +45,8 @@ $ helm install litmus-portal litmuschaos/litmus
 | adminConfig.SKIP_SSL_VERIFY | string | `"false"` |  |
 | adminConfig.VERSION | string | `"2.8.0"` |  |
 | customLabels | object | `{}` | Additional labels |
+| extraRessources.content | string | `""` | See values to add a traefik dedicated middleware for example |
+| extraRessources.enabled | bool | `false` | If needed you can add your own extra resources by setting enabled to true |
 | image.imagePullSecrets | list | `[]` |  |
 | image.imageRegistryName | string | `"litmuschaos"` |  |
 | ingress.annotations | object | `{}` |  |
