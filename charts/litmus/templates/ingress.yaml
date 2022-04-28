@@ -54,6 +54,33 @@ spec:
             name: {{ $fullName }}-server-service
             port: 
               number: 9002
+      {{- if .Values.ingress.host.paths.api }}
+      - path: {{ .Values.ingress.host.paths.api }}
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: {{ $fullName }}-server-service
+            port:
+              number: 9002
+      {{- end }}
+      {{- if .Values.ingress.host.paths.ws }}
+      - path: {{ .Values.ingress.host.paths.ws }}
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: {{ $fullName }}-server-service
+            port:
+              number: 9002
+      {{- end }}
+      {{- if .Values.ingress.host.paths.auth }}
+      - path: {{ .Values.ingress.host.paths.auth }}
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: {{ $fullName }}-server-service
+            port:
+              number: 9002
+      {{- end }}
     {{- else if semverCompare "<1.19-0" .Capabilities.KubeVersion.GitVersion }}
       - path: {{ .Values.ingress.host.paths.frontend }}
         backend:
@@ -63,5 +90,23 @@ spec:
         backend: 
           serviceName: {{ $fullName }}-server-service
           servicePort: 9002
+      {{- if .Values.ingress.host.paths.api }}
+      - path: {{ .Values.ingress.host.paths.api }}
+        backend:
+          serviceName: {{ $fullName }}-server-service
+          servicePort: 9002
+      {{- end }}
+      {{- if .Values.ingress.host.paths.ws }}
+      - path: {{ .Values.ingress.host.paths.ws }}
+        backend:
+          serviceName: {{ $fullName }}-server-service
+          servicePort: 9002
+      {{- end }}
+      {{- if .Values.ingress.host.paths.auth }}
+      - path: {{ .Values.ingress.host.paths.auth }}
+        backend:
+          serviceName: {{ $fullName }}-server-service
+          servicePort: 9003
+      {{- end }}
     {{- end }}
 {{- end }}
