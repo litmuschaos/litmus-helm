@@ -45,6 +45,15 @@ ingress:
       frontend: /(.*)
       # -- You may need adapt the path depending your ingress-controller
       backend: /backend/(.*)
+      # -- *Optionnal* You may need to shunt nginx front to pass requests directly to api
+      api: ""
+      # /api/(.*)
+      # -- *Optionnal* You may need to shunt nginx front to pass requests directly to websocket
+      ws: ""
+      # /ws/(.*)
+      # -- *Optionnal* You may need to shunt nginx front to pass requests directly to auth server 
+      auth: ""
+      # /auth/(.*)
   tls: []
   #  - secretName: chart-example-tls
   #    hosts: []
@@ -334,3 +343,24 @@ openshift:
     name: litmus-portal
     annotations: {}
     host: ""
+
+# Extra resources specific conf 
+extraRessources:
+  # -- If needed you can add your own extra resources by setting enabled to true
+  enabled: false
+  # -- See values to add a traefik dedicated middleware for example
+  content: ""
+    # |
+    # apiVersion: traefik.containo.us/v1alpha1
+    # kind: Middleware
+    # metadata:
+    #   name: rewrite-backend
+    #   namespace: {{ .Release.Namespace }}
+    # spec:
+    #   stripPrefix:
+    #     forceSlash: false
+    #     prefixes:
+    #       - /backend
+    #       - /api
+    #       - /ws
+    #       - /auth
