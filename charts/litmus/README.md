@@ -50,8 +50,11 @@ $ helm install litmus-portal litmuschaos/litmus
 | ingress.annotations | object | `{}` |  |
 | ingress.enabled | bool | `false` |  |
 | ingress.host.name | string | `""` | This is ingress hostname (ex: my-domain.com) |
+| ingress.host.paths.api | string | `""` | *Optionnal* You may need to shunt nginx front to pass requests directly to api |
+| ingress.host.paths.auth | string | `""` | *Optionnal* You may need to shunt nginx front to pass requests directly to auth server  |
 | ingress.host.paths.backend | string | `"/backend/(.*)"` | You may need adapt the path depending your ingress-controller |
 | ingress.host.paths.frontend | string | `"/(.*)"` | You may need adapt the path depending your ingress-controller |
+| ingress.host.paths.ws | string | `""` | *Optionnal* You may need to shunt nginx front to pass requests directly to websocket |
 | ingress.ingressClassName | string | `""` |  |
 | ingress.name | string | `"litmus-ingress"` |  |
 | ingress.tls | list | `[]` |  |
