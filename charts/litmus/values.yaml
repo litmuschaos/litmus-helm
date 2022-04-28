@@ -45,6 +45,15 @@ ingress:
       frontend: /(.*)
       # -- You may need adapt the path depending your ingress-controller
       backend: /backend/(.*)
+      # -- *Optionnal* You may need to shunt nginx front to pass requests directly to api
+      api: ""
+      # /api/(.*)
+      # -- *Optionnal* You may need to shunt nginx front to pass requests directly to websocket
+      ws: ""
+      # /ws/(.*)
+      # -- *Optionnal* You may need to shunt nginx front to pass requests directly to auth server 
+      auth: ""
+      # /auth/(.*)
   tls: []
   #  - secretName: chart-example-tls
   #    hosts: []
