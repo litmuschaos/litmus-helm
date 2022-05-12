@@ -77,9 +77,9 @@ spec:
         pathType: ImplementationSpecific
         backend:
           service:
-            name: {{ $fullName }}-server-service
+            name: {{ include "litmus-portal.fullname" . }}-auth-server-service
             port:
-              number: 9002
+              number: 9003
       {{- end }}
     {{- else if semverCompare "<1.19-0" .Capabilities.KubeVersion.GitVersion }}
       - path: {{ .Values.ingress.host.paths.frontend }}
@@ -105,7 +105,7 @@ spec:
       {{- if .Values.ingress.host.paths.auth }}
       - path: {{ .Values.ingress.host.paths.auth }}
         backend:
-          serviceName: {{ $fullName }}-server-service
+          serviceName: {{ include "litmus-portal.fullname" . }}-auth-server-service
           servicePort: 9003
       {{- end }}
     {{- end }}
