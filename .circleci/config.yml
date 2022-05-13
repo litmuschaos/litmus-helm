@@ -14,7 +14,7 @@ jobs:
             ct lint --config .circleci/ct.yaml --lint-conf .circleci/lintconf.yaml
   check-docs-update:
     docker:
-      - image: jnorwood/helm-docs:v1.7.0
+      - image: jnorwood/helm-docs:v1.9.1
     steps:
       - checkout
       - run:
