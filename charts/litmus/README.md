@@ -150,8 +150,9 @@ $ helm install litmus-portal litmuschaos/litmus
 | portal.server.customLabels | object | `{}` |  |
 | portal.server.graphqlServer.genericEnv.AGENT_DEPLOYMENTS | string | `"[\"app=chaos-exporter\", \"name=chaos-operator\", \"app=event-tracker\", \"app=workflow-controller\"]"` |  |
 | portal.server.graphqlServer.genericEnv.CONTAINER_RUNTIME_EXECUTOR | string | `"k8sapi"` |  |
-| portal.server.graphqlServer.genericEnv.HUB_BRANCH_NAME | string | `"v2.7.x"` |  |
+| portal.server.graphqlServer.genericEnv.HUB_BRANCH_NAME | string | `"v2.8.x"` |  |
 | portal.server.graphqlServer.genericEnv.LITMUS_AUTH_GRPC_PORT | string | `":3030"` |  |
+| portal.server.graphqlServer.genericEnv.LITMUS_CORE_VERSION | string | `"2.8.0"` |  |
 | portal.server.graphqlServer.genericEnv.SELF_AGENT | string | `"true"` |  |
 | portal.server.graphqlServer.genericEnv.SELF_AGENT_NODE_SELECTOR | string | `""` |  |
 | portal.server.graphqlServer.genericEnv.SELF_AGENT_TOLERATIONS | string | `""` |  |
@@ -215,7 +216,7 @@ $ helm install litmus-portal litmuschaos/litmus
 | portal.server.updateStrategy | object | `{}` |  |
 | portal.server.waitForMongodb.image.pullPolicy | string | `"Always"` |  |
 | portal.server.waitForMongodb.image.repository | string | `"curl"` |  |
-| portal.server.waitForMongodb.image.tag | string | `"2.6.0"` |  |
+| portal.server.waitForMongodb.image.tag | string | `"2.9.0"` |  |
 | portal.server.waitForMongodb.resources.limits.cpu | string | `"250m"` |  |
 | portal.server.waitForMongodb.resources.limits.ephemeral-storage | string | `"1Gi"` |  |
 | portal.server.waitForMongodb.resources.limits.memory | string | `"512Mi"` |  |

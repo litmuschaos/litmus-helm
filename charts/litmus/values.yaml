@@ -141,7 +141,7 @@ portal:
     waitForMongodb:
       image:
         repository: curl
-        tag: 2.6.0
+        tag: 2.9.0
         pullPolicy: "Always"
       resources:
         # We usually recommend not to specify default resources and to leave this as a conscious
@@ -196,9 +196,10 @@ portal:
         SELF_AGENT_NODE_SELECTOR: ""
         SELF_AGENT_TOLERATIONS: ""
         CONTAINER_RUNTIME_EXECUTOR: "k8sapi"
-        HUB_BRANCH_NAME: "v2.7.x"
+        HUB_BRANCH_NAME: "v2.8.x"
         AGENT_DEPLOYMENTS: '["app=chaos-exporter", "name=chaos-operator", "app=event-tracker", "app=workflow-controller"]'
         LITMUS_AUTH_GRPC_PORT: ":3030"
+        LITMUS_CORE_VERSION: "2.8.0"
       resources:
         # We usually recommend not to specify default resources and to leave this as a conscious
         # choice for the user. This also increases chances charts run on environments with little
