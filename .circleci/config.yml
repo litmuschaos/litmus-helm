@@ -110,5 +110,5 @@ workflows:
               ignore: gh-pages
           matrix:
             parameters:
-              kubernetes_version: [1.16.15, 1.17.17, 1.18.19, 1.19.11, 1.20.7, 1.21.2, 1.22.4, 1.23.1, 1.24.0]
+              kubernetes_version: [1.16.15, 1.17.17, 1.18.20, 1.19.16, 1.20.15, 1.21.12, 1.22.9, 1.23.6, 1.24.0]
               chart: [litmus-core, litmus, kubernetes-chaos, kube-aws, kube-azure, kube-gcp]
