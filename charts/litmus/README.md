@@ -1,6 +1,6 @@
 # litmus
 
-![Version: 2.9.0](https://img.shields.io/badge/Version-2.9.0-informational?style=flat-square) ![AppVersion: 2.9.0](https://img.shields.io/badge/AppVersion-2.9.0-informational?style=flat-square)
+![Version: 2.9.1](https://img.shields.io/badge/Version-2.9.1-informational?style=flat-square) ![AppVersion: 2.9.0](https://img.shields.io/badge/AppVersion-2.9.0-informational?style=flat-square)
 
 A Helm chart to install ChaosCenter
 
@@ -127,6 +127,7 @@ $ helm install litmus-portal litmuschaos/litmus
 | portal.frontend.virtualService.enabled | bool | `false` |  |
 | portal.frontend.virtualService.gateways | list | `[]` |  |
 | portal.frontend.virtualService.hosts | list | `[]` |  |
+| portal.frontend.virtualService.pathPrefixEnabled | bool | `false` |  |
 | portal.server.affinity | object | `{}` |  |
 | portal.server.authServer.automountServiceAccountToken | bool | `false` |  |
 | portal.server.authServer.env.LITMUS_GQL_GRPC_PORT | string | `":8000"` |  |
