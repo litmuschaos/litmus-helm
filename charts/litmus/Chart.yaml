@@ -19,3 +19,9 @@ maintainers:
   - name: jasstkn
     email: jasssstkn@yahoo.com
 icon: https://raw.githubusercontent.com/litmuschaos/icons/master/litmus.png
+
+dependencies:
+- name: mongodb
+  version: "12.1.11"
+  repository: "https://charts.bitnami.com/bitnami"
+  condition: mongodb.enabled

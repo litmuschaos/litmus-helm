@@ -261,6 +261,9 @@ portal:
           memory: "712Mi"
           cpu: "550m"
           ephemeral-storage: "1Gi"
+      volumeMounts: []
+      volumes: []
+      
     service:
       annotations: {}
       type: NodePort
@@ -341,3 +344,19 @@ openshift:
     name: litmus-portal
     annotations: {}
     host: ""
+
+# -- Configure the Bitnami MongoDB subchart
+# see values at https://github.com/bitnami/charts/blob/master/bitnami/mongodb/values.yaml
+mongodb:
+  enabled: true
+  auth:
+    enabled: true
+    rootPassword: "superhardpassword"
+    existingSecret: ""
+  architecture: replicaset
+  useStatefulSet: true
+  replicaCount: 3
+  metrics:
+    enabled: false
+    prometheusRule:
+      enabled: false

@@ -73,6 +73,43 @@ spec:
             - configMapRef:
                 name: {{ include "litmus-portal.fullname" . }}-admin-config
           env:
+            - name: DB_PASSWORD
+              {{- if .Values.mongodb.enabled }}      
+              {{- if not .Values.mongodb.auth.existingSecret }}
+              value: {{ .Values.mongodb.auth.rootPassword }}
+              {{- else }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.mongodb.auth.existingSecret }}
+                  key: mongodb-root-password
+              {{- end }}
+              {{- else }}
+              {{- if .Values.adminConfig.existingSecret }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.adminConfig.existingSecret }}
+                  key: DB_PASSWORD
+              {{- else }}
+              secretKeyRef:
+                  name: {{ include "litmus-portal.fullname" . }}-admin-secret
+                  key: DB_PASSWORD
+              {{- end }}
+              {{- end }}
+            - name: DB_USER
+              {{- if .Values.mongodb.enabled }}
+              value: {{ .Values.mongodb.auth.rootUser }}
+              {{- else }}
+              {{- if .Values.adminConfig.existingSecret }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.adminConfig.existingSecret }}
+                  key: DB_USER
+              {{- else }}
+              secretKeyRef:
+                  name: {{ include "litmus-portal.fullname" . }}-admin-secret
+                  key: DB_USER
+              {{- end }}
+              {{- end }}
             - name: LITMUS_PORTAL_NAMESPACE
               valueFrom:
                 fieldRef:
