@@ -31,7 +31,7 @@ spec:
             - configMapRef:
                 name: {{ include "litmus-portal.fullname" . }}-admin-config
             - secretRef:
-                name: {{ include "litmus-portal.fullname" . }}-admin-secret
+                name: {{ include "litmus-portal.secretname" . }}
     {{- with .Values.upgradeAgent.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

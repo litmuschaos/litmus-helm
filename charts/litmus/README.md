@@ -1,6 +1,6 @@
 # litmus
 
-![Version: 2.10.2](https://img.shields.io/badge/Version-2.10.2-informational?style=flat-square) ![AppVersion: 2.10.0](https://img.shields.io/badge/AppVersion-2.10.0-informational?style=flat-square)
+![Version: 2.10.3](https://img.shields.io/badge/Version-2.10.3-informational?style=flat-square) ![AppVersion: 2.10.0](https://img.shields.io/badge/AppVersion-2.10.0-informational?style=flat-square)
 
 A Helm chart to install ChaosCenter
 
@@ -45,6 +45,7 @@ $ helm install litmus-portal litmuschaos/litmus
 | adminConfig.SKIP_SSL_VERIFY | string | `"false"` |  |
 | adminConfig.VERSION | string | `"2.10.0"` |  |
 | customLabels | object | `{}` | Additional labels |
+| existingSecret | string | `""` | Use existing secret (e.g., External Secrets) |
 | image.imagePullSecrets | list | `[]` |  |
 | image.imageRegistryName | string | `"litmuschaos"` |  |
 | ingress.annotations | object | `{}` |  |

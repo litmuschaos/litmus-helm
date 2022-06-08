@@ -56,7 +56,7 @@ spec:
             {{- toYaml .Values.portal.server.authServer.securityContext | nindent 12 }}
           envFrom:
             - secretRef:
-                name: {{ include "litmus-portal.fullname" . }}-admin-secret
+                name: {{ include "litmus-portal.secretname" . }}
             - configMapRef:
                 name: {{ include "litmus-portal.fullname" . }}-admin-config
           env:
