@@ -10,6 +10,7 @@ apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
   name: {{ .Values.ingress.name }}
+  namespace: {{ .Release.Namespace }}
   labels:
     app.kubernetes.io/component: {{ include "litmus-portal.name" . }}-frontend
     {{- include "litmus-portal.labels" . | nindent 4 }}

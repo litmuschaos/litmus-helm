@@ -127,6 +127,7 @@ $ helm install litmus-portal litmuschaos/litmus
 | portal.frontend.virtualService.enabled | bool | `false` |  |
 | portal.frontend.virtualService.gateways | list | `[]` |  |
 | portal.frontend.virtualService.hosts | list | `[]` |  |
+| portal.frontend.virtualService.pathPrefixEnabled | bool | `false` |  |
 | portal.server.affinity | object | `{}` |  |
 | portal.server.authServer.automountServiceAccountToken | bool | `false` |  |
 | portal.server.authServer.env.LITMUS_GQL_GRPC_PORT | string | `":8000"` |  |
