@@ -201,6 +201,7 @@ portal:
         AGENT_DEPLOYMENTS: '["app=chaos-exporter", "name=chaos-operator", "app=event-tracker", "app=workflow-controller"]'
         LITMUS_AUTH_GRPC_PORT: ":3030"
         WORKFLOW_HELPER_IMAGE_VERSION: "2.9.0"
+        # Provide UI endpoint if using namespaced scope
         CHAOS_CENTER_UI_ENDPOINT: ""
       resources:
         # We usually recommend not to specify default resources and to leave this as a conscious
@@ -235,7 +236,7 @@ portal:
       automountServiceAccountToken: false
       image:
         repository: litmusportal-auth-server
-        tag: 2.9.0
+        tag: 2.10.0
         pullPolicy: "Always"
       ports:
         - name: auth-server

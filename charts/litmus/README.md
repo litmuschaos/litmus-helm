@@ -133,7 +133,7 @@ $ helm install litmus-portal litmuschaos/litmus
 | portal.server.authServer.env.LITMUS_GQL_GRPC_PORT | string | `":8000"` |  |
 | portal.server.authServer.image.pullPolicy | string | `"Always"` |  |
 | portal.server.authServer.image.repository | string | `"litmusportal-auth-server"` |  |
-| portal.server.authServer.image.tag | string | `"2.9.0"` |  |
+| portal.server.authServer.image.tag | string | `"2.10.0"` |  |
 | portal.server.authServer.ports[0].containerPort | int | `3030` |  |
 | portal.server.authServer.ports[0].name | string | `"auth-server"` |  |
 | portal.server.authServer.ports[1].containerPort | int | `3000` |  |
