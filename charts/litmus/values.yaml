@@ -15,7 +15,7 @@ adminConfig:
   DBUSER: "admin"
   DBPASSWORD: "1234"
   JWTSecret: "litmus-portal@123"
-  VERSION: "2.9.0"
+  VERSION: "2.10.0"
   SKIP_SSL_VERIFY: "false"
   # -- leave empty if uses Mongo DB deployed by this chart
   DB_SERVER: ""
@@ -53,7 +53,7 @@ upgradeAgent:
   controlPlane:
     image:
       repository: upgrade-agent-cp
-      tag: "2.9.0"
+      tag: "2.10.0"
       pullPolicy: "Always"
     restartPolicy: OnFailure
   nodeSelector: {}
@@ -80,7 +80,7 @@ portal:
       runAsNonRoot: true
     image:
       repository: litmusportal-frontend
-      tag: 2.9.0
+      tag: 2.10.0
       pullPolicy: "Always"
     containerPort: 8080
     customLabels: {}
@@ -164,7 +164,7 @@ portal:
         - name: hub-storage
           emptyDir: {}
       volumeMounts:
-        - mountPath: /tmp/gitops
+        - mountPath: /tmp/
           name: gitops-storage
         - mountPath: /tmp/version
           name: hub-storage
@@ -175,7 +175,7 @@ portal:
         readOnlyRootFilesystem: true
       image:
         repository: litmusportal-server
-        tag: 2.9.0
+        tag: 2.10.0
         pullPolicy: "Always"
       ports:
         - name: gql-server
@@ -183,13 +183,13 @@ portal:
         - name: gql-rpc-server
           containerPort: 8000
       imageEnv:
-        SUBSCRIBER_IMAGE: "litmusportal-subscriber:2.9.0"
-        EVENT_TRACKER_IMAGE: "litmusportal-event-tracker:2.9.0"
+        SUBSCRIBER_IMAGE: "litmusportal-subscriber:2.10.0"
+        EVENT_TRACKER_IMAGE: "litmusportal-event-tracker:2.10.0"
         ARGO_WORKFLOW_CONTROLLER_IMAGE: "workflow-controller:v3.2.9"
         ARGO_WORKFLOW_EXECUTOR_IMAGE: "argoexec:v3.2.9"
-        LITMUS_CHAOS_OPERATOR_IMAGE: "chaos-operator:2.8.0"
-        LITMUS_CHAOS_RUNNER_IMAGE: "chaos-runner:2.8.0"
-        LITMUS_CHAOS_EXPORTER_IMAGE: "chaos-exporter:2.8.0"
+        LITMUS_CHAOS_OPERATOR_IMAGE: "chaos-operator:2.9.0"
+        LITMUS_CHAOS_RUNNER_IMAGE: "chaos-runner:2.9.0"
+        LITMUS_CHAOS_EXPORTER_IMAGE: "chaos-exporter:2.9.0"
       genericEnv:
         TLS_SECRET_NAME: ""
         TLS_CERT_64: ""
@@ -197,10 +197,12 @@ portal:
         SELF_AGENT_NODE_SELECTOR: ""
         SELF_AGENT_TOLERATIONS: ""
         CONTAINER_RUNTIME_EXECUTOR: "k8sapi"
-        HUB_BRANCH_NAME: "v2.8.x"
+        HUB_BRANCH_NAME: "v2.9.x"
         AGENT_DEPLOYMENTS: '["app=chaos-exporter", "name=chaos-operator", "app=event-tracker", "app=workflow-controller"]'
         LITMUS_AUTH_GRPC_PORT: ":3030"
-        LITMUS_CORE_VERSION: "2.8.0"
+        WORKFLOW_HELPER_IMAGE_VERSION: "2.9.0"
+        # Provide UI endpoint if using namespaced scope
+        CHAOS_CENTER_UI_ENDPOINT: ""
       resources:
         # We usually recommend not to specify default resources and to leave this as a conscious
         # choice for the user. This also increases chances charts run on environments with little
@@ -234,7 +236,7 @@ portal:
       automountServiceAccountToken: false
       image:
         repository: litmusportal-auth-server
-        tag: 2.9.0
+        tag: 2.10.0
         pullPolicy: "Always"
       ports:
         - name: auth-server
