@@ -1,6 +1,6 @@
 # litmus
 
-![Version: 2.10.0](https://img.shields.io/badge/Version-2.10.0-informational?style=flat-square) ![AppVersion: 2.10.0](https://img.shields.io/badge/AppVersion-2.10.0-informational?style=flat-square)
+![Version: 2.10.1](https://img.shields.io/badge/Version-2.10.1-informational?style=flat-square) ![AppVersion: 2.10.0](https://img.shields.io/badge/AppVersion-2.10.0-informational?style=flat-square)
 
 A Helm chart to install ChaosCenter
 
@@ -10,7 +10,7 @@ A Helm chart to install ChaosCenter
 
 | Name | Email | Url |
 | ---- | ------ | --- |
-| rajdas66 | <raj.das@mayadata.io> |  |
+| imrajdas | <raj.das@mayadata.io> |  |
 | ispeakc0de | <shubham.chaudhary@mayadata.io> |  |
 | jasstkn | <jasssstkn@yahoo.com> |  |
 
