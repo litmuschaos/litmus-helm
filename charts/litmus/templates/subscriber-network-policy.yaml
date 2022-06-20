@@ -1,0 +1,28 @@
+{{- if .Values.networkPolicy.enabled -}}
+{{ $fullName := include "litmus-portal.fullname" . }}
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: {{ include "litmus-portal.fullname" . }}-subscriber-network-policy
+spec:
+  podSelector:
+    matchLabels:
+      app: subscriber
+  policyTypes:
+    - Ingress
+    - Egress
+  ingress:
+    - from:
+        # gql-server --> self-agent, Accepting workflow requests from gql-server
+        - podSelector:
+            matchLabels:
+              app.kubernetes.io/component: {{ include "litmus-portal.name" . }}-server
+
+        # external-agent --> gql-server connection, please commentout & update as per requirements
+        # - ipBlock:
+        #     cidr: 10.0.0.0/24
+
+  egress:
+    # Needs access to kube-api-server for applying the workflows & for sending events/requests to gql-server
+    - {}
+{{- end }}

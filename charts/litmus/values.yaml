@@ -330,6 +330,22 @@ mongo:
   tolerations: []
   affinity: {}
 
+networkPolicy:
+  enabled: true
+  control-plane:
+    frontend:
+    server:
+    auth-server:
+    mongodb:
+  
+  # only for self-agent
+  execution-plane:
+    subscriber:
+    event-tracker:
+    chaos-operator:
+    chaos-exporter:
+    workflow-controller:
+
 # OpenShift specific configuration
 openshift:
   # If service should be exposed using an OpenShift route

@@ -1,0 +1,35 @@
+{{- if .Values.networkPolicy.enabled -}}
+{{ $fullName := include "litmus-portal.fullname" . }}
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: {{ include "litmus-portal.fullname" . }}-database-network-policy
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app.kubernetes.io/component: {{ include "litmus-portal.name" . }}-database
+    {{- include "litmus-portal.labels" . | nindent 4 }}
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/component: {{ include "litmus-portal.name" . }}-database
+  policyTypes:
+    - Ingress
+    - Egress
+  # No outbound connection allowed for DB
+  egress: []
+  ingress:
+    - from:
+        # Accepts connections from gql-server pod
+        - podSelector:
+            matchLabels:
+              app.kubernetes.io/component: {{ include "litmus-portal.name" . }}-server
+
+        # Accepts connections from authg-server pod
+        - podSelector:
+            matchLabels:
+              capp.kubernetes.io/component: {{ include "litmus-portal.name" . }}-auth-server
+
+      ports:
+        - protocol: TCP
+          port: 27017
+{{- end }}

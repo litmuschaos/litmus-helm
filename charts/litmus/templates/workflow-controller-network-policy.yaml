@@ -1,0 +1,16 @@
+{{- if .Values.networkPolicy.enabled -}}
+{{ $fullName := include "litmus-portal.fullname" . }}
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: {{ include "litmus-portal.fullname" . }}-workflow-controller-network-policy
+spec:
+  podSelector:
+    matchLabels:
+      app: workflow-controller
+  policyTypes:
+    - Egress
+  # Needs access to kube-api-server for reconcilation & running the scheduled workflows on the cluster
+  egress:
+    - {}
+{{- end }}

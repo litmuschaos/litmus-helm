@@ -1,0 +1,20 @@
+{{- if .Values.networkPolicy.enabled -}}
+{{ $fullName := include "litmus-portal.fullname" . }}
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: {{ include "litmus-portal.fullname" . }}-chaos-exporter-network-policy
+spec:
+  podSelector:
+    matchLabels:
+      app: chaos-exporter
+  policyTypes:
+    - Egress
+    - Ingress
+  ingress:
+    # Prometheus needs access for fetching metrics. PORT - 8080
+    - {}
+  egress:
+    # Needs access to kube-api-server for metrics
+    - {}
+{{- end }}
