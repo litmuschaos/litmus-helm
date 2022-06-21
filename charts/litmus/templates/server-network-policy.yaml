@@ -35,7 +35,7 @@ spec:
 
       ports:
         - protocol: TCP
-          port: 8080
+          port: {{ .Values.portal.server.service.graphqlServer.targetPort }}
 
     # GRPC connections -------
     - from:
@@ -46,7 +46,7 @@ spec:
 
       ports:
         - protocol: TCP
-          port: 8000
+          port: {{ .Values.portal.server.service.graphqlRpcServer.targetPort }}
 
   egress:
     - to:

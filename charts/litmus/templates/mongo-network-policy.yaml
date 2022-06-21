@@ -27,9 +27,9 @@ spec:
         # Accepts connections from authg-server pod
         - podSelector:
             matchLabels:
-              capp.kubernetes.io/component: {{ include "litmus-portal.name" . }}-auth-server
+              app.kubernetes.io/component: {{ include "litmus-portal.name" . }}-auth-server
 
       ports:
         - protocol: TCP
-          port: 27017
+          port: {{ .Values.mongo.service.targetPort }}
 {{- end }}

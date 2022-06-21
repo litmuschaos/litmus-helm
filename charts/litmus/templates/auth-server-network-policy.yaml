@@ -25,7 +25,7 @@ spec:
 
       ports:
         - protocol: TCP
-          port: 3000
+          port: {{ .Values.portal.server.service.authRpcServer.targetPort }}
 
     # GRPC connections
     - from:
@@ -35,7 +35,7 @@ spec:
               app.kubernetes.io/component: {{ include "litmus-portal.name" . }}-server
       ports:
         - protocol: TCP
-          port: 3030
+          port: {{ .Values.portal.server.service.authServer.targetPort }}
 
   egress:
     - to:
