@@ -22,6 +22,7 @@ adminConfig:
   # -- Leave empty if uses Mongo DB deployed by this chart
   DB_PORT: "27017"
   # -- Specify a custom Mongo DB connection string. Useful when working with managed databases.
+  # Litmus automatically injects username and password from DBUSER and DBPASSWORD variables inside so remove them from the connection string first.
   # Leave empty if uses Mongo DB deployed by this chart
   DB_URL: ""
   ADMIN_USERNAME: "admin"
