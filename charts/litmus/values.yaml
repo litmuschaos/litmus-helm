@@ -17,9 +17,13 @@ adminConfig:
   JWTSecret: "litmus-portal@123"
   VERSION: "2.10.0"
   SKIP_SSL_VERIFY: "false"
-  # -- leave empty if uses Mongo DB deployed by this chart
+  # -- Leave empty if uses Mongo DB deployed by this chart
   DB_SERVER: ""
+  # -- Leave empty if uses Mongo DB deployed by this chart
   DB_PORT: "27017"
+  # -- Specify a custom Mongo DB connection string. Useful when working with managed databases.
+  # Leave empty if uses Mongo DB deployed by this chart
+  DB_URL: ""
   ADMIN_USERNAME: "admin"
   ADMIN_PASSWORD: "litmus"
 
