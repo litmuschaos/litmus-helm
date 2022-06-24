@@ -18,9 +18,18 @@ spec:
     {{- toYaml . | nindent 4 }}
 {{- end }}
   http:
-    - route:
-      - destination:
-          host: litmusportal-frontend-service
-          port:
-            number: {{ .Values.portal.frontend.service.port }}
+{{- if .Values.portal.frontend.virtualService.pathPrefixEnabled }}
+  - match:
+    - uri:
+        prefix: /litmuschaos
+    rewrite:
+      uri: "/"
+    route:
+{{- else }}
+  - route:
+{{- end }}
+    - destination:
+        host:  {{ include "litmus-portal.fullname" . }}-frontend-service
+        port:
+          number: {{ .Values.portal.frontend.service.port }}
 {{- end -}}

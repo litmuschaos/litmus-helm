@@ -59,7 +59,10 @@ spec:
 
     # Enter the number of CPU cores 
     - name: NODE_CPU_CORE
-      value: ''
+      value: '1'
+
+    - name: CPU_LOAD
+      value: '0'
 
     # ENTER THE COMMA SEPARATED TARGET NODES NAME
     - name: TARGET_NODES
