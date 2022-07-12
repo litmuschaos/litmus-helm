@@ -70,12 +70,12 @@ spec:
             - name: MONGO_INITDB_ROOT_USERNAME
               valueFrom:
                 secretKeyRef:
-                  name: {{ include "litmus-portal.fullname" . }}-admin-secret
+                  name: {{ include "litmus-portal.secretname" . }}
                   key: DB_USER
             - name: MONGO_INITDB_ROOT_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: {{ include "litmus-portal.fullname" . }}-admin-secret
+                  name: {{ include "litmus-portal.secretname" . }}
                   key: DB_PASSWORD
     {{- with .Values.mongo.nodeSelector }}
       nodeSelector:

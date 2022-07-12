@@ -11,6 +11,9 @@ customLabels:
   {}
 # my.company.com/concourse-cd: 2
 
+# -- Use existing secret (e.g., External Secrets)
+existingSecret: ""
+
 adminConfig:
   DBUSER: "admin"
   DBPASSWORD: "1234"
