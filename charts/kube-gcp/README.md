@@ -1,6 +1,6 @@
 # kube-gcp
 
-![Version: 2.10.1](https://img.shields.io/badge/Version-2.10.1-informational?style=flat-square) ![AppVersion: 2.10.0](https://img.shields.io/badge/AppVersion-2.10.0-informational?style=flat-square)
+![Version: 2.11.0](https://img.shields.io/badge/Version-2.11.0-informational?style=flat-square) ![AppVersion: 2.11.0](https://img.shields.io/badge/AppVersion-2.11.0-informational?style=flat-square)
 
 A Helm chart to install litmus gcp chaos experiments
 
@@ -27,7 +27,7 @@ A Helm chart to install litmus gcp chaos experiments
 | fullnameOverride | string | `"kube-gcp"` |  |
 | image.litmusGO.pullPolicy | string | `"Always"` |  |
 | image.litmusGO.repository | string | `"litmuschaos/go-runner"` |  |
-| image.litmusGO.tag | string | `"2.10.0"` |  |
+| image.litmusGO.tag | string | `"2.11.0"` |  |
 | nameOverride | string | `"kube-gcp"` |  |
 
 ----------------------------------------------
