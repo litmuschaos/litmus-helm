@@ -81,16 +81,17 @@ jobs:
           name: Test litmus' frontend
           command: |
             LITMUS_NS=litmus
-            if [ "<< parameters.chart >>" == "litmus" ]; then
-              FRONTEND_POD=$(kubectl get pods -n $LITMUS_NS | grep frontend | awk '{print $1}');
-              FRONTEND_SERVICE=$(kubectl get svc -n $LITMUS_NS | grep frontend | awk '{print $1}');
+            if [ "<< parameters.chart >>" == "litmus" ];
+            then
+              FRONTEND_POD=$(kubectl get pods -n $LITMUS_NS | grep frontend | awk '{print $1}')
+              FRONTEND_SERVICE=$(kubectl get svc -n $LITMUS_NS | grep frontend | awk '{print $1}')
               # check if frontend is working
-              kubectl exec -ti $FRONTEND_POD -n $LITMUS_NS -- curl $FRONTEND_SERVICE:9091 -s --output /dev/null;
+              kubectl exec -ti $FRONTEND_POD -n $LITMUS_NS -- curl $FRONTEND_SERVICE1:9091 -s --output /dev/null;
               # check status for the last command
-              STATUS=$?;
+              STATUS=$?
               [ $STATUS -eq 0 ] && echo "frontend is working" || echo "frontend isn't working";
-              fi
-              exit $STATUS
+            fi
+            exit $STATUS
 workflows:
   version: 2.1
   lint:
