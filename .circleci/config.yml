@@ -78,17 +78,19 @@ jobs:
             helm upgrade --install "<< parameters.chart >>" ./charts/<< parameters.chart >> -n litmus --wait --create-namespace=true
             if [ "<< parameters.chart >>" != "kubernetes-chaos" ] && [ "<< parameters.chart >>" != "kube-aws" ] && [ "<< parameters.chart >>" != "kube-azure" ] && [ "<< parameters.chart >>" != "kube-gcp" ]; then kubectl wait --for=condition=Ready pod --all -n litmus --timeout=300s; fi
       - run:
-          name: Test litmus
+          name: Test litmus' frontend
           command: |
             LITMUS_NS=litmus
-            if [ "<< parameters.chart >>" != "kubernetes-chaos" ] && [ "<< parameters.chart >>" != "kube-aws" ] && [ "<< parameters.chart >>" != "kube-azure" ] && [ "<< parameters.chart >>" != "kube-gcp" ]; then
+            if [ "<< parameters.chart >>" == "litmus" ]; then
               FRONTEND_POD=$(kubectl get pods -n $LITMUS_NS | grep frontend | awk '{print $1}');
               FRONTEND_SERVICE=$(kubectl get svc -n $LITMUS_NS | grep frontend | awk '{print $1}');
               # check if frontend is working
-              kubectl exec -ti $FRONTEND_POD -n $LITMUS_NS -- curl $FRONTEND_SERVICE:9091;
+              kubectl exec -ti $FRONTEND_POD -n $LITMUS_NS -- curl $FRONTEND_SERVICE:9091 -s --output /dev/null;
+              # check status for the last command
               STATUS=$?;
-              [ $status -eq 0 ] && echo "frontend is working" || echo "frontend isn't working";
+              [ $STATUS -eq 0 ] && echo "frontend is working" || echo "frontend isn't working";
               fi
+              exit $STATUS
 workflows:
   version: 2.1
   lint:
