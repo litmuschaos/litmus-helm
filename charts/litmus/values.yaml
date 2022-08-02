@@ -198,6 +198,15 @@ portal:
           containerPort: 8080
         - name: gql-rpc-server
           containerPort: 8000
+      service:
+        annotations: {}
+        type: ClusterIP
+        graphqlServer:
+          port: 9002
+          targetPort: 8080
+        graphqlRpcServer:
+          port: 8000
+          targetPort: 8000
       imageEnv:
         SUBSCRIBER_IMAGE: "litmusportal-subscriber:2.12.0"
         EVENT_TRACKER_IMAGE: "litmusportal-event-tracker:2.12.0"
@@ -260,6 +269,15 @@ portal:
           containerPort: 3030
         - name: auth-rpc-server
           containerPort: 3000
+      service:
+        annotations: {}
+        type: ClusterIP
+        authServer:
+          port: 9003
+          targetPort: 3000
+        authRpcServer:
+          port: 3030
+          targetPort: 3030
       env:
         LITMUS_GQL_GRPC_PORT: ":8000"
       resources:
@@ -277,22 +295,7 @@ portal:
           ephemeral-storage: "1Gi"
       volumeMounts: []
       volumes: []
-      
-    service:
-      annotations: {}
-      type: ClusterIP
-      graphqlServer:
-        port: 9002
-        targetPort: 8080
-      graphqlRpcServer:
-        port: 8000
-        targetPort: 8000
-      authServer:
-        port: 9003
-        targetPort: 3000
-      authRpcServer:
-        port: 3030
-        targetPort: 3030
+
     nodeSelector: {}
     tolerations: []
     affinity: {}
