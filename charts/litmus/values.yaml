@@ -15,14 +15,14 @@ customLabels:
 existingSecret: ""
 
 adminConfig:
-  DBUSER: "admin"
-  DBPASSWORD: "1234"
   JWTSecret: "litmus-portal@123"
   VERSION: "2.11.0"
   SKIP_SSL_VERIFY: "false"
   # -- leave empty if uses Mongo DB deployed by this chart
+  DBPASSWORD: ""
+  DBUSER: ""
   DB_SERVER: ""
-  DB_PORT: "27017"
+  DB_PORT: ""
   ADMIN_USERNAME: "admin"
   ADMIN_PASSWORD: "litmus"
 
@@ -115,7 +115,7 @@ portal:
       timeoutSeconds: 1
     service:
       annotations: {}
-      type: NodePort
+      type: ClusterIP
       port: 9091
       targetPort: 8080
     virtualService:
@@ -266,7 +266,7 @@ portal:
       
     service:
       annotations: {}
-      type: NodePort
+      type: ClusterIP
       graphqlServer:
         port: 9002
         targetPort: 8080

@@ -1,6 +1,6 @@
 # litmus
 
-![Version: 2.11.1](https://img.shields.io/badge/Version-2.11.1-informational?style=flat-square) ![AppVersion: 2.11.0](https://img.shields.io/badge/AppVersion-2.11.0-informational?style=flat-square)
+![Version: 2.12.0](https://img.shields.io/badge/Version-2.12.0-informational?style=flat-square) ![AppVersion: 2.11.0](https://img.shields.io/badge/AppVersion-2.11.0-informational?style=flat-square)
 
 A Helm chart to install ChaosCenter
 
@@ -21,10 +21,6 @@ A Helm chart to install ChaosCenter
 ## Requirements
 
 Kubernetes: `>=1.16.0-0`
-
-| Repository | Name | Version |
-|------------|------|---------|
-| https://charts.bitnami.com/bitnami | mongodb | 12.1.11 |
 
 ## Installing the Chart
 
@@ -47,8 +43,7 @@ $ helm install litmus-portal litmuschaos/litmus
 | adminConfig.DB_SERVER | string | `""` |  |
 | adminConfig.JWTSecret | string | `"litmus-portal@123"` |  |
 | adminConfig.SKIP_SSL_VERIFY | string | `"false"` |  |
-| adminConfig.VERSION | string | `"2.10.0"` |  |
-| adminConfig.existingSecret | string | `""` | use already present secret |
+| adminConfig.VERSION | string | `"2.11.0"` |  |
 | customLabels | object | `{}` | Additional labels |
 | existingSecret | string | `""` | Use existing secret (e.g., External Secrets) |
 | image.imagePullSecrets | list | `[]` |  |
@@ -124,6 +119,8 @@ $ helm install litmus-portal litmuschaos/litmus
 | portal.server.authServer.securityContext.readOnlyRootFilesystem | bool | `true` |  |
 | portal.server.authServer.securityContext.runAsNonRoot | bool | `true` |  |
 | portal.server.authServer.securityContext.runAsUser | int | `2000` |  |
+| portal.server.authServer.volumeMounts | list | `[]` |  |
+| portal.server.authServer.volumes | list | `[]` |  |
 | portal.server.customLabels | object | `{}` |  |
 | portal.server.graphqlServer.genericEnv.AGENT_DEPLOYMENTS | string | `"[\"app=chaos-exporter\", \"name=chaos-operator\", \"app=event-tracker\", \"app=workflow-controller\"]"` |  |
 | portal.server.graphqlServer.genericEnv.CHAOS_CENTER_UI_ENDPOINT | string | `""` |  |
