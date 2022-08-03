@@ -44,31 +44,19 @@ spec:
                   key: mongodb-root-password
               {{- end }}
               {{- else }}
-              {{- if .Values.adminConfig.existingSecret }}
               valueFrom:
                 secretKeyRef:
-                  name: {{ .Values.adminConfig.existingSecret }}
+                  name: {{ include "litmus-portal.secretname" . }}
                   key: DB_PASSWORD
-              {{- else }}
-              secretKeyRef:
-                  name: {{ include "litmus-portal.fullname" . }}-admin-secret
-                  key: DB_PASSWORD
-              {{- end }}
               {{- end }}
             - name: DB_USER
               {{- if .Values.mongodb.enabled }}
               value: {{ .Values.mongodb.auth.rootUser }}
               {{- else }}
-              {{- if .Values.adminConfig.existingSecret }}
               valueFrom:
                 secretKeyRef:
-                  name: {{ .Values.adminConfig.existingSecret }}
+                  name: {{ include "litmus-portal.secretname" . }}
                   key: DB_USER
-              {{- else }}
-              secretKeyRef:
-                  name: {{ include "litmus-portal.fullname" . }}-admin-secret
-                  key: DB_USER
-              {{- end }}
               {{- end }}
     {{- with .Values.upgradeAgent.nodeSelector }}
       nodeSelector:
