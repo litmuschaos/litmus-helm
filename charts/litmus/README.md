@@ -22,6 +22,10 @@ A Helm chart to install ChaosCenter
 
 Kubernetes: `>=1.16.0-0`
 
+| Repository | Name | Version |
+|------------|------|---------|
+| https://charts.bitnami.com/bitnami | mongodb | 12.1.11 |
+
 ## Installing the Chart
 
 To install this chart with the release name `litmus-portal`:
