@@ -11,11 +11,7 @@ metadata:
     {{- toYaml . | nindent 4 }}
   {{- end }}
 spec:
-  {{- if .Values.ingress.enabled }}
-  type: ClusterIP
-  {{- else }}
   type: {{ .Values.portal.server.service.type }}
-  {{- end }}
   ports:
     - name: auth-server
       port: {{ .Values.portal.server.service.authServer.port }}
