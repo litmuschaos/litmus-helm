@@ -11,7 +11,11 @@ metadata:
     {{- toYaml . | nindent 4 }}
   {{- end }}
 spec:
+  {{- if or (.Values.ingress.enabled) (.Values.openshift.route.enabled) }}
+  type: ClusterIP
+  {{- else }}
   type: {{ .Values.portal.frontend.service.type }}
+  {{- end }}
   ports:
     - name: http
       port: {{ .Values.portal.frontend.service.port }}
