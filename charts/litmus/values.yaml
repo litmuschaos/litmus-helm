@@ -299,6 +299,7 @@ mongodb:
   auth:
     enabled: true
     rootPassword: "superhardpassword"
+    # -- existingSecret Existing secret with MongoDB(&reg;) credentials (keys: `mongodb-passwords`, `mongodb-root-password`, `mongodb-metrics-password`, ` mongodb-replica-set-key`)
     existingSecret: ""
   architecture: standalone
   useStatefulSet: true
