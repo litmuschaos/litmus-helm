@@ -25,7 +25,8 @@ jobs:
             if [ -z "$(git status --porcelain)" ]; then
               echo "Docs are up-to-date"
             else
-              echo "Docs are stale. Needs to be updated. Use helm-docs"
+              echo "Docs are stale. Needs to be updated. Run helm-docs. The following files have been changed:"
+              git diff
               exit 1
             fi
   build:
