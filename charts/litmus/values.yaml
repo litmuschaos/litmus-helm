@@ -302,11 +302,9 @@ mongodb:
     # -- existingSecret Existing secret with MongoDB(&reg;) credentials (keys: `mongodb-passwords`, `mongodb-root-password`, `mongodb-metrics-password`, ` mongodb-replica-set-key`)
     existingSecret: ""
   architecture: standalone
-  useStatefulSet: true
+  useStatefulSet: false
   replicaCount: 1
   metrics:
     enabled: false
     prometheusRule:
       enabled: false
-  arbiter:
-    enabled: false
