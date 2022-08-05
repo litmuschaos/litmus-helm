@@ -60,7 +60,8 @@ $ helm install litmus-portal litmuschaos/litmus
 | ingress.ingressClassName | string | `""` |  |
 | ingress.name | string | `"litmus-ingress"` |  |
 | ingress.tls | list | `[]` |  |
-| mongodb | object | `{"architecture":"replicaset","auth":{"enabled":true,"existingSecret":"","rootPassword":"superhardpassword"},"enabled":true,"metrics":{"enabled":false,"prometheusRule":{"enabled":false}},"replicaCount":3,"useStatefulSet":true}` | Configure the Bitnami MongoDB subchart see values at https://github.com/bitnami/charts/blob/master/bitnami/mongodb/values.yaml |
+| mongodb | object | `{"arbiter":{"enabled":false},"architecture":"standalone","auth":{"enabled":true,"existingSecret":"","rootPassword":"superhardpassword"},"enabled":true,"metrics":{"enabled":false,"prometheusRule":{"enabled":false}},"replicaCount":1,"useStatefulSet":true}` | Configure the Bitnami MongoDB subchart see values at https://github.com/bitnami/charts/blob/master/bitnami/mongodb/values.yaml |
+| mongodb.auth.existingSecret | string | `""` | existingSecret Existing secret with MongoDB(&reg;) credentials (keys: `mongodb-passwords`, `mongodb-root-password`, `mongodb-metrics-password`, ` mongodb-replica-set-key`) |
 | nameOverride | string | `""` |  |
 | openshift.route.annotations | object | `{}` |  |
 | openshift.route.enabled | bool | `false` |  |
