@@ -77,3 +77,11 @@ Check for existing secret
         {{ true }}
     {{- end -}}
 {{- end -}}
+
+{{- define "litmus-portal.mongodbServiceName" -}}
+    {{- if not (eq .Values.mongodb.architecture "replicaset") }}
+        {{- include "mongodb.fullname" .Subcharts.mongodb -}}
+    {{ else }}
+        {{- include "mongodb.service.nameOverride" .Subcharts.mongodb -}}
+    {{- end -}}
+{{- end -}}
