@@ -40,7 +40,7 @@ spec:
           command: ["/bin/sh", "-c"]
           args:
             [
-                "while [[ $(curl -sw '%{http_code}' http://{{ include "mongodb.service.nameOverride" .Subcharts.mongodb }}:{{ .Values.mongodb.service.ports.mongodb }} -o /dev/null) -ne 200 ]]; do sleep 5; echo 'Waiting for the MongoDB to be ready...'; done; echo 'Connection with MongoDB established'",
+                "while [[ $(curl -sw '%{http_code}' http://{{ include "litmus-portal.mongodbServiceName" . }}:{{ .Values.mongodb.service.ports.mongodb }} -o /dev/null) -ne 200 ]]; do sleep 5; echo 'Waiting for the MongoDB to be ready...'; done; echo 'Connection with MongoDB established'",
             ]
           resources:
             {{- toYaml .Values.portal.server.waitForMongodb.resources | nindent 12 }}
