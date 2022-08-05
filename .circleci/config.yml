@@ -25,7 +25,8 @@ jobs:
             if [ -z "$(git status --porcelain)" ]; then
               echo "Docs are up-to-date"
             else
-              echo "Docs are stale. Needs to be updated. Use helm-docs"
+              echo "Docs are stale. Needs to be updated. Run helm-docs. The following files have been changed:"
+              git diff
               exit 1
             fi
   build:
@@ -55,7 +56,7 @@ jobs:
       - run:
           name: Install kind
           command: |
-            curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.13.0/kind-linux-amd64 --insecure
+            curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.14.0/kind-linux-amd64 --insecure
             chmod +x ./kind
             sudo mv kind /usr/local/bin/
       - run:
