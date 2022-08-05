@@ -1,0 +1,51 @@
+{{- if .Values.networkPolicy.enabled -}}
+{{ $fullName := include "litmus-portal.fullname" . }}
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: {{ include "litmus-portal.fullname" . }}-auth-server-network-policy
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app.kubernetes.io/component: {{ include "litmus-portal.name" . }}-auth-server
+    {{- include "litmus-portal.labels" . | nindent 4 }}
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/component: {{ include "litmus-portal.name" . }}-auth-server
+  policyTypes:
+    - Ingress
+    - Egress
+  ingress:
+    #normal connections
+    - from:
+        # Frontend --> auth-Server connection
+        - podSelector:
+            matchLabels:
+              app.kubernetes.io/component: {{ include "litmus-portal.name" . }}-frontend
+
+      ports:
+        - protocol: TCP
+          port: {{ .Values.portal.server.service.authRpcServer.targetPort }}
+
+    # GRPC connections
+    - from:
+        # gql-server --> auth-server, grpc connection
+        - podSelector:
+            matchLabels:
+              app.kubernetes.io/component: {{ include "litmus-portal.name" . }}-server
+      ports:
+        - protocol: TCP
+          port: {{ .Values.portal.server.service.authServer.targetPort }}
+
+  egress:
+    - to:
+        # Auth-Server -> database connection
+        - podSelector:
+            matchLabels:
+              app.kubernetes.io/component: {{ include "litmus-portal.name" . }}-database
+
+        # auth-server --> gql-server, grpc connection
+        - podSelector:
+            matchLabels:
+              app.kubernetes.io/component: {{ include "litmus-portal.name" . }}-server
+{{- end }}

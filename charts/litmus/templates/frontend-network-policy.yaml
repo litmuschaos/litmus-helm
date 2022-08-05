@@ -1,0 +1,31 @@
+{{- if .Values.networkPolicy.enabled -}}
+{{ $fullName := include "litmus-portal.fullname" . }}
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: {{ include "litmus-portal.fullname" . }}-frontend-network-policy
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app.kubernetes.io/component: {{ include "litmus-portal.name" . }}-frontend
+    {{- include "litmus-portal.labels" . | nindent 4 }}
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/component: {{ include "litmus-portal.name" . }}-frontend
+  ingress:
+    - {}
+  egress:
+    - to:
+        # frontend --> gql-server connection
+        - podSelector:
+            matchLabels:
+              app.kubernetes.io/component: {{ include "litmus-portal.name" . }}-server
+
+        # frontend --> auth-server connection
+        - podSelector:
+            matchLabels:
+              app.kubernetes.io/component: {{ include "litmus-portal.name" . }}-auth-server
+  policyTypes:
+    - Ingress
+    - Egress
+{{- end }}

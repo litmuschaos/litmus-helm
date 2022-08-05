@@ -1,0 +1,73 @@
+{{- if .Values.networkPolicy.enabled -}}
+{{ $fullName := include "litmus-portal.fullname" . }}
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: {{ include "litmus-portal.fullname" . }}-server-network-policy
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app.kubernetes.io/component: {{ include "litmus-portal.name" . }}-server
+    {{- include "litmus-portal.labels" . | nindent 4 }}
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/component: {{ include "litmus-portal.name" . }}-server
+  policyTypes:
+    - Ingress
+    - Egress
+  ingress:
+    # Normal Query/Mutations/Subscriptions ---
+    - from:
+        # frontend --> gql-server connection
+        - podSelector:
+            matchLabels:
+              app.kubernetes.io/component: {{ include "litmus-portal.name" . }}-frontend
+
+        # self-agent --> gql-server, websocket connections
+        - podSelector:
+            matchLabels:
+              app: subscriber
+
+      #External Agent rules, please commentout & update as per requirements
+      # - from:
+      #     - ipBlock:
+      #         cidr: 10.0.0.0/24
+
+      ports:
+        - protocol: TCP
+          port: {{ .Values.portal.server.service.graphqlServer.targetPort }}
+
+    # GRPC connections -------
+    - from:
+        # auth-server --> gql-server, grpc connection
+        - podSelector:
+            matchLabels:
+              app.kubernetes.io/component: {{ include "litmus-portal.name" . }}-auth-server
+
+      ports:
+        - protocol: TCP
+          port: {{ .Values.portal.server.service.graphqlRpcServer.targetPort }}
+
+  egress:
+    - to:
+        # gql-server --> auth-server, grpc connection
+        - podSelector:
+            matchLabels:
+              app.kubernetes.io/component: {{ include "litmus-portal.name" . }}-auth-server
+
+        # Server -> database connection
+        - podSelector:
+            matchLabels:
+              app.kubernetes.io/component: {{ include "litmus-portal.name" . }}-database
+
+        # Server --> Self-agent, workflow CRUD Ops
+        - podSelector:
+            matchLabels:
+              app: subscriber
+
+        # Server --> External Agent connection, please commentout & update as per requirements
+        # - ipBlock:
+        #     cidr: 10.0.0.0/24
+
+        # Needs access to kube-api-server as well for Ingress related operations
+{{- end }}

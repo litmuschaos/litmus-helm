@@ -1,0 +1,16 @@
+{{- if .Values.networkPolicy.enabled -}}
+{{ $fullName := include "litmus-portal.fullname" . }}
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: {{ include "litmus-portal.fullname" . }}-event-tracker-network-policy
+spec:
+  podSelector:
+    matchLabels:
+      app: event-tracker
+  policyTypes:
+    - Egress
+  # Needs access to kube-api-server for reconcilation on workflows & target-applications annoted for gitOps
+  egress:
+    - {}
+{{- end }}
