@@ -300,10 +300,12 @@ mongodb:
     enabled: true
     rootPassword: "superhardpassword"
     existingSecret: ""
-  architecture: replicaset
+  architecture: standalone
   useStatefulSet: true
-  replicaCount: 3
+  replicaCount: 1
   metrics:
     enabled: false
     prometheusRule:
       enabled: false
+  arbiter:
+    enabled: false
