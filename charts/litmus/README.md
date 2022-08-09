@@ -111,6 +111,11 @@ $ helm install litmus-portal litmuschaos/litmus
 | portal.frontend.virtualService.pathPrefixEnabled | bool | `false` |  |
 | portal.server.affinity | object | `{}` |  |
 | portal.server.authServer.automountServiceAccountToken | bool | `false` |  |
+| portal.server.authServer.autoscaling.enabled | bool | `false` |  |
+| portal.server.authServer.autoscaling.maxReplicas | int | `3` |  |
+| portal.server.authServer.autoscaling.minReplicas | int | `2` |  |
+| portal.server.authServer.autoscaling.targetCPUUtilizationPercentage | int | `50` |  |
+| portal.server.authServer.autoscaling.targetMemoryUtilizationPercentage | int | `50` |  |
 | portal.server.authServer.env.LITMUS_GQL_GRPC_PORT | string | `":8000"` |  |
 | portal.server.authServer.image.pullPolicy | string | `"Always"` |  |
 | portal.server.authServer.image.repository | string | `"litmusportal-auth-server"` |  |
@@ -119,6 +124,7 @@ $ helm install litmus-portal litmuschaos/litmus
 | portal.server.authServer.ports[0].name | string | `"auth-server"` |  |
 | portal.server.authServer.ports[1].containerPort | int | `3000` |  |
 | portal.server.authServer.ports[1].name | string | `"auth-rpc-server"` |  |
+| portal.server.authServer.replicas | int | `1` |  |
 | portal.server.authServer.resources.limits.cpu | string | `"550m"` |  |
 | portal.server.authServer.resources.limits.ephemeral-storage | string | `"1Gi"` |  |
 | portal.server.authServer.resources.limits.memory | string | `"712Mi"` |  |

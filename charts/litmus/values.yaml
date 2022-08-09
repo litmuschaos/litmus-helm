@@ -257,6 +257,13 @@ portal:
         successThreshold: 1
         timeoutSeconds: 1
     authServer:
+      replicas: 1
+      autoscaling:
+        enabled: false
+        minReplicas: 2
+        maxReplicas: 3
+        targetCPUUtilizationPercentage: 50
+        targetMemoryUtilizationPercentage: 50  
       securityContext:
         runAsUser: 2000
         allowPrivilegeEscalation: false
