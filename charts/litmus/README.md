@@ -69,6 +69,11 @@ $ helm install litmus-portal litmuschaos/litmus
 | openshift.route.name | string | `"litmus-portal"` |  |
 | portal.frontend.affinity | object | `{}` |  |
 | portal.frontend.automountServiceAccountToken | bool | `false` |  |
+| portal.frontend.autoscaling.enabled | bool | `false` |  |
+| portal.frontend.autoscaling.maxReplicas | int | `3` |  |
+| portal.frontend.autoscaling.minReplicas | int | `2` |  |
+| portal.frontend.autoscaling.targetCPUUtilizationPercentage | int | `50` |  |
+| portal.frontend.autoscaling.targetMemoryUtilizationPercentage | int | `50` |  |
 | portal.frontend.containerPort | int | `8080` |  |
 | portal.frontend.customLabels | object | `{}` |  |
 | portal.frontend.image.pullPolicy | string | `"Always"` |  |
@@ -126,6 +131,11 @@ $ helm install litmus-portal litmuschaos/litmus
 | portal.server.authServer.securityContext.runAsUser | int | `2000` |  |
 | portal.server.authServer.volumeMounts | list | `[]` |  |
 | portal.server.authServer.volumes | list | `[]` |  |
+| portal.server.autoscaling.enabled | bool | `false` |  |
+| portal.server.autoscaling.maxReplicas | int | `3` |  |
+| portal.server.autoscaling.minReplicas | int | `2` |  |
+| portal.server.autoscaling.targetCPUUtilizationPercentage | int | `50` |  |
+| portal.server.autoscaling.targetMemoryUtilizationPercentage | int | `50` |  |
 | portal.server.customLabels | object | `{}` |  |
 | portal.server.graphqlServer.genericEnv.AGENT_DEPLOYMENTS | string | `"[\"app=chaos-exporter\", \"name=chaos-operator\", \"app=event-tracker\", \"app=workflow-controller\"]"` |  |
 | portal.server.graphqlServer.genericEnv.CHAOS_CENTER_UI_ENDPOINT | string | `""` |  |

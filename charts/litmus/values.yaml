@@ -79,6 +79,12 @@ upgradeAgent:
 portal:
   frontend:
     replicas: 1
+    autoscaling:
+      enabled: false
+      minReplicas: 2
+      maxReplicas: 3
+      targetCPUUtilizationPercentage: 50
+      targetMemoryUtilizationPercentage: 50  
     updateStrategy: {}
     ## Strategy for deployment updates.
     ##
@@ -142,6 +148,12 @@ portal:
 
   server:
     replicas: 1
+    autoscaling:
+      enabled: false
+      minReplicas: 2
+      maxReplicas: 3
+      targetCPUUtilizationPercentage: 50
+      targetMemoryUtilizationPercentage: 50  
     updateStrategy: {}
     ## Strategy for deployment updates.
     ##
