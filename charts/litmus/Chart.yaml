@@ -2,7 +2,7 @@ apiVersion: v2
 appVersion: "2.11.0"
 description: A Helm chart to install ChaosCenter
 name: litmus
-version: 2.12.0
+version: 2.12.1
 kubeVersion: ">=1.16.0-0"
 home: https://litmuschaos.io
 sources:

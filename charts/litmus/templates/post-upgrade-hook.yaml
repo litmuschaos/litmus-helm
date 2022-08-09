@@ -58,6 +58,8 @@ spec:
                   name: {{ include "litmus-portal.secretname" . }}
                   key: DB_USER
               {{- end }}
+          resources:
+            {{- toYaml .Values.upgradeAgent.resources | nindent 12 }}
     {{- with .Values.upgradeAgent.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

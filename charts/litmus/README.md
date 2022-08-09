@@ -1,6 +1,6 @@
 # litmus
 
-![Version: 2.12.0](https://img.shields.io/badge/Version-2.12.0-informational?style=flat-square) ![AppVersion: 2.11.0](https://img.shields.io/badge/AppVersion-2.11.0-informational?style=flat-square)
+![Version: 2.12.1](https://img.shields.io/badge/Version-2.12.1-informational?style=flat-square) ![AppVersion: 2.11.0](https://img.shields.io/badge/AppVersion-2.11.0-informational?style=flat-square)
 
 A Helm chart to install ChaosCenter
 
@@ -210,6 +210,7 @@ $ helm install litmus-portal litmuschaos/litmus
 | upgradeAgent.controlPlane.image.tag | string | `"2.11.0"` |  |
 | upgradeAgent.controlPlane.restartPolicy | string | `"OnFailure"` |  |
 | upgradeAgent.nodeSelector | object | `{}` |  |
+| upgradeAgent.resources | object | `{}` |  |
 | upgradeAgent.tolerations | list | `[]` |  |
 
 ----------------------------------------------
