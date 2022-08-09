@@ -11,7 +11,7 @@ metadata:
     {{- end }}
 spec:
   {{- if not .Values.portal.server.authServer.autoscaling.enabled -}}
-  replicas: {{ .Values.portal.server.replicas }}
+  replicas: {{ .Values.portal.server.authServer.replicas }}
   {{- end }}
   {{- if .Values.portal.server.updateStrategy }}
   strategy:
