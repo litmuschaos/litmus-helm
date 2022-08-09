@@ -10,7 +10,7 @@ metadata:
       {{ toYaml .Values.portal.frontend.customLabels | nindent 4 }}
     {{- end }}
 spec:
-  {{- if not .Values.portal.frontend.autoscaling.enabled -}}
+  {{- if not .Values.portal.frontend.autoscaling.enabled }}
   replicas: {{ .Values.portal.frontend.replicas }}
   {{- end }}
   {{- if .Values.portal.frontend.updateStrategy }}
