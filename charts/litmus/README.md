@@ -35,6 +35,12 @@ $ helm repo add litmuschaos https://litmuschaos.github.io/litmus-helm/
 $ helm install litmus-portal litmuschaos/litmus
 ```
 
+## Upgrading Chart
+
+### From 2.12.X -> 2.13.X
+
+We separated service configuration from `portal.server.service` to `portal.server.graphqlServer.service` and `portal.server.authServer.service`. You need to move your values to the correspondent options and upgrade as usual.
+
 ## Values
 
 | Key | Type | Default | Description |
@@ -124,17 +130,14 @@ $ helm install litmus-portal litmuschaos/litmus
 | portal.server.authServer.securityContext.readOnlyRootFilesystem | bool | `true` |  |
 | portal.server.authServer.securityContext.runAsNonRoot | bool | `true` |  |
 | portal.server.authServer.securityContext.runAsUser | int | `2000` |  |
-<<<<<<< HEAD
-| portal.server.authServer.volumeMounts | list | `[]` |  |
-| portal.server.authServer.volumes | list | `[]` |  |
-=======
 | portal.server.authServer.service.annotations | object | `{}` |  |
 | portal.server.authServer.service.authRpcServer.port | int | `3030` |  |
 | portal.server.authServer.service.authRpcServer.targetPort | int | `3030` |  |
 | portal.server.authServer.service.authServer.port | int | `9003` |  |
 | portal.server.authServer.service.authServer.targetPort | int | `3000` |  |
 | portal.server.authServer.service.type | string | `"ClusterIP"` |  |
->>>>>>> 037c8cf (Make ClusterIP as a default & configurable for auth & graphql servers)
+| portal.server.authServer.volumeMounts | list | `[]` |  |
+| portal.server.authServer.volumes | list | `[]` |  |
 | portal.server.customLabels | object | `{}` |  |
 | portal.server.graphqlServer.genericEnv.AGENT_DEPLOYMENTS | string | `"[\"app=chaos-exporter\", \"name=chaos-operator\", \"app=event-tracker\", \"app=workflow-controller\"]"` |  |
 | portal.server.graphqlServer.genericEnv.CHAOS_CENTER_UI_ENDPOINT | string | `""` |  |
@@ -197,19 +200,6 @@ $ helm install litmus-portal litmuschaos/litmus
 | portal.server.graphqlServer.volumes[1].name | string | `"hub-storage"` |  |
 | portal.server.nodeSelector | object | `{}` |  |
 | portal.server.replicas | int | `1` |  |
-<<<<<<< HEAD
-| portal.server.service.annotations | object | `{}` |  |
-| portal.server.service.authRpcServer.port | int | `3030` |  |
-| portal.server.service.authRpcServer.targetPort | int | `3030` |  |
-| portal.server.service.authServer.port | int | `9003` |  |
-| portal.server.service.authServer.targetPort | int | `3000` |  |
-| portal.server.service.graphqlRpcServer.port | int | `8000` |  |
-| portal.server.service.graphqlRpcServer.targetPort | int | `8000` |  |
-| portal.server.service.graphqlServer.port | int | `9002` |  |
-| portal.server.service.graphqlServer.targetPort | int | `8080` |  |
-| portal.server.service.type | string | `"ClusterIP"` |  |
-=======
->>>>>>> 037c8cf (Make ClusterIP as a default & configurable for auth & graphql servers)
 | portal.server.serviceAccountName | string | `"litmus-server-account"` |  |
 | portal.server.tolerations | list | `[]` |  |
 | portal.server.updateStrategy | object | `{}` |  |
