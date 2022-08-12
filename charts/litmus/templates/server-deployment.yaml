@@ -106,10 +106,6 @@ spec:
               value: {{ .Values.portalScope }}
             - name: SERVER_SERVICE_NAME
               value: {{ include "litmus-portal.fullname" . }}-server-service
-            {{- if eq .Values.portalScope "namespace" }}
-            - name: PORTAL_ENDPOINT
-              value: "http://{{ include "litmus-portal.fullname" . }}-server-service:{{ .Values.portal.server.service.graphqlServer.port }}"
-            {{- end }}
             - name: INGRESS
               value: "{{ .Values.ingress.enabled }}"
             - name: INGRESS_NAME

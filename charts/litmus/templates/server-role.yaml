@@ -23,6 +23,9 @@ rules:
 - apiGroups: [argoproj.io]
   resources: [workflowtemplates, workflowtemplates/finalizers,workflowtasksets]
   verbs: [get, list, watch]
+- apiGroups: [argoproj.io]
+  resources: [workflowtaskresults]
+  verbs: [list, watch, deletecollection]
 - apiGroups: [""]
   resources: [serviceaccounts]
   verbs: [get, list]
@@ -77,6 +80,9 @@ rules:
 - apiGroups: [litmuschaos.io]
   resources: [chaosengines, chaosexperiments, chaosresults]
   verbs: [get, create, update, patch, delete, list, watch, deletecollection]
+- apiGroups: ["litmuschaos.io"]
+  resources: ["chaosengines/finalizers"]
+  verbs: ["update"]
 #these permissions are required to apply https://github.com/litmuschaos/litmus/blob/master/litmus-portal/graphql-server/manifests/namespace/3a_agents_rbac.yaml
 ---
 apiVersion: rbac.authorization.k8s.io/v1
