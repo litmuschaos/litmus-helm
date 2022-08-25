@@ -79,9 +79,26 @@ Check for existing secret
 {{- end -}}
 
 {{- define "litmus-portal.mongodbServiceName" -}}
+    {{- if .Values.mongodb.enabled }}
     {{- if not (eq .Values.mongodb.architecture "replicaset") }}
         {{- include "mongodb.fullname" .Subcharts.mongodb -}}
     {{ else }}
         {{- include "mongodb.service.nameOverride" .Subcharts.mongodb -}}
     {{- end -}}
+    {{- end -}}
+{{- end -}}
+
+{{/*
+Check to see if the user has provided a MongoDB connection URI
+*/}}
+{{- define "litmus-portal.mongodbConnectionURI" -}}
+{{- if .Values.adminConfig.DB_SERVER }}
+{{- if contains "://" .Values.adminConfig.DB_SERVER }}
+{{- .Values.adminConfig.DB_SERVER -}}
+{{- else }}
+{{- printf "mongodb://%s:%s" .Values.adminConfig.DB_SERVER (.Values.adminConfig.DB_PORT | toString) -}}
+{{- end }}
+{{- else }}
+{{- printf "mongodb://%s:%s" (include "litmus-portal.mongodbServiceName" .) (.Values.mongodb.service.ports.mongodb | toString) -}}
+{{- end }}
 {{- end -}}

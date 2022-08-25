@@ -1,6 +1,6 @@
 # litmus
 
-![Version: 2.14.0](https://img.shields.io/badge/Version-2.14.0-informational?style=flat-square) ![AppVersion: 2.13.0](https://img.shields.io/badge/AppVersion-2.13.0-informational?style=flat-square)
+![Version: 2.14.1](https://img.shields.io/badge/Version-2.14.1-informational?style=flat-square) ![AppVersion: 2.13.0](https://img.shields.io/badge/AppVersion-2.13.0-informational?style=flat-square)
 
 A Helm chart to install ChaosCenter
 
@@ -203,6 +203,7 @@ We separated service configuration from `portal.server.service` to `portal.serve
 | portal.server.serviceAccountName | string | `"litmus-server-account"` |  |
 | portal.server.tolerations | list | `[]` |  |
 | portal.server.updateStrategy | object | `{}` |  |
+| portal.server.waitForMongodb.enabled | bool | `true` |  |
 | portal.server.waitForMongodb.image.pullPolicy | string | `"Always"` |  |
 | portal.server.waitForMongodb.image.repository | string | `"curl"` |  |
 | portal.server.waitForMongodb.image.tag | string | `"2.12.0"` |  |
