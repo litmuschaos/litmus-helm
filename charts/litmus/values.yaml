@@ -156,6 +156,7 @@ portal:
     customLabels: {}
     # my.company.com/tier: "backend"
     waitForMongodb:
+      enabled: true
       image:
         repository: curl
         tag: 2.11.0

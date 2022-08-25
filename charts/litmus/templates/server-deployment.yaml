@@ -34,6 +34,7 @@ spec:
       {{- end }}
       volumes:
         {{- toYaml .Values.portal.server.graphqlServer.volumes | default "" | nindent 8 }}
+      {{- if and (.Values.portal.server.waitForMongodb.enabled) (.Values.mongodb.enabled) }}
       initContainers:
         - name: wait-for-mongodb
           image: {{ .Values.image.imageRegistryName }}/{{ .Values.portal.server.waitForMongodb.image.repository }}:{{ .Values.portal.server.waitForMongodb.image.tag }}
@@ -45,6 +46,7 @@ spec:
             ]
           resources:
             {{- toYaml .Values.portal.server.waitForMongodb.resources | nindent 12 }}
+      {{- end }}
       containers:
         - name: graphql-server
           image: {{ .Values.image.imageRegistryName }}/{{ .Values.portal.server.graphqlServer.image.repository }}:{{ .Values.portal.server.graphqlServer.image.tag }}

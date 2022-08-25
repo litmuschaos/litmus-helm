@@ -9,11 +9,7 @@ metadata:
 data:
   AGENT_SCOPE: "{{ .Values.portalScope }}"
   AGENT_NAMESPACE: "{{ .Release.Namespace }}"
-  {{- if .Values.adminConfig.DB_SERVER }}
-  DB_SERVER: "mongodb://{{ .Values.adminConfig.DB_SERVER }}:{{ .Values.adminConfig.DB_PORT }}"
-  {{- else }}
-  DB_SERVER: "mongodb://{{ include "litmus-portal.mongodbServiceName" . }}:{{ .Values.mongodb.service.ports.mongodb }}"
-  {{- end }}
+  DB_SERVER: {{ include "litmus-portal.mongodbConnectionURI" . }}
   VERSION: "{{ .Values.adminConfig.VERSION }}"
   SKIP_SSL_VERIFY: "{{ .Values.adminConfig.SKIP_SSL_VERIFY }}"
 ---

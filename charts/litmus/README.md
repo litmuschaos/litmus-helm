@@ -195,6 +195,7 @@ $ helm install litmus-portal litmuschaos/litmus
 | portal.server.serviceAccountName | string | `"litmus-server-account"` |  |
 | portal.server.tolerations | list | `[]` |  |
 | portal.server.updateStrategy | object | `{}` |  |
+| portal.server.waitForMongodb.enabled | bool | `true` |  |
 | portal.server.waitForMongodb.image.pullPolicy | string | `"Always"` |  |
 | portal.server.waitForMongodb.image.repository | string | `"curl"` |  |
 | portal.server.waitForMongodb.image.tag | string | `"2.11.0"` |  |
