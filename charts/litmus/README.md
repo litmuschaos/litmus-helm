@@ -1,6 +1,6 @@
 # litmus
 
-![Version: 2.13.0](https://img.shields.io/badge/Version-2.13.0-informational?style=flat-square) ![AppVersion: 2.12.0](https://img.shields.io/badge/AppVersion-2.12.0-informational?style=flat-square)
+![Version: 2.13.1](https://img.shields.io/badge/Version-2.13.1-informational?style=flat-square) ![AppVersion: 2.12.0](https://img.shields.io/badge/AppVersion-2.12.0-informational?style=flat-square)
 
 A Helm chart to install ChaosCenter
 
@@ -80,6 +80,7 @@ $ helm install litmus-portal litmuschaos/litmus
 | portal.frontend.livenessProbe.successThreshold | int | `1` |  |
 | portal.frontend.livenessProbe.timeoutSeconds | int | `5` |  |
 | portal.frontend.nodeSelector | object | `{}` |  |
+| portal.frontend.podAnnotations | object | `{}` |  |
 | portal.frontend.readinessProbe.initialDelaySeconds | int | `5` |  |
 | portal.frontend.readinessProbe.periodSeconds | int | `10` |  |
 | portal.frontend.readinessProbe.successThreshold | int | `1` |  |
@@ -181,6 +182,7 @@ $ helm install litmus-portal litmuschaos/litmus
 | portal.server.graphqlServer.volumes[1].emptyDir | object | `{}` |  |
 | portal.server.graphqlServer.volumes[1].name | string | `"hub-storage"` |  |
 | portal.server.nodeSelector | object | `{}` |  |
+| portal.server.podAnnotations | object | `{}` |  |
 | portal.server.replicas | int | `1` |  |
 | portal.server.service.annotations | object | `{}` |  |
 | portal.server.service.authRpcServer.port | int | `3030` |  |
