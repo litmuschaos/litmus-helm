@@ -101,6 +101,20 @@ spec:
     - name: NETWORK_INTERFACE
       value: "eth0"
 
+    # provide the body string to overwrite the response body. This will be used only if MODIFY_RESPONSE_BODY is set to true
+    - name: RESPONSE_BODY
+      value: ''
+
+    # provide the encoding type for the response body
+    # currently supported value are gzip, deflate
+    # if empty no encoding will be applied
+    - name: CONTENT_ENCODING
+      value: ''
+
+    # provide the content type for the response body
+    - name: CONTENT_TYPE
+      value: 'text/plain'
+
     - name: TOTAL_CHAOS_DURATION
       value: '60' # in seconds
 
