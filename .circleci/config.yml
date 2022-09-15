@@ -14,7 +14,7 @@ jobs:
             ct lint --config .circleci/ct.yaml --lint-conf .circleci/lintconf.yaml
   check-docs-update:
     docker:
-      - image: jnorwood/helm-docs:v1.9.1
+      - image: jnorwood/helm-docs:v1.11.0
     steps:
       - checkout
       - run:
@@ -25,7 +25,8 @@ jobs:
             if [ -z "$(git status --porcelain)" ]; then
               echo "Docs are up-to-date"
             else
-              echo "Docs are stale. Needs to be updated. Use helm-docs"
+              echo "Docs are stale. Run helm-docs . locally. The following files have been changed:"
+              git diff
               exit 1
             fi
   build:
@@ -55,7 +56,7 @@ jobs:
       - run:
           name: Install kind
           command: |
-            curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.11.1/kind-linux-amd64 --insecure
+            curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.14.0/kind-linux-amd64 --insecure
             chmod +x ./kind
             sudo mv kind /usr/local/bin/
       - run:
@@ -75,8 +76,23 @@ jobs:
       - run:
           name: Test chart installation
           command: |
-            helm upgrade --install "<< parameters.chart >>" ./charts/<< parameters.chart >> -n chaos --wait --create-namespace=true
-            if [ "<< parameters.chart >>" != "kubernetes-chaos" ] && [ "<< parameters.chart >>" != "kube-aws" ] && [ "<< parameters.chart >>" != "kube-azure" ] && [ "<< parameters.chart >>" != "kube-gcp" ]; then kubectl wait --for=condition=Ready pod --all -n chaos --timeout=300s; fi
+            helm upgrade --install "<< parameters.chart >>" ./charts/<< parameters.chart >> -n litmus --wait --create-namespace=true
+            if [ "<< parameters.chart >>" != "kubernetes-chaos" ] && [ "<< parameters.chart >>" != "kube-aws" ] && [ "<< parameters.chart >>" != "kube-azure" ] && [ "<< parameters.chart >>" != "kube-gcp" ]; then kubectl wait --for=condition=Ready pod --all -n litmus --timeout=300s; fi
+      - run:
+          name: Test litmus' frontend
+          command: |
+            LITMUS_NS=litmus
+            if [ "<< parameters.chart >>" == "litmus" ];
+            then
+              FRONTEND_POD=$(kubectl get pods -n $LITMUS_NS | grep frontend | awk '{print $1}')
+              FRONTEND_SERVICE=$(kubectl get svc -n $LITMUS_NS | grep frontend | awk '{print $1}')
+              # check if frontend is working
+              kubectl exec -ti $FRONTEND_POD -n $LITMUS_NS -- curl $FRONTEND_SERVICE:9091 -s --output /dev/null;
+              # check status for the last command
+              STATUS=$?
+              [ $STATUS -eq 0 ] && echo "frontend is working" || echo "frontend isn't working";
+            fi
+            exit $STATUS
 workflows:
   version: 2.1
   lint:
@@ -110,5 +126,5 @@ workflows:
               ignore: gh-pages
           matrix:
             parameters:
-              kubernetes_version: [1.16.15, 1.17.17, 1.18.19, 1.19.11, 1.20.7, 1.21.2, 1.22.4, 1.23.1]
+              kubernetes_version: [1.17.17, 1.18.20, 1.19.16, 1.20.15, 1.21.12, 1.22.9, 1.23.6, 1.24.0]
               chart: [litmus-core, litmus, kubernetes-chaos, kube-aws, kube-azure, kube-gcp]

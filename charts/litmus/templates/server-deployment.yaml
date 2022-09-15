@@ -41,7 +41,7 @@ spec:
           command: ["/bin/sh", "-c"]
           args:
             [
-              "while [[ $(curl -sw '%{http_code}' http://{{ include "litmus-portal.fullname" . }}-mongo:{{ .Values.adminConfig.DB_PORT }} -o /dev/null) -ne 200 ]]; do sleep 5; echo 'Waiting for the MongoDB to be ready...'; done; echo 'Connection with MongoDB established'",
+                "while [[ $(curl -sw '%{http_code}' http://{{ include "litmus-portal.mongodbServiceName" . }}:{{ .Values.mongodb.service.ports.mongodb }} -o /dev/null) -ne 200 ]]; do sleep 5; echo 'Waiting for the MongoDB to be ready...'; done; echo 'Connection with MongoDB established'",
             ]
           resources:
             {{- toYaml .Values.portal.server.waitForMongodb.resources | nindent 12 }}
@@ -69,22 +69,43 @@ spec:
             {{- toYaml .Values.portal.server.graphqlServer.readinessProbe | nindent 12 }}
           envFrom:
             - secretRef:
-                name: {{ include "litmus-portal.fullname" . }}-admin-secret
+                name: {{ include "litmus-portal.secretname" . }}
             - configMapRef:
                 name: {{ include "litmus-portal.fullname" . }}-admin-config
           env:
+            - name: DB_PASSWORD
+              {{- if .Values.mongodb.enabled }}      
+              {{- if not .Values.mongodb.auth.existingSecret }}
+              value: {{ .Values.mongodb.auth.rootPassword }}
+              {{- else }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.mongodb.auth.existingSecret }}
+                  key: mongodb-root-password
+              {{- end }}
+              {{- else }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "litmus-portal.secretname" . }}
+                  key: DB_PASSWORD
+              {{- end }}
+            - name: DB_USER
+              {{- if .Values.mongodb.enabled }}
+              value: {{ .Values.mongodb.auth.rootUser }}
+              {{- else }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "litmus-portal.secretname" . }}
+                  key: DB_USER
+              {{- end }}
             - name: LITMUS_PORTAL_NAMESPACE
               valueFrom:
                 fieldRef:
                   fieldPath: metadata.namespace
-            - name: PORTAL_SCOPE
+            - name: CHAOS_CENTER_SCOPE
               value: {{ .Values.portalScope }}
             - name: SERVER_SERVICE_NAME
               value: {{ include "litmus-portal.fullname" . }}-server-service
-            {{- if eq .Values.portalScope "namespace" }}
-            - name: PORTAL_ENDPOINT
-              value: "http://{{ include "litmus-portal.fullname" . }}-server-service:{{ .Values.portal.server.service.graphqlServer.port }}"
-            {{- end }}
             - name: INGRESS
               value: "{{ .Values.ingress.enabled }}"
             - name: INGRESS_NAME

@@ -54,3 +54,34 @@ Specify default selectors
 app.kubernetes.io/name: {{ include "litmus-portal.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end -}}
+
+
+{{/*
+Check for existing secret
+*/}}
+
+{{- define "litmus-portal.secretname" -}}
+    {{ if eq .Values.existingSecret "" }}
+        {{- include "litmus-portal.fullname" $}}-admin-secret
+    {{ else }}
+      {{- printf "%s" (tpl .Values.existingSecret $) -}}
+    {{- end -}}
+{{- end -}}
+
+{{/*
+ Return true if a secret object should be created
+*/}}
+{{- define "litmus-portal.createSecret" -}}
+    {{- if .Values.existingSecret -}}
+    {{ else }}
+        {{ true }}
+    {{- end -}}
+{{- end -}}
+
+{{- define "litmus-portal.mongodbServiceName" -}}
+    {{- if not (eq .Values.mongodb.architecture "replicaset") }}
+        {{- include "mongodb.fullname" .Subcharts.mongodb -}}
+    {{ else }}
+        {{- include "mongodb.service.nameOverride" .Subcharts.mongodb -}}
+    {{- end -}}
+{{- end -}}
