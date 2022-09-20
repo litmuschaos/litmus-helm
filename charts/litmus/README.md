@@ -1,6 +1,6 @@
 # litmus
 
-![Version: 2.13.0](https://img.shields.io/badge/Version-2.13.0-informational?style=flat-square) ![AppVersion: 2.12.0](https://img.shields.io/badge/AppVersion-2.12.0-informational?style=flat-square)
+![Version: 2.13.1](https://img.shields.io/badge/Version-2.13.1-informational?style=flat-square) ![AppVersion: 2.12.0](https://img.shields.io/badge/AppVersion-2.12.0-informational?style=flat-square)
 
 A Helm chart to install ChaosCenter
 
@@ -34,6 +34,12 @@ To install this chart with the release name `litmus-portal`:
 $ helm repo add litmuschaos https://litmuschaos.github.io/litmus-helm/
 $ helm install litmus-portal litmuschaos/litmus
 ```
+
+## Upgrading Chart
+
+### From 2.13.0 -> 2.13.1
+
+We separated service configuration from `portal.server.service` to `portal.server.graphqlServer.service` and `portal.server.authServer.service`. You need to move your values to the correspondent options and upgrade as usual.
 
 ## Values
 
@@ -124,6 +130,12 @@ $ helm install litmus-portal litmuschaos/litmus
 | portal.server.authServer.securityContext.readOnlyRootFilesystem | bool | `true` |  |
 | portal.server.authServer.securityContext.runAsNonRoot | bool | `true` |  |
 | portal.server.authServer.securityContext.runAsUser | int | `2000` |  |
+| portal.server.authServer.service.annotations | object | `{}` |  |
+| portal.server.authServer.service.authRpcServer.port | int | `3030` |  |
+| portal.server.authServer.service.authRpcServer.targetPort | int | `3030` |  |
+| portal.server.authServer.service.authServer.port | int | `9003` |  |
+| portal.server.authServer.service.authServer.targetPort | int | `3000` |  |
+| portal.server.authServer.service.type | string | `"ClusterIP"` |  |
 | portal.server.authServer.volumeMounts | list | `[]` |  |
 | portal.server.authServer.volumes | list | `[]` |  |
 | portal.server.customLabels | object | `{}` |  |
@@ -172,6 +184,12 @@ $ helm install litmus-portal litmuschaos/litmus
 | portal.server.graphqlServer.securityContext.readOnlyRootFilesystem | bool | `true` |  |
 | portal.server.graphqlServer.securityContext.runAsNonRoot | bool | `true` |  |
 | portal.server.graphqlServer.securityContext.runAsUser | int | `2000` |  |
+| portal.server.graphqlServer.service.annotations | object | `{}` |  |
+| portal.server.graphqlServer.service.graphqlRpcServer.port | int | `8000` |  |
+| portal.server.graphqlServer.service.graphqlRpcServer.targetPort | int | `8000` |  |
+| portal.server.graphqlServer.service.graphqlServer.port | int | `9002` |  |
+| portal.server.graphqlServer.service.graphqlServer.targetPort | int | `8080` |  |
+| portal.server.graphqlServer.service.type | string | `"ClusterIP"` |  |
 | portal.server.graphqlServer.volumeMounts[0].mountPath | string | `"/tmp/"` |  |
 | portal.server.graphqlServer.volumeMounts[0].name | string | `"gitops-storage"` |  |
 | portal.server.graphqlServer.volumeMounts[1].mountPath | string | `"/tmp/version"` |  |
@@ -182,16 +200,6 @@ $ helm install litmus-portal litmuschaos/litmus
 | portal.server.graphqlServer.volumes[1].name | string | `"hub-storage"` |  |
 | portal.server.nodeSelector | object | `{}` |  |
 | portal.server.replicas | int | `1` |  |
-| portal.server.service.annotations | object | `{}` |  |
-| portal.server.service.authRpcServer.port | int | `3030` |  |
-| portal.server.service.authRpcServer.targetPort | int | `3030` |  |
-| portal.server.service.authServer.port | int | `9003` |  |
-| portal.server.service.authServer.targetPort | int | `3000` |  |
-| portal.server.service.graphqlRpcServer.port | int | `8000` |  |
-| portal.server.service.graphqlRpcServer.targetPort | int | `8000` |  |
-| portal.server.service.graphqlServer.port | int | `9002` |  |
-| portal.server.service.graphqlServer.targetPort | int | `8080` |  |
-| portal.server.service.type | string | `"ClusterIP"` |  |
 | portal.server.serviceAccountName | string | `"litmus-server-account"` |  |
 | portal.server.tolerations | list | `[]` |  |
 | portal.server.updateStrategy | object | `{}` |  |
