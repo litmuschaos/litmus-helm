@@ -100,6 +100,7 @@ portal:
       pullPolicy: "Always"
     containerPort: 8080
     customLabels: {}
+    podAnnotations: {}
     # my.company.com/tier: "frontend"
 
     resources:
@@ -299,6 +300,7 @@ portal:
     nodeSelector: {}
     tolerations: []
     affinity: {}
+    podAnnotations: {}
 
 # OpenShift specific configuration
 openshift:

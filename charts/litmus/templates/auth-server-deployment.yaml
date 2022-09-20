@@ -26,6 +26,12 @@ spec:
         {{- if .Values.portal.server.customLabels }}
           {{ toYaml .Values.portal.server.customLabels | nindent 8 }}
         {{- end }}
+    {{- if .Values.portal.server.podAnnotations }}
+      annotations:
+      {{- range $key, $value := .Values.portal.server.podAnnotations }}
+        {{ $key }}: {{ $value | quote }}
+      {{- end }}
+    {{- end }}
     spec:
       automountServiceAccountToken: {{ .Values.portal.server.authServer.automountServiceAccountToken }}
       serviceAccountName: {{ .Values.portal.server.serviceAccountName }}

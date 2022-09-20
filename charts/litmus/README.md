@@ -86,6 +86,7 @@ We separated service configuration from `portal.server.service` to `portal.serve
 | portal.frontend.livenessProbe.successThreshold | int | `1` |  |
 | portal.frontend.livenessProbe.timeoutSeconds | int | `5` |  |
 | portal.frontend.nodeSelector | object | `{}` |  |
+| portal.frontend.podAnnotations | object | `{}` |  |
 | portal.frontend.readinessProbe.initialDelaySeconds | int | `5` |  |
 | portal.frontend.readinessProbe.periodSeconds | int | `10` |  |
 | portal.frontend.readinessProbe.successThreshold | int | `1` |  |
@@ -199,6 +200,7 @@ We separated service configuration from `portal.server.service` to `portal.serve
 | portal.server.graphqlServer.volumes[1].emptyDir | object | `{}` |  |
 | portal.server.graphqlServer.volumes[1].name | string | `"hub-storage"` |  |
 | portal.server.nodeSelector | object | `{}` |  |
+| portal.server.podAnnotations | object | `{}` |  |
 | portal.server.replicas | int | `1` |  |
 | portal.server.serviceAccountName | string | `"litmus-server-account"` |  |
 | portal.server.tolerations | list | `[]` |  |
