@@ -6,22 +6,18 @@ metadata:
   labels:
     app.kubernetes.io/component: {{ include "litmus-portal.name" . }}-auth-server
     {{- include "litmus-portal.labels" . | nindent 4 }}
-  {{- with .Values.portal.server.service.annotations }}
+  {{- with .Values.portal.server.authServer.service.annotations }}
   annotations:
     {{- toYaml . | nindent 4 }}
   {{- end }}
 spec:
-  {{- if .Values.ingress.enabled }}
-  type: ClusterIP
-  {{- else }}
-  type: {{ .Values.portal.server.service.type }}
-  {{- end }}
+  type: {{ .Values.portal.server.authServer.service.type }}
   ports:
     - name: auth-server
-      port: {{ .Values.portal.server.service.authServer.port }}
-      targetPort: {{ .Values.portal.server.service.authServer.targetPort }}
+      port: {{ .Values.portal.server.authServer.service.authServer.port }}
+      targetPort: {{ .Values.portal.server.authServer.service.authServer.targetPort }}
     - name: auth-rpc-server
-      port: {{ .Values.portal.server.service.authRpcServer.port }}
-      targetPort: {{ .Values.portal.server.service.authRpcServer.targetPort }}
+      port: {{ .Values.portal.server.authServer.service.authRpcServer.port }}
+      targetPort: {{ .Values.portal.server.authServer.service.authRpcServer.targetPort }}
   selector:
     app.kubernetes.io/component: {{ include "litmus-portal.name" . }}-auth-server
