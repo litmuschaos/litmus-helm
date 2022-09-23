@@ -21,6 +21,12 @@ $ helm repo add litmuschaos https://litmuschaos.github.io/litmus-helm/
 $ helm install litmus-portal litmuschaos/litmus
 ```
 
+## Upgrading Chart
+
+### From 2.13.0 -> 2.13.1 or 2.13.0 -> Above
+
+We separated service configuration from `portal.server.service` to `portal.server.graphqlServer.service` and `portal.server.authServer.service`. You need to move your values to the correspondent options and upgrade as usual.
+
 {{ template "chart.valuesSection" . }}
 
 {{ template "helm-docs.versionFooter" . }}
