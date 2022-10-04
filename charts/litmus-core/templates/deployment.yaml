@@ -28,6 +28,8 @@ spec:
           imagePullPolicy: {{ .Values.operator.image.pullPolicy }}
           command:
           - chaos-operator
+          args:
+          - -leader-elect=true
           env:
             - name: CHAOS_RUNNER_IMAGE
               value: "{{ .Values.runner.image.repository }}:{{ .Values.runner.image.tag }}"

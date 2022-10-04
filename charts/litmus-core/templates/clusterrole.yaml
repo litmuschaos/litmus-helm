@@ -35,6 +35,9 @@ rules:
 - apiGroups: ["litmuschaos.io"]
   resources: ["chaosengines/finalizers"]
   verbs: ["update"]
+- apiGroups: ["coordination.k8s.io"]
+  resources: ["leases"]
+  verbs: ["get","create","list","update","delete"]
 {{ end }} 
 {{ if eq .Values.operatorMode "admin" }}
 ---
@@ -73,4 +76,7 @@ rules:
 - apiGroups: ["litmuschaos.io"]
   resources: ["chaosengines/finalizers"]
   verbs: ["update"]
+- apiGroups: ["coordination.k8s.io"]
+  resources: ["leases"]
+  verbs: ["get","create","list","update","delete"]
 {{ end }}
