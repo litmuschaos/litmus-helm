@@ -6,22 +6,18 @@ metadata:
   labels:
     app.kubernetes.io/component: {{ include "litmus-portal.name" . }}-server
     {{- include "litmus-portal.labels" . | nindent 4 }}
-  {{- with .Values.portal.server.service.annotations }}
+  {{- with .Values.portal.server.graphqlServer.service.annotations }}
   annotations:
     {{- toYaml . | nindent 4 }}
   {{- end }}
 spec:
-  {{- if .Values.ingress.enabled }}
-  type: ClusterIP
-  {{- else }}
-  type: {{ .Values.portal.server.service.type }}
-  {{- end }}
+  type: {{ .Values.portal.server.graphqlServer.service.type }}
   ports:
     - name: graphql-server
-      port: {{ .Values.portal.server.service.graphqlServer.port }}
-      targetPort: {{ .Values.portal.server.service.graphqlServer.targetPort }}
+      port: {{ .Values.portal.server.graphqlServer.service.graphqlServer.port }}
+      targetPort: {{ .Values.portal.server.graphqlServer.service.graphqlServer.targetPort }}
     - name: graphql-rpc-server
-      port: {{ .Values.portal.server.service.graphqlRpcServer.port }}
-      targetPort: {{ .Values.portal.server.service.graphqlRpcServer.targetPort }}
+      port: {{ .Values.portal.server.graphqlServer.service.graphqlRpcServer.port }}
+      targetPort: {{ .Values.portal.server.graphqlServer.service.graphqlRpcServer.targetPort }}
   selector:
     app.kubernetes.io/component: {{ include "litmus-portal.name" . }}-server

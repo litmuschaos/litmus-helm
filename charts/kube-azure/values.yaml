@@ -11,7 +11,7 @@ customLabels: {}
 image:
   litmusGO:
     repository: litmuschaos/go-runner
-    tag: 2.12.0
+    tag: 2.13.0
     pullPolicy: Always
 
 experiments:
