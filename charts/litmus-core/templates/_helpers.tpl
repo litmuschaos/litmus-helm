@@ -41,8 +41,9 @@ app.kubernetes.io/part-of: {{ template "litmus.name" . }}
 app.kubernetes.io/version: "{{ .Chart.Version }}"
 helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version }} 
 litmuschaos.io/version: {{ .Chart.AppVersion }}
-{{- if .Values.customLabels }}
 {{ toYaml .Values.customLabels }}
+{{- if and (.Values.exporter.customLabels) (eq .deployment "exporter") }}
+{{ toYaml .Values.exporter.customLabels }}
 {{- end }}
 {{- end }}
 

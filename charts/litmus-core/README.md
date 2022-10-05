@@ -1,6 +1,6 @@
 # litmus-core
 
-![Version: 2.13.0](https://img.shields.io/badge/Version-2.13.0-informational?style=flat-square) ![AppVersion: 2.13.0](https://img.shields.io/badge/AppVersion-2.13.0-informational?style=flat-square)
+![Version: 2.13.1](https://img.shields.io/badge/Version-2.13.1-informational?style=flat-square) ![AppVersion: 2.13.1](https://img.shields.io/badge/AppVersion-2.13.1-informational?style=flat-square)
 
 A Helm chart to install litmus infra components on Kubernetes
 
@@ -24,6 +24,7 @@ A Helm chart to install litmus infra components on Kubernetes
 | affinity | object | `{}` |  |
 | customLabels | object | `{}` | Additional labels |
 | exporter.affinity | object | `{}` |  |
+| exporter.customLabels | object | `{}` |  |
 | exporter.enabled | bool | `false` |  |
 | exporter.image.pullPolicy | string | `"Always"` |  |
 | exporter.image.repository | string | `"litmuschaos/chaos-exporter"` |  |

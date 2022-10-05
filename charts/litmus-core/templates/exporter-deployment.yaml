@@ -6,7 +6,7 @@ metadata:
   namespace:  {{ .Release.Namespace }}
   labels:
     app: {{ template "litmus.name" . }}
-    {{- include "litmus.labels" . | indent 4 }}
+    {{- include "litmus.labels" (merge (dict "deployment" "exporter") . ) | indent 4 }}
 spec:
   replicas: 1
   selector:
@@ -17,7 +17,7 @@ spec:
     metadata:
       labels:
         app: {{ template "litmus.name" . }}
-        {{- include "litmus.labels" . | indent 8 }}
+        {{- include "litmus.labels" (merge (dict "deployment" "exporter") . ) | indent 8 }}
     spec:
       serviceAccountName: {{ include "litmus.fullname" . }}
       serviceAccount: {{ include "litmus.fullname" . }}
@@ -25,7 +25,7 @@ spec:
       priorityClassName: {{ .Values.priorityClassName | quote }}
       {{- end }}
       containers:
-        - name: exporter
+        - name: litmus-exporter
           image: "{{ .Values.exporter.image.repository }}:{{ .Values.exporter.image.tag }}"
           imagePullPolicy: {{ .Values.exporter.image.pullPolicy }}
           env: 

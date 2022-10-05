@@ -82,6 +82,8 @@ exporter:
     port: 8080
     annotations: {}
 
+  customLabels: {}
+
   resources: {}
 
   nodeSelector: {}
