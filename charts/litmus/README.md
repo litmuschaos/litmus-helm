@@ -1,6 +1,6 @@
 # litmus
 
-![Version: 2.14.0](https://img.shields.io/badge/Version-2.14.0-informational?style=flat-square) ![AppVersion: 2.13.0](https://img.shields.io/badge/AppVersion-2.13.0-informational?style=flat-square)
+![Version: 2.14.1](https://img.shields.io/badge/Version-2.14.1-informational?style=flat-square) ![AppVersion: 2.13.0](https://img.shields.io/badge/AppVersion-2.13.0-informational?style=flat-square)
 
 A Helm chart to install ChaosCenter
 
@@ -75,6 +75,11 @@ We separated service configuration from `portal.server.service` to `portal.serve
 | openshift.route.name | string | `"litmus-portal"` |  |
 | portal.frontend.affinity | object | `{}` |  |
 | portal.frontend.automountServiceAccountToken | bool | `false` |  |
+| portal.frontend.autoscaling.enabled | bool | `false` |  |
+| portal.frontend.autoscaling.maxReplicas | int | `3` |  |
+| portal.frontend.autoscaling.minReplicas | int | `2` |  |
+| portal.frontend.autoscaling.targetCPUUtilizationPercentage | int | `50` |  |
+| portal.frontend.autoscaling.targetMemoryUtilizationPercentage | int | `50` |  |
 | portal.frontend.containerPort | int | `8080` |  |
 | portal.frontend.customLabels | object | `{}` |  |
 | portal.frontend.image.pullPolicy | string | `"Always"` |  |
@@ -112,6 +117,11 @@ We separated service configuration from `portal.server.service` to `portal.serve
 | portal.frontend.virtualService.pathPrefixEnabled | bool | `false` |  |
 | portal.server.affinity | object | `{}` |  |
 | portal.server.authServer.automountServiceAccountToken | bool | `false` |  |
+| portal.server.authServer.autoscaling.enabled | bool | `false` |  |
+| portal.server.authServer.autoscaling.maxReplicas | int | `3` |  |
+| portal.server.authServer.autoscaling.minReplicas | int | `2` |  |
+| portal.server.authServer.autoscaling.targetCPUUtilizationPercentage | int | `50` |  |
+| portal.server.authServer.autoscaling.targetMemoryUtilizationPercentage | int | `50` |  |
 | portal.server.authServer.env.LITMUS_GQL_GRPC_PORT | string | `":8000"` |  |
 | portal.server.authServer.image.pullPolicy | string | `"Always"` |  |
 | portal.server.authServer.image.repository | string | `"litmusportal-auth-server"` |  |
@@ -120,6 +130,7 @@ We separated service configuration from `portal.server.service` to `portal.serve
 | portal.server.authServer.ports[0].name | string | `"auth-server"` |  |
 | portal.server.authServer.ports[1].containerPort | int | `3000` |  |
 | portal.server.authServer.ports[1].name | string | `"auth-rpc-server"` |  |
+| portal.server.authServer.replicas | int | `1` |  |
 | portal.server.authServer.resources.limits.cpu | string | `"550m"` |  |
 | portal.server.authServer.resources.limits.ephemeral-storage | string | `"1Gi"` |  |
 | portal.server.authServer.resources.limits.memory | string | `"712Mi"` |  |
