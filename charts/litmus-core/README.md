@@ -24,7 +24,7 @@ A Helm chart to install litmus infra components on Kubernetes
 | affinity | object | `{}` |  |
 | customLabels | object | `{}` | Additional labels |
 | exporter.affinity | object | `{}` |  |
-| exporter.annotations | object | `{}` | |
+| exporter.annotations | object | `{}` |  |
 | exporter.enabled | bool | `false` |  |
 | exporter.image.pullPolicy | string | `"Always"` |  |
 | exporter.image.repository | string | `"litmuschaos/chaos-exporter"` |  |

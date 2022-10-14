@@ -22,10 +22,10 @@ spec:
       labels:
         app: {{ template "litmus.name" . }}
         {{- include "litmus.labels" . | indent 8 }}
-        {{- if .Values.exporter.annotations }}
-        annotations:
+      {{- if .Values.exporter.annotations }}
+      annotations:
         {{- toYaml .Values.exporter.annotations | nindent 10 }}
-        {{- end }}
+      {{- end }}
     spec:
       serviceAccountName: {{ include "litmus.fullname" . }}
       serviceAccount: {{ include "litmus.fullname" . }}
