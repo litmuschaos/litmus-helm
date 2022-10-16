@@ -10,7 +10,9 @@ metadata:
       {{ toYaml .Values.portal.frontend.customLabels | nindent 4 }}
     {{- end }}
 spec:
+  {{- if not .Values.portal.frontend.autoscaling.enabled }}
   replicas: {{ .Values.portal.frontend.replicas }}
+  {{- end }}
   {{- if .Values.portal.frontend.updateStrategy }}
   strategy:
   {{ toYaml .Values.portal.frontend.updateStrategy | indent 2 }}
@@ -57,12 +59,6 @@ spec:
           ports:
             - containerPort: {{ .Values.portal.frontend.containerPort }}
               name: http
-          env:
-            - name: AGENT_SCOPE
-              valueFrom:
-                configMapKeyRef:
-                  name: {{ include "litmus-portal.fullname" . }}-admin-config
-                  key: AGENT_SCOPE
           volumeMounts:
             - name: nginx-config
               mountPath: /etc/nginx/conf.d/default.conf

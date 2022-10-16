@@ -16,7 +16,7 @@ existingSecret: ""
 
 adminConfig:
   JWTSecret: "litmus-portal@123"
-  VERSION: "2.12.0"
+  VERSION: "2.13.0"
   SKIP_SSL_VERIFY: "false"
   # -- leave empty if uses Mongo DB deployed by this chart
   DBPASSWORD: ""
@@ -56,7 +56,7 @@ upgradeAgent:
   controlPlane:
     image:
       repository: upgrade-agent-cp
-      tag: "2.12.0"
+      tag: "2.13.0"
       pullPolicy: "Always"
     restartPolicy: OnFailure
   nodeSelector: {}
@@ -79,6 +79,12 @@ upgradeAgent:
 portal:
   frontend:
     replicas: 1
+    autoscaling:
+      enabled: false
+      minReplicas: 2
+      maxReplicas: 3
+      targetCPUUtilizationPercentage: 50
+      targetMemoryUtilizationPercentage: 50  
     updateStrategy: {}
     ## Strategy for deployment updates.
     ##
@@ -96,13 +102,13 @@ portal:
       runAsNonRoot: true
     image:
       repository: litmusportal-frontend
-      tag: 2.12.0
+      tag: 2.13.0
       pullPolicy: "Always"
     containerPort: 8080
     customLabels: {}
     # my.company.com/tier: "frontend"
 
-    resources: 
+    resources:
     # We usually recommend not to specify default resources and to leave this as a conscious
     # choice for the user. This also increases chances charts run on environments with little
     # resources, such as Minikube. If you do want to specify resources, uncomment the following
@@ -141,7 +147,7 @@ portal:
     affinity: {}
 
   server:
-    replicas: 1
+    replicas: 1 
     updateStrategy: {}
     ## Strategy for deployment updates.
     ##
@@ -158,7 +164,7 @@ portal:
     waitForMongodb:
       image:
         repository: curl
-        tag: 2.11.0
+        tag: 2.12.0
         pullPolicy: "Always"
       resources:
         # We usually recommend not to specify default resources and to leave this as a conscious
@@ -191,21 +197,30 @@ portal:
         readOnlyRootFilesystem: true
       image:
         repository: litmusportal-server
-        tag: 2.12.0
+        tag: 2.13.0
         pullPolicy: "Always"
       ports:
         - name: gql-server
           containerPort: 8080
         - name: gql-rpc-server
           containerPort: 8000
+      service:
+        annotations: {}
+        type: ClusterIP
+        graphqlServer:
+          port: 9002
+          targetPort: 8080
+        graphqlRpcServer:
+          port: 8000
+          targetPort: 8000
       imageEnv:
-        SUBSCRIBER_IMAGE: "litmusportal-subscriber:2.12.0"
-        EVENT_TRACKER_IMAGE: "litmusportal-event-tracker:2.12.0"
+        SUBSCRIBER_IMAGE: "litmusportal-subscriber:2.13.0"
+        EVENT_TRACKER_IMAGE: "litmusportal-event-tracker:2.13.0"
         ARGO_WORKFLOW_CONTROLLER_IMAGE: "workflow-controller:v3.3.1"
         ARGO_WORKFLOW_EXECUTOR_IMAGE: "argoexec:v3.3.1"
-        LITMUS_CHAOS_OPERATOR_IMAGE: "chaos-operator:2.11.0"
-        LITMUS_CHAOS_RUNNER_IMAGE: "chaos-runner:2.11.0"
-        LITMUS_CHAOS_EXPORTER_IMAGE: "chaos-exporter:2.11.0"
+        LITMUS_CHAOS_OPERATOR_IMAGE: "chaos-operator:2.12.0"
+        LITMUS_CHAOS_RUNNER_IMAGE: "chaos-runner:2.12.0"
+        LITMUS_CHAOS_EXPORTER_IMAGE: "chaos-exporter:2.12.0"
       genericEnv:
         TLS_SECRET_NAME: ""
         TLS_CERT_64: ""
@@ -213,10 +228,10 @@ portal:
         SELF_AGENT_NODE_SELECTOR: ""
         SELF_AGENT_TOLERATIONS: ""
         CONTAINER_RUNTIME_EXECUTOR: "k8sapi"
-        HUB_BRANCH_NAME: "v2.11.x"
+        HUB_BRANCH_NAME: "v2.12.x"
         AGENT_DEPLOYMENTS: '["app=chaos-exporter", "name=chaos-operator", "app=event-tracker", "app=workflow-controller"]'
         LITMUS_AUTH_GRPC_PORT: ":3030"
-        WORKFLOW_HELPER_IMAGE_VERSION: "2.11.0"
+        WORKFLOW_HELPER_IMAGE_VERSION: "2.12.0"
         REMOTE_HUB_MAX_SIZE: "5000000"
         # Provide UI endpoint if using namespaced scope
         CHAOS_CENTER_UI_ENDPOINT: ""
@@ -245,6 +260,13 @@ portal:
         successThreshold: 1
         timeoutSeconds: 1
     authServer:
+      replicas: 1
+      autoscaling:
+        enabled: false
+        minReplicas: 2
+        maxReplicas: 3
+        targetCPUUtilizationPercentage: 50
+        targetMemoryUtilizationPercentage: 50  
       securityContext:
         runAsUser: 2000
         allowPrivilegeEscalation: false
@@ -253,13 +275,22 @@ portal:
       automountServiceAccountToken: false
       image:
         repository: litmusportal-auth-server
-        tag: 2.12.0
+        tag: 2.13.0
         pullPolicy: "Always"
       ports:
         - name: auth-server
           containerPort: 3030
         - name: auth-rpc-server
           containerPort: 3000
+      service:
+        annotations: {}
+        type: ClusterIP
+        authServer:
+          port: 9003
+          targetPort: 3000
+        authRpcServer:
+          port: 3030
+          targetPort: 3030
       env:
         LITMUS_GQL_GRPC_PORT: ":8000"
       resources:
@@ -277,22 +308,7 @@ portal:
           ephemeral-storage: "1Gi"
       volumeMounts: []
       volumes: []
-      
-    service:
-      annotations: {}
-      type: ClusterIP
-      graphqlServer:
-        port: 9002
-        targetPort: 8080
-      graphqlRpcServer:
-        port: 8000
-        targetPort: 8000
-      authServer:
-        port: 9003
-        targetPort: 3000
-      authRpcServer:
-        port: 3030
-        targetPort: 3030
+
     nodeSelector: {}
     tolerations: []
     affinity: {}

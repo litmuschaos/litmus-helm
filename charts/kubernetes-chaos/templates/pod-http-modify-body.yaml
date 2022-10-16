@@ -90,6 +90,16 @@ spec:
     # 0 means no request will be affected and 100 means all
     - name: TOXICITY
       value: "100"
+
+    # provide the encoding type for the response body
+    # currently supported value are gzip, deflate
+    # if empty no encoding will be applied
+    - name: CONTENT_ENCODING
+      value: ''
+
+    # provide the content type for the response body
+    - name: CONTENT_TYPE
+      value: 'text/plain'
     
     # network interface on which the proxy will listen
     - name: NETWORK_INTERFACE
