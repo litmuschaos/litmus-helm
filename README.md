@@ -75,7 +75,11 @@ Your release is named chaos and it's installed to namespace: litmus.
 Visit https://docs.litmuschaos.io to find more info.
 ```
 
-*With this, you are good to go!! Refer to the [documentation](https://docs.litmuschaos.io/)
+With this, you are good to go!! Use the service URLs for the `litmusportal-frontend` service (modify service type as needed)
+to access the Chaos Center. The default admin credentials are `admin/litmus`.  
+
+
+Refer to the [documentation](https://docs.litmuschaos.io/)
 
 #### Step-3: Uninstall the litmus chaoscenter
 
