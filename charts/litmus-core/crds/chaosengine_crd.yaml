@@ -39,9 +39,6 @@ spec:
                 #oneOf:
                 #  - pattern: '^delete$'
                 #  - pattern: '^retain$'
-              annotationCheck:
-                type: string
-                pattern: ^(true|false)$
               defaultHealthCheck:
                 type: string
                 pattern: ^(true|false)$ 
@@ -183,6 +180,8 @@ spec:
                                   resource:
                                     type: string
                                   namespace:
+                                    type: string
+                                  resourceNames:
                                     type: string
                                   fieldSelector:
                                     type: string
