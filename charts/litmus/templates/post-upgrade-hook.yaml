@@ -23,6 +23,10 @@ spec:
         helm.sh/chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
     spec:
       restartPolicy: {{ .Values.upgradeAgent.controlPlane.restartPolicy }}
+      {{- if .Values.image.imagePullSecrets }}
+      imagePullSecrets:
+        {{ toYaml .Values.image.imagePullSecrets | indent 8 }}
+      {{- end }}         
       containers:
         - name: upgrade-agent
           image: {{ .Values.image.imageRegistryName }}/{{ .Values.upgradeAgent.controlPlane.image.repository }}:{{ .Values.upgradeAgent.controlPlane.image.tag }}
