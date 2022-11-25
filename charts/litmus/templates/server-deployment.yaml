@@ -39,9 +39,13 @@ spec:
           image: {{ .Values.image.imageRegistryName }}/{{ .Values.portal.server.waitForMongodb.image.repository }}:{{ .Values.portal.server.waitForMongodb.image.tag }}
           imagePullPolicy: {{ .Values.portal.server.waitForMongodb.image.pullPolicy }}
           command: ["/bin/sh", "-c"]
-          args:
+          args:      
             [
+              {{- if .Values.mongodb.enabled }}
                 "while [[ $(curl -sw '%{http_code}' http://{{ include "litmus-portal.mongodbServiceName" . }}:{{ .Values.mongodb.service.ports.mongodb }} -o /dev/null) -ne 200 ]]; do sleep 5; echo 'Waiting for the MongoDB to be ready...'; done; echo 'Connection with MongoDB established'",
+              {{- else }}
+                "while [[ $(curl -sw '%{http_code}' http://{{ include "litmus-portal.mongodbServiceName" . }}:{{ .Values.adminConfig.DB_PORT }} -o /dev/null) -ne 200 ]]; do sleep 5; echo 'Waiting for the MongoDB to be ready...'; done; echo 'Connection with MongoDB established'",              
+              {{- end }}    
             ]
           resources:
             {{- toYaml .Values.portal.server.waitForMongodb.resources | nindent 12 }}
