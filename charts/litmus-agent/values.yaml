@@ -1,0 +1,60 @@
+global:
+  agentConfigName: agent-config
+  agentSecretName: agent-secret
+  podAnnotations: {}
+  # AGENT_MODE: cluster, namespace
+  AGENT_MODE: "cluster"
+# Default values for litmus-agent.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+AGENT_NAME: "helm-agent"
+AGENT_DESCRIPTION: "chaos agent deployed with helm"
+
+AGENT_NODE_SELECTOR: ""
+SA_EXISTS: true
+NS_EXISTS: true
+CLUSTER_TYPE: "external"
+
+# PLATFORM_NAME: AWS, GKE, Openshift, Rancher, Others
+PLATFORM_NAME: "Others"
+
+LITMUS_URL: "https://my-domain.com"
+LITMUS_BACKEND_URL: ""
+LITMUS_USERNAME: "admin"
+LITMUS_PASSWORD: "litmus"
+LITMUS_PROJECT_ID: ""
+
+image:
+  repository: REDACTED/chaos/litmus-agent
+  pullPolicy: Always
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: ""
+
+crds:
+  create: true
+
+resources:
+  limits:
+    cpu: 100m
+    memory: 128Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
+
+chaos-operator:
+  enabled: true
+
+chaos-exporter:
+  enabled: true
+
+event-tracker:
+  enabled: true
+
+subscriber:
+  enabled: true
+
+workflow-controller:
+  enabled: true
+  crds:
+    create: true
