@@ -26,7 +26,7 @@ spec:
       - name: {{ .Chart.Name }}
         imagePullPolicy: Always
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.Version }}"
-        args: ["/app", "--action", "create"]
+        args: ["./litmus-agent", "--action", "create"]
         envFrom:
           - secretRef:
               name: {{ include "litmus-agent.fullname" . }}-hook
@@ -63,7 +63,7 @@ spec:
             value: {{ .Release.Namespace }}
 
           - name: APP_VERSION
-            value: {{ .Chart.AppVersion | quote }}
+            value: "ci"
 
           - name: SERVICE_ACCOUNT_NAME
             value: {{ include "litmus-agent.serviceAccountName" . }}

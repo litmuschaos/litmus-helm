@@ -12,10 +12,10 @@ appSettings:
 replicaCount: 1
 
 image:
-  repository: litmuschaos/litmusportal-subscriber
+  repository: shubh214/subscriber
   pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
-  tag: ""
+  tag: "latest"
 
 imagePullSecrets: []
 nameOverride: ""
@@ -35,7 +35,7 @@ podAnnotations: {}
 podSecurityContext: {}
   # fsGroup: 2000
 
-resources: 
+resources:
   limits:
     cpu: 225m
     ephemeral-storage: 1Gi
@@ -44,6 +44,7 @@ resources:
     cpu: 125m
     ephemeral-storage: 500Mi
     memory: 300Mi
+
 securityContext:
   allowPrivilegeEscalation: false
   runAsUser: 2000

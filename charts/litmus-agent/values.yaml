@@ -26,10 +26,10 @@ LITMUS_PASSWORD: "litmus"
 LITMUS_PROJECT_ID: ""
 
 image:
-  repository: REDACTED/chaos/litmus-agent
+  repository: litmuschaos/litmus-helm-agent
   pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
-  tag: ""
+  tag: "latest"
 
 crds:
   create: true

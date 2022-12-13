@@ -16,7 +16,7 @@ image:
   repository: litmuschaos/workflow-controller
   pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
-  tag: ""
+  tag: "v3.3.1"
 
 imagePullSecrets: []
 nameOverride: ""
@@ -40,7 +40,7 @@ service:
   type: ClusterIP
   port: 9090
 
-resources: 
+resources:
   limits:
     cpu: 225m
     ephemeral-storage: 1Gi
@@ -49,6 +49,7 @@ resources:
     cpu: 125m
     ephemeral-storage: 500Mi
     memory: 300Mi
+
 securityContext:
   allowPrivilegeEscalation: false
   runAsUser: 2000

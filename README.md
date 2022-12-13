@@ -106,6 +106,55 @@ chaos-litmus-mongo-0                     1/1     Running            0          7
 chaos-litmus-server-96b5f656-zqjt4       2/2     Running            0          79s
 ```
 
+### Install External Agent
+
+**NOTE:** Litmus agent will be installed with ci tags of execution plane components, for that control plane components should be installed with ci tags. 
+Agent helm-charts will support versioned charts for control and execution plane components from next release onward.
+
+#### Install chaos-center ci version
+
+```bash
+helm install chaos litmuschaos/litmus --values https://raw.githubusercontent.com/litmuschaos/litmus-helm/master/charts/litmus/values-ci.yaml --namespace=litmus
+```
+
+#### Install the external agent in namespace mode
+
+Sample helm command to install the external agent in namespace mode
+
+```bash
+helm install litmus-agent litmuschaos/litmus-agent \
+--namespace litmus --create-namespace \
+--set "AGENT_NAME=helm-agent" \
+--set "AGENT_DESCRIPTION=My first agent deployed with helm !" \
+--set "LITMUS_URL=https://chaos-center.domain.com" \ # FOR REMOTE AGENT (INGRESS)
+--set "LITMUS_URL=http://litmusportal-frontend-service.litmus.svc.cluster.local:9091" \ # FOR SELF AGENT (SVC)
+--set "LITMUS_BACKEND_URL=http://litmusportal-server-service.litmus.svc.cluster.local:9002" \ # FOR SELF AGENT (SVC)
+--set "LITMUS_USERNAME=admin" \
+--set "LITMUS_PASSWORD=litmus" \
+--set "LITMUS_PROJECT_ID=69395cb3-0231-4262-8990-78056c8adb4c" \
+--set "global.AGENT_MODE=namespace" \
+--set "crds.create=false" \
+--set "workflow-controller.crds.create=false
+```
+
+#### Install the external agent in cluster mode
+
+Sample helm command to install the external agent in cluster mode
+
+```bash
+helm install litmus-agent litmuschaos/litmus-agent \
+--namespace litmus --create-namespace \
+--set "AGENT_NAME=helm-agent" \
+--set "AGENT_DESCRIPTION=My first agent deployed with helm !" \
+--set "LITMUS_URL=https://chaos-center.domain.com" \ # FOR REMOTE AGENT (INGRESS)
+--set "LITMUS_URL=http://litmusportal-frontend-service.litmus.svc.cluster.local:9091" \ # FOR SELF AGENT (SVC)
+--set "LITMUS_BACKEND_URL=http://litmusportal-server-service.litmus.svc.cluster.local:9002" \ # FOR SELF AGENT (SVC)
+--set "LITMUS_USERNAME=admin" \
+--set "LITMUS_PASSWORD=litmus" \
+--set "LITMUS_PROJECT_ID=69395cb3-0231-4262-8990-78056c8adb4c" \
+--set "global.AGENT_MODE=cluster"
+```
+
 ## Contributing
 
 We'd love to have you contribute! Please refer to our [contribution guidelines](CONTRIBUTING.md) for details.

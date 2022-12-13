@@ -47,6 +47,7 @@ Selector labels
 */}}
 {{- define "subscriber.selectorLabels" -}}
 litmuschaos.io/app: {{ .Chart.Name }}
+app: subscriber
 app.kubernetes.io/name: {{ include "subscriber.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
