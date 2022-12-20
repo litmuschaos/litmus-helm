@@ -24,7 +24,7 @@ Kubernetes: `>=1.16.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://charts.bitnami.com/bitnami | mongodb | 12.1.11 |
+| https://raw.githubusercontent.com/bitnami/charts/archive-full-index/bitnami | mongodb | 12.1.11 |
 
 ## Installing the Chart
 
