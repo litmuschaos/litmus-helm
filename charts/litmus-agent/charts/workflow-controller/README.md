@@ -1,8 +1,8 @@
 # workflow-controller
 
-![Version: 3.3.1](https://img.shields.io/badge/Version-3.3.1-informational?style=flat-square) ![AppVersion: v3.3.1](https://img.shields.io/badge/AppVersion-v3.3.1-informational?style=flat-square)
+![Version: 0.1.0](https://img.shields.io/badge/Version-0.1.0-informational?style=flat-square) ![AppVersion: v3.3.1](https://img.shields.io/badge/AppVersion-v3.3.1-informational?style=flat-square)
 
-A Helm chart to install litmus agent
+A Helm chart to install workflow-controller
 
 **Homepage:** <https://litmuschaos.io>
 
@@ -12,7 +12,7 @@ A Helm chart to install litmus agent
 | ---- | ------ | --- |
 | Vr00mm | <remi.ziolkowski-ext@pole-emploi.fr> |  |
 | ispeakc0de | <shubham.chaudhary@harness.io> |  |
-| Jonsy13 | <vedant@chaosnative.com> |  |
+| Jonsy13 | <vedant.shrotria@harness.io> |  |
 
 ## Source Code
 

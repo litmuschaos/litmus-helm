@@ -12,10 +12,10 @@ appSettings:
 replicaCount: 1
 
 image:
-  repository: shubh214/subscriber
+  repository: litmuschaos/litmusportal-subscriber
   pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "latest"
+  tag: ""
 
 imagePullSecrets: []
 nameOverride: ""

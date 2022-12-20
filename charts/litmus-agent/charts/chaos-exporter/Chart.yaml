@@ -1,6 +1,6 @@
 apiVersion: v2
 appVersion: "ci"
-description:  A Helm chart to install litmus agent
+description:  A Helm chart to install chaos-exporter
 name: chaos-exporter
 version: 0.1.0
 kubeVersion: ">=1.16.0-0"

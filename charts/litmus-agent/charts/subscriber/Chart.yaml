@@ -1,6 +1,6 @@
 apiVersion: v2
 appVersion: "ci"
-description:  A Helm chart to install litmus agent
+description:  A Helm chart to install subscriber
 name: subscriber
 version: 0.1.0
 kubeVersion: ">=1.16.0-0"

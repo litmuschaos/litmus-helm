@@ -1,8 +1,8 @@
 apiVersion: v2
 appVersion: "v3.3.1"
-description:  A Helm chart to install litmus agent
+description:  A Helm chart to install workflow-controller
 name: workflow-controller
-version: 3.3.1
+version: 0.1.0
 kubeVersion: ">=1.16.0-0"
 home: https://litmuschaos.io
 sources:

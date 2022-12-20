@@ -17,7 +17,7 @@ maintainers:
   - name: ispeakc0de
     email: shubham.chaudhary@harness.io
   - name: Jonsy13
-    email: vedant@chaosnative.com
+    email: vedant.shrotria@harness.io
 icon: https://raw.githubusercontent.com/litmuschaos/icons/master/litmus.png
 dependencies:
   - name: chaos-operator
@@ -33,5 +33,5 @@ dependencies:
     version: 0.1.0
     condition: subscriber.enabled
   - name: workflow-controller
-    version: 3.3.1
+    version: 0.1.0
     condition: workflow-controller.enabled
