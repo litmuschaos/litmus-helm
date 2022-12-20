@@ -1,6 +1,6 @@
 # litmus
 
-![Version: 2.15.2](https://img.shields.io/badge/Version-2.15.2-informational?style=flat-square) ![AppVersion: 2.14.0](https://img.shields.io/badge/AppVersion-2.14.0-informational?style=flat-square)
+![Version: 2.15.3](https://img.shields.io/badge/Version-2.15.3-informational?style=flat-square) ![AppVersion: 2.14.0](https://img.shields.io/badge/AppVersion-2.14.0-informational?style=flat-square)
 
 A Helm chart to install ChaosCenter
 
@@ -24,7 +24,7 @@ Kubernetes: `>=1.16.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://charts.bitnami.com/bitnami | mongodb | 12.1.11 |
+| https://raw.githubusercontent.com/bitnami/charts/archive-full-index/bitnami | mongodb | 12.1.11 |
 
 ## Installing the Chart
 

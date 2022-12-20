@@ -1,0 +1,31 @@
+# Default values.yml for using chart with "ci" images
+# This is added for using litmus-helm-agent with ChaosCenter Helm-Chart deployment.
+# Once litmus-helm-agent is compatible with versioned release of helm-chart, this file will be removed. 
+
+adminConfig:
+  VERSION: "ci"
+
+upgradeAgent:
+  controlPlane:
+    image:
+      tag: "ci"
+
+portal:
+  frontend:
+    image:
+      tag: ci
+
+  server:
+    graphqlServer:
+      image:
+        tag: ci
+      imageEnv:
+        SUBSCRIBER_IMAGE: "litmusportal-subscriber:ci"
+        EVENT_TRACKER_IMAGE: "litmusportal-event-tracker:ci"
+        LITMUS_CHAOS_OPERATOR_IMAGE: "chaos-operator:ci"
+        LITMUS_CHAOS_RUNNER_IMAGE: "chaos-runner:ci"
+        LITMUS_CHAOS_EXPORTER_IMAGE: "chaos-exporter:ci"
+
+    authServer:
+      image:
+        tag: ci
