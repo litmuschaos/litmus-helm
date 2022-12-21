@@ -25,6 +25,8 @@ portal:
         LITMUS_CHAOS_OPERATOR_IMAGE: "chaos-operator:ci"
         LITMUS_CHAOS_RUNNER_IMAGE: "chaos-runner:ci"
         LITMUS_CHAOS_EXPORTER_IMAGE: "chaos-exporter:ci"
+      genericEnv:
+        HUB_BRANCH_NAME: "master"
 
     authServer:
       image:
