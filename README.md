@@ -131,7 +131,7 @@ helm install litmus-agent litmuschaos/litmus-agent \
 --set "LITMUS_BACKEND_URL=http://litmusportal-server-service.litmus.svc.cluster.local:9002" \ # FOR SELF AGENT (SVC)
 --set "LITMUS_USERNAME=admin" \
 --set "LITMUS_PASSWORD=litmus" \
---set "LITMUS_PROJECT_ID=69395cb3-0231-4262-8990-78056c8adb4c" \
+--set "LITMUS_PROJECT_ID=<PROJECT_ID>" \
 --set "global.AGENT_MODE=namespace" \
 --set "crds.create=false" \
 --set "workflow-controller.crds.create=false
@@ -151,7 +151,7 @@ helm install litmus-agent litmuschaos/litmus-agent \
 --set "LITMUS_BACKEND_URL=http://litmusportal-server-service.litmus.svc.cluster.local:9002" \ # FOR SELF AGENT (SVC)
 --set "LITMUS_USERNAME=admin" \
 --set "LITMUS_PASSWORD=litmus" \
---set "LITMUS_PROJECT_ID=69395cb3-0231-4262-8990-78056c8adb4c" \
+--set "LITMUS_PROJECT_ID=<PROJECT_ID>" \
 --set "global.AGENT_MODE=cluster"
 ```
 

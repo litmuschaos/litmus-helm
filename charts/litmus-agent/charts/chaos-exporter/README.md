@@ -31,6 +31,8 @@ Kubernetes: `>=1.16.0-0`
 | autoscaling.maxReplicas | int | `100` |  |
 | autoscaling.minReplicas | int | `1` |  |
 | autoscaling.targetCPUUtilizationPercentage | int | `80` |  |
+| config.tsdb_scrape_interval | int | `10` |  |
+| enabled | bool | `true` |  |
 | fullnameOverride | string | `""` |  |
 | image.pullPolicy | string | `"Always"` |  |
 | image.repository | string | `"litmuschaos/chaos-exporter"` |  |

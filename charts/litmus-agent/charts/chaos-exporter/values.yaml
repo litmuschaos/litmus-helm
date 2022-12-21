@@ -14,6 +14,11 @@ imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
 
+enabled: true
+
+config:
+  tsdb_scrape_interval: 10
+
 serviceAccount:
   # Specifies whether a service account should be created
   create: true

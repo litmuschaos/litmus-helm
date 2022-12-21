@@ -39,7 +39,7 @@ spec:
               protocol: TCP
           env:
             - name: TSDB_SCRAPE_INTERVAL
-              value: '10'
+              value: "{{ .Values.config.tsdb_scrape_interval }}"
             {{- if eq .Values.global.AGENT_MODE  "namespace"}}
             - name: WATCH_NAMESPACE
               valueFrom:
