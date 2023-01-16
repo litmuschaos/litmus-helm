@@ -108,14 +108,7 @@ chaos-litmus-server-96b5f656-zqjt4       2/2     Running            0          7
 
 ### Install External Agent
 
-**NOTE:** Litmus agent will be installed with ci tags of execution plane components, for that control plane components should be installed with ci tags. 
-Agent helm-charts will support versioned charts for control and execution plane components from next release onward.
-
-#### Install chaos-center ci version
-
-```bash
-helm install chaos litmuschaos/litmus --values https://raw.githubusercontent.com/litmuschaos/litmus-helm/master/charts/litmus/values-ci.yaml --namespace=litmus
-```
+**NOTE:** Litmus agent helm chart support chaos-center 3.0.0-beta3 version onward
 
 #### Install the external agent in namespace mode
 
