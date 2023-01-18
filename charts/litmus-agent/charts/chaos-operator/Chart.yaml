@@ -1,5 +1,5 @@
 apiVersion: v2
-appVersion: "ci"
+appVersion: "3.0.0-beta3"
 description:  A Helm chart to install chaos-operator
 name: chaos-operator
 version: 0.1.0
