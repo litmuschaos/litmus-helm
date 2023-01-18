@@ -63,7 +63,7 @@ spec:
             value: {{ .Release.Namespace }}
 
           - name: APP_VERSION
-            value: "ci"
+            value: "3.0.0-beta3"
 
           - name: SERVICE_ACCOUNT_NAME
             value: {{ include "litmus-agent.serviceAccountName" . }}
