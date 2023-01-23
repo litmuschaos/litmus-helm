@@ -15,7 +15,7 @@ spec:
   {{- end }}
   {{- if .Values.portal.frontend.updateStrategy }}
   strategy:
-  {{ toYaml .Values.portal.frontend.updateStrategy | indent 2 }}
+  {{ toYaml .Values.portal.frontend.updateStrategy | indent 4 }}
   {{- end }}
   selector:
     matchLabels:
