@@ -1,6 +1,6 @@
 # litmus
 
-![Version: 2.15.7](https://img.shields.io/badge/Version-2.15.7-informational?style=flat-square) ![AppVersion: 2.14.0](https://img.shields.io/badge/AppVersion-2.14.0-informational?style=flat-square)
+![Version: 2.15.8](https://img.shields.io/badge/Version-2.15.8-informational?style=flat-square) ![AppVersion: 2.14.0](https://img.shields.io/badge/AppVersion-2.14.0-informational?style=flat-square)
 
 A Helm chart to install ChaosCenter
 
