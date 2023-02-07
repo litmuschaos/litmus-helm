@@ -1,6 +1,6 @@
 # litmus
 
-![Version: 2.15.8](https://img.shields.io/badge/Version-2.15.8-informational?style=flat-square) ![AppVersion: 2.14.0](https://img.shields.io/badge/AppVersion-2.14.0-informational?style=flat-square)
+![Version: 2.15.9](https://img.shields.io/badge/Version-2.15.9-informational?style=flat-square) ![AppVersion: 2.14.0](https://img.shields.io/badge/AppVersion-2.14.0-informational?style=flat-square)
 
 A Helm chart to install ChaosCenter
 
@@ -37,6 +37,10 @@ $ helm install litmus-portal litmuschaos/litmus
 
 ## Upgrading Chart
 
+### From 2.15.8 -> Above
+
+We moved ingress path config from `ingress.host.paths.backend` to `ingress.host.backend.path` and from `ingress.host.paths.frontend` to `ingress.host.backend.frontend`. You need to move your values to the correspondent options and upgrade as usual.
+
 ### From 2.13.0 -> 2.13.1 or 2.13.0 -> Above
 
 We separated service configuration from `portal.server.service` to `portal.server.graphqlServer.service` and `portal.server.authServer.service`. You need to move your values to the correspondent options and upgrade as usual.
@@ -60,9 +64,11 @@ We separated service configuration from `portal.server.service` to `portal.serve
 | image.imageRegistryName | string | `"litmuschaos"` |  |
 | ingress.annotations | object | `{}` |  |
 | ingress.enabled | bool | `false` |  |
+| ingress.host.backend.path | string | `"/backend/(.*)"` | You may need adapt the path depending your ingress-controller |
+| ingress.host.backend.pathType | string | `"ImplementationSpecific"` | Allow to set [pathType](https://kubernetes.io/docs/concepts/services-networking/ingress/#path-types) for the backend path |
+| ingress.host.frontend.path | string | `"/(.*)"` | You may need adapt the path depending your ingress-controller |
+| ingress.host.frontend.pathType | string | `"ImplementationSpecific"` | Allow to set [pathType](https://kubernetes.io/docs/concepts/services-networking/ingress/#path-types) for the frontend path |
 | ingress.host.name | string | `""` | This is ingress hostname (ex: my-domain.com) |
-| ingress.host.paths.backend | string | `"/backend/(.*)"` | You may need adapt the path depending your ingress-controller |
-| ingress.host.paths.frontend | string | `"/(.*)"` | You may need adapt the path depending your ingress-controller |
 | ingress.ingressClassName | string | `""` |  |
 | ingress.name | string | `"litmus-ingress"` |  |
 | ingress.tls | list | `[]` |  |
