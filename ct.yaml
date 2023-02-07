@@ -1,4 +1,3 @@
-remote: litmus
 chart-dirs:
   - charts
 chart-repos:
