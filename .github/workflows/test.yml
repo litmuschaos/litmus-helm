@@ -1,0 +1,104 @@
+name: test
+
+on:
+  push:
+    branches:
+      - master
+      - main
+      - '!gh-pages'
+    paths-ignore:
+      - README.md
+      - .gitignore
+  pull_request:
+    branches:
+      - master
+      - main
+      - '!gh-pages'
+
+concurrency:
+  group: ${{ github.ref }}-${{ github.workflow }}
+  cancel-in-progress: true
+
+jobs:
+  check-docs-update:
+    name: check-docs-update
+    runs-on: ubuntu-latest
+    container: jnorwood/helm-docs:v1.11.0
+    steps:
+      - name: Install git
+        run: |
+          apk add git
+      - name: Checkout Code
+        uses: actions/checkout@v3.3.0
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+
+      - name: Check for changes
+        run: |
+          # fix fatal: detected dubious ownership in repository at
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
+          helm-docs
+          if [ -z "$(git status --porcelain)" ]; then
+            echo "Docs are up-to-date"
+          else
+            echo "Docs are stale. Run helm-docs . locally. The following files have been changed:"
+            git diff
+            exit 1
+          fi
+
+  lint:
+    name: lint-charts
+    runs-on: ubuntu-latest
+    outputs:
+      IS_CHANGED: ${{ steps.list-changed.outputs.IS_CHANGED }}
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3.3.0
+        with:
+          fetch-depth: 0
+
+      - name: Set up Helm
+        uses: azure/setup-helm@v3
+        with:
+          version: v3.11.0
+
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+          check-latest: true
+
+      - name: Run chart-testing (prepare)
+        uses: helm/chart-testing-action@main
+      - name: Run chart-testing (list-changed)
+        id: list-changed
+        run: |
+          changed=$(ct list-changed --target-branch ${{ github.event.repository.default_branch }})
+          if [[ -n "$changed" ]]; then
+            echo "IS_CHANGED=true" >> $GITHUB_OUTPUT
+          fi
+      - name: Run chart-testing (lint)
+        run: ct lint --target-branch ${{ github.event.repository.default_branch }}
+
+  deploy:
+    name: deploy-charts
+    runs-on: ubuntu-latest
+    if: needs.lint.outputs.IS_CHANGED == 'true'
+    needs: lint
+    strategy:
+      matrix:
+        k8s_version: [1.17.17, 1.18.20, 1.19.16, 1.20.15, 1.21.14, 1.22.15, 1.23.12, 1.24.6, 1.25.2]
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3.3.0
+        with:
+          fetch-depth: 0
+      - name: Set up chart-testing
+        uses: helm/chart-testing-action@v2.3.1
+
+      - name: Create kind cluster
+        uses: helm/kind-action@v1.4.0
+        with:
+          node_image: kindest/node:v${{ matrix.k8s_version }}
+
+      - name: Run chart-testing (install)
+        run: ct install --config .github/ct.yaml
