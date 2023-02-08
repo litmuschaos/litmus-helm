@@ -10,7 +10,7 @@ Helm Charts for the Litmus ChaosCenter
 ### PreRequisites
 
 - Install [helm3](https://helm.sh/docs/intro/install/)
-- Kubernetes >= 1.17
+- Kubernetes >= 1.17 (tested on >= 1.19)
 
 ### Installation Steps
 
@@ -36,10 +36,10 @@ helm search repo litmuschaos
 
 Output:
 ```
-NAME                        	CHART VERSION	APP VERSION	DESCRIPTION                                       
+NAME                        	CHART VERSION	APP VERSION	DESCRIPTION
 litmuschaos/kube-aws        	1.15.0       	1.13.8     	A Helm chart to install litmus aws chaos experi...
 litmuschaos/kubernetes-chaos	2.13.0       	1.13.8     	A Helm chart to install litmus chaos experiment...
-litmuschaos/litmus          	2.1.0          	2.1.0      	A Helm chart to install ChaosCenter               
+litmuschaos/litmus          	2.1.0          	2.1.0      	A Helm chart to install ChaosCenter
 litmuschaos/litmus-1-x      	1.16.0       	1.13.8     	A Helm chart to install litmus infra components...
 ```
 
@@ -76,7 +76,7 @@ Visit https://docs.litmuschaos.io to find more info.
 ```
 
 With this, you are good to go!! Use the service URLs for the `litmusportal-frontend` service (modify service type as needed)
-to access the Chaos Center. The default admin credentials are `admin/litmus`.  
+to access the Chaos Center. The default admin credentials are `admin/litmus`.
 
 
 Refer to the [documentation](https://docs.litmuschaos.io/)
