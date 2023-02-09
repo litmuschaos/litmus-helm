@@ -77,7 +77,7 @@ jobs:
           echo "URL=$AccessURL" >> $GITHUB_ENV
 
       - name: Portal Authentication Tests
-        uses: cypress-io/github-action@v2
+        uses: cypress-io/github-action@v5
         continue-on-error: false
         with:
           spec: cypress/integration/Basic_Setup/**/*.spec.js
@@ -97,7 +97,7 @@ jobs:
           COMPONENTS: subscriber,chaos-exporter,chaos-operator-ce,event-tracker,workflow-controller
 
       - name: Post Authentication Tests
-        uses: cypress-io/github-action@v2
+        uses: cypress-io/github-action@v5
         continue-on-error: false
         with:
           spec: cypress/integration/Parallel_Tests/**/*.spec.js
