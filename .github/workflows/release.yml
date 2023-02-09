@@ -29,6 +29,10 @@ jobs:
         with:
           version: v3.11.0
 
+      - name: Add helm repos
+        run: |
+          helm repo add mongodb https://raw.githubusercontent.com/bitnami/charts/archive-full-index/bitnami
+
       - name: Run chart-releaser
         uses: helm/chart-releaser-action@v1.5.0
         env:
