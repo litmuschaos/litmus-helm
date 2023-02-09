@@ -41,15 +41,15 @@ spec:
   {{- end }}
       paths:
     {{- if semverCompare ">=1.19-0" .Capabilities.KubeVersion.GitVersion }}
-      - path: {{ .Values.ingress.host.paths.frontend }}
-        pathType: ImplementationSpecific
+      - path: {{ .Values.ingress.host.frontend.path }}
+        pathType: {{ .Values.ingress.host.frontend.pathType }}
         backend:
           service:
             name: {{ $fullName }}-frontend-service
             port:
               number: 9091
-      - path: {{ .Values.ingress.host.paths.backend }}
-        pathType: ImplementationSpecific
+      - path: {{ .Values.ingress.host.backend.path }}
+        pathType: {{ .Values.ingress.host.backend.pathType }}
         backend:
           service: 
             name: {{ $fullName }}-server-service

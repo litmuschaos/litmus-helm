@@ -23,6 +23,10 @@ $ helm install litmus-portal litmuschaos/litmus
 
 ## Upgrading Chart
 
+### From 2.15.8 -> Above
+
+We moved ingress path config from `ingress.host.paths.backend` to `ingress.host.backend.path` and from `ingress.host.paths.frontend` to `ingress.host.backend.frontend`. You need to move your values to the correspondent options and upgrade as usual.
+
 ### From 2.13.0 -> 2.13.1 or 2.13.0 -> Above
 
 We separated service configuration from `portal.server.service` to `portal.server.graphqlServer.service` and `portal.server.authServer.service`. You need to move your values to the correspondent options and upgrade as usual.

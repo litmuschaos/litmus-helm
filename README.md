@@ -10,7 +10,7 @@ Helm Charts for the Litmus ChaosCenter
 ### PreRequisites
 
 - Install [helm3](https://helm.sh/docs/intro/install/)
-- Kubernetes >= 1.17
+- Kubernetes >= 1.17 (tested on >= 1.19)
 
 ### Installation Steps
 
@@ -36,10 +36,10 @@ helm search repo litmuschaos
 
 Output:
 ```
-NAME                        	CHART VERSION	APP VERSION	DESCRIPTION                                       
+NAME                        	CHART VERSION	APP VERSION	DESCRIPTION
 litmuschaos/kube-aws        	1.15.0       	1.13.8     	A Helm chart to install litmus aws chaos experi...
 litmuschaos/kubernetes-chaos	2.13.0       	1.13.8     	A Helm chart to install litmus chaos experiment...
-litmuschaos/litmus          	2.1.0          	2.1.0      	A Helm chart to install ChaosCenter               
+litmuschaos/litmus          	2.1.0          	2.1.0      	A Helm chart to install ChaosCenter
 litmuschaos/litmus-1-x      	1.16.0       	1.13.8     	A Helm chart to install litmus infra components...
 ```
 
@@ -76,7 +76,7 @@ Visit https://docs.litmuschaos.io to find more info.
 ```
 
 With this, you are good to go!! Use the service URLs for the `litmusportal-frontend` service (modify service type as needed)
-to access the Chaos Center. The default admin credentials are `admin/litmus`.  
+to access the Chaos Center. The default admin credentials are `admin/litmus`.
 
 
 Refer to the [documentation](https://docs.litmuschaos.io/)
@@ -104,6 +104,48 @@ NAME                                     READY   STATUS             RESTARTS   A
 chaos-litmus-frontend-775585bf8f-jblf2   1/1     Running            0          79s
 chaos-litmus-mongo-0                     1/1     Running            0          79s
 chaos-litmus-server-96b5f656-zqjt4       2/2     Running            0          79s
+```
+
+### Install External Agent
+
+**NOTE:** Litmus agent helm chart support chaos-center 3.0.0-beta3 version onward
+
+#### Install the external agent in namespace mode
+
+Sample helm command to install the external agent in namespace mode
+
+```bash
+helm install litmus-agent litmuschaos/litmus-agent \
+--namespace litmus --create-namespace \
+--set "AGENT_NAME=helm-agent" \
+--set "AGENT_DESCRIPTION=My first agent deployed with helm !" \
+--set "LITMUS_URL=https://chaos-center.domain.com" \ # FOR REMOTE AGENT (INGRESS)
+--set "LITMUS_URL=http://litmusportal-frontend-service.litmus.svc.cluster.local:9091" \ # FOR SELF AGENT (SVC)
+--set "LITMUS_BACKEND_URL=http://litmusportal-server-service.litmus.svc.cluster.local:9002" \ # FOR SELF AGENT (SVC)
+--set "LITMUS_USERNAME=admin" \
+--set "LITMUS_PASSWORD=litmus" \
+--set "LITMUS_PROJECT_ID=<PROJECT_ID>" \
+--set "global.AGENT_MODE=namespace" \
+--set "crds.create=false" \
+--set "workflow-controller.crds.create=false
+```
+
+#### Install the external agent in cluster mode
+
+Sample helm command to install the external agent in cluster mode
+
+```bash
+helm install litmus-agent litmuschaos/litmus-agent \
+--namespace litmus --create-namespace \
+--set "AGENT_NAME=helm-agent" \
+--set "AGENT_DESCRIPTION=My first agent deployed with helm !" \
+--set "LITMUS_URL=https://chaos-center.domain.com" \ # FOR REMOTE AGENT (INGRESS)
+--set "LITMUS_URL=http://litmusportal-frontend-service.litmus.svc.cluster.local:9091" \ # FOR SELF AGENT (SVC)
+--set "LITMUS_BACKEND_URL=http://litmusportal-server-service.litmus.svc.cluster.local:9002" \ # FOR SELF AGENT (SVC)
+--set "LITMUS_USERNAME=admin" \
+--set "LITMUS_PASSWORD=litmus" \
+--set "LITMUS_PROJECT_ID=<PROJECT_ID>" \
+--set "global.AGENT_MODE=cluster"
 ```
 
 ## Contributing
