@@ -35,7 +35,7 @@ jobs:
         env:
           response: ${{ steps.get_PR_commits.outputs.data }}
 
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           ref: ${{steps.getcommit.outputs.sha}}
 
