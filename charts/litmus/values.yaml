@@ -164,10 +164,7 @@ portal:
     customLabels: {}
     # my.company.com/tier: "backend"
     waitForMongodb:
-      securityContext:
-        runAsUser: 2000
-        allowPrivilegeEscalation: false
-        runAsNonRoot: true
+      securityContext: {}
       image:
         repository: curl
         tag: 2.14.0
