@@ -1,0 +1,37 @@
+apiVersion: v2
+appVersion: "0.1.2"
+description: A Helm chart to install litmus agent
+name: litmus-agent
+version: 0.1.2
+kubeVersion: ">=1.16.0-0"
+home: https://litmuschaos.io
+sources:
+  - https://github.com/litmuschaos/litmus
+keywords:
+  - chaos-engineering
+  - resiliency
+  - kubernetes
+maintainers:
+  - name: Vr00mm
+    email: remi.ziolkowski-ext@pole-emploi.fr
+  - name: ispeakc0de
+    email: shubham.chaudhary@harness.io
+  - name: Jonsy13
+    email: vedant.shrotria@harness.io
+icon: https://raw.githubusercontent.com/litmuschaos/icons/master/litmus.png
+dependencies:
+  - name: chaos-operator
+    version: 0.1.0
+    condition: chaos-operator.enabled
+  - name: chaos-exporter
+    version: 0.1.0
+    condition: chaos-exporter.enabled
+  - name: event-tracker
+    version: 0.1.0
+    condition: event-tracker.enabled
+  - name: subscriber
+    version: 0.1.0
+    condition: subscriber.enabled
+  - name: workflow-controller
+    version: 0.1.0
+    condition: workflow-controller.enabled

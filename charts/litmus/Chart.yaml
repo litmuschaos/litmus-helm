@@ -2,7 +2,7 @@ apiVersion: v2
 appVersion: "2.14.0"
 description: A Helm chart to install ChaosCenter
 name: litmus
-version: 2.15.3
+version: 2.15.11
 kubeVersion: ">=1.16.0-0"
 home: https://litmuschaos.io
 sources:
@@ -21,7 +21,7 @@ maintainers:
 icon: https://raw.githubusercontent.com/litmuschaos/icons/master/litmus.png
 
 dependencies:
-- name: mongodb
-  version: "12.1.11"
-  repository: "https://charts.bitnami.com/bitnami"
-  condition: mongodb.enabled
+  - name: mongodb
+    version: "12.1.11"
+    repository: "https://raw.githubusercontent.com/bitnami/charts/archive-full-index/bitnami"
+    condition: mongodb.enabled

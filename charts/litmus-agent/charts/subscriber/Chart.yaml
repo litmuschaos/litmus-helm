@@ -1,0 +1,20 @@
+apiVersion: v2
+appVersion: "3.0.0-beta3"
+description:  A Helm chart to install subscriber
+name: subscriber
+version: 0.1.0
+kubeVersion: ">=1.16.0-0"
+home: https://litmuschaos.io
+sources:
+  - https://github.com/litmuschaos/litmus
+keywords:
+  - chaos-engineering
+  - resiliency
+  - kubernetes
+maintainers:
+  - name: Vr00mm
+    email: remi.ziolkowski-ext@pole-emploi.fr
+  - name: ispeakc0de
+    email: shubham.chaudhary@harness.io
+  - name: Jonsy13
+    email: vedant.shrotria@harness.io
