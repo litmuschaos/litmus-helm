@@ -32,6 +32,8 @@ spec:
       imagePullSecrets:
         {{ toYaml .Values.image.imagePullSecrets | indent 8 }}
       {{- end }}
+      volumes:
+        {{- toYaml .Values.portal.server.graphqlServer.volumes | default "" | nindent 8 }}
       initContainers:
         - name: wait-for-mongodb
           image: {{ .Values.image.imageRegistryName }}/{{ .Values.portal.server.waitForMongodb.image.repository }}:{{ .Values.portal.server.waitForMongodb.image.tag }}
@@ -39,7 +41,7 @@ spec:
           command: ["/bin/sh", "-c"]
           args:
             [
-              "while [[ $(curl -sw '%{http_code}' http://{{ include "litmus-portal.fullname" . }}-mongo:{{ .Values.adminConfig.DB_PORT }} -o /dev/null) -ne 200 ]]; do sleep 5; echo 'Waiting for the MongoDB to be ready...'; done; echo 'Connection with MongoDB established'",
+                "while [[ $(curl -sw '%{http_code}' http://{{ include "litmus-portal.mongodbServiceName" . }}:{{ .Values.mongodb.service.ports.mongodb }} -o /dev/null) -ne 200 ]]; do sleep 5; echo 'Waiting for the MongoDB to be ready...'; done; echo 'Connection with MongoDB established'",
             ]
           resources:
             {{- toYaml .Values.portal.server.waitForMongodb.resources | nindent 12 }}
@@ -48,6 +50,8 @@ spec:
       containers:
         - name: graphql-server
           image: {{ .Values.image.imageRegistryName }}/{{ .Values.portal.server.graphqlServer.image.repository }}:{{ .Values.portal.server.graphqlServer.image.tag }}
+          volumeMounts:
+            {{- toYaml .Values.portal.server.graphqlServer.volumeMounts | default "" | nindent 12 }}
           imagePullPolicy: {{ .Values.portal.server.graphqlServer.image.pullPolicy }}
           ports:
             {{- toYaml .Values.portal.server.graphqlServer.ports | nindent 12 }}
@@ -67,28 +71,49 @@ spec:
             {{- toYaml .Values.portal.server.graphqlServer.readinessProbe | nindent 12 }}
           envFrom:
             - secretRef:
-                name: {{ include "litmus-portal.fullname" . }}-admin-secret
+                name: {{ include "litmus-portal.secretname" . }}
             - configMapRef:
                 name: {{ include "litmus-portal.fullname" . }}-admin-config
           env:
+            - name: DB_PASSWORD
+              {{- if .Values.mongodb.enabled }}      
+              {{- if not .Values.mongodb.auth.existingSecret }}
+              value: {{ .Values.mongodb.auth.rootPassword }}
+              {{- else }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.mongodb.auth.existingSecret }}
+                  key: mongodb-root-password
+              {{- end }}
+              {{- else }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "litmus-portal.secretname" . }}
+                  key: DB_PASSWORD
+              {{- end }}
+            - name: DB_USER
+              {{- if .Values.mongodb.enabled }}
+              value: {{ .Values.mongodb.auth.rootUser }}
+              {{- else }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "litmus-portal.secretname" . }}
+                  key: DB_USER
+              {{- end }}
             - name: LITMUS_PORTAL_NAMESPACE
               valueFrom:
                 fieldRef:
                   fieldPath: metadata.namespace
-            - name: PORTAL_SCOPE
+            - name: CHAOS_CENTER_SCOPE
               value: {{ .Values.portalScope }}
             - name: SERVER_SERVICE_NAME
               value: {{ include "litmus-portal.fullname" . }}-server-service
-            {{- if eq .Values.portalScope "namespace" }}
-            - name: PORTAL_ENDPOINT
-              value: "http://{{ include "litmus-portal.fullname" . }}-server-service:{{ .Values.portal.server.service.graphqlServer.port }}"
-            {{- end }}
             - name: INGRESS
               value: "{{ .Values.ingress.enabled }}"
             - name: INGRESS_NAME
               value: "{{ .Values.ingress.name }}"
-            - name: LITMUS_AUTH_GRPC_ENDPOINT
-              value: 127.0.0.1
+            - name: "LITMUS_AUTH_GRPC_ENDPOINT"
+              value: "{{ include "litmus-portal.fullname" . }}-auth-server-service"
             - name: NODE_NAME
               valueFrom:
                 fieldRef:
@@ -99,27 +124,6 @@ spec:
               value: {{ $imageRegistry }}/{{ $val }}
             {{- end }}
             {{- range $key, $val := .Values.portal.server.graphqlServer.genericEnv }}
-            - name: {{ $key }}
-              value: {{ $val | quote }}
-            {{- end }}
-        - name: auth-server
-          image: {{ .Values.image.imageRegistryName }}/{{ .Values.portal.server.authServer.image.repository }}:{{ .Values.portal.server.authServer.image.tag }}
-          imagePullPolicy: {{ .Values.portal.server.authServer.image.pullPolicy }}
-          ports:
-            {{- toYaml .Values.portal.server.authServer.ports | nindent 12 }}
-          resources:
-            {{- toYaml .Values.portal.server.authServer.resources | nindent 12 }}
-          securityContext:
-            {{- toYaml .Values.portal.server.authServer.securityContext | nindent 12 }}
-          envFrom:
-            - secretRef:
-                name: {{ include "litmus-portal.fullname" . }}-admin-secret
-            - configMapRef:
-                name: {{ include "litmus-portal.fullname" . }}-admin-config
-          env:
-            - name: LITMUS_SVC_ENDPOINT
-              value: 127.0.0.1
-            {{- range $key, $val := .Values.portal.server.authServer.env }}
             - name: {{ $key }}
               value: {{ $val | quote }}
             {{- end }}

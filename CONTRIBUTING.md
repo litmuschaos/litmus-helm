@@ -49,7 +49,6 @@ Chart releases must be immutable. Any change to a chart warrants a chart version
 
 The chart `version` should follow [semver](https://semver.org/).
 
-Charts should start at `1.0.0`. Any breaking (backwards incompatible) changes to a chart should:
+The major and minor versions should follow the main litmus version. For every change except of litmus' upgrade, you need to bump **only patch** version.
 
-1. Bump the MAJOR version
-2. In the README, under a section called "Upgrading", describe the manual steps necessary to upgrade to the new (specified) MAJOR version
+If your change is not backward compatible and requires extra-steps, be sure to describe it in the **Upgrading section** in the correspondent `README.md.gotmpl`, see [for an example](charts/litmus/README.md.gotmpl).

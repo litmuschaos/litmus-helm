@@ -10,6 +10,7 @@ apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
   name: {{ .Values.ingress.name }}
+  namespace: {{ .Release.Namespace }}
   labels:
     app.kubernetes.io/component: {{ include "litmus-portal.name" . }}-frontend
     {{- include "litmus-portal.labels" . | nindent 4 }}
@@ -18,6 +19,9 @@ metadata:
     {{- toYaml . | nindent 4 }}
   {{- end }}
 spec:
+  {{- if .Values.ingress.ingressClassName }}
+  ingressClassName: {{ .Values.ingress.ingressClassName }}
+  {{- end }}
   {{- if .Values.ingress.tls }}
   tls:
     {{- range .Values.ingress.tls }}
@@ -37,15 +41,15 @@ spec:
   {{- end }}
       paths:
     {{- if semverCompare ">=1.19-0" .Capabilities.KubeVersion.GitVersion }}
-      - path: {{ .Values.ingress.host.paths.frontend }}
-        pathType: ImplementationSpecific
+      - path: {{ .Values.ingress.host.frontend.path }}
+        pathType: {{ .Values.ingress.host.frontend.pathType }}
         backend:
           service:
             name: {{ $fullName }}-frontend-service
             port:
               number: 9091
-      - path: {{ .Values.ingress.host.paths.backend }}
-        pathType: ImplementationSpecific
+      - path: {{ .Values.ingress.host.backend.path }}
+        pathType: {{ .Values.ingress.host.backend.pathType }}
         backend:
           service: 
             name: {{ $fullName }}-server-service

@@ -7,19 +7,21 @@ portalScope: cluster
 nameOverride: ""
 
 # -- Additional labels
-customLabels:
-  {}
-  # my.company.com/concourse-cd: 2
+customLabels: {}
+# my.company.com/concourse-cd: 2
+
+# -- Use existing secret (e.g., External Secrets)
+existingSecret: ""
 
 adminConfig:
-  DBUSER: "admin"
-  DBPASSWORD: "1234"
   JWTSecret: "litmus-portal@123"
-  VERSION: "2.6.0"
+  VERSION: "2.14.0"
   SKIP_SSL_VERIFY: "false"
   # -- leave empty if uses Mongo DB deployed by this chart
+  DBPASSWORD: ""
+  DBUSER: ""
   DB_SERVER: ""
-  DB_PORT: "27017"
+  DB_PORT: ""
   ADMIN_USERNAME: "admin"
   ADMIN_PASSWORD: "litmus"
 
@@ -33,18 +35,23 @@ ingress:
   name: litmus-ingress
   annotations:
     {}
-    # kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
     # nginx.ingress.kubernetes.io/rewrite-target: /$1
 
+  ingressClassName: ""
   host:
     # -- This is ingress hostname (ex: my-domain.com)
     name: ""
-    paths:
+    frontend:
       # -- You may need adapt the path depending your ingress-controller
-      frontend: /(.*)
+      path: /(.*)
+      # -- Allow to set [pathType](https://kubernetes.io/docs/concepts/services-networking/ingress/#path-types) for the frontend path
+      pathType: ImplementationSpecific
+    backend:
       # -- You may need adapt the path depending your ingress-controller
-      backend: /backend/(.*)
+      path: /backend/(.*)
+      # -- Allow to set [pathType](https://kubernetes.io/docs/concepts/services-networking/ingress/#path-types) for the backend path
+      pathType: ImplementationSpecific
   tls: []
   #  - secretName: chart-example-tls
   #    hosts: []
@@ -53,16 +60,33 @@ upgradeAgent:
   controlPlane:
     image:
       repository: upgrade-agent-cp
-      tag: "2.6.0"
+      tag: "2.14.0"
       pullPolicy: "Always"
     restartPolicy: OnFailure
   nodeSelector: {}
   tolerations: []
   affinity: {}
+  resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+#   limits:
+#     cpu: 100m
+#     memory: 128Mi
+#   requests:
+#     cpu: 100m
+#     memory: 128Mi
 
 portal:
   frontend:
     replicas: 1
+    autoscaling:
+      enabled: false
+      minReplicas: 2
+      maxReplicas: 3
+      targetCPUUtilizationPercentage: 50
+      targetMemoryUtilizationPercentage: 50
     updateStrategy: {}
     ## Strategy for deployment updates.
     ##
@@ -80,7 +104,7 @@ portal:
       runAsNonRoot: true
     image:
       repository: litmusportal-frontend
-      tag: 2.6.0
+      tag: 2.14.0
       pullPolicy: "Always"
     containerPort: 8080
     customLabels: {}
@@ -92,12 +116,12 @@ portal:
       # resources, such as Minikube. If you do want to specify resources, uncomment the following
       # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
       requests:
-        memory: "300Mi"
+        memory: "150Mi"
         cpu: "125m"
         ephemeral-storage: "500Mi"
       limits:
-        memory: "500Mi"
-        cpu: "520m"
+        memory: "512Mi"
+        cpu: "550m"
         ephemeral-storage: "1Gi"
     livenessProbe:
       failureThreshold: 5
@@ -112,13 +136,14 @@ portal:
       timeoutSeconds: 1
     service:
       annotations: {}
-      type: NodePort
+      type: ClusterIP
       port: 9091
       targetPort: 8080
     virtualService:
       enabled: false
       hosts: []
       gateways: []
+      pathPrefixEnabled: false
     nodeSelector: {}
     tolerations: []
     affinity: {}
@@ -145,7 +170,7 @@ portal:
         runAsNonRoot: true
       image:
         repository: curl
-        tag: 2.5.0
+        tag: 2.14.0
         pullPolicy: "Always"
       resources:
         # We usually recommend not to specify default resources and to leave this as a conscious
@@ -153,52 +178,77 @@ portal:
         # resources, such as Minikube. If you do want to specify resources, uncomment the following
         # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
         requests:
-          memory: "300Mi"
-          cpu: "125m"
+          memory: "150Mi"
+          cpu: "25m"
           ephemeral-storage: "500Mi"
         limits:
-          memory: "712Mi"
-          cpu: "525m"
+          memory: "512Mi"
+          cpu: "250m"
           ephemeral-storage: "1Gi"
-
     graphqlServer:
+      volumes:
+        - name: gitops-storage
+          emptyDir: {}
+        - name: hub-storage
+          emptyDir: {}
+      volumeMounts:
+        - mountPath: /tmp/
+          name: gitops-storage
+        - mountPath: /tmp/version
+          name: hub-storage
       securityContext:
         runAsUser: 2000
         allowPrivilegeEscalation: false
         runAsNonRoot: true
+        readOnlyRootFilesystem: true
       image:
         repository: litmusportal-server
-        tag: 2.6.0
+        tag: 2.14.0
         pullPolicy: "Always"
       ports:
         - name: gql-server
           containerPort: 8080
         - name: gql-rpc-server
           containerPort: 8000
+      service:
+        annotations: {}
+        type: ClusterIP
+        graphqlServer:
+          port: 9002
+          targetPort: 8080
+        graphqlRpcServer:
+          port: 8000
+          targetPort: 8000
       imageEnv:
-        SUBSCRIBER_IMAGE: "litmusportal-subscriber:2.6.0"
-        EVENT_TRACKER_IMAGE: "litmusportal-event-tracker:2.6.0"
-        ARGO_WORKFLOW_CONTROLLER_IMAGE: "workflow-controller:v3.2.3"
-        ARGO_WORKFLOW_EXECUTOR_IMAGE: "argoexec:v3.2.3"
-        LITMUS_CHAOS_OPERATOR_IMAGE: "chaos-operator:2.5.0"
-        LITMUS_CHAOS_RUNNER_IMAGE: "chaos-runner:2.5.0"
-        LITMUS_CHAOS_EXPORTER_IMAGE: "chaos-exporter:2.5.0"
+        SUBSCRIBER_IMAGE: "litmusportal-subscriber:2.14.0"
+        EVENT_TRACKER_IMAGE: "litmusportal-event-tracker:2.14.0"
+        ARGO_WORKFLOW_CONTROLLER_IMAGE: "workflow-controller:v3.3.1"
+        ARGO_WORKFLOW_EXECUTOR_IMAGE: "argoexec:v3.3.1"
+        LITMUS_CHAOS_OPERATOR_IMAGE: "chaos-operator:2.14.0"
+        LITMUS_CHAOS_RUNNER_IMAGE: "chaos-runner:2.14.0"
+        LITMUS_CHAOS_EXPORTER_IMAGE: "chaos-exporter:2.14.0"
       genericEnv:
         TLS_SECRET_NAME: ""
         TLS_CERT_64: ""
-        SELF_CLUSTER: "true"
+        SELF_AGENT: "true"
+        SELF_AGENT_NODE_SELECTOR: ""
+        SELF_AGENT_TOLERATIONS: ""
         CONTAINER_RUNTIME_EXECUTOR: "k8sapi"
-        HUB_BRANCH_NAME: "v2.5.x"
+        HUB_BRANCH_NAME: "v2.14.x"
         AGENT_DEPLOYMENTS: '["app=chaos-exporter", "name=chaos-operator", "app=event-tracker", "app=workflow-controller"]'
-
+        LITMUS_AUTH_GRPC_PORT: ":3030"
+        WORKFLOW_HELPER_IMAGE_VERSION: "2.14.0"
+        REMOTE_HUB_MAX_SIZE: "5000000"
+        # Provide UI endpoint if using namespaced scope
+        CHAOS_CENTER_UI_ENDPOINT: ""
       resources:
         # We usually recommend not to specify default resources and to leave this as a conscious
         # choice for the user. This also increases chances charts run on environments with little
         # resources, such as Minikube. If you do want to specify resources, uncomment the following
         # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
         requests:
-          memory: "500Mi"
-          cpu: "125m"
+          memory: "250Mi"
+          cpu: "225m"
           ephemeral-storage: "500Mi"
         limits:
           memory: "712Mi"
@@ -216,104 +266,58 @@ portal:
         successThreshold: 1
         timeoutSeconds: 1
     authServer:
+      replicas: 1
+      autoscaling:
+        enabled: false
+        minReplicas: 2
+        maxReplicas: 3
+        targetCPUUtilizationPercentage: 50
+        targetMemoryUtilizationPercentage: 50
       securityContext:
         runAsUser: 2000
         allowPrivilegeEscalation: false
         runAsNonRoot: true
+        readOnlyRootFilesystem: true
+      automountServiceAccountToken: false
       image:
         repository: litmusportal-auth-server
-        tag: 2.6.0
+        tag: 2.14.0
         pullPolicy: "Always"
       ports:
         - name: auth-server
           containerPort: 3030
         - name: auth-rpc-server
           containerPort: 3000
-      env: {}
+      service:
+        annotations: {}
+        type: ClusterIP
+        authServer:
+          port: 9003
+          targetPort: 3000
+        authRpcServer:
+          port: 3030
+          targetPort: 3030
+      env:
+        LITMUS_GQL_GRPC_PORT: ":8000"
       resources:
         # We usually recommend not to specify default resources and to leave this as a conscious
         # choice for the user. This also increases chances charts run on environments with little
         # resources, such as Minikube. If you do want to specify resources, uncomment the following
         # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
         requests:
-          memory: "300Mi"
-          cpu: "125m"
+          memory: "250Mi"
+          cpu: "225m"
           ephemeral-storage: "500Mi"
         limits:
           memory: "712Mi"
-          cpu: "525m"
+          cpu: "550m"
           ephemeral-storage: "1Gi"
-    service:
-      annotations: {}
-      type: NodePort
-      graphqlServer:
-        port: 9002
-        targetPort: 8080
-      graphqlRpcServer:
-        port: 8000
-        targetPort: 8000
-      authServer:
-        port: 9003
-        targetPort: 3000
-      authRpcServer:
-        port: 3030
-        targetPort: 3030
+      volumeMounts: []
+      volumes: []
+
     nodeSelector: {}
     tolerations: []
     affinity: {}
-
-mongo:
-  replicas: 1
-  customLabels:
-    {}
-    # my.company.com/tier: "database"
-  automountServiceAccountToken: false
-  securityContext:
-    # runAsUser: 2000
-    allowPrivilegeEscalation: false
-    # runAsNonRoot: true
-  image:
-    repository: mongo
-    tag: 4.2.8
-    pullPolicy: "Always"
-  containerPort: 27017
-  resources:
-    # We usually recommend not to specify default resources and to leave this as a conscious
-    # choice for the user. This also increases chances charts run on environments with little
-    # resources, such as Minikube. If you do want to specify resources, uncomment the following
-    # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
-    requests:
-      memory: "300Mi"
-      cpu: "225m"
-      ephemeral-storage: "1Gi"
-    limits:
-      memory: "712Mi"
-      cpu: "550m"
-      ephemeral-storage: "3Gi"
-  livenessProbe:
-    failureThreshold: 5
-    initialDelaySeconds: 30
-    periodSeconds: 10
-    successThreshold: 1
-    timeoutSeconds: 5
-  readinessProbe:
-    initialDelaySeconds: 5
-    periodSeconds: 10
-    successThreshold: 1
-    timeoutSeconds: 1
-  persistence:
-    size: 20Gi
-    accessMode: ReadWriteOnce
-    # storageClass: ""
-  service:
-    type: ClusterIP
-    port: 27017
-    targetPort: 27017
-  # Service account to be used by mongo pods
-  # serviceAccountName: "mongo-service-account"
-  nodeSelector: {}
-  tolerations: []
-  affinity: {}
 
 # OpenShift specific configuration
 openshift:
@@ -323,3 +327,20 @@ openshift:
     name: litmus-portal
     annotations: {}
     host: ""
+
+# -- Configure the Bitnami MongoDB subchart
+# see values at https://github.com/bitnami/charts/blob/master/bitnami/mongodb/values.yaml
+mongodb:
+  enabled: true
+  auth:
+    enabled: true
+    rootPassword: "superhardpassword"
+    # -- existingSecret Existing secret with MongoDB(&reg;) credentials (keys: `mongodb-passwords`, `mongodb-root-password`, `mongodb-metrics-password`, ` mongodb-replica-set-key`)
+    existingSecret: ""
+  architecture: standalone
+  useStatefulSet: false
+  replicaCount: 1
+  metrics:
+    enabled: false
+    prometheusRule:
+      enabled: false

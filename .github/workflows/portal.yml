@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - name: Notification for Starting Testing.
-        uses: peter-evans/create-or-update-comment@v1
+        uses: peter-evans/create-or-update-comment@v2
         with:
           comment-id: "${{ github.event.comment.id }}"
           body: |
@@ -35,13 +35,13 @@ jobs:
         env:
           response: ${{ steps.get_PR_commits.outputs.data }}
 
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           ref: ${{steps.getcommit.outputs.sha}}
           fetch-depth: 0
 
       - name: Checkout litmus-E2E Repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           repository: litmuschaos/litmus-e2e
           path: litmus-e2e
@@ -77,7 +77,7 @@ jobs:
           echo "URL=$AccessURL" >> $GITHUB_ENV
 
       - name: Portal Authentication Tests
-        uses: cypress-io/github-action@v2
+        uses: cypress-io/github-action@v5
         continue-on-error: false
         with:
           spec: cypress/integration/Basic_Setup/**/*.spec.js
@@ -97,7 +97,7 @@ jobs:
           COMPONENTS: subscriber,chaos-exporter,chaos-operator-ce,event-tracker,workflow-controller
 
       - name: Post Authentication Tests
-        uses: cypress-io/github-action@v2
+        uses: cypress-io/github-action@v5
         continue-on-error: false
         with:
           spec: cypress/integration/Parallel_Tests/**/*.spec.js
@@ -109,7 +109,7 @@ jobs:
 
       - name: Check for all the jobs are succeeded
         if: ${{ success() }}
-        uses: peter-evans/create-or-update-comment@v1
+        uses: peter-evans/create-or-update-comment@v2
         with:
           comment-id: "${{ github.event.comment.id }}"
           body: |
@@ -121,7 +121,7 @@ jobs:
 
       - name: Check for any job failed
         if: ${{ failure() }}
-        uses: peter-evans/create-or-update-comment@v1
+        uses: peter-evans/create-or-update-comment@v2
         with:
           comment-id: "${{ github.event.comment.id }}"
           body: |
