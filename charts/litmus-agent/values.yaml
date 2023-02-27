@@ -8,6 +8,12 @@ global:
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
+# STRING: Name of secret created independently of this chart.
+# This will stop the chart from making its own secret. Use 
+# /litmus-helm/charts/litmus-agent/templates/secret.yaml as a base template for 
+# the custom secret.
+existingHookSecret: ""
+
 AGENT_NAME: "helm-agent"
 AGENT_DESCRIPTION: "chaos agent deployed with helm"
 
