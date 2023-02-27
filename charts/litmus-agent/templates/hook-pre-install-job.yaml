@@ -31,7 +31,7 @@ spec:
           - secretRef:
               {{- if .Values.existingHookSecret }}
               name: {{ .Values.existingHookSecret }}
-              {{ else }}
+              {{- else }}
               name: {{ include "litmus-agent.fullname" . }}-hook
               {{ end }}
         env:
