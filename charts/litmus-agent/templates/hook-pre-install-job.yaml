@@ -29,11 +29,7 @@ spec:
         args: ["./litmus-agent", "--action", "create"]
         envFrom:
           - secretRef:
-              {{- if .Values.existingHookSecret }}
-              name: {{ .Values.existingHookSecret }}
-              {{- else }}
               name: {{ include "litmus-agent.fullname" . }}-hook
-              {{ end }}
         env:
           - name: AGENT_NAME
             value: {{ .Values.AGENT_NAME }}

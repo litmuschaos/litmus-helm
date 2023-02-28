@@ -1,6 +1,6 @@
 # litmus-agent
 
-![Version: 0.1.2](https://img.shields.io/badge/Version-0.1.2-informational?style=flat-square) ![AppVersion: 0.1.2](https://img.shields.io/badge/AppVersion-0.1.2-informational?style=flat-square)
+![Version: 0.1.3](https://img.shields.io/badge/Version-0.1.3-informational?style=flat-square) ![AppVersion: 0.1.3](https://img.shields.io/badge/AppVersion-0.1.3-informational?style=flat-square)
 
 A Helm chart to install litmus agent
 
@@ -64,7 +64,6 @@ $ helm install litmus-agent litmuschaos/litmus-agent \
 | NS_EXISTS | bool | `true` |  |
 | PLATFORM_NAME | string | `"Others"` |  |
 | SA_EXISTS | bool | `true` |  |
-| existingHookSecret | string | `""` | Create a custom secret to be used by the pre-install hook (including `LITMUS_PASSWORD`)  |
 | chaos-exporter.enabled | bool | `true` |  |
 | chaos-operator.enabled | bool | `true` |  |
 | crds.create | bool | `true` |  |
@@ -81,6 +80,7 @@ $ helm install litmus-agent litmuschaos/litmus-agent \
 | resources.requests.cpu | string | `"100m"` |  |
 | resources.requests.memory | string | `"128Mi"` |  |
 | subscriber.enabled | bool | `true` |  |
+| useExistingHookSecret | bool | `false` | Use an existing hook secret instead of creating one with the chart, ref. to templates/secret.yaml |
 | workflow-controller.crds.create | bool | `true` |  |
 | workflow-controller.enabled | bool | `true` |  |
 
