@@ -42,7 +42,7 @@ resources:
     memory: 128Mi
 
 # Custom secret name should be:
-# `{{ include "litmus-agent.fullname" . }}-hook`
+# `{{ include "subscriber.fullname" . }}-hook`
 # I.E. `name: litmus-agent-hook`
 # -- Use an existing hook secret instead of creating one with the chart, ref. to templates/secret.yaml
 useExistingHookSecret: false
