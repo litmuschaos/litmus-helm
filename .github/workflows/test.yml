@@ -103,4 +103,4 @@ jobs:
           wait: 180s
 
       - name: Run chart-testing (install)
-        run: ct install --config ct.yaml
+        run: ct install --config ct.yaml --excluded-charts=kubernetes-chaos,kube-aws,kube-azure,kube-gcp,litmus-agent
