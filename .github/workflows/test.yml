@@ -72,7 +72,7 @@ jobs:
       - name: Run chart-testing (list-changed)
         id: list-changed
         run: |
-          changed=$(ct list-changed --target-branch ${{ github.event.repository.default_branch }})
+          changed=$(ct list-changed --excluded-charts=kubernetes-chaos,kube-aws,kube-azure,kube-gcp,litmus-agent --target-branch ${{ github.event.repository.default_branch }})
           if [[ -n "$changed" ]]; then
             echo "IS_CHANGED=true" >> $GITHUB_OUTPUT
           fi
@@ -103,4 +103,4 @@ jobs:
           wait: 180s
 
       - name: Run chart-testing (install)
-        run: ct install --config ct.yaml --excluded-charts=kubernetes-chaos,kube-aws,kube-azure,kube-gcp,litmus-agent
+        run: ct install --config ct.yaml
