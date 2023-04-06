@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Notification for e2e Start
-        uses: peter-evans/create-or-update-comment@v2
+        uses: peter-evans/create-or-update-comment@v3
         with:
           comment-id: "${{ github.event.comment.id }}"
           body: |
@@ -84,7 +84,7 @@ jobs:
 
       - name: Update pod delete result
         if: startsWith(github.event.comment.body, '/run-e2e-pod-delete') || startsWith(github.event.comment.body, '/run-e2e-all')
-        uses: peter-evans/create-or-update-comment@v2
+        uses: peter-evans/create-or-update-comment@v3
         with:
           comment-id: "${{ github.event.comment.id }}"
           body: |
@@ -102,7 +102,7 @@ jobs:
 
       - name: Update container-kill result
         if: startsWith(github.event.comment.body, '/run-e2e-container-kill') || startsWith(github.event.comment.body, '/run-e2e-all')
-        uses: peter-evans/create-or-update-comment@v2
+        uses: peter-evans/create-or-update-comment@v3
         with:
           comment-id: "${{ github.event.comment.id }}"
           body: |
@@ -118,7 +118,7 @@ jobs:
 
       - name: Update node-cpu-hog result
         if: startsWith(github.event.comment.body, '/run-e2e-node-cpu-hog') || startsWith(github.event.comment.body, '/run-e2e-resource-chaos') || startsWith(github.event.comment.body, '/run-e2e-all')
-        uses: peter-evans/create-or-update-comment@v2
+        uses: peter-evans/create-or-update-comment@v3
         with:
           comment-id: "${{ github.event.comment.id }}"
           body: |
@@ -134,7 +134,7 @@ jobs:
 
       - name: Update node-memory-hog result
         if: startsWith(github.event.comment.body, '/run-e2e-node-memory-hog') || startsWith(github.event.comment.body, '/run-e2e-resource-chaos') || startsWith(github.event.comment.body, '/run-e2e-all')
-        uses: peter-evans/create-or-update-comment@v2
+        uses: peter-evans/create-or-update-comment@v3
         with:
           comment-id: "${{ github.event.comment.id }}"
           body: |
@@ -154,7 +154,7 @@ jobs:
 
       - name: Update pod-cpu-hog result
         if: startsWith(github.event.comment.body, '/run-e2e-pod-cpu-hog') || startsWith(github.event.comment.body, '/run-e2e-resource-chaos') || startsWith(github.event.comment.body, '/run-e2e-all')
-        uses: peter-evans/create-or-update-comment@v2
+        uses: peter-evans/create-or-update-comment@v3
         with:
           comment-id: "${{ github.event.comment.id }}"
           body: |
@@ -174,7 +174,7 @@ jobs:
 
       - name: Update pod-memory-hog result
         if: startsWith(github.event.comment.body, '/run-e2e-pod-memory-hog') || startsWith(github.event.comment.body, '/run-e2e-resource-chaos') || startsWith(github.event.comment.body, '/run-e2e-all')
-        uses: peter-evans/create-or-update-comment@v2
+        uses: peter-evans/create-or-update-comment@v3
         with:
           comment-id: "${{ github.event.comment.id }}"
           body: |
@@ -195,7 +195,7 @@ jobs:
 
       - name: Update pod-network-corruption result
         if: startsWith(github.event.comment.body, '/run-e2e-pod-network-corruption') || startsWith(github.event.comment.body, '/run-e2e-network-chaos') || startsWith(github.event.comment.body, '/run-e2e-all')
-        uses: peter-evans/create-or-update-comment@v2
+        uses: peter-evans/create-or-update-comment@v3
         with:
           comment-id: "${{ github.event.comment.id }}"
           body: |
@@ -215,7 +215,7 @@ jobs:
 
       - name: Update pod-network-duplication result
         if: startsWith(github.event.comment.body, '/run-e2e-pod-network-duplication') || startsWith(github.event.comment.body, '/run-e2e-network-chaos') || startsWith(github.event.comment.body, '/run-e2e-all')
-        uses: peter-evans/create-or-update-comment@v2
+        uses: peter-evans/create-or-update-comment@v3
         with:
           comment-id: "${{ github.event.comment.id }}"
           body: |
@@ -237,7 +237,7 @@ jobs:
 
       - name: Update pod-network-latency result
         if: startsWith(github.event.comment.body, '/run-e2e-pod-network-latency') || startsWith(github.event.comment.body, '/run-e2e-network-chaos') || startsWith(github.event.comment.body, '/run-e2e-all')
-        uses: peter-evans/create-or-update-comment@v2
+        uses: peter-evans/create-or-update-comment@v3
         with:
           comment-id: "${{ github.event.comment.id }}"
           body: |
@@ -258,7 +258,7 @@ jobs:
 
       - name: Update pod-network-loss result
         if: startsWith(github.event.comment.body, '/run-e2e-pod-network-loss') || startsWith(github.event.comment.body, '/run-e2e-network-chaos')  || startsWith(github.event.comment.body, '/run-e2e-all')
-        uses: peter-evans/create-or-update-comment@v2
+        uses: peter-evans/create-or-update-comment@v3
         with:
           comment-id: "${{ github.event.comment.id }}"
           body: |
@@ -276,7 +276,7 @@ jobs:
 
       - name: Update pod-autoscaler result
         if: startsWith(github.event.comment.body, '/run-e2e-pod-autoscaler') || startsWith(github.event.comment.body, '/run-e2e-all')
-        uses: peter-evans/create-or-update-comment@v2
+        uses: peter-evans/create-or-update-comment@v3
         with:
           comment-id: "${{ github.event.comment.id }}"
           body: |
@@ -295,7 +295,7 @@ jobs:
 
       - name: Update node-io-stress result
         if: startsWith(github.event.comment.body, '/run-e2e-node-io-stress') || startsWith(github.event.comment.body, '/run-e2e-io-chaos') || startsWith(github.event.comment.body, '/run-e2e-all')
-        uses: peter-evans/create-or-update-comment@v2
+        uses: peter-evans/create-or-update-comment@v3
         with:
           comment-id: "${{ github.event.comment.id }}"
           body: |
@@ -318,7 +318,7 @@ jobs:
 
       - name: Check for all the jobs are succeeded
         if: ${{ success() && env.TEST_RUN == 'true' }}
-        uses: peter-evans/create-or-update-comment@v2
+        uses: peter-evans/create-or-update-comment@v3
         with:
           comment-id: "${{ github.event.comment.id }}"
           body: |
@@ -331,7 +331,7 @@ jobs:
 
       - name: Check for any job failed
         if: ${{ failure() }}
-        uses: peter-evans/create-or-update-comment@v2
+        uses: peter-evans/create-or-update-comment@v3
         with:
           comment-id: "${{ github.event.comment.id }}"
           body: |
@@ -348,7 +348,7 @@ jobs:
 
       - name: Check if any test ran or not
         if: env.TEST_RUN != 'true'
-        uses: peter-evans/create-or-update-comment@v2
+        uses: peter-evans/create-or-update-comment@v3
         with:
           comment-id: "${{ github.event.comment.id }}"
           body: |

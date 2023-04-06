@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - name: Notification for Starting Testing.
-        uses: peter-evans/create-or-update-comment@v2
+        uses: peter-evans/create-or-update-comment@v3
         with:
           comment-id: "${{ github.event.comment.id }}"
           body: |
@@ -109,7 +109,7 @@ jobs:
 
       - name: Check for all the jobs are succeeded
         if: ${{ success() }}
-        uses: peter-evans/create-or-update-comment@v2
+        uses: peter-evans/create-or-update-comment@v3
         with:
           comment-id: "${{ github.event.comment.id }}"
           body: |
@@ -121,7 +121,7 @@ jobs:
 
       - name: Check for any job failed
         if: ${{ failure() }}
-        uses: peter-evans/create-or-update-comment@v2
+        uses: peter-evans/create-or-update-comment@v3
         with:
           comment-id: "${{ github.event.comment.id }}"
           body: |
