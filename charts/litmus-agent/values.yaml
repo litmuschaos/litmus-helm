@@ -15,6 +15,7 @@ AGENT_NODE_SELECTOR: ""
 SA_EXISTS: true
 NS_EXISTS: true
 CLUSTER_TYPE: "external"
+SKIP_SSL: "false"
 
 # PLATFORM_NAME: AWS, GKE, Openshift, Rancher, Others
 PLATFORM_NAME: "Others"

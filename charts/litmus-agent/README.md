@@ -64,6 +64,7 @@ $ helm install litmus-agent litmuschaos/litmus-agent \
 | NS_EXISTS | bool | `true` |  |
 | PLATFORM_NAME | string | `"Others"` |  |
 | SA_EXISTS | bool | `true` |  |
+| SKIP_SSL | string | `"false"` |  |
 | chaos-exporter.enabled | bool | `true` |  |
 | chaos-operator.enabled | bool | `true` |  |
 | crds.create | bool | `true` |  |
