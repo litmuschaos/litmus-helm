@@ -62,8 +62,8 @@ spec:
           - name: NAMESPACE
             value: {{ .Release.Namespace }}
 
-          - name: APP_VERSION
-            value: "3.0.0-beta3"
+          - name: APP_VERSION 
+            value: "3.0.0-beta7" #For compatibility with 3.0.0-beta7 ChaosCenter, Version has to be same
 
           - name: SERVICE_ACCOUNT_NAME
             value: {{ include "litmus-agent.serviceAccountName" . }}
@@ -73,6 +73,9 @@ spec:
             
           - name: CONTAINER_RUNTIME_EXECUTOR
             value: {{ index .Values "workflow-controller" "appSettings" "containerRuntimeExecutor" | quote }}
+
+          - name: SKIP_SSL
+            value: {{ .Values.SKIP_SSL | quote }}
 
         resources:
           {{- toYaml .Values.resources | nindent 10 }}
