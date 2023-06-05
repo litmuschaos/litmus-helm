@@ -81,6 +81,7 @@ $ helm install litmus-agent litmuschaos/litmus-agent \
 | resources.requests.cpu | string | `"100m"` |  |
 | resources.requests.memory | string | `"128Mi"` |  |
 | subscriber.enabled | bool | `true` |  |
+| useExistingHookSecret | bool | `false` | Use an existing hook secret instead of creating one with the chart, ref. to templates/secret.yaml |
 | workflow-controller.crds.create | bool | `true` |  |
 | workflow-controller.enabled | bool | `true` |  |
 

@@ -7,7 +7,6 @@ global:
 # Default values for litmus-agent.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
-
 AGENT_NAME: "helm-agent"
 AGENT_DESCRIPTION: "chaos agent deployed with helm"
 
@@ -42,6 +41,12 @@ resources:
   requests:
     cpu: 100m
     memory: 128Mi
+
+# Custom secret name should be:
+# `{{ include "subscriber.fullname" . }}-hook`
+# I.E. `name: litmus-agent-hook`
+# -- Use an existing hook secret instead of creating one with the chart, ref. to templates/secret.yaml
+useExistingHookSecret: false
 
 chaos-operator:
   enabled: true
