@@ -97,7 +97,7 @@ jobs:
         uses: helm/chart-testing-action@v2.4.0
 
       - name: Create kind cluster
-        uses: helm/kind-action@v1.7.0
+        uses: helm/kind-action@v1.8.0
         with:
           node_image: kindest/node:v${{ matrix.k8s_version }}
           wait: 180s
