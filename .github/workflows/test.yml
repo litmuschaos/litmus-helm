@@ -72,6 +72,8 @@ jobs:
       - name: Run chart-testing (list-changed)
         id: list-changed
         run: |
+          git status
+          git branch -l
           changed=$(ct list-changed --excluded-charts=kubernetes-chaos,kube-aws,kube-azure,kube-gcp,litmus-agent --target-branch origin/master)
           if [[ -n "$changed" ]]; then
             echo "IS_CHANGED=true" >> $GITHUB_OUTPUT
