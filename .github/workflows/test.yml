@@ -68,13 +68,11 @@ jobs:
           check-latest: true
 
       - name: Run chart-testing (prepare)
-        uses: helm/chart-testing-action@main
+        uses: helm/chart-testing-action@v2.4.0
       - name: Run chart-testing (list-changed)
         id: list-changed
         run: |
-          git status
-          git branch -l
-          changed=$(ct list-changed --excluded-charts=kubernetes-chaos,kube-aws,kube-azure,kube-gcp,litmus-agent --target-branch origin/master)
+          changed=$(ct list-changed --excluded-charts=kubernetes-chaos,kube-aws,kube-azure,kube-gcp,litmus-agent --target-branch master)
           if [[ -n "$changed" ]]; then
             echo "IS_CHANGED=true" >> $GITHUB_OUTPUT
           fi
