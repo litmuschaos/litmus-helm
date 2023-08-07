@@ -2,6 +2,7 @@ global:
   agentConfigName: agent-config
   agentSecretName: agent-secret
   podAnnotations: {}
+  customLabels: {}
   # AGENT_MODE: cluster, namespace
   AGENT_MODE: "cluster"
 # Default values for litmus-agent.

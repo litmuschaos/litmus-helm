@@ -19,6 +19,7 @@ spec:
       {{- end }}
       labels:
         {{- include "event-tracker.selectorLabels" . | nindent 8 }}
+        {{- include "event-tracker.labels" . | nindent 8 }}
     spec:
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
