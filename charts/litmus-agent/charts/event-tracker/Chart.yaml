@@ -2,7 +2,7 @@ apiVersion: v2
 appVersion: "3.0.0-beta3"
 description:  A Helm chart to install event-tracker
 name: event-tracker
-version: 0.1.0
+version: 0.2.0
 kubeVersion: ">=1.16.0-0"
 home: https://litmuschaos.io
 sources:
