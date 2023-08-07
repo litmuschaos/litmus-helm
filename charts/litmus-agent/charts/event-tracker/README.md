@@ -31,6 +31,7 @@ Kubernetes: `>=1.16.0-0`
 | autoscaling.maxReplicas | int | `100` |  |
 | autoscaling.minReplicas | int | `1` |  |
 | autoscaling.targetCPUUtilizationPercentage | int | `80` |  |
+| customLabels | object | `{}` |  |
 | fullnameOverride | string | `""` |  |
 | global.agentConfigName | string | `"agent-config"` |  |
 | global.agentSecretName | string | `"agent-secret"` |  |

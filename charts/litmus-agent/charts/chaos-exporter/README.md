@@ -32,6 +32,7 @@ Kubernetes: `>=1.16.0-0`
 | autoscaling.minReplicas | int | `1` |  |
 | autoscaling.targetCPUUtilizationPercentage | int | `80` |  |
 | config.tsdb_scrape_interval | int | `10` |  |
+| customLabels | object | `{}` |  |
 | enabled | bool | `true` |  |
 | fullnameOverride | string | `""` |  |
 | image.pullPolicy | string | `"Always"` |  |

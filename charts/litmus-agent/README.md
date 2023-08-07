@@ -72,6 +72,7 @@ $ helm install litmus-agent litmuschaos/litmus-agent \
 | global.AGENT_MODE | string | `"cluster"` |  |
 | global.agentConfigName | string | `"agent-config"` |  |
 | global.agentSecretName | string | `"agent-secret"` |  |
+| global.customLabels | object | `{}` |  |
 | global.podAnnotations | object | `{}` |  |
 | image.pullPolicy | string | `"Always"` |  |
 | image.repository | string | `"litmuschaos/litmus-helm-agent"` |  |

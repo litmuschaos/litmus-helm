@@ -35,6 +35,7 @@ Kubernetes: `>=1.16.0-0`
 | autoscaling.minReplicas | int | `1` |  |
 | autoscaling.targetCPUUtilizationPercentage | int | `80` |  |
 | crds.create | bool | `true` |  |
+| customLabels | object | `{}` |  |
 | fullnameOverride | string | `""` |  |
 | image.pullPolicy | string | `"Always"` |  |
 | image.repository | string | `"litmuschaos/workflow-controller"` |  |
