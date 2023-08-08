@@ -220,6 +220,7 @@ We separated service configuration from `portal.server.service` to `portal.serve
 | portal.server.serviceAccountName | string | `"litmus-server-account"` |  |
 | portal.server.tolerations | list | `[]` |  |
 | portal.server.updateStrategy | object | `{}` |  |
+| portal.server.waitForMongodb.enabled | bool | `true` |  |
 | portal.server.waitForMongodb.image.pullPolicy | string | `"Always"` |  |
 | portal.server.waitForMongodb.image.repository | string | `"curl"` |  |
 | portal.server.waitForMongodb.image.tag | string | `"2.14.0"` |  |
