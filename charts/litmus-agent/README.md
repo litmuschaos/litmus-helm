@@ -1,6 +1,6 @@
 # litmus-agent
 
-![Version: 0.2.0](https://img.shields.io/badge/Version-0.2.0-informational?style=flat-square) ![AppVersion: 0.2.0](https://img.shields.io/badge/AppVersion-0.2.0-informational?style=flat-square)
+![Version: 0.2.1](https://img.shields.io/badge/Version-0.2.1-informational?style=flat-square) ![AppVersion: 0.2.0](https://img.shields.io/badge/AppVersion-0.2.0-informational?style=flat-square)
 
 A Helm chart to install litmus agent
 
@@ -55,6 +55,7 @@ $ helm install litmus-agent litmuschaos/litmus-agent \
 | AGENT_DESCRIPTION | string | `"chaos agent deployed with helm"` |  |
 | AGENT_NAME | string | `"helm-agent"` |  |
 | AGENT_NODE_SELECTOR | string | `""` |  |
+| APP_VERSION | string | `"3.0.0-beta8"` |  |
 | CLUSTER_TYPE | string | `"external"` |  |
 | LITMUS_BACKEND_URL | string | `""` |  |
 | LITMUS_PASSWORD | string | `"litmus"` |  |
