@@ -168,11 +168,11 @@ portal:
         repository: curl
         tag: 2.14.0
         pullPolicy: "Always"
-      securityContext:
-        runAsUser: 101
-        allowPrivilegeEscalation: false
-        runAsNonRoot: true
-        readOnlyRootFilesystem: true
+      securityContext: {}
+       # runAsUser: 101
+       # allowPrivilegeEscalation: false
+       # runAsNonRoot: true
+       # readOnlyRootFilesystem: true
       resources:
         # We usually recommend not to specify default resources and to leave this as a conscious
         # choice for the user. This also increases chances charts run on environments with little
