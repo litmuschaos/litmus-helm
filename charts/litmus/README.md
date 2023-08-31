@@ -1,6 +1,6 @@
 # litmus
 
-![Version: 2.15.10](https://img.shields.io/badge/Version-2.15.10-informational?style=flat-square) ![AppVersion: 2.14.0](https://img.shields.io/badge/AppVersion-2.14.0-informational?style=flat-square)
+![Version: 2.15.11](https://img.shields.io/badge/Version-2.15.11-informational?style=flat-square) ![AppVersion: 2.14.0](https://img.shields.io/badge/AppVersion-2.14.0-informational?style=flat-square)
 
 A Helm chart to install ChaosCenter
 
@@ -229,6 +229,7 @@ We separated service configuration from `portal.server.service` to `portal.serve
 | portal.server.waitForMongodb.resources.requests.cpu | string | `"25m"` |  |
 | portal.server.waitForMongodb.resources.requests.ephemeral-storage | string | `"500Mi"` |  |
 | portal.server.waitForMongodb.resources.requests.memory | string | `"150Mi"` |  |
+| portal.server.waitForMongodb.securityContext | object | `{}` |  |
 | portalScope | string | `"cluster"` |  |
 | upgradeAgent.affinity | object | `{}` |  |
 | upgradeAgent.controlPlane.image.pullPolicy | string | `"Always"` |  |
