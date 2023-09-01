@@ -79,9 +79,13 @@ Check for existing secret
 {{- end -}}
 
 {{- define "litmus-portal.mongodbServiceName" -}}
-    {{- if not (eq .Values.mongodb.architecture "replicaset") }}
-        {{- include "mongodb.fullname" .Subcharts.mongodb -}}
+    {{- if not .Values.mongodb.enabled }}
+        {{- .Values.adminConfig.DB_SERVER -}}
     {{ else }}
-        {{- include "mongodb.service.nameOverride" .Subcharts.mongodb -}}
+        {{- if not (eq .Values.mongodb.architecture "replicaset") }}
+            {{- include "mongodb.fullname" .Subcharts.mongodb -}}
+        {{ else }}
+            {{- include "mongodb.service.nameOverride" .Subcharts.mongodb -}}
+        {{- end -}}
     {{- end -}}
 {{- end -}}
