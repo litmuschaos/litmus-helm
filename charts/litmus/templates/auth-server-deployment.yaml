@@ -35,19 +35,19 @@ spec:
       imagePullSecrets:
         {{ toYaml .Values.image.imagePullSecrets | indent 8 }}
       {{- end }}
-      initContainers:
-        - name: wait-for-mongodb
-          image: {{ .Values.image.imageRegistryName }}/{{ .Values.portal.server.waitForMongodb.image.repository }}:{{ .Values.portal.server.waitForMongodb.image.tag }}
-          imagePullPolicy: {{ .Values.portal.server.waitForMongodb.image.pullPolicy }}
-          command: ["/bin/sh", "-c"]
-          args:
-            [
-                "while [[ $(curl -sw '%{http_code}' http://{{ include "litmus-portal.mongodbServiceName" . }}:{{ .Values.mongodb.service.ports.mongodb }} -o /dev/null) -ne 200 ]]; do sleep 5; echo 'Waiting for the MongoDB to be ready...'; done; echo 'Connection with MongoDB established'",
-            ]
-          resources:
-            {{- toYaml .Values.portal.server.waitForMongodb.resources | nindent 12 }}
-          securityContext:
-            {{- toYaml .Values.portal.server.waitForMongodb.securityContext | nindent 12 }}
+      # initContainers:
+      #   - name: wait-for-mongodb
+      #     image: {{ .Values.image.imageRegistryName }}/{{ .Values.portal.server.waitForMongodb.image.repository }}:{{ .Values.portal.server.waitForMongodb.image.tag }}
+      #     imagePullPolicy: {{ .Values.portal.server.waitForMongodb.image.pullPolicy }}
+      #     command: ["/bin/sh", "-c"]
+      #     args:
+      #       [
+      #           "while [[ $(curl -sw '%{http_code}' http://{{ include "litmus-portal.mongodbServiceName" . }}:{{ .Values.mongodb.service.ports.mongodb }} -o /dev/null) -ne 200 ]]; do sleep 5; echo 'Waiting for the MongoDB to be ready...'; done; echo 'Connection with MongoDB established'",
+      #       ]
+      #     resources:
+      #       {{- toYaml .Values.portal.server.waitForMongodb.resources | nindent 12 }}
+      #     securityContext:
+      #       {{- toYaml .Values.portal.server.waitForMongodb.securityContext | nindent 12 }}
       containers:
         - name: auth-server
           image: {{ .Values.image.imageRegistryName }}/{{ .Values.portal.server.authServer.image.repository }}:{{ .Values.portal.server.authServer.image.tag }}
