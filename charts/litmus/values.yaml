@@ -236,11 +236,13 @@ portal:
         SELF_AGENT_NODE_SELECTOR: ""
         SELF_AGENT_TOLERATIONS: ""
         CONTAINER_RUNTIME_EXECUTOR: "k8sapi"
-        HUB_BRANCH_NAME: "v2.14.x"
-        AGENT_DEPLOYMENTS: '["app=chaos-exporter", "name=chaos-operator", "app=event-tracker", "app=workflow-controller"]'
+        DEFAULT_HUB_BRANCH_NAME: "master"
+        HUB_BRANCH_NAME: "master"
+        INFRA_DEPLOYMENTS: '["app=chaos-exporter", "name=chaos-operator", "app=event-tracker", "app=workflow-controller"]'
         LITMUS_AUTH_GRPC_PORT: ":3030"
         WORKFLOW_HELPER_IMAGE_VERSION: "ci"
         REMOTE_HUB_MAX_SIZE: "5000000"
+        INFRA_COMPATIBLE_VERSIONS: '["0.3.0", "0.2.0", "0.1.0","ci"]'
         # Provide UI endpoint if using namespaced scope
         CHAOS_CENTER_UI_ENDPOINT: ""
       resources:
