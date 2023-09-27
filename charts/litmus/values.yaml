@@ -20,7 +20,7 @@ adminConfig:
   # -- leave empty if uses Mongo DB deployed by this chart
   DBPASSWORD: "1234"
   DBUSER: "root"
-  DB_SERVER: "mongodb://my-release-mongodb-0.my-release-mongodb-headless.litmus.svc.cluster.local:27017,my-release-mongodb-1.my-release-mongodb-headless.litmus.svc.cluster.local:27017,my-release-mongodb-2.my-release-mongodb-headless.litmus.svc.cluster.local:27017/admin"
+  DB_SERVER: ""
   DB_PORT: ""
   ADMIN_USERNAME: "admin"
   ADMIN_PASSWORD: "litmus"
@@ -335,15 +335,19 @@ openshift:
 # -- Configure the Bitnami MongoDB subchart
 # see values at https://github.com/bitnami/charts/blob/master/bitnami/mongodb/values.yaml
 mongodb:
-  enabled: false
+  enabled: true
   auth:
     enabled: true
-    rootPassword: "superhardpassword"
+    rootUser: "root"
+    rootPassword: "1234"
     # -- existingSecret Existing secret with MongoDB(&reg;) credentials (keys: `mongodb-passwords`, `mongodb-root-password`, `mongodb-metrics-password`, ` mongodb-replica-set-key`)
     existingSecret: ""
-  architecture: standalone
-  useStatefulSet: false
-  replicaCount: 1
+  architecture: replicaset
+  replicaCount: 3
+  persistence:
+    enabled: true
+  volumePermissions:
+    enabled: true
   metrics:
     enabled: false
     prometheusRule:

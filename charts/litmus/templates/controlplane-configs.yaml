@@ -12,7 +12,7 @@ data:
   {{- if .Values.adminConfig.DB_SERVER }}
   DB_SERVER: "{{ .Values.adminConfig.DB_SERVER }}"
   {{- else }}
-  DB_SERVER: "mongodb://{{ include "litmus-portal.mongodbServiceName" . }}:{{ .Values.mongodb.service.ports.mongodb }}"
+  DB_SERVER: "{{ include "litmus-portal.mongodbConnectionString" . }}"
   {{- end }}
   VERSION: "{{ .Values.adminConfig.VERSION }}"
   SKIP_SSL_VERIFY: "{{ .Values.adminConfig.SKIP_SSL_VERIFY }}"
