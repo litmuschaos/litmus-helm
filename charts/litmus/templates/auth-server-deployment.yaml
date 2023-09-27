@@ -39,7 +39,7 @@ spec:
         - name: wait-for-mongodb
           image: mongo:latest
           imagePullPolicy: {{ .Values.portal.server.waitForMongodb.image.pullPolicy }}
-          command: ["/bin/sh", "-c"]
+          command: ["/bin/bash", "-c"]
           env:
             - name: DB_PASSWORD
               {{- if .Values.mongodb.enabled }}
