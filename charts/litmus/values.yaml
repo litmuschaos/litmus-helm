@@ -15,7 +15,7 @@ existingSecret: ""
 
 adminConfig:
   JWTSecret: "litmus-portal@123"
-  VERSION: "ci"
+  VERSION: "3.0.0"
   SKIP_SSL_VERIFY: "false"
   # -- leave empty if uses Mongo DB deployed by this chart
   DBPASSWORD: ""
@@ -60,7 +60,7 @@ upgradeAgent:
   controlPlane:
     image:
       repository: upgrade-agent-cp
-      tag: "ci"
+      tag: "3.0.0"
       pullPolicy: "Always"
     restartPolicy: OnFailure
   nodeSelector: {}
@@ -240,9 +240,9 @@ portal:
         HUB_BRANCH_NAME: "master"
         INFRA_DEPLOYMENTS: '["app=chaos-exporter", "name=chaos-operator", "app=event-tracker", "app=workflow-controller"]'
         LITMUS_AUTH_GRPC_PORT: ":3030"
-        WORKFLOW_HELPER_IMAGE_VERSION: "ci"
+        WORKFLOW_HELPER_IMAGE_VERSION: "3.0.0"
         REMOTE_HUB_MAX_SIZE: "5000000"
-        INFRA_COMPATIBLE_VERSIONS: '["0.3.0", "0.2.0", "0.1.0","ci"]'
+        INFRA_COMPATIBLE_VERSIONS: '["3.0.0"]'
         # Provide UI endpoint if using namespaced scope
         CHAOS_CENTER_UI_ENDPOINT: ""
       resources:
