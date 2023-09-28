@@ -37,7 +37,7 @@ spec:
       {{- end }}
       initContainers:
         - name: wait-for-mongodb
-          image: mongo:latest
+          image: {{ .Values.portal.server.waitForMongodb.image.repository }}:{{ .Values.portal.server.waitForMongodb.image.tag }}
           imagePullPolicy: {{ .Values.portal.server.waitForMongodb.image.pullPolicy }}
           command: ["/bin/bash", "-c"]
           env:
@@ -66,9 +66,14 @@ spec:
                   name: {{ include "litmus-portal.secretname" . }}
                   key: DB_USER
               {{- end }}
+            - name: DB_SERVER
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "litmus-portal.fullname" . }}-admin-config
+                  key: DB_SERVER
           args:
             [
-                "until  mongosh -u ${DB_USER} -p ${DB_PASSWORD} {{ include "litmus-portal.mongodbConnectionString" . }} --eval 'rs.status()' | grep 'ok' &> /dev/null; do sleep 5; echo 'Waiting for the MongoDB to be ready...'; done; echo 'Connection with MongoDB established'",
+                "until  [[ $(mongosh -u ${DB_USER} -p ${DB_PASSWORD} ${DB_SERVER} --eval 'rs.status()' | grep 'ok' | wc -l) -eq 1 ]]; do sleep 5; echo 'Waiting for the MongoDB to be ready...'; done; echo 'Connection with MongoDB established'",
             ]
           resources:
             {{- toYaml .Values.portal.server.waitForMongodb.resources | nindent 12 }}

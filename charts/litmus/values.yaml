@@ -18,8 +18,8 @@ adminConfig:
   VERSION: "ci"
   SKIP_SSL_VERIFY: "false"
   # -- leave empty if uses Mongo DB deployed by this chart
-  DBPASSWORD: "1234"
-  DBUSER: "root"
+  DBPASSWORD: ""
+  DBUSER: ""
   DB_SERVER: ""
   DB_PORT: ""
   ADMIN_USERNAME: "admin"
@@ -165,8 +165,8 @@ portal:
     # my.company.com/tier: "backend"
     waitForMongodb:
       image:
-        repository: curl
-        tag: ci
+        repository: mongo
+        tag: 6
         pullPolicy: "Always"
       securityContext:
         {}
