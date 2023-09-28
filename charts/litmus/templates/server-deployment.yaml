@@ -36,7 +36,7 @@ spec:
         {{- toYaml .Values.portal.server.graphqlServer.volumes | default "" | nindent 8 }}
       initContainers:
         - name: wait-for-mongodb
-          image: {{ .Values.portal.server.waitForMongodb.image.repository }}:{{ .Values.portal.server.waitForMongodb.image.tag }}
+          image: {{ .Values.image.imageRegistryName }}/{{ .Values.portal.server.waitForMongodb.image.repository }}:{{ .Values.portal.server.waitForMongodb.image.tag }}
           imagePullPolicy: {{ .Values.portal.server.waitForMongodb.image.pullPolicy }}
           command: ["/bin/bash", "-c"]
           env:
