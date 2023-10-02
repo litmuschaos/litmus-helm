@@ -326,6 +326,7 @@ openshift:
   route:
     enabled: false
     name: litmus-portal
+    customLabels: {}
     annotations: {}
     host: ""
 
