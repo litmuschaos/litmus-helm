@@ -222,22 +222,18 @@ portal:
           port: 8000
           targetPort: 8000
       imageEnv:
-        SUBSCRIBER_IMAGE: "litmusportal-subscriber:ci"
-        EVENT_TRACKER_IMAGE: "litmusportal-event-tracker:ci"
+        SUBSCRIBER_IMAGE: "litmusportal-subscriber:3.0.0"
+        EVENT_TRACKER_IMAGE: "litmusportal-event-tracker:3.0.0"
         ARGO_WORKFLOW_CONTROLLER_IMAGE: "workflow-controller:v3.3.1"
         ARGO_WORKFLOW_EXECUTOR_IMAGE: "argoexec:v3.3.1"
-        LITMUS_CHAOS_OPERATOR_IMAGE: "chaos-operator:ci"
-        LITMUS_CHAOS_RUNNER_IMAGE: "chaos-runner:ci"
-        LITMUS_CHAOS_EXPORTER_IMAGE: "chaos-exporter:ci"
+        LITMUS_CHAOS_OPERATOR_IMAGE: "chaos-operator:3.0.0"
+        LITMUS_CHAOS_RUNNER_IMAGE: "chaos-runner:3.0.0"
+        LITMUS_CHAOS_EXPORTER_IMAGE: "chaos-exporter:3.0.0"
       genericEnv:
         TLS_SECRET_NAME: ""
         TLS_CERT_64: ""
-        SELF_AGENT: "true"
-        SELF_AGENT_NODE_SELECTOR: ""
-        SELF_AGENT_TOLERATIONS: ""
         CONTAINER_RUNTIME_EXECUTOR: "k8sapi"
-        DEFAULT_HUB_BRANCH_NAME: "master"
-        HUB_BRANCH_NAME: "master"
+        DEFAULT_HUB_BRANCH_NAME: "v3.0.x"
         INFRA_DEPLOYMENTS: '["app=chaos-exporter", "name=chaos-operator", "app=event-tracker", "app=workflow-controller"]'
         LITMUS_AUTH_GRPC_PORT: ":3030"
         WORKFLOW_HELPER_IMAGE_VERSION: "3.0.0"
