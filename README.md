@@ -100,10 +100,15 @@ You can run the following commands if you wish to verify if all desired componen
 
 ```bash
 root@demo:~# kubectl get pods -n litmus
-NAME                                     READY   STATUS             RESTARTS   AGE
-chaos-litmus-frontend-775585bf8f-jblf2   1/1     Running            0          79s
-chaos-litmus-mongo-0                     1/1     Running            0          79s
-chaos-litmus-server-96b5f656-zqjt4       2/2     Running            0          79s
+NAME                                       READY   STATUS    RESTARTS   AGE
+litmusportal-server-6fd57cc89-6w5pn        1/1     Running     0          57s
+litmusportal-auth-server-7b596fff9-5s6g5   1/1     Running     0          57s
+litmusportal-frontend-55974fcf59-cxxrf     1/1     Running     0          58s
+my-release-mongodb-0                       1/1     Running     0          63s
+my-release-mongodb-1                       1/1     Running     0          63s
+my-release-mongodb-2                       1/1     Running     0          62s
+my-release-mongodb-arbiter-0               1/1     Running     0          64s
+
 ```
 
 ### Install External Agent
