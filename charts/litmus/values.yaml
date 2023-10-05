@@ -104,7 +104,7 @@ portal:
     #   runAsNonRoot: true
     image:
       repository: litmusportal-frontend
-      tag: ci
+      tag: 3.0.0
       pullPolicy: "Always"
     containerPort: 8185
     customLabels: {}
@@ -205,7 +205,7 @@ portal:
         readOnlyRootFilesystem: true
       image:
         repository: litmusportal-server
-        tag: ci
+        tag: 3.0.0
         pullPolicy: "Always"
       ports:
         - name: gql-server
@@ -281,7 +281,7 @@ portal:
       automountServiceAccountToken: false
       image:
         repository: litmusportal-auth-server
-        tag: ci
+        tag: 3.0.0
         pullPolicy: "Always"
       ports:
         - name: auth-server
