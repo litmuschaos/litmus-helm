@@ -38,15 +38,46 @@ spec:
         - name: wait-for-mongodb
           image: {{ .Values.image.imageRegistryName }}/{{ .Values.portal.server.waitForMongodb.image.repository }}:{{ .Values.portal.server.waitForMongodb.image.tag }}
           imagePullPolicy: {{ .Values.portal.server.waitForMongodb.image.pullPolicy }}
-          command: ["/bin/sh", "-c"]
+          command: ["/bin/bash", "-c"]
+          env:
+            - name: DB_PASSWORD
+              {{- if .Values.mongodb.enabled }}
+              {{- if not .Values.mongodb.auth.existingSecret }}
+              value: {{ .Values.mongodb.auth.rootPassword | quote }}
+              {{- else }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.mongodb.auth.existingSecret }}
+                  key: mongodb-root-password
+              {{- end }}
+              {{- else }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "litmus-portal.secretname" . }}
+                  key: DB_PASSWORD
+              {{- end }}
+            - name: DB_USER
+              {{- if .Values.mongodb.enabled }}
+              value: {{ .Values.mongodb.auth.rootUser }}
+              {{- else }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "litmus-portal.secretname" . }}
+                  key: DB_USER
+              {{- end }}
+            - name: DB_SERVER
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "litmus-portal.fullname" . }}-admin-config
+                  key: DB_SERVER
           args:
             [
-                "while [[ $(curl -sw '%{http_code}' http://{{ include "litmus-portal.mongodbServiceName" . }}:{{ .Values.mongodb.service.ports.mongodb }} -o /dev/null) -ne 200 ]]; do sleep 5; echo 'Waiting for the MongoDB to be ready...'; done; echo 'Connection with MongoDB established'",
+                "until [[ $(mongosh -u ${DB_USER} -p ${DB_PASSWORD} ${DB_SERVER} --eval 'rs.status()' | grep 'ok' | wc -l) -eq 1 ]]; do sleep 5; echo 'Waiting for the MongoDB to be ready...'; done; echo 'Connection with MongoDB established'",
             ]
-          securityContext:
-            {{- toYaml .Values.portal.server.waitForMongodb.securityContext | nindent 12 }}
           resources:
             {{- toYaml .Values.portal.server.waitForMongodb.resources | nindent 12 }}
+          securityContext:
+            {{- toYaml .Values.portal.server.waitForMongodb.securityContext | nindent 12 }}
       containers:
         - name: graphql-server
           image: {{ .Values.image.imageRegistryName }}/{{ .Values.portal.server.graphqlServer.image.repository }}:{{ .Values.portal.server.graphqlServer.image.tag }}
@@ -78,7 +109,7 @@ spec:
             - name: DB_PASSWORD
               {{- if .Values.mongodb.enabled }}      
               {{- if not .Values.mongodb.auth.existingSecret }}
-              value: {{ .Values.mongodb.auth.rootPassword }}
+              value: {{ .Values.mongodb.auth.rootPassword | quote}}
               {{- else }}
               valueFrom:
                 secretKeyRef:
