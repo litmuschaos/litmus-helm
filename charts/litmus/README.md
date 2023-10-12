@@ -1,6 +1,6 @@
 # litmus
 
-![Version: 3.0.0](https://img.shields.io/badge/Version-3.0.0-informational?style=flat-square) ![AppVersion: 3.0.0](https://img.shields.io/badge/AppVersion-3.0.0-informational?style=flat-square)
+![Version: 3.0.1](https://img.shields.io/badge/Version-3.0.1-informational?style=flat-square) ![AppVersion: 3.0.0](https://img.shields.io/badge/AppVersion-3.0.0-informational?style=flat-square)
 
 A Helm chart to install ChaosCenter
 
@@ -76,6 +76,7 @@ We separated service configuration from `portal.server.service` to `portal.serve
 | mongodb.auth.existingSecret | string | `""` | existingSecret Existing secret with MongoDB(&reg;) credentials (keys: `mongodb-passwords`, `mongodb-root-password`, `mongodb-metrics-password`, ` mongodb-replica-set-key`) |
 | nameOverride | string | `""` |  |
 | openshift.route.annotations | object | `{}` |  |
+| openshift.route.customLabels | object | `{}` |  |
 | openshift.route.enabled | bool | `false` |  |
 | openshift.route.host | string | `""` |  |
 | openshift.route.name | string | `"litmus-portal"` |  |
