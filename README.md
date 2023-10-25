@@ -61,8 +61,8 @@ kubectl create ns litmus
 helm install chaos litmuschaos/litmus --namespace=litmus
 
 ## ARM support
-## Litmus Helm Chart depends on bitnami/mongodb, which uses a mongodb image not supported on ARM.
-## Use a different image and tag as shown below.
+## Litmus helm chart depends on bitnami/mongodb, which uses a mongodb image not supported on ARM.
+## To install Litmus on an ARM-based server, use a custom MongoDB ARM image instead of the default.
 # helm install chaos litmuschaos/litmus --namespace=litmus \
 # --set mongodb.image.registry=<put_registry> \
 # --set mongodb.image.repository=<put_image_repository> \
