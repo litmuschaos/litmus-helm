@@ -15,7 +15,7 @@ existingSecret: ""
 
 adminConfig:
   JWTSecret: "litmus-portal@123"
-  VERSION: "2.14.0"
+  VERSION: "3.0.0"
   SKIP_SSL_VERIFY: "false"
   # -- leave empty if uses Mongo DB deployed by this chart
   DBPASSWORD: ""
@@ -60,7 +60,7 @@ upgradeAgent:
   controlPlane:
     image:
       repository: upgrade-agent-cp
-      tag: "2.14.0"
+      tag: "3.0.0"
       pullPolicy: "Always"
     restartPolicy: OnFailure
   nodeSelector: {}
@@ -98,15 +98,15 @@ portal:
     ##       maxSurge: 1
     ##       maxUnavailable: 25%
     automountServiceAccountToken: false
-    securityContext:
-      runAsUser: 2000
-      allowPrivilegeEscalation: false
-      runAsNonRoot: true
+    # securityContext:
+    #   runAsUser: 2000
+    #   allowPrivilegeEscalation: false
+    #   runAsNonRoot: true
     image:
       repository: litmusportal-frontend
-      tag: 2.14.0
+      tag: 3.0.0
       pullPolicy: "Always"
-    containerPort: 8080
+    containerPort: 8185
     customLabels: {}
     # my.company.com/tier: "frontend"
 
@@ -138,7 +138,7 @@ portal:
       annotations: {}
       type: ClusterIP
       port: 9091
-      targetPort: 8080
+      targetPort: 8185
     virtualService:
       enabled: false
       hosts: []
@@ -165,14 +165,15 @@ portal:
     # my.company.com/tier: "backend"
     waitForMongodb:
       image:
-        repository: curl
-        tag: 2.14.0
+        repository: mongo
+        tag: 6
         pullPolicy: "Always"
-      securityContext: {}
-       # runAsUser: 101
-       # allowPrivilegeEscalation: false
-       # runAsNonRoot: true
-       # readOnlyRootFilesystem: true
+      securityContext:
+        {}
+        # runAsUser: 101
+        # allowPrivilegeEscalation: false
+        # runAsNonRoot: true
+        # readOnlyRootFilesystem: true
       resources:
         # We usually recommend not to specify default resources and to leave this as a conscious
         # choice for the user. This also increases chances charts run on environments with little
@@ -204,7 +205,7 @@ portal:
         readOnlyRootFilesystem: true
       image:
         repository: litmusportal-server
-        tag: 2.14.0
+        tag: 3.0.0
         pullPolicy: "Always"
       ports:
         - name: gql-server
@@ -221,25 +222,23 @@ portal:
           port: 8000
           targetPort: 8000
       imageEnv:
-        SUBSCRIBER_IMAGE: "litmusportal-subscriber:2.14.0"
-        EVENT_TRACKER_IMAGE: "litmusportal-event-tracker:2.14.0"
+        SUBSCRIBER_IMAGE: "litmusportal-subscriber:3.0.0"
+        EVENT_TRACKER_IMAGE: "litmusportal-event-tracker:3.0.0"
         ARGO_WORKFLOW_CONTROLLER_IMAGE: "workflow-controller:v3.3.1"
         ARGO_WORKFLOW_EXECUTOR_IMAGE: "argoexec:v3.3.1"
-        LITMUS_CHAOS_OPERATOR_IMAGE: "chaos-operator:2.14.0"
-        LITMUS_CHAOS_RUNNER_IMAGE: "chaos-runner:2.14.0"
-        LITMUS_CHAOS_EXPORTER_IMAGE: "chaos-exporter:2.14.0"
+        LITMUS_CHAOS_OPERATOR_IMAGE: "chaos-operator:3.0.0"
+        LITMUS_CHAOS_RUNNER_IMAGE: "chaos-runner:3.0.0"
+        LITMUS_CHAOS_EXPORTER_IMAGE: "chaos-exporter:3.0.0"
       genericEnv:
         TLS_SECRET_NAME: ""
         TLS_CERT_64: ""
-        SELF_AGENT: "true"
-        SELF_AGENT_NODE_SELECTOR: ""
-        SELF_AGENT_TOLERATIONS: ""
         CONTAINER_RUNTIME_EXECUTOR: "k8sapi"
-        HUB_BRANCH_NAME: "v2.14.x"
-        AGENT_DEPLOYMENTS: '["app=chaos-exporter", "name=chaos-operator", "app=event-tracker", "app=workflow-controller"]'
+        DEFAULT_HUB_BRANCH_NAME: "v3.0.x"
+        INFRA_DEPLOYMENTS: '["app=chaos-exporter", "name=chaos-operator", "app=event-tracker", "app=workflow-controller"]'
         LITMUS_AUTH_GRPC_PORT: ":3030"
-        WORKFLOW_HELPER_IMAGE_VERSION: "2.14.0"
+        WORKFLOW_HELPER_IMAGE_VERSION: "3.0.0"
         REMOTE_HUB_MAX_SIZE: "5000000"
+        INFRA_COMPATIBLE_VERSIONS: '["3.0.0"]'
         # Provide UI endpoint if using namespaced scope
         CHAOS_CENTER_UI_ENDPOINT: ""
       resources:
@@ -282,7 +281,7 @@ portal:
       automountServiceAccountToken: false
       image:
         repository: litmusportal-auth-server
-        tag: 2.14.0
+        tag: 3.0.0
         pullPolicy: "Always"
       ports:
         - name: auth-server
@@ -326,6 +325,7 @@ openshift:
   route:
     enabled: false
     name: litmus-portal
+    customLabels: {}
     annotations: {}
     host: ""
 
@@ -335,12 +335,16 @@ mongodb:
   enabled: true
   auth:
     enabled: true
-    rootPassword: "superhardpassword"
+    rootUser: "root"
+    rootPassword: "1234"
     # -- existingSecret Existing secret with MongoDB(&reg;) credentials (keys: `mongodb-passwords`, `mongodb-root-password`, `mongodb-metrics-password`, ` mongodb-replica-set-key`)
     existingSecret: ""
-  architecture: standalone
-  useStatefulSet: false
-  replicaCount: 1
+  architecture: replicaset
+  replicaCount: 3
+  persistence:
+    enabled: true
+  volumePermissions:
+    enabled: true
   metrics:
     enabled: false
     prometheusRule:

@@ -61,8 +61,8 @@ spec:
               name: http
           volumeMounts:
             - name: nginx-config
-              mountPath: /etc/nginx/conf.d/default.conf
-              subPath: default.conf
+              mountPath: /etc/nginx/nginx.conf
+              subPath: nginx.conf
     {{- with .Values.portal.frontend.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

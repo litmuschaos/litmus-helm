@@ -1,9 +1,12 @@
 # Default values.yml for using chart with "ci" images
 # This is added for using litmus-helm-agent with ChaosCenter Helm-Chart deployment.
-# Once litmus-helm-agent is compatible with versioned release of helm-chart, this file will be removed. 
+# Once litmus-helm-agent is compatible with versioned release of helm-chart, this file will be removed.
 
 adminConfig:
   VERSION: "ci"
+  DBPASSWORD: ""
+  DBUSER: ""
+  DB_SERVER: ""
 
 upgradeAgent:
   controlPlane:

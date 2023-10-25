@@ -78,10 +78,16 @@ Check for existing secret
     {{- end -}}
 {{- end -}}
 
-{{- define "litmus-portal.mongodbServiceName" -}}
-    {{- if not (eq .Values.mongodb.architecture "replicaset") }}
-        {{- include "mongodb.fullname" .Subcharts.mongodb -}}
-    {{ else }}
-        {{- include "mongodb.service.nameOverride" .Subcharts.mongodb -}}
-    {{- end -}}
+{{/*
+ Returns mongodb connection string
+*/}}
+{{- define "litmus-portal.mongodbConnectionString" -}}
+{{- $hosts := "" -}}
+{{- $count := (.Values.mongodb.replicaCount | int) -}}
+{{- range $i, $e := until $count -}}
+  {{- $host := printf "%s-mongodb-%d.%s-mongodb-headless" $.Release.Name $i $.Release.Name -}}
+  {{- $hosts = printf "%s%s:%d," $hosts $host 27017 -}}
 {{- end -}}
+mongodb://{{ trimSuffix "," $hosts  }}/admin
+{{- end -}}
+
