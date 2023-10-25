@@ -62,7 +62,7 @@ helm install chaos litmuschaos/litmus --namespace=litmus
 
 ## ARM support
 ## Litmus Helm Chart depends on bitnami/mongodb, which uses a mongodb image not supported on ARM.
-## Use different images and tags as shown below.
+## Use different image and tag as shown below.
 # helm install chaos litmuschaos/litmus --namespace=litmus \
 # --set mongodb.image.registry=<put_registry> \
 # --set mongodb.image.repository=<put_image_repository> \
