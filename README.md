@@ -25,6 +25,7 @@ helm repo list
 ```
 
 Output:
+
 ```
 NAME            URL
 litmuschaos     https://litmuschaos.github.io/litmus-helm/
@@ -35,6 +36,7 @@ helm search repo litmuschaos
 ```
 
 Output:
+
 ```
 NAME                        	CHART VERSION	APP VERSION	DESCRIPTION
 litmuschaos/kube-aws        	1.15.0       	1.13.8     	A Helm chart to install litmus aws chaos experi...
@@ -57,9 +59,18 @@ kubectl create ns litmus
 
 ```bash
 helm install chaos litmuschaos/litmus --namespace=litmus
+
+## ARM support
+## Litmus helm chart depends on bitnami/mongodb, which uses a mongodb image that is not build for ARM arch.
+## To install Litmus on an ARM-based machine, you need to provide a custom MongoDB ARM image.
+# helm install chaos litmuschaos/litmus --namespace=litmus \
+# --set mongodb.image.registry=<put_registry> \
+# --set mongodb.image.repository=<put_image_repository> \
+# --set mongodb.image.tag=<put_image_tag>
 ```
 
 Output:
+
 ```bash
 NAME: chaos
 LAST DEPLOYED: Sat Aug 14 15:47:35 2021
@@ -78,7 +89,6 @@ Visit https://docs.litmuschaos.io to find more info.
 With this, you are good to go!! Use the service URLs for the `litmusportal-frontend` service (modify service type as needed)
 to access the Chaos Center. The default admin credentials are `admin/litmus`.
 
-
 Refer to the [documentation](https://docs.litmuschaos.io/)
 
 #### Step-3: Uninstall the litmus chaoscenter
@@ -88,6 +98,7 @@ helm uninstall chaos --namespace=litmus
 ```
 
 Output:
+
 ```bash
 release "chaos" uninstalled
 ```
