@@ -232,7 +232,7 @@ We separated service configuration from `portal.server.service` to `portal.serve
 | upgradeAgent.controlPlane.image.repository | string | `"upgrade-agent-cp"` |  |
 | upgradeAgent.controlPlane.image.tag | string | `"3.0.0"` |  |
 | upgradeAgent.controlPlane.restartPolicy | string | `"OnFailure"` |  |
-| upgradeAgent.enabled | bool | `false` |  |
+| upgradeAgent.enabled | bool | `true` |  |
 | upgradeAgent.nodeSelector | object | `{}` |  |
 | upgradeAgent.resources | object | `{}` |  |
 | upgradeAgent.tolerations | list | `[]` |  |
