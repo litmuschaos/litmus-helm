@@ -1,6 +1,6 @@
 # litmus
 
-![Version: 3.0.1](https://img.shields.io/badge/Version-3.0.1-informational?style=flat-square) ![AppVersion: 3.0.0](https://img.shields.io/badge/AppVersion-3.0.0-informational?style=flat-square)
+![Version: 3.0.2](https://img.shields.io/badge/Version-3.0.2-informational?style=flat-square) ![AppVersion: 3.0.0](https://img.shields.io/badge/AppVersion-3.0.0-informational?style=flat-square)
 
 A Helm chart to install ChaosCenter
 
@@ -232,6 +232,7 @@ We separated service configuration from `portal.server.service` to `portal.serve
 | upgradeAgent.controlPlane.image.repository | string | `"upgrade-agent-cp"` |  |
 | upgradeAgent.controlPlane.image.tag | string | `"3.0.0"` |  |
 | upgradeAgent.controlPlane.restartPolicy | string | `"OnFailure"` |  |
+| upgradeAgent.enabled | bool | `true` |  |
 | upgradeAgent.nodeSelector | object | `{}` |  |
 | upgradeAgent.resources | object | `{}` |  |
 | upgradeAgent.tolerations | list | `[]` |  |

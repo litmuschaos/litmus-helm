@@ -57,6 +57,7 @@ ingress:
   #    hosts: []
 
 upgradeAgent:
+  enabled: true
   controlPlane:
     image:
       repository: upgrade-agent-cp
