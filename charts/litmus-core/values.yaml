@@ -14,12 +14,12 @@ replicaCount: 1
 
 operator:
   image:
-    repository: litmuschaos/chaos-operator
+    repository: litmuschaos.docker.scarf.sh/litmuschaos/chaos-operator
     tag: 2.14.0
     pullPolicy: Always
 runner:
   image:
-    repository: litmuschaos/chaos-runner
+    repository: litmuschaos.docker.scarf.sh/litmuschaos/chaos-runner
     tag: 2.14.0
 
 service:
@@ -74,7 +74,7 @@ exporter:
     enabled: false
     additionalLabels: {}
   image:
-    repository: litmuschaos/chaos-exporter
+    repository: litmuschaos.docker.scarf.sh/litmuschaos/chaos-exporter
     tag: 2.14.0
     pullPolicy: Always
   service:

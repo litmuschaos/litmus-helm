@@ -26,7 +26,7 @@ A Helm chart to install litmus Azure chaos experiments
 | experiments.disabled | list | `[]` |  |
 | fullnameOverride | string | `"kube-azure"` |  |
 | image.litmusGO.pullPolicy | string | `"Always"` |  |
-| image.litmusGO.repository | string | `"litmuschaos/go-runner"` |  |
+| image.litmusGO.repository | string | `"litmuschaos.docker.scarf.sh/litmuschaos/go-runner"` |  |
 | image.litmusGO.tag | string | `"2.14.0"` |  |
 | nameOverride | string | `"kube-azure"` |  |
 

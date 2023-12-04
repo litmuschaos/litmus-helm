@@ -5,14 +5,14 @@ global:
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-appSettings: 
+appSettings:
   executorImage: "litmuschaos/argoexec:v3.3.1"
   containerRuntimeExecutor: "k8sapi"
 
 replicaCount: 1
 
 image:
-  repository: litmuschaos/litmusportal-subscriber
+  repository: litmuschaos.docker.scarf.sh/litmuschaos/litmusportal-subscriber
   pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
   tag: ""

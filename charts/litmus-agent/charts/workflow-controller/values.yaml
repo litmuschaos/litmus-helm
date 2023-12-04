@@ -13,7 +13,7 @@ crds:
 replicaCount: 1
 
 image:
-  repository: litmuschaos/workflow-controller
+  repository: litmuschaos.docker.scarf.sh/litmuschaos/workflow-controller
   pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
   tag: "v3.3.1"
