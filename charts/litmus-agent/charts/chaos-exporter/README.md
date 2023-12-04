@@ -36,7 +36,7 @@ Kubernetes: `>=1.16.0-0`
 | enabled | bool | `true` |  |
 | fullnameOverride | string | `""` |  |
 | image.pullPolicy | string | `"Always"` |  |
-| image.repository | string | `"litmuschaos/chaos-exporter"` |  |
+| image.repository | string | `"litmuschaos.docker.scarf.sh/litmuschaos/chaos-exporter"` |  |
 | image.tag | string | `""` |  |
 | imagePullSecrets | list | `[]` |  |
 | nameOverride | string | `""` |  |

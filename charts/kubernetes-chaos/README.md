@@ -1,6 +1,6 @@
 # kubernetes-chaos
 
-![Version: 2.28.0](https://img.shields.io/badge/Version-2.28.0-informational?style=flat-square) ![AppVersion: 2.14.0](https://img.shields.io/badge/AppVersion-2.14.0-informational?style=flat-square)
+![Version: 2.28.1](https://img.shields.io/badge/Version-2.28.1-informational?style=flat-square) ![AppVersion: 2.14.0](https://img.shields.io/badge/AppVersion-2.14.0-informational?style=flat-square)
 
 A Helm chart to install litmus chaos experiments for kubernetes category (chaos-chart)
 
@@ -29,7 +29,7 @@ A Helm chart to install litmus chaos experiments for kubernetes category (chaos-
 | experiments.disabled | list | `[]` |  |
 | fullnameOverride | string | `"k8s"` |  |
 | image.litmus.pullPolicy | string | `"Always"` |  |
-| image.litmus.repository | string | `"litmuschaos/ansible-runner"` |  |
+| image.litmus.repository | string | `"litmuschaos.docker.scarf.sh/litmuschaos/ansible-runner"` |  |
 | image.litmus.tag | string | `"2.14.0"` |  |
 | image.litmusGO.pullPolicy | string | `"Always"` |  |
 | image.litmusGO.repository | string | `"litmuschaos.docker.scarf.sh/litmuschaos/go-runner"` |  |

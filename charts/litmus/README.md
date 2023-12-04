@@ -1,6 +1,6 @@
 # litmus
 
-![Version: 3.0.2](https://img.shields.io/badge/Version-3.0.2-informational?style=flat-square) ![AppVersion: 3.0.0](https://img.shields.io/badge/AppVersion-3.0.0-informational?style=flat-square)
+![Version: 3.0.3](https://img.shields.io/badge/Version-3.0.3-informational?style=flat-square) ![AppVersion: 3.0.0](https://img.shields.io/badge/AppVersion-3.0.0-informational?style=flat-square)
 
 A Helm chart to install ChaosCenter
 
@@ -61,7 +61,7 @@ We separated service configuration from `portal.server.service` to `portal.serve
 | customLabels | object | `{}` | Additional labels |
 | existingSecret | string | `""` | Use existing secret (e.g., External Secrets) |
 | image.imagePullSecrets | list | `[]` |  |
-| image.imageRegistryName | string | `"litmuschaos"` |  |
+| image.imageRegistryName | string | `"litmuschaos.docker.scarf.sh/litmuschaos"` |  |
 | ingress.annotations | object | `{}` |  |
 | ingress.enabled | bool | `false` |  |
 | ingress.host.backend.path | string | `"/backend/(.*)"` | You may need adapt the path depending your ingress-controller |
