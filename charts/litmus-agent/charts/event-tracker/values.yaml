@@ -8,7 +8,7 @@ global:
 replicaCount: 1
 
 image:
-  repository: litmuschaos/litmusportal-event-tracker
+  repository: litmuschaos.docker.scarf.sh/litmuschaos/litmusportal-event-tracker
   pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
   tag: ""

@@ -38,7 +38,7 @@ Kubernetes: `>=1.16.0-0`
 | customLabels | object | `{}` |  |
 | fullnameOverride | string | `""` |  |
 | image.pullPolicy | string | `"Always"` |  |
-| image.repository | string | `"litmuschaos/workflow-controller"` |  |
+| image.repository | string | `"litmuschaos.docker.scarf.sh/litmuschaos/workflow-controller"` |  |
 | image.tag | string | `"v3.3.1"` |  |
 | imagePullSecrets | list | `[]` |  |
 | nameOverride | string | `""` |  |
