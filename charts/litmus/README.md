@@ -61,7 +61,7 @@ We separated service configuration from `portal.server.service` to `portal.serve
 | customLabels | object | `{}` | Additional labels |
 | existingSecret | string | `""` | Use existing secret (e.g., External Secrets) |
 | image.imagePullSecrets | list | `[]` |  |
-| image.imageRegistryName | string | `"litmuschaos"` |  |
+| image.imageRegistryName | string | `"litmuschaos.docker.scarf.sh/litmuschaos"` |  |
 | ingress.annotations | object | `{}` |  |
 | ingress.enabled | bool | `false` |  |
 | ingress.host.backend.path | string | `"/backend/(.*)"` | You may need adapt the path depending your ingress-controller |

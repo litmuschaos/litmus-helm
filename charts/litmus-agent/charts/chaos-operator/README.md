@@ -34,7 +34,7 @@ Kubernetes: `>=1.16.0-0`
 | customLabels | object | `{}` |  |
 | fullnameOverride | string | `""` |  |
 | image.pullPolicy | string | `"Always"` |  |
-| image.repository | string | `"litmuschaos/chaos-operator"` |  |
+| image.repository | string | `"litmuschaos.docker.scarf.sh/litmuschaos/chaos-operator"` |  |
 | image.tag | string | `""` |  |
 | imagePullSecrets | list | `[]` |  |
 | ingress.annotations | object | `{}` |  |
@@ -55,7 +55,7 @@ Kubernetes: `>=1.16.0-0`
 | resources.requests.cpu | string | `"125m"` |  |
 | resources.requests.ephemeral-storage | string | `"500Mi"` |  |
 | resources.requests.memory | string | `"300Mi"` |  |
-| runner.image.repository | string | `"litmuschaos/chaos-runner"` |  |
+| runner.image.repository | string | `"litmuschaos.docker.scarf.sh/litmuschaos/chaos-runner"` |  |
 | runner.image.tag | string | `""` |  |
 | securityContext.allowPrivilegeEscalation | bool | `false` |  |
 | securityContext.runAsUser | int | `2000` |  |

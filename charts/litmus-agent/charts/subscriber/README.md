@@ -34,7 +34,7 @@ Kubernetes: `>=1.16.0-0`
 | global.agentConfigName | string | `"agent-config"` |  |
 | global.agentSecretName | string | `"agent-secret"` |  |
 | image.pullPolicy | string | `"Always"` |  |
-| image.repository | string | `"litmuschaos/litmusportal-subscriber"` |  |
+| image.repository | string | `"litmuschaos.docker.scarf.sh/litmuschaos/litmusportal-subscriber"` |  |
 | image.tag | string | `""` |  |
 | imagePullSecrets | list | `[]` |  |
 | nameOverride | string | `""` |  |

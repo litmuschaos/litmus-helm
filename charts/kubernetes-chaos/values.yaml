@@ -10,12 +10,12 @@ customLabels: {}
 
 image:
   litmus:
-    repository: litmuschaos/ansible-runner
+    repository: litmuschaos.docker.scarf.sh/litmuschaos/ansible-runner
     tag: 2.14.0
     pullPolicy: Always
 
   litmusGO:
-    repository: litmuschaos/go-runner
+    repository: litmuschaos.docker.scarf.sh/litmuschaos/go-runner
     tag: 2.14.0
     pullPolicy: Always
 
@@ -23,7 +23,7 @@ image:
     libName: pumba
 
   litmusLIBImage:
-    repository: litmuschaos/go-runner
+    repository: litmuschaos.docker.scarf.sh/litmuschaos/go-runner
     tag: 2.14.0
 
   networkChaos:

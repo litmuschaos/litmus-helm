@@ -28,7 +28,7 @@ LITMUS_PASSWORD: "litmus"
 LITMUS_PROJECT_ID: ""
 
 image:
-  repository: litmuschaos/litmus-helm-agent
+  repository: litmuschaos.docker.scarf.sh/litmuschaos/litmus-helm-agent
   pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
   tag: "latest"
