@@ -2681,6 +2681,36 @@ entries:
     version: 1.6.0
   litmus:
   - apiVersion: v2
+    appVersion: 3.1.0
+    created: "2023-12-15T09:22:53.616638556Z"
+    dependencies:
+    - condition: mongodb.enabled
+      name: mongodb
+      repository: https://raw.githubusercontent.com/bitnami/charts/archive-full-index/bitnami
+      version: 12.1.11
+    description: A Helm chart to install ChaosCenter
+    digest: 11e2486fd01430c2db5a95941899e42714af2f0a750e09e36f4441e51b70eed2
+    home: https://litmuschaos.io
+    icon: https://raw.githubusercontent.com/litmuschaos/icons/master/litmus.png
+    keywords:
+    - chaos-engineering
+    - resiliency
+    - kubernetes
+    kubeVersion: '>=1.16.0-0'
+    maintainers:
+    - email: raj.das@mayadata.io
+      name: imrajdas
+    - email: shubham.chaudhary@mayadata.io
+      name: ispeakc0de
+    - email: jasssstkn@yahoo.com
+      name: jasstkn
+    name: litmus
+    sources:
+    - https://github.com/litmuschaos/litmus
+    urls:
+    - https://github.com/litmuschaos/litmus-helm/releases/download/litmus-3.1.0/litmus-3.1.0.tgz
+    version: 3.1.0
+  - apiVersion: v2
     appVersion: 3.0.0
     created: "2023-12-05T13:47:26.945732387Z"
     dependencies:
@@ -5981,4 +6011,4 @@ entries:
     urls:
     - litmus-core/litmus-core-1.20.0.tgz
     version: 1.20.0
-generated: "2023-12-05T13:47:27.311291659Z"
+generated: "2023-12-15T09:22:53.617048533Z"
