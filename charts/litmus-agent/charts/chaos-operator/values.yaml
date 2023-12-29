@@ -5,14 +5,14 @@
 replicaCount: 1
 
 image:
-  repository: litmuschaos/chaos-operator
+  repository: litmuschaos.docker.scarf.sh/litmuschaos/chaos-operator
   pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
   tag: ""
 
 runner:
   image:
-    repository: litmuschaos/chaos-runner
+    repository: litmuschaos.docker.scarf.sh/litmuschaos/chaos-runner
     tag: ""
 
 imagePullSecrets: []

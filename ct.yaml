@@ -2,3 +2,4 @@ chart-dirs:
   - charts
 chart-repos:
   - bitnami=https://raw.githubusercontent.com/bitnami/charts/archive-full-index/bitnami
+excluded-charts: "litmus-agent"

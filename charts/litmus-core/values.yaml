@@ -14,12 +14,12 @@ replicaCount: 1
 
 operator:
   image:
-    repository: litmuschaos/chaos-operator
+    repository: litmuschaos.docker.scarf.sh/litmuschaos/chaos-operator
     tag: 2.14.0
     pullPolicy: Always
 runner:
   image:
-    repository: litmuschaos/chaos-runner
+    repository: litmuschaos.docker.scarf.sh/litmuschaos/chaos-runner
     tag: 2.14.0
 
 service:
@@ -46,12 +46,12 @@ resources:
   # choice for the user. This also increases chances charts run on environments with little
   # resources, such as Minikube. If you do want to specify resources, uncomment the following
   # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
-    limits:
-      cpu: 100m
-      memory: 128Mi
-    requests:
-      cpu: 100m
-      memory: 128Mi
+  limits:
+    cpu: 100m
+    memory: 128Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
 
 nodeSelector: {}
 
@@ -74,7 +74,7 @@ exporter:
     enabled: false
     additionalLabels: {}
   image:
-    repository: litmuschaos/chaos-exporter
+    repository: litmuschaos.docker.scarf.sh/litmuschaos/chaos-exporter
     tag: 2.14.0
     pullPolicy: Always
   service:

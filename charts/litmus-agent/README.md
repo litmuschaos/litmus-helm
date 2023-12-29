@@ -76,7 +76,7 @@ $ helm install litmus-agent litmuschaos/litmus-agent \
 | global.customLabels | object | `{}` |  |
 | global.podAnnotations | object | `{}` |  |
 | image.pullPolicy | string | `"Always"` |  |
-| image.repository | string | `"litmuschaos/litmus-helm-agent"` |  |
+| image.repository | string | `"litmuschaos.docker.scarf.sh/litmuschaos/litmus-helm-agent"` |  |
 | image.tag | string | `"latest"` |  |
 | resources.limits.cpu | string | `"100m"` |  |
 | resources.limits.memory | string | `"128Mi"` |  |
