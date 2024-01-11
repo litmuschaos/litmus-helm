@@ -64,7 +64,7 @@ spec:
             value: {{ .Release.Namespace }}
 
           - name: APP_VERSION 
-            value: "3.0.0-beta8" #For compatibility with 3.0.0-beta8 ChaosCenter, Version has to be same
+            value: {{ .Values.APP_VERSION }}
 
           - name: SERVICE_ACCOUNT_NAME
             value: {{ include "litmus-agent.serviceAccountName" . }}

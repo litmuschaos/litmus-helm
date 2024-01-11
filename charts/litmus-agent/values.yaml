@@ -16,6 +16,8 @@ AGENT_NODE_SELECTOR: ""
 SA_EXISTS: true
 NS_EXISTS: true
 CLUSTER_TYPE: "external"
+# For compatibility with 3.0.0-beta8 ChaosCenter, Version has to be same
+APP_VERSION: "3.0.0-beta8"
 SKIP_SSL: "false"
 
 # PLATFORM_NAME: AWS, GKE, Openshift, Rancher, Others

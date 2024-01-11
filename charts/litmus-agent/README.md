@@ -55,6 +55,7 @@ $ helm install litmus-agent litmuschaos/litmus-agent \
 | AGENT_DESCRIPTION | string | `"chaos agent deployed with helm"` |  |
 | AGENT_NAME | string | `"helm-agent"` |  |
 | AGENT_NODE_SELECTOR | string | `""` |  |
+| APP_VERSION | string | `"3.0.0-beta8"` |  |
 | CLUSTER_TYPE | string | `"external"` |  |
 | LITMUS_BACKEND_URL | string | `""` |  |
 | LITMUS_PASSWORD | string | `"litmus"` |  |
