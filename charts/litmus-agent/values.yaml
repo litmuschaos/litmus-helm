@@ -1,23 +1,23 @@
 global:
-  agentConfigName: agent-config
-  agentSecretName: agent-secret
+  infraConfigName: subscriber-config
+  infraSecretName: subscriber-secret
   podAnnotations: {}
   customLabels: {}
-  # AGENT_MODE: cluster, namespace
-  AGENT_MODE: "cluster"
+  # INFRA_MODE: cluster, namespace
+  INFRA_MODE: "cluster"
 # Default values for litmus-agent.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-AGENT_NAME: "helm-agent"
-AGENT_DESCRIPTION: "chaos agent deployed with helm"
+INFRA_NAME: "helm-infrastructure"
+INFRA_DESCRIPTION: "chaos infrastructure deployed with helm"
 
-AGENT_NODE_SELECTOR: ""
+INFRA_NODE_SELECTOR: ""
 SA_EXISTS: true
 NS_EXISTS: true
-CLUSTER_TYPE: "external"
-# For compatibility with 3.0.0-beta8 ChaosCenter, Version has to be same
-APP_VERSION: "3.0.0-beta8"
+INFRA_TYPE: "external"
+# For compatibility with ChaosCenter, Version has to be same
+APP_VERSION: "3.1.0"
 SKIP_SSL: "false"
 
 # PLATFORM_NAME: AWS, GKE, Openshift, Rancher, Others
@@ -28,6 +28,7 @@ LITMUS_BACKEND_URL: ""
 LITMUS_USERNAME: "admin"
 LITMUS_PASSWORD: "litmus"
 LITMUS_PROJECT_ID: ""
+LITMUS_ENVIRONMENT_ID: ""
 
 image:
   repository: litmuschaos.docker.scarf.sh/litmuschaos/litmus-helm-agent
