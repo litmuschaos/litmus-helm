@@ -18,7 +18,6 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
-        {{- include "chaos-exporter.selectorLabels" . | nindent 8 }}
         {{- include "chaos-exporter.labels" . | nindent 8 }}
     spec:
       {{- with .Values.imagePullSecrets }}
