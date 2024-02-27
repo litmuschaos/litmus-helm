@@ -16,7 +16,6 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
-        {{- include "subscriber.selectorLabels" . | nindent 8 }}
         {{- include "subscriber.labels" . | nindent 8 }}
     spec:
       {{- with .Values.imagePullSecrets }}
