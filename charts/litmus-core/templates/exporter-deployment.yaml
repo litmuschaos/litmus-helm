@@ -5,8 +5,7 @@ metadata:
   name: {{ include "litmus.fullname" . }}-monitor
   namespace:  {{ .Release.Namespace }}
   labels:
-    app: {{ template "litmus.name" . }}
-    {{- include "litmus.labels" . | indent 4 }}
+    {{- include "litmus.exporterLabels" . | indent 4 }}
   {{- if .Values.exporter.annotations }}
   annotations:
     {{- toYaml .Values.exporter.annotations | nindent 4 }}
@@ -15,13 +14,11 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: {{ template "litmus.name" . }}
-      {{- include "litmus.selectors" . | indent 6 }}
+      {{- include "litmus.exporterSelectors" . | indent 6 }}
   template:
     metadata:
       labels:
-        app: {{ template "litmus.name" . }}
-        {{- include "litmus.labels" . | indent 8 }}
+        {{- include "litmus.exporterLabels" . | indent 8 }}
       {{- if .Values.exporter.annotations }}
       annotations:
         {{- toYaml .Values.exporter.annotations | nindent 10 }}
