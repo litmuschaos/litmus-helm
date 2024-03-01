@@ -5,8 +5,7 @@ kind: ClusterRole
 metadata:
   name: {{ include "litmus.fullname" . }}
   labels:
-    app: {{ template "litmus.name" . }}
-    {{- include "litmus.labels" . | indent 4 }}
+    {{- include "litmus.operatorLabels" . | indent 4 }}
 rules:
 - apiGroups: [""]
   resources: ["replicationcontrollers","secrets"]
@@ -46,8 +45,7 @@ kind: ClusterRole
 metadata:
   name: {{ include "litmus.fullname" . }}-admin
   labels:
-    app: {{ template "litmus.name" . }}
-    {{- include "litmus.labels" . | indent 4 }}
+    {{- include "litmus.operatorLabels" . | indent 4 }}
 rules:
 - apiGroups: [""]
   resources: ["pods","pods/exec","pods/eviction","events"]
