@@ -2,7 +2,7 @@ apiVersion: v1
 appVersion: "2.14.0"
 description: A Helm chart to install litmus infra components on Kubernetes
 name: litmus-core
-version: 2.14.2
+version: 2.15.0
 home: https://litmuschaos.io
 sources:
   - https://github.com/litmuschaos/litmus
