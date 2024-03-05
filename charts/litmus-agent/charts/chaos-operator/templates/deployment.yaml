@@ -39,7 +39,7 @@ spec:
           env:
             - name: CHAOS_RUNNER_IMAGE
               value: "{{ .Values.runner.image.repository }}:{{ .Values.runner.image.tag | default .Chart.AppVersion }}"
-            {{- if eq .Values.global.AGENT_MODE  "namespace" }}
+            {{- if eq .Values.global.INFRA_MODE  "namespace" }}
             - name: WATCH_NAMESPACE
               valueFrom:
                 fieldRef:
