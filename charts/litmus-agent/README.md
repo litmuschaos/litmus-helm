@@ -1,6 +1,6 @@
 # litmus-agent
 
-![Version: 0.2.1](https://img.shields.io/badge/Version-0.2.1-informational?style=flat-square) ![AppVersion: 0.2.0](https://img.shields.io/badge/AppVersion-0.2.0-informational?style=flat-square)
+![Version: 1.0.0](https://img.shields.io/badge/Version-1.0.0-informational?style=flat-square) ![AppVersion: 0.3.0](https://img.shields.io/badge/AppVersion-0.3.0-informational?style=flat-square)
 
 A Helm chart to install litmus agent
 
@@ -24,10 +24,10 @@ Kubernetes: `>=1.16.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-|  | chaos-exporter | 0.2.0 |
-|  | chaos-operator | 0.2.0 |
-|  | event-tracker | 0.2.0 |
-|  | subscriber | 0.2.0 |
+|  | chaos-exporter | 1.0.0 |
+|  | chaos-operator | 1.0.0 |
+|  | event-tracker | 1.0.0 |
+|  | subscriber | 1.0.0 |
 |  | workflow-controller | 0.2.0 |
 
 ## Installing the Chart
@@ -52,12 +52,13 @@ $ helm install litmus-agent litmuschaos/litmus-agent \
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| AGENT_DESCRIPTION | string | `"chaos agent deployed with helm"` |  |
-| AGENT_NAME | string | `"helm-agent"` |  |
-| AGENT_NODE_SELECTOR | string | `""` |  |
-| APP_VERSION | string | `"3.0.0-beta8"` |  |
-| CLUSTER_TYPE | string | `"external"` |  |
+| APP_VERSION | string | `"3.1.0"` |  |
+| INFRA_DESCRIPTION | string | `"chaos infrastructure deployed with helm"` |  |
+| INFRA_NAME | string | `"helm-infrastructure"` |  |
+| INFRA_NODE_SELECTOR | string | `""` |  |
+| INFRA_TYPE | string | `"external"` |  |
 | LITMUS_BACKEND_URL | string | `""` |  |
+| LITMUS_ENVIRONMENT_ID | string | `""` |  |
 | LITMUS_PASSWORD | string | `"litmus"` |  |
 | LITMUS_PROJECT_ID | string | `""` |  |
 | LITMUS_URL | string | `"https://my-domain.com"` |  |
@@ -70,10 +71,10 @@ $ helm install litmus-agent litmuschaos/litmus-agent \
 | chaos-operator.enabled | bool | `true` |  |
 | crds.create | bool | `true` |  |
 | event-tracker.enabled | bool | `true` |  |
-| global.AGENT_MODE | string | `"cluster"` |  |
-| global.agentConfigName | string | `"agent-config"` |  |
-| global.agentSecretName | string | `"agent-secret"` |  |
+| global.INFRA_MODE | string | `"cluster"` |  |
 | global.customLabels | object | `{}` |  |
+| global.infraConfigName | string | `"subscriber-config"` |  |
+| global.infraSecretName | string | `"subscriber-secret"` |  |
 | global.podAnnotations | object | `{}` |  |
 | image.pullPolicy | string | `"Always"` |  |
 | image.repository | string | `"litmuschaos.docker.scarf.sh/litmuschaos/litmus-helm-agent"` |  |

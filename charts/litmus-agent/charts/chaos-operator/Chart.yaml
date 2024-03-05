@@ -2,7 +2,7 @@ apiVersion: v2
 appVersion: "3.1.0"
 description:  A Helm chart to install chaos-operator
 name: chaos-operator
-version: 0.2.1
+version: 1.0.0
 kubeVersion: ">=1.16.0-0"
 home: https://litmuschaos.io
 sources:
