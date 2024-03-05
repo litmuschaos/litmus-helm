@@ -28,6 +28,7 @@ LITMUS_BACKEND_URL: ""
 LITMUS_USERNAME: "admin"
 LITMUS_PASSWORD: "litmus"
 LITMUS_PROJECT_ID: ""
+# -- ID of the litmus environment where the infrastructure will be added
 LITMUS_ENVIRONMENT_ID: ""
 
 image:
