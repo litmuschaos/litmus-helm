@@ -41,7 +41,7 @@ spec:
           env:
             - name: TSDB_SCRAPE_INTERVAL
               value: "{{ .Values.config.tsdb_scrape_interval }}"
-            {{- if eq .Values.global.AGENT_MODE  "namespace"}}
+            {{- if eq .Values.global.INFRA_MODE  "namespace"}}
             - name: WATCH_NAMESPACE
               valueFrom:
                 fieldRef:
