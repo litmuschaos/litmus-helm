@@ -47,22 +47,22 @@ spec:
           service:
             name: {{ $fullName }}-frontend-service
             port:
-              number: 9091
+              number: {{ .Values.portal.frontend.service.port }}
       - path: {{ .Values.ingress.host.backend.path }}
         pathType: {{ .Values.ingress.host.backend.pathType }}
         backend:
           service: 
             name: {{ $fullName }}-server-service
             port: 
-              number: 9002
+              number: {{ .Values.portal.server.graphqlServer.service.graphqlServer.port }}
     {{- else if semverCompare "<1.19-0" .Capabilities.KubeVersion.GitVersion }}
       - path: {{ .Values.ingress.host.paths.frontend }}
         backend:
           serviceName: {{ $fullName }}-frontend-service
-          servicePort: 9091
+          servicePort: {{ .Values.portal.frontend.service.port }}
       - path: {{ .Values.ingress.host.paths.backend }}
         backend: 
           serviceName: {{ $fullName }}-server-service
-          servicePort: 9002
+          servicePort: {{ .Values.portal.server.graphqlServer.service.graphqlServer.port }}
     {{- end }}
 {{- end }}
