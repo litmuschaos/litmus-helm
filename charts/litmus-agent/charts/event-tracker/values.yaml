@@ -1,6 +1,6 @@
 global:
-  agentConfigName: agent-config
-  agentSecretName: agent-secret
+  infraConfigName: subscriber-config
+  infraSecretName: subscriber-secret
 # Default values for event-tracker.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.

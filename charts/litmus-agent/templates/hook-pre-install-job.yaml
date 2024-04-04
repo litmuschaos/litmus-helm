@@ -32,18 +32,20 @@ spec:
           - secretRef:
               name: {{ include "litmus-agent.fullname" . }}-hook
         env:
-          - name: AGENT_NAME
-            value: {{ .Values.AGENT_NAME }}
-          - name: AGENT_DESCRIPTION
-            value: {{ .Values.AGENT_DESCRIPTION | quote }}
-          - name: AGENT_MODE
-            value: {{ .Values.global.AGENT_MODE }}
-          - name: AGENT_CONFIGMAP_NAME
-            value: {{ .Values.global.agentConfigName | quote }}
-          - name: AGENT_SECRET_NAME
-            value: {{ .Values.global.agentSecretName | quote }}
-          - name: AGENT_NODE_SELECTOR
-            value: {{ .Values.AGENT_NODE_SELECTOR | quote }}
+          - name: INFRA_NAME
+            value: {{ .Values.INFRA_NAME }}
+          - name: INFRA_DESCRIPTION
+            value: {{ .Values.INFRA_DESCRIPTION | quote }}
+          - name: LITMUS_ENVIRONMENT_ID
+            value: {{ .Values.LITMUS_ENVIRONMENT_ID }}
+          - name: INFRA_MODE
+            value: {{ .Values.global.INFRA_MODE }}
+          - name: INFRA_CONFIGMAP_NAME
+            value: {{ .Values.global.infraConfigName | quote }}
+          - name: INFRA_SECRET_NAME
+            value: {{ .Values.global.infraSecretName | quote }}
+          - name: INFRA_NODE_SELECTOR
+            value: {{ .Values.INFRA_NODE_SELECTOR | quote }}
 
           - name: PLATFORM_NAME
             value: {{ .Values.PLATFORM_NAME }}
@@ -54,8 +56,8 @@ spec:
           - name: NS_EXISTS
             value: {{ .Values.NS_EXISTS | quote }}
 
-          - name: CLUSTER_TYPE
-            value: {{ .Values.CLUSTER_TYPE }}
+          - name: INFRA_TYPE
+            value: {{ .Values.INFRA_TYPE }}
 
           - name: RELEASE_NAME
             value: {{ .Release.Name }}
