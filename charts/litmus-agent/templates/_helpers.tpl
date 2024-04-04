@@ -56,6 +56,6 @@ app.kubernetes.io/instance: {{ .Release.Name }}
 {{/*
 Create the name of the service account to use
 */}}
-{{- define "litmus-infra.serviceAccountName" -}}
+{{- define "litmus-agent.serviceAccountName" -}}
 {{- include "litmus-agent.fullname" . }}
 {{- end }}

@@ -22,7 +22,7 @@ spec:
         {{- include "chaos-exporter.labels" . | nindent 8 }}
     spec:
       restartPolicy: Never
-      serviceAccountName: {{ include "litmus-infra.serviceAccountName" . }}
+      serviceAccountName: {{ include "litmus-agent.serviceAccountName" . }}
       containers:
       - name: {{ .Chart.Name }}
         imagePullPolicy: Always
@@ -69,7 +69,7 @@ spec:
             value: {{ .Values.APP_VERSION }}
 
           - name: SERVICE_ACCOUNT_NAME
-            value: {{ include "litmus-infra.serviceAccountName" . }}
+            value: {{ include "litmus-agent.serviceAccountName" . }}
 
           - name: WORKFLOW_CONTROLER_CONFIGMAP_NAME
             value: {{ index .Values "workflow-controller" "appSettings" "configmapName" }}
