@@ -1,9 +1,9 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: install-{{ include "litmus-infra.fullname" . }}
+  name: install-{{ include "litmus-agent.fullname" . }}
   labels:
-    {{- include "litmus-infra.labels" . | nindent 4 }}
+    {{- include "litmus-agent.labels" . | nindent 4 }}
   annotations:
     # This is what defines this resource as a hook. Without this line, the
     # job is considered part of the release.
@@ -30,7 +30,7 @@ spec:
         args: ["./litmus-agent", "--action", "create"]
         envFrom:
           - secretRef:
-              name: {{ include "litmus-infra.fullname" . }}-hook
+              name: {{ include "litmus-agent.fullname" . }}-hook
         env:
           - name: INFRA_NAME
             value: {{ .Values.INFRA_NAME }}
