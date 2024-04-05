@@ -333,6 +333,15 @@ openshift:
 # -- Configure the Bitnami MongoDB subchart
 # see values at https://github.com/bitnami/charts/blob/master/bitnami/mongodb/values.yaml
 mongodb:
+  # For some environments, mongo pings can take time to resolve
+  livenessProbe:
+    timeoutSeconds: 20
+  readinessProbe:
+    timeoutSeconds: 20
+  # Required when using Mac M1 - https://github.com/bitnami/containers/issues/40947#issuecomment-1968364385
+  # extraEnvVars:
+  #   - name: EXPERIMENTAL_DOCKER_DESKTOP_FORCE_QEMU
+  #     value: "1"
   enabled: true
   auth:
     enabled: true
@@ -350,3 +359,8 @@ mongodb:
     enabled: false
     prometheusRule:
       enabled: false
+  # Required when using Mac M1 - https://github.com/bitnami/containers/issues/40947#issuecomment-1968364385
+  # arbiter:
+    # extraEnvVars:
+    #   - name: EXPERIMENTAL_DOCKER_DESKTOP_FORCE_QEMU
+    #     value: "1"
