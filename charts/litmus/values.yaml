@@ -335,9 +335,9 @@ openshift:
 mongodb:
   # For some environments, mongo pings can take time to resolve
   livenessProbe:
-    timeoutSeconds: 20 # Default 10s
+    timeoutSeconds: 20
   readinessProbe:
-    timeoutSeconds: 20 # Default 5s
+    timeoutSeconds: 20
   # Required when using Mac M1 - https://github.com/bitnami/containers/issues/40947#issuecomment-1968364385
   # extraEnvVars:
   #   - name: EXPERIMENTAL_DOCKER_DESKTOP_FORCE_QEMU
