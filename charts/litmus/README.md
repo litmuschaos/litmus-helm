@@ -1,6 +1,6 @@
 # litmus
 
-![Version: 3.5.0](https://img.shields.io/badge/Version-3.5.0-informational?style=flat-square) ![AppVersion: 3.5.0](https://img.shields.io/badge/AppVersion-3.5.0-informational?style=flat-square)
+![Version: 3.5.1](https://img.shields.io/badge/Version-3.5.1-informational?style=flat-square) ![AppVersion: 3.5.0](https://img.shields.io/badge/AppVersion-3.5.0-informational?style=flat-square)
 
 A Helm chart to install ChaosCenter
 
@@ -72,7 +72,7 @@ We separated service configuration from `portal.server.service` to `portal.serve
 | ingress.ingressClassName | string | `""` |  |
 | ingress.name | string | `"litmus-ingress"` |  |
 | ingress.tls | list | `[]` |  |
-| mongodb | object | `{"architecture":"replicaset","auth":{"enabled":true,"existingSecret":"","rootPassword":"1234","rootUser":"root"},"enabled":true,"metrics":{"enabled":false,"prometheusRule":{"enabled":false}},"persistence":{"enabled":true},"replicaCount":3,"volumePermissions":{"enabled":true}}` | Configure the Bitnami MongoDB subchart see values at https://github.com/bitnami/charts/blob/master/bitnami/mongodb/values.yaml |
+| mongodb | object | `{"architecture":"replicaset","auth":{"enabled":true,"existingSecret":"","rootPassword":"1234","rootUser":"root"},"enabled":true,"livenessProbe":{"timeoutSeconds":20},"metrics":{"enabled":false,"prometheusRule":{"enabled":false}},"persistence":{"enabled":true},"readinessProbe":{"timeoutSeconds":20},"replicaCount":3,"volumePermissions":{"enabled":true}}` | Configure the Bitnami MongoDB subchart see values at https://github.com/bitnami/charts/blob/master/bitnami/mongodb/values.yaml |
 | mongodb.auth.existingSecret | string | `""` | existingSecret Existing secret with MongoDB(&reg;) credentials (keys: `mongodb-passwords`, `mongodb-root-password`, `mongodb-metrics-password`, ` mongodb-replica-set-key`) |
 | nameOverride | string | `""` |  |
 | openshift.route.annotations | object | `{}` |  |
