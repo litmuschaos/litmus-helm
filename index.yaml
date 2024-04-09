@@ -5361,6 +5361,52 @@ entries:
     version: 1.2.0
   litmus-agent:
   - apiVersion: v2
+    appVersion: 3.5.0
+    created: "2024-04-09T06:00:14.065660264Z"
+    dependencies:
+    - condition: chaos-operator.enabled
+      name: chaos-operator
+      repository: ""
+      version: 3.5.0
+    - condition: chaos-exporter.enabled
+      name: chaos-exporter
+      repository: ""
+      version: 3.5.0
+    - condition: event-tracker.enabled
+      name: event-tracker
+      repository: ""
+      version: 3.5.0
+    - condition: subscriber.enabled
+      name: subscriber
+      repository: ""
+      version: 3.5.0
+    - condition: workflow-controller.enabled
+      name: workflow-controller
+      repository: ""
+      version: 0.2.0
+    description: A Helm chart to install litmus agent
+    digest: 1941d5bc4c8662a0e1294a0bda898a997b721f5680b73d399e82a425ef39738f
+    home: https://litmuschaos.io
+    icon: https://raw.githubusercontent.com/litmuschaos/icons/master/litmus.png
+    keywords:
+    - chaos-engineering
+    - resiliency
+    - kubernetes
+    kubeVersion: '>=1.16.0-0'
+    maintainers:
+    - email: remi.ziolkowski-ext@pole-emploi.fr
+      name: Vr00mm
+    - email: shubham.chaudhary@harness.io
+      name: ispeakc0de
+    - email: vedant.shrotria@harness.io
+      name: Jonsy13
+    name: litmus-agent
+    sources:
+    - https://github.com/litmuschaos/litmus
+    urls:
+    - https://github.com/litmuschaos/litmus-helm/releases/download/litmus-agent-3.5.0/litmus-agent-3.5.0.tgz
+    version: 3.5.0
+  - apiVersion: v2
     appVersion: 0.3.0
     created: "2024-04-04T10:15:13.80589439Z"
     dependencies:
@@ -6147,4 +6193,4 @@ entries:
     urls:
     - litmus-core/litmus-core-1.20.0.tgz
     version: 1.20.0
-generated: "2024-04-05T07:51:05.645051076Z"
+generated: "2024-04-09T06:00:14.06599561Z"
