@@ -24,10 +24,10 @@ spec:
       - apiGroups: [""]
         resources: ["configmaps"]
         verbs: ["get","list",]
-      # Track and get the runner, experiment, and helper pods log 
+      # Track and get the runner, experiment, and helper pods log
       - apiGroups: [""]
         resources: ["pods/log"]
-        verbs: ["get","list","watch"]  
+        verbs: ["get","list","watch"]
       # for creating and managing to execute comands inside target container
       - apiGroups: [""]
         resources: ["pods/exec"]
@@ -36,7 +36,7 @@ spec:
       - apiGroups: ["apps"]
         resources: ["deployments","statefulsets","replicasets", "daemonsets"]
         verbs: ["list","get"]
-      # deriving the parent/owner details of the pod(if parent is deploymentConfig)  
+      # deriving the parent/owner details of the pod(if parent is deploymentConfig)
       - apiGroups: ["apps.openshift.io"]
         resources: ["deploymentconfigs"]
         verbs: ["list","get"]
@@ -71,7 +71,7 @@ spec:
     # provide lib image
     - name: LIB_IMAGE
       value: "{{ .Values.image.litmusLIBImage.repository }}:{{ .Values.image.litmusLIBImage.tag }}"
-    
+
     # reset timeout specifies after how much duration to reset the connection
     - name: RESET_TIMEOUT
       value: '0' #in ms
@@ -89,7 +89,7 @@ spec:
     # 0 means no request will be affected and 100 means all
     - name: TOXICITY
       value: "100"
-    
+
     # network interface on which the proxy will listen
     - name: NETWORK_INTERFACE
       value: "eth0"
@@ -101,10 +101,6 @@ spec:
     - name: RAMP_TIME
       value: ''
 
-    # lib can be litmus or pumba
-    - name: LIB
-      value: 'litmus'
-
     # percentage of total pods to target
     - name: PODS_AFFECTED_PERC
       value: ''
@@ -112,15 +108,14 @@ spec:
     - name: TARGET_PODS
       value: ''
 
-    # provide the name of container runtime
-    # for litmus LIB, it supports docker, containerd, crio
-    # for pumba LIB, it supports docker only
-    - name: CONTAINER_RUNTIME
-      value: 'docker'
-
-    # provide the socket file path
+      # provide the socket file path
     - name: SOCKET_PATH
-      value: '/var/run/docker.sock'
+      value: "{{ .Values.environment.socketPath }}"
+
+      # provide the name of container runtime
+      # it supports docker, containerd, crio
+    - name: CONTAINER_RUNTIME
+      value: "{{ .Values.environment.runtime }}"
 
     # To select pods on specific node(s)
     - name: NODE_LABEL
@@ -130,7 +125,7 @@ spec:
     ## supported values: serial, parallel
     - name: SEQUENCE
       value: 'parallel'
-      
+
     labels:
       name: pod-http-reset-peer
       app.kubernetes.io/part-of: litmus
