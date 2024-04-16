@@ -88,7 +88,7 @@ data:
                 proxy_set_header   X-Real-IP            $remote_addr;
                 proxy_set_header   X-Forwarded-For      $proxy_add_x_forwarded_for;
                 proxy_set_header   X-Forwarded-Proto    $scheme;
-             proxy_pass "http://{{ include "litmus-portal.fullname" . }}-auth-server-service:9003/";
+             proxy_pass "http://{{ include "litmus-portal.fullname" . }}-auth-server-service.{{ .Release.Namespace }}.svc.cluster.local:9003/";
             }
 
             location /api/ {
@@ -97,7 +97,7 @@ data:
                 proxy_set_header   X-Real-IP            $remote_addr;
                 proxy_set_header   X-Forwarded-For      $proxy_add_x_forwarded_for;
                 proxy_set_header   X-Forwarded-Proto    $scheme;
-                proxy_pass "http://{{ include "litmus-portal.fullname" . }}-server-service:9002/";
+                proxy_pass "http://{{ include "litmus-portal.fullname" . }}-server-service.{{ .Release.Namespace }}.svc.cluster.local:9002/";
             }
 
             location /ws/ {
@@ -108,7 +108,7 @@ data:
                 proxy_set_header   X-Real-IP            $remote_addr;
                 proxy_set_header   X-Forwarded-For      $proxy_add_x_forwarded_for;
                 proxy_set_header   X-Forwarded-Proto    $scheme;
-                proxy_pass "http://{{ include "litmus-portal.fullname" . }}-server-service:9002/";
+                proxy_pass "http://{{ include "litmus-portal.fullname" . }}-server-service.{{ .Release.Namespace }}.svc.cluster.local:9002/";
             }
         }
     }

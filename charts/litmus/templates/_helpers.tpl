@@ -85,7 +85,7 @@ Check for existing secret
 {{- $hosts := "" -}}
 {{- $count := (.Values.mongodb.replicaCount | int) -}}
 {{- range $i, $e := until $count -}}
-  {{- $host := printf "%s-mongodb-%d.%s-mongodb-headless" $.Release.Name $i $.Release.Name -}}
+  {{- $host := printf "%s-mongodb-%d.%s-mongodb-headless.%s.svc.cluster.local" $.Release.Name $i $.Release.Name $.Release.Namespace -}}
   {{- $hosts = printf "%s%s:%d," $hosts $host 27017 -}}
 {{- end -}}
 mongodb://{{ trimSuffix "," $hosts  }}/admin
