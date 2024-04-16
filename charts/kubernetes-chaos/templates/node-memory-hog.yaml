@@ -36,7 +36,7 @@ spec:
           - "deletecollection"
       - apiGroups:
           - ""
-        resources: 
+        resources:
           - "nodes"
         verbs:
           - "get"
@@ -61,14 +61,14 @@ spec:
     ## Specify the amount of memory to be consumed in mebibytes
     ## NOTE: for selecting this option keep MEMORY_CONSUMPTION_PERCENTAGE empty
     - name: MEMORY_CONSUMPTION_MEBIBYTES
-      value: '0'   
+      value: '0'
 
     - name: NUMBER_OF_WORKERS
       value: '1'
 
      ## enter the comma separated target nodes name
     - name: TARGET_NODES
-      value: '' 
+      value: ''
 
     - name: NODE_LABEL
       value: ''
@@ -76,11 +76,6 @@ spec:
     # Period to wait before injection of chaos in sec
     - name: RAMP_TIME
       value: ''
-
-    # Provide the LIB here
-    # Only litmus supported
-    - name: LIB
-      value: 'litmus'
 
     # provide lib image
     - name: LIB_IMAGE

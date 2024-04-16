@@ -59,9 +59,6 @@ spec:
     - name: NETWORK_INTERFACE
       value: 'eth0'
 
-    - name: TC_IMAGE
-      value: "{{ .Values.image.networkChaos.tcImage }}"
-
     # provide lib image
     - name: LIB_IMAGE
       value: "{{ .Values.image.litmusLIBImage.repository }}:{{ .Values.image.litmusLIBImage.tag }}"
@@ -75,12 +72,9 @@ spec:
     # Time period to wait before injection of chaos in sec
     - name: RAMP_TIME
       value: ''
-    
+
     - name: JITTER
       value: '0'
-
-    - name: LIB
-      value: 'litmus'
 
     # percentage of total pods to target
     - name: PODS_AFFECTED_PERC
@@ -92,7 +86,7 @@ spec:
     ## it defines the sequence of chaos execution for multiple target pods
     ## supported values: serial, parallel
     - name: SEQUENCE
-      value: 'parallel'      
+      value: 'parallel'
 
     # provide the destination ips
     # chaos injection will be triggered for these destination ips
@@ -104,16 +98,14 @@ spec:
     - name: DESTINATION_HOSTS
       value: ''
 
-    # provide the name of container runtime
-    # for litmus LIB, it supports docker, containerd, crio
-    # for pumba LIB, it supports docker only
-    - name: CONTAINER_RUNTIME
-      value: "{{ .Values.environment.runtime }}"
-    
-    # provide the container runtime socket path
-    # default set to std docker sock file path
+      # provide the socket file path
     - name: SOCKET_PATH
       value: "{{ .Values.environment.socketPath }}"
+
+      # provide the name of container runtime
+      # it supports docker, containerd, crio
+    - name: CONTAINER_RUNTIME
+      value: "{{ .Values.environment.runtime }}"
 
     labels:
       name: pod-network-latency

@@ -67,19 +67,14 @@ spec:
     - name: RAMP_TIME
       value: ''
 
-    # Env var that describes the library used to execute the chaos
-    # Default: litmus. Supported values: litmus
-    - name: LIB
-      value: 'litmus'
-
     ## it defines the sequence of chaos execution for multiple target pods
     ## supported values: serial, parallel
     - name: SEQUENCE
-      value: 'parallel'      
-      
+      value: 'parallel'
+
     - name: TARGET_PODS
       value: ''
-            
+
     labels:
       name: pod-cpu-hog-exec
       app.kubernetes.io/part-of: litmus

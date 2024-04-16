@@ -69,18 +69,8 @@ spec:
     - name: RAMP_TIME
       value: ''
 
-    # Env var that describes the library used to execute the chaos
-    # Default: litmus. Supported values: litmus, pumba
-    - name: LIB
-      value: 'litmus'
-
-    # It is used in pumba lib only   
     - name: LIB_IMAGE
       value: "{{ .Values.image.litmusLIBImage.repository }}:{{ .Values.image.litmusLIBImage.tag }}"
-
-     ## It is used in pumba lib only    
-    - name: STRESS_IMAGE
-      value: "{{ .Values.image.resourceChaos.repository }}:{{ .Values.image.resourceChaos.tag }}"
 
     - name: TARGET_PODS
       value: ''
@@ -88,18 +78,16 @@ spec:
     ## it defines the sequence of chaos execution for multiple target pods
     ## supported values: serial, parallel
     - name: SEQUENCE
-      value: 'parallel'     
+      value: 'parallel'
 
-    # provide the name of container runtime
-    # for litmus LIB, it supports docker, containerd, crio
-    # for pumba LIB, it supports docker only
-    - name: CONTAINER_RUNTIME
-      value: "{{ .Values.environment.runtime }}"
-    
-    # provide the container runtime socket path
-    # default set to std docker sock file path
+      # provide the socket file path
     - name: SOCKET_PATH
       value: "{{ .Values.environment.socketPath }}"
+
+      # provide the name of container runtime
+      # it supports docker, containerd, crio
+    - name: CONTAINER_RUNTIME
+      value: "{{ .Values.environment.runtime }}"
 
     labels:
       name: pod-memory-hog

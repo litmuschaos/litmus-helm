@@ -67,33 +67,28 @@ spec:
 
       # Total number of workers default value is 4
       - name: NUMBER_OF_WORKERS
-        value: '4'    
+        value: '4'
 
       # Percentage of total pods to target
       - name: PODS_AFFECTED_PERC
-        value: ''   
+        value: ''
 
       # provide volume mount path
       - name: VOLUME_MOUNT_PATH
-        value: ''   
+        value: ''
 
        ## specify the comma separated target pods
       - name: TARGET_PODS
-        value: ''   
+        value: ''
 
       # Period to wait before and after injection of chaos in sec
       - name: RAMP_TIME
         value: ''
 
-      # Provide the LIB here
-      # Only pumba supported
-      - name: LIB
-        value: 'pumba'
-
       ## it defines the sequence of chaos execution for multiple target pods
       ## supported values: serial, parallel
       - name: SEQUENCE
-        value: 'parallel'        
+        value: 'parallel'
 
       # provide lib image
       - name: LIB_IMAGE

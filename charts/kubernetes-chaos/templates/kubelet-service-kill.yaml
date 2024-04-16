@@ -36,7 +36,7 @@ spec:
           - "deletecollection"
       - apiGroups:
           - ""
-        resources: 
+        resources:
           - "nodes"
         verbs:
           - "get"
@@ -56,9 +56,6 @@ spec:
     # Period to wait before and after injection of chaos in sec
     - name: RAMP_TIME
       value: ''
-
-    - name: LIB
-      value: 'litmus'
 
     - name: NODE_LABEL
       value: ''

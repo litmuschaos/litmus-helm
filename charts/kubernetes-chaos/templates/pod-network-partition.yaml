@@ -44,17 +44,13 @@ spec:
     command:
     - /bin/bash
     env:
-    
+
     - name: TOTAL_CHAOS_DURATION
       value: '60' # in seconds
 
     # ime period to wait before and after injection of chaos in sec
     - name: RAMP_TIME
       value: ''
-
-    # it should be litmus
-    - name: LIB
-      value: 'litmus'
 
     # provide the destination ips
     # chaos injection will be triggered for these destination ips
