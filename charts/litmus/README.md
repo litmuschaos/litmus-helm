@@ -1,6 +1,6 @@
 # litmus
 
-![Version: 3.5.1](https://img.shields.io/badge/Version-3.5.1-informational?style=flat-square) ![AppVersion: 3.5.0](https://img.shields.io/badge/AppVersion-3.5.0-informational?style=flat-square)
+![Version: 3.6.0](https://img.shields.io/badge/Version-3.6.0-informational?style=flat-square) ![AppVersion: 3.6.0](https://img.shields.io/badge/AppVersion-3.6.0-informational?style=flat-square)
 
 A Helm chart to install ChaosCenter
 
@@ -57,7 +57,7 @@ We separated service configuration from `portal.server.service` to `portal.serve
 | adminConfig.DB_SERVER | string | `""` |  |
 | adminConfig.JWTSecret | string | `"litmus-portal@123"` |  |
 | adminConfig.SKIP_SSL_VERIFY | string | `"false"` |  |
-| adminConfig.VERSION | string | `"3.5.0"` |  |
+| adminConfig.VERSION | string | `"3.6.0"` |  |
 | customLabels | object | `{}` | Additional labels |
 | existingSecret | string | `""` | Use existing secret (e.g., External Secrets) |
 | image.imagePullSecrets | list | `[]` |  |
@@ -91,7 +91,7 @@ We separated service configuration from `portal.server.service` to `portal.serve
 | portal.frontend.customLabels | object | `{}` |  |
 | portal.frontend.image.pullPolicy | string | `"Always"` |  |
 | portal.frontend.image.repository | string | `"litmusportal-frontend"` |  |
-| portal.frontend.image.tag | string | `"3.5.0"` |  |
+| portal.frontend.image.tag | string | `"3.6.0"` |  |
 | portal.frontend.livenessProbe.failureThreshold | int | `5` |  |
 | portal.frontend.livenessProbe.initialDelaySeconds | int | `30` |  |
 | portal.frontend.livenessProbe.periodSeconds | int | `10` |  |
@@ -129,7 +129,7 @@ We separated service configuration from `portal.server.service` to `portal.serve
 | portal.server.authServer.env.LITMUS_GQL_GRPC_PORT | string | `":8000"` |  |
 | portal.server.authServer.image.pullPolicy | string | `"Always"` |  |
 | portal.server.authServer.image.repository | string | `"litmusportal-auth-server"` |  |
-| portal.server.authServer.image.tag | string | `"3.5.0"` |  |
+| portal.server.authServer.image.tag | string | `"3.6.0"` |  |
 | portal.server.authServer.ports[0].containerPort | int | `3030` |  |
 | portal.server.authServer.ports[0].name | string | `"auth-server"` |  |
 | portal.server.authServer.ports[1].containerPort | int | `3000` |  |
@@ -157,23 +157,23 @@ We separated service configuration from `portal.server.service` to `portal.serve
 | portal.server.graphqlServer.genericEnv.CHAOS_CENTER_UI_ENDPOINT | string | `""` |  |
 | portal.server.graphqlServer.genericEnv.CONTAINER_RUNTIME_EXECUTOR | string | `"k8sapi"` |  |
 | portal.server.graphqlServer.genericEnv.DEFAULT_HUB_BRANCH_NAME | string | `"v3.5.x"` |  |
-| portal.server.graphqlServer.genericEnv.INFRA_COMPATIBLE_VERSIONS | string | `"[\"3.5.0\"]"` |  |
+| portal.server.graphqlServer.genericEnv.INFRA_COMPATIBLE_VERSIONS | string | `"[\"3.6.0\"]"` |  |
 | portal.server.graphqlServer.genericEnv.INFRA_DEPLOYMENTS | string | `"[\"app=chaos-exporter\", \"name=chaos-operator\", \"app=event-tracker\", \"app=workflow-controller\"]"` |  |
 | portal.server.graphqlServer.genericEnv.LITMUS_AUTH_GRPC_PORT | string | `":3030"` |  |
 | portal.server.graphqlServer.genericEnv.REMOTE_HUB_MAX_SIZE | string | `"5000000"` |  |
 | portal.server.graphqlServer.genericEnv.TLS_CERT_64 | string | `""` |  |
 | portal.server.graphqlServer.genericEnv.TLS_SECRET_NAME | string | `""` |  |
-| portal.server.graphqlServer.genericEnv.WORKFLOW_HELPER_IMAGE_VERSION | string | `"3.5.0"` |  |
+| portal.server.graphqlServer.genericEnv.WORKFLOW_HELPER_IMAGE_VERSION | string | `"3.6.0"` |  |
 | portal.server.graphqlServer.image.pullPolicy | string | `"Always"` |  |
 | portal.server.graphqlServer.image.repository | string | `"litmusportal-server"` |  |
-| portal.server.graphqlServer.image.tag | string | `"3.5.0"` |  |
+| portal.server.graphqlServer.image.tag | string | `"3.6.0"` |  |
 | portal.server.graphqlServer.imageEnv.ARGO_WORKFLOW_CONTROLLER_IMAGE | string | `"workflow-controller:v3.3.1"` |  |
 | portal.server.graphqlServer.imageEnv.ARGO_WORKFLOW_EXECUTOR_IMAGE | string | `"argoexec:v3.3.1"` |  |
-| portal.server.graphqlServer.imageEnv.EVENT_TRACKER_IMAGE | string | `"litmusportal-event-tracker:3.5.0"` |  |
-| portal.server.graphqlServer.imageEnv.LITMUS_CHAOS_EXPORTER_IMAGE | string | `"chaos-exporter:3.5.0"` |  |
-| portal.server.graphqlServer.imageEnv.LITMUS_CHAOS_OPERATOR_IMAGE | string | `"chaos-operator:3.5.0"` |  |
-| portal.server.graphqlServer.imageEnv.LITMUS_CHAOS_RUNNER_IMAGE | string | `"chaos-runner:3.5.0"` |  |
-| portal.server.graphqlServer.imageEnv.SUBSCRIBER_IMAGE | string | `"litmusportal-subscriber:3.5.0"` |  |
+| portal.server.graphqlServer.imageEnv.EVENT_TRACKER_IMAGE | string | `"litmusportal-event-tracker:3.6.0"` |  |
+| portal.server.graphqlServer.imageEnv.LITMUS_CHAOS_EXPORTER_IMAGE | string | `"chaos-exporter:3.6.0"` |  |
+| portal.server.graphqlServer.imageEnv.LITMUS_CHAOS_OPERATOR_IMAGE | string | `"chaos-operator:3.6.0"` |  |
+| portal.server.graphqlServer.imageEnv.LITMUS_CHAOS_RUNNER_IMAGE | string | `"chaos-runner:3.6.0"` |  |
+| portal.server.graphqlServer.imageEnv.SUBSCRIBER_IMAGE | string | `"litmusportal-subscriber:3.6.0"` |  |
 | portal.server.graphqlServer.livenessProbe.failureThreshold | int | `5` |  |
 | portal.server.graphqlServer.livenessProbe.initialDelaySeconds | int | `30` |  |
 | portal.server.graphqlServer.livenessProbe.periodSeconds | int | `10` |  |
@@ -230,7 +230,7 @@ We separated service configuration from `portal.server.service` to `portal.serve
 | upgradeAgent.affinity | object | `{}` |  |
 | upgradeAgent.controlPlane.image.pullPolicy | string | `"Always"` |  |
 | upgradeAgent.controlPlane.image.repository | string | `"upgrade-agent-cp"` |  |
-| upgradeAgent.controlPlane.image.tag | string | `"3.5.0"` |  |
+| upgradeAgent.controlPlane.image.tag | string | `"3.6.0"` |  |
 | upgradeAgent.controlPlane.restartPolicy | string | `"OnFailure"` |  |
 | upgradeAgent.enabled | bool | `true` |  |
 | upgradeAgent.nodeSelector | object | `{}` |  |
