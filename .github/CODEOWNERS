@@ -12,12 +12,22 @@
 # This should make it easy to add new rules without breaking existing ones.
 
 # Global rule:
-*                        @ksatchit @jasstkn @ajeshbaby @gdsoumya @imrajdas @ispeakc0de
+*                        @ksatchit @jasstkn @ajeshbaby @gdsoumya @imrajdas @ispeakc0de @Jonsy13
 
 charts/litmus            @imrajdas @ispeakc0de @jasstkn
 
-charts/litmus-1-x        @ksatchit @chandankumar4
+charts/litmus-agent      @ksatchit @imrajdas @Jonsy13
 
-charts/kubernetes-chaos  @jasstkn @chandankumar4 @ksatchit
+charts/litmus-core       @ksatchit @ispeakc0de @uditgaurav @Jonsy13
 
-charts/kube-aws  @jasstkn @ksatchit @uditgaurav
+charts/litmus-1-x        @ksatchit
+
+charts/kubernetes-chaos  @jasstkn @ksatchit
+
+charts/kube-aws          @jasstkn @ksatchit @uditgaurav @Jonsy13
+
+charts/kube-azure        @ksatchit @uditgaurav @Jonsy13
+
+charts/kube-gcp          @ksatchit @uditgaurav @Jonsy13
+
+charts/kube-azure        @ksatchit @uditgaurav @Jonsy13
