@@ -26,8 +26,8 @@ charts/kubernetes-chaos  @jasstkn @ksatchit
 
 charts/kube-aws          @jasstkn @ksatchit @uditgaurav @Jonsy13
 
-charts/kube-azure        @ksatchit @uditgaurav @Jonsy13
+charts/kube-azure        @jasstkn @ksatchit @uditgaurav @Jonsy13
 
-charts/kube-gcp          @ksatchit @uditgaurav @Jonsy13
+charts/kube-gcp          @jasstkn @ksatchit @uditgaurav @Jonsy13
 
-charts/kube-azure        @ksatchit @uditgaurav @Jonsy13
+charts/kube-azure        @jasstkn @ksatchit @uditgaurav @Jonsy13
