@@ -20,7 +20,7 @@ charts/litmus-agent      @ksatchit @imrajdas @Jonsy13
 
 charts/litmus-core       @ksatchit @ispeakc0de @uditgaurav @Jonsy13
 
-charts/litmus-1-x        @ksatchit
+charts/litmus-1-x        @ksatchit @ispeakc0de
 
 charts/kubernetes-chaos  @jasstkn @ksatchit
 
