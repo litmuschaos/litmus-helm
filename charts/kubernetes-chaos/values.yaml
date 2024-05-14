@@ -11,41 +11,24 @@ customLabels: {}
 image:
   litmus:
     repository: litmuschaos.docker.scarf.sh/litmuschaos/ansible-runner
-    tag: 2.14.0
+    tag: 3.6.0
     pullPolicy: Always
 
   litmusGO:
     repository: litmuschaos.docker.scarf.sh/litmuschaos/go-runner
-    tag: 2.14.0
+    tag: 3.6.0
     pullPolicy: Always
-
-  pumba:
-    libName: pumba
 
   litmusLIBImage:
     repository: litmuschaos.docker.scarf.sh/litmuschaos/go-runner
-    tag: 2.14.0
-
-  networkChaos:
-    tcImage: gaiadocker/iproute2
-
-  stressChaos:
-    stressImage: gaiaadm/pumba
-
-  resourceChaos:
-    respository: alexeiled/stress-ng
-    tag: latest-ubuntu
+    tag: 3.6.0
 
 environment:
   # supported: 'docker', 'containerd', 'crio'
-  runtime: 'docker'
+  runtime: 'containerd'
 
   # ex: '/var/run/docker.sock', '/run/containerd/containerd.sock', '/run/crio/crio.sock'
-  socketPath: '/var/run/docker.sock'
-
-  # ex: '/var/lib/docker/containers', '/var/lib/containerd/io.containerd.runtime.v1.linux/k8s.io', '/var/lib/containers/storage/overlay/'
-  containerPath: '/var/lib/docker/containers'
-
+  socketPath: '/run/containerd/containerd.sock'
 
 experiments:
   disabled: []

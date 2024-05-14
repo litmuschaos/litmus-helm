@@ -70,23 +70,20 @@ spec:
     - name: TOTAL_CHAOS_DURATION
       value: '20'
 
-    # provide the name of container runtime
-    # for litmus LIB, it supports docker, containerd, and crio
-    # for pumba LIB, it supports docker only
-    - name: CONTAINER_RUNTIME
-      value: "{{ .Values.environment.runtime }}"
-
+    # provide the socket file path
     - name: SOCKET_PATH
       value: "{{ .Values.environment.socketPath }}"
 
-    - name: LIB
-      value: 'litmus'
+    # provide the name of container runtime
+    # it supports docker, containerd, crio
+    - name: CONTAINER_RUNTIME
+      value: "{{ .Values.environment.runtime }}"
 
     - name: LIB_IMAGE
       value: "{{ .Values.image.litmusLIBImage.repository }}:{{ .Values.image.litmusLIBImage.tag }}"
 
     - name: TARGET_PODS
-      value: ''  
+      value: ''
 
     - name: PODS_AFFECTED_PERC
       value: ''
@@ -94,7 +91,7 @@ spec:
     ## it defines the sequence of chaos execution for multiple target pods
     ## supported values: serial, parallel
     - name: SEQUENCE
-      value: 'parallel'      
+      value: 'parallel'
 
     labels:
       name: container-kill

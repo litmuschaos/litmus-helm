@@ -1,6 +1,6 @@
 # litmus-agent
 
-![Version: 0.2.2](https://img.shields.io/badge/Version-0.2.2-informational?style=flat-square) ![AppVersion: 0.2.0](https://img.shields.io/badge/AppVersion-0.2.0-informational?style=flat-square)
+![Version: 3.6.1](https://img.shields.io/badge/Version-3.6.1-informational?style=flat-square) ![AppVersion: 3.6.0](https://img.shields.io/badge/AppVersion-3.6.0-informational?style=flat-square)
 
 A Helm chart to install litmus agent
 
@@ -24,10 +24,10 @@ Kubernetes: `>=1.16.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-|  | chaos-exporter | 0.2.1 |
-|  | chaos-operator | 0.2.1 |
-|  | event-tracker | 0.2.1 |
-|  | subscriber | 0.2.1 |
+|  | chaos-exporter | 3.6.1 |
+|  | chaos-operator | 3.6.1 |
+|  | event-tracker | 3.6.1 |
+|  | subscriber | 3.6.1 |
 |  | workflow-controller | 0.2.1 |
 
 ## Installing the Chart
@@ -38,26 +38,28 @@ To install this chart with the release name `litmus-portal`:
 $ helm repo add litmuschaos https://litmuschaos.github.io/litmus-helm/
 $ helm install litmus-agent litmuschaos/litmus-agent \
   --namespace litmus --create-namespace \
-  --set "AGENT_NAME=helm-agent" \
-  --set "AGENT_DESCRIPTION=My first agent deployed with helm !" \
+  --set "INFRA_NAME=helm-agent" \
+  --set "INFRA_DESCRIPTION=My first agent deployed with helm !" \
   --set "LITMUS_URL=https://chaos-center.domain.com" \ # FOR REMOTE AGENT (INGRESS)
   --set "LITMUS_URL=http://litmusportal-frontend-service.litmus.svc.cluster.local:9091" \ # FOR SELF AGENT (SVC)
   --set "LITMUS_BACKEND_URL=http://litmusportal-server-service.litmus.svc.cluster.local:9002" \ # FOR SELF AGENT (SVC)
   --set "LITMUS_USERNAME=admin" \
   --set "LITMUS_PASSWORD=litmus" \
-  --set "LITMUS_PROJECT_ID=69395cb3-0231-4262-8990-78056c8adb4c"
+  --set "LITMUS_PROJECT_ID=69395cb3-0231-4262-8990-78056c8adb4c" \
+  --set "LITMUS_ENVIRONMENT_ID=nameofenvironment"
 ```
 
 ## Values
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| AGENT_DESCRIPTION | string | `"chaos agent deployed with helm"` |  |
-| AGENT_NAME | string | `"helm-agent"` |  |
-| AGENT_NODE_SELECTOR | string | `""` |  |
-| APP_VERSION | string | `"3.0.0-beta8"` |  |
-| CLUSTER_TYPE | string | `"external"` |  |
+| APP_VERSION | string | `"3.6.0"` |  |
+| INFRA_DESCRIPTION | string | `"chaos infrastructure deployed with helm"` |  |
+| INFRA_NAME | string | `"helm-infrastructure"` |  |
+| INFRA_NODE_SELECTOR | string | `""` |  |
+| INFRA_TYPE | string | `"external"` |  |
 | LITMUS_BACKEND_URL | string | `""` |  |
+| LITMUS_ENVIRONMENT_ID | string | `""` | ID of the litmus environment where the infrastructure will be added |
 | LITMUS_PASSWORD | string | `"litmus"` |  |
 | LITMUS_PROJECT_ID | string | `""` |  |
 | LITMUS_URL | string | `"https://my-domain.com"` |  |
@@ -70,10 +72,10 @@ $ helm install litmus-agent litmuschaos/litmus-agent \
 | chaos-operator.enabled | bool | `true` |  |
 | crds.create | bool | `true` |  |
 | event-tracker.enabled | bool | `true` |  |
-| global.AGENT_MODE | string | `"cluster"` |  |
-| global.agentConfigName | string | `"agent-config"` |  |
-| global.agentSecretName | string | `"agent-secret"` |  |
+| global.INFRA_MODE | string | `"cluster"` |  |
 | global.customLabels | object | `{}` |  |
+| global.infraConfigName | string | `"subscriber-config"` |  |
+| global.infraSecretName | string | `"subscriber-secret"` |  |
 | global.podAnnotations | object | `{}` |  |
 | image.pullPolicy | string | `"Always"` |  |
 | image.repository | string | `"litmuschaos.docker.scarf.sh/litmuschaos/litmus-helm-agent"` |  |

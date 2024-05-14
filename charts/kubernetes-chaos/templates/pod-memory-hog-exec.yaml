@@ -69,11 +69,6 @@ spec:
     - name: RAMP_TIME
       value: ''
 
-    # Env var that describes the library used to execute the chaos
-    # Default: litmus. Supported values: litmus
-    - name: LIB
-      value: 'litmus'
-
     - name: CHAOS_KILL_COMMAND
       value: "kill $(find /proc -name exe -lname '*/dd' 2>&1 | grep -v 'Permission denied' | awk -F/ '{print $(NF-1)}' | head -n 1)"
 

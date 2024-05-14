@@ -36,7 +36,7 @@ spec:
           - "deletecollection"
       - apiGroups:
           - ""
-        resources: 
+        resources:
           - "nodes"
         verbs:
           - "get"
@@ -57,7 +57,7 @@ spec:
     - name: RAMP_TIME
       value: ''
 
-    # Enter the number of CPU cores 
+    # Enter the number of CPU cores
     - name: NODE_CPU_CORE
       value: '1'
 
@@ -70,9 +70,6 @@ spec:
 
     - name: NODE_LABEL
       value: ''
-    
-    - name: LIB
-      value: 'litmus'
 
     ##TODO: Sync w/ linuxStressNG values
     - name: LIB_IMAGE

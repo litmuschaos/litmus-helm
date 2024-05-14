@@ -64,14 +64,8 @@ spec:
     - name: NETWORK_INTERFACE
       value: 'eth0'
 
-    - name: TC_IMAGE
-      value: "{{ .Values.image.networkChaos.tcImage }}"
-
     - name: NETWORK_PACKET_DUPLICATION_PERCENTAGE
       value: '100' # in percentage
-
-    - name: LIB
-      value: 'litmus'
 
     - name: LIB_IMAGE
       value: "{{ .Values.image.litmusLIBImage.repository }}:{{ .Values.image.litmusLIBImage.tag }}"
@@ -86,7 +80,7 @@ spec:
     ## it defines the sequence of chaos execution for multiple target pods
     ## supported values: serial, parallel
     - name: SEQUENCE
-      value: 'parallel'     
+      value: 'parallel'
 
     # provide the destination ips
     # chaos injection will be triggered for these destination ips
@@ -96,18 +90,16 @@ spec:
     # provide the destination hosts
     # chaos injection will be triggered for these destination hosts
     - name: DESTINATION_HOSTS
-      value: '' 
+      value: ''
 
-    # provide the name of container runtime
-    # for litmus LIB, it supports docker, containerd, crio
-    # for pumba LIB, it supports docker only
+      # provide the socket file path
+    - name: SOCKET_PATH
+      value: "{{ .Values.environment.socketPath }}"
+
+      # provide the name of container runtime
+      # it supports docker, containerd, crio
     - name: CONTAINER_RUNTIME
       value: "{{ .Values.environment.runtime }}"
-
-    # provide the container runtime socket path
-    # default set to std docker sock file path
-    - name: SOCKET_PATH
-      value: "{{ .Values.environment.socketPath }}" 
 
     labels:
       name: pod-network-duplication

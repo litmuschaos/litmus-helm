@@ -38,7 +38,7 @@ spec:
             - {{ .Values.appSettings.configmapName }}
             - --executor-image
             - {{ .Values.appSettings.executorImage | quote }}
-            {{- if eq .Values.global.AGENT_MODE "namespace" }}
+            {{- if eq .Values.global.INFRA_MODE "namespace" }}
             - --namespaced
             {{- end}}
             - --container-runtime-executor
