@@ -1,6 +1,10 @@
 # litmus-core
 
+<<<<<<< HEAD
 ![Version: 3.6.1](https://img.shields.io/badge/Version-3.6.1-informational?style=flat-square) ![AppVersion: 3.6.0](https://img.shields.io/badge/AppVersion-3.6.0-informational?style=flat-square)
+=======
+![Version: 3.7.0](https://img.shields.io/badge/Version-3.7.0-informational?style=flat-square) ![AppVersion: 3.7.0](https://img.shields.io/badge/AppVersion-3.7.0-informational?style=flat-square)
+>>>>>>> master
 
 A Helm chart to install litmus infra components on Kubernetes
 
@@ -28,7 +32,7 @@ A Helm chart to install litmus infra components on Kubernetes
 | exporter.enabled | bool | `false` |  |
 | exporter.image.pullPolicy | string | `"Always"` |  |
 | exporter.image.repository | string | `"litmuschaos.docker.scarf.sh/litmuschaos/chaos-exporter"` |  |
-| exporter.image.tag | string | `"3.6.0"` |  |
+| exporter.image.tag | string | `"3.7.0"` |  |
 | exporter.nodeSelector | object | `{}` |  |
 | exporter.priorityClassName | string | `nil` |  |
 | exporter.resources | object | `{}` |  |
@@ -48,7 +52,7 @@ A Helm chart to install litmus infra components on Kubernetes
 | nodeSelector | object | `{}` |  |
 | operator.image.pullPolicy | string | `"Always"` |  |
 | operator.image.repository | string | `"litmuschaos.docker.scarf.sh/litmuschaos/chaos-operator"` |  |
-| operator.image.tag | string | `"3.6.0"` |  |
+| operator.image.tag | string | `"3.7.0"` |  |
 | operatorMode | string | `"standard"` |  |
 | operatorName | string | `"chaos-operator"` |  |
 | policies.monitoring.disabled | bool | `false` |  |
@@ -58,7 +62,7 @@ A Helm chart to install litmus infra components on Kubernetes
 | resources.requests.cpu | string | `"100m"` |  |
 | resources.requests.memory | string | `"128Mi"` |  |
 | runner.image.repository | string | `"litmuschaos.docker.scarf.sh/litmuschaos/chaos-runner"` |  |
-| runner.image.tag | string | `"3.6.0"` |  |
+| runner.image.tag | string | `"3.7.0"` |  |
 | service.port | int | `80` |  |
 | service.type | string | `"ClusterIP"` |  |
 | tolerations | list | `[]` |  |
