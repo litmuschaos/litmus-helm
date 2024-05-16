@@ -66,9 +66,6 @@ spec:
     - name: RAMP_TIME
       value: ''
 
-    - name: LIB
-      value: 'litmus'
-
     - name: LIB_IMAGE
       value: "{{ .Values.image.litmusLIBImage.repository }}:{{ .Values.image.litmusLIBImage.tag }}"
 
@@ -89,12 +86,16 @@ spec:
     ## it defines the sequence of chaos execution for multiple target pods
     ## supported values: serial, parallel
     - name: SEQUENCE
-      value: 'parallel'      
+      value: 'parallel'
 
-    # Provide the container runtime path
-    # Default set to docker container path
-    - name: CONTAINER_PATH
-      value: "{{ .Values.environment.containerPath }}"
+      # provide the socket file path
+    - name: SOCKET_PATH
+      value: "{{ .Values.environment.socketPath }}"
+
+      # provide the name of container runtime
+      # it supports docker, containerd, crio
+    - name: CONTAINER_RUNTIME
+      value: "{{ .Values.environment.runtime }}"
 
     labels:
       name: disk-fill

@@ -1,8 +1,8 @@
 apiVersion: v2
-appVersion: "3.0.0-beta3"
+appVersion: "3.6.0"
 description:  A Helm chart to install subscriber
 name: subscriber
-version: 0.2.0
+version: 3.6.0
 kubeVersion: ">=1.16.0-0"
 home: https://litmuschaos.io
 sources:
