@@ -2,6 +2,31 @@ apiVersion: v1
 entries:
   kube-aws:
   - apiVersion: v1
+    appVersion: 3.7.0
+    created: "2024-05-16T04:35:57.221881196Z"
+    description: A Helm chart to install litmus aws chaos experiments
+    digest: b0b8069327edd658291225bf95247fb1b59d8b0c22aaa3f448edfdbb8e180e30
+    home: https://litmuschaos.io
+    icon: https://raw.githubusercontent.com/litmuschaos/icons/master/litmus.png
+    keywords:
+    - chaos-engineering
+    - resiliency
+    - aws
+    - kubernetes
+    maintainers:
+    - email: jasssstkn@yahoo.com
+      name: jasstkn
+    - email: karthik@chaosnative.com
+      name: ksatchit
+    - email: udit@chaosnative.com
+      name: uditgaurav
+    name: kube-aws
+    sources:
+    - https://github.com/litmuschaos/litmus
+    urls:
+    - https://github.com/litmuschaos/litmus-helm/releases/download/kube-aws-3.7.0/kube-aws-3.7.0.tgz
+    version: 3.7.0
+  - apiVersion: v1
     appVersion: 3.6.0
     created: "2024-05-15T16:14:27.010830265Z"
     description: A Helm chart to install litmus aws chaos experiments
@@ -703,6 +728,31 @@ entries:
     version: 1.13.5
   kube-azure:
   - apiVersion: v1
+    appVersion: 3.7.0
+    created: "2024-05-16T04:35:57.445220254Z"
+    description: A Helm chart to install litmus Azure chaos experiments
+    digest: b528f6f5ed6719e46829bbc1eaf017ec74d313744ae35ba20532beaa763549d4
+    home: https://litmuschaos.io
+    icon: https://raw.githubusercontent.com/litmuschaos/icons/master/litmus.png
+    keywords:
+    - chaos-engineering
+    - resiliency
+    - azure
+    - kubernetes
+    maintainers:
+    - email: jasssstkn@yahoo.com
+      name: jasstkn
+    - email: karthik@chaosnative.com
+      name: ksatchit
+    - email: udit@chaosnative.com
+      name: uditgaurav
+    name: kube-azure
+    sources:
+    - https://github.com/litmuschaos/litmus
+    urls:
+    - https://github.com/litmuschaos/litmus-helm/releases/download/kube-azure-3.7.0/kube-azure-3.7.0.tgz
+    version: 3.7.0
+  - apiVersion: v1
     appVersion: 3.6.0
     created: "2024-05-15T16:14:27.20196388Z"
     description: A Helm chart to install litmus Azure chaos experiments
@@ -1154,6 +1204,31 @@ entries:
     version: 2.4.0
   kube-gcp:
   - apiVersion: v1
+    appVersion: 3.7.0
+    created: "2024-05-16T04:35:57.642474334Z"
+    description: A Helm chart to install litmus gcp chaos experiments
+    digest: 579e60ecc688ed0521c9f235510726fdfe1968d02b52124bd00e76ba58b095d5
+    home: https://litmuschaos.io
+    icon: https://raw.githubusercontent.com/litmuschaos/icons/master/litmus.png
+    keywords:
+    - chaos-engineering
+    - resiliency
+    - gcp
+    - kubernetes
+    maintainers:
+    - email: jasssstkn@yahoo.com
+      name: jasstkn
+    - email: karthik@chaosnative.com
+      name: ksatchit
+    - email: udit@chaosnative.com
+      name: uditgaurav
+    name: kube-gcp
+    sources:
+    - https://github.com/litmuschaos/litmus
+    urls:
+    - https://github.com/litmuschaos/litmus-helm/releases/download/kube-gcp-3.7.0/kube-gcp-3.7.0.tgz
+    version: 3.7.0
+  - apiVersion: v1
     appVersion: 3.6.0
     created: "2024-05-15T16:14:27.394371557Z"
     description: A Helm chart to install litmus gcp chaos experiments
@@ -1604,6 +1679,31 @@ entries:
     - kube-gcp/kube-gcp-2.4.0.tgz
     version: 2.4.0
   kubernetes-chaos:
+  - apiVersion: v1
+    appVersion: 3.7.0
+    created: "2024-05-16T04:35:57.837987714Z"
+    description: A Helm chart to install litmus chaos experiments for kubernetes category
+      (chaos-chart)
+    digest: a2c6c89c3669a4df373f2aa3b4e748c366d9ade580c3adb0d646501f2d9095d0
+    home: https://litmuschaos.io
+    icon: https://raw.githubusercontent.com/litmuschaos/icons/master/litmus.png
+    keywords:
+    - chaos-engineering
+    - resiliency
+    - kubernetes
+    maintainers:
+    - email: karthik.s@mayadata.io
+      name: ksatchit
+    - email: chandan.kumar@zopsmart.com
+      name: chandankumar4
+    - email: jasssstkn@yahoo.com
+      name: jasstkn
+    name: kubernetes-chaos
+    sources:
+    - https://github.com/litmuschaos/litmus
+    urls:
+    - https://github.com/litmuschaos/litmus-helm/releases/download/kubernetes-chaos-3.7.0/kubernetes-chaos-3.7.0.tgz
+    version: 3.7.0
   - apiVersion: v1
     appVersion: 3.6.0
     created: "2024-05-15T16:14:27.600271753Z"
@@ -6098,6 +6198,28 @@ entries:
     version: 0.1.0
   litmus-core:
   - apiVersion: v1
+    appVersion: 3.7.0
+    created: "2024-05-16T04:35:58.022458686Z"
+    description: A Helm chart to install litmus infra components on Kubernetes
+    digest: 47f404e0b7d8e0c73b575a531413ebb6e7099a5bfb6450feec8014712ca99a59
+    home: https://litmuschaos.io
+    icon: https://raw.githubusercontent.com/litmuschaos/icons/master/litmus.png
+    keywords:
+    - chaos-engineering
+    - resiliency
+    - kubernetes
+    maintainers:
+    - email: karthik.s@mayadata.io
+      name: ksatchit
+    - email: chandan.kumar@zopsmart.com
+      name: chandankumar4
+    name: litmus-core
+    sources:
+    - https://github.com/litmuschaos/litmus
+    urls:
+    - https://github.com/litmuschaos/litmus-helm/releases/download/litmus-core-3.7.0/litmus-core-3.7.0.tgz
+    version: 3.7.0
+  - apiVersion: v1
     appVersion: 3.6.0
     created: "2024-05-15T16:14:27.776557394Z"
     description: A Helm chart to install litmus infra components on Kubernetes
@@ -6559,4 +6681,4 @@ entries:
     urls:
     - litmus-core/litmus-core-1.20.0.tgz
     version: 1.20.0
-generated: "2024-05-15T16:14:27.777273776Z"
+generated: "2024-05-16T04:35:58.023153303Z"
