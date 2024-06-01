@@ -10,7 +10,7 @@ A Helm chart to install litmus infra components on Kubernetes
 
 | Name | Email | Url |
 | ---- | ------ | --- |
-| ksatchit | <karthik.s@mayadata.io> |  |
+| ksatchit | <karthik.s@harness.io> |  |
 | chandankumar4 | <chandan.kumar@zopsmart.com> |  |
 
 ## Source Code

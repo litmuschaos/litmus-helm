@@ -12,7 +12,7 @@ keywords:
   - kubernetes
 maintainers:
   - name: ksatchit
-    email: karthik.s@mayadata.io
+    email: karthik.s@harness.io
   - name: chandankumar4
     email: chandan.kumar@zopsmart.com
 icon: https://raw.githubusercontent.com/litmuschaos/icons/master/litmus.png

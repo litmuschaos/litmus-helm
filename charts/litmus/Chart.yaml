@@ -13,9 +13,9 @@ keywords:
   - kubernetes
 maintainers:
   - name: imrajdas
-    email: raj.das@mayadata.io
+    email: rajbabu.das@harness.io
   - name: ispeakc0de
-    email: shubham.chaudhary@mayadata.io
+    email: shubham.chaudhary@harness.io
   - name: jasstkn
     email: jasssstkn@yahoo.com
 icon: https://raw.githubusercontent.com/litmuschaos/icons/master/litmus.png
