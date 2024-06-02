@@ -2,7 +2,7 @@ apiVersion: v1
 appVersion: "3.7.0"
 description: A Helm chart to install litmus chaos experiments for kubernetes category (chaos-chart)
 name: kubernetes-chaos
-version: 3.7.0
+version: 3.7.1
 home: https://litmuschaos.io
 sources:
   - https://github.com/litmuschaos/litmus
@@ -12,7 +12,7 @@ keywords:
   - kubernetes
 maintainers:
   - name: ksatchit
-    email: karthik.s@mayadata.io
+    email: karthik.s@harness.io
   - name: chandankumar4
     email: chandan.kumar@zopsmart.com
   - name: jasstkn

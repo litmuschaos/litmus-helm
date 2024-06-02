@@ -2,7 +2,7 @@ apiVersion: v2
 appVersion: "3.7.0"
 description: A Helm chart to install ChaosCenter
 name: litmus
-version: 3.7.0
+version: 3.7.1
 kubeVersion: ">=1.16.0-0"
 home: https://litmuschaos.io
 sources:
@@ -13,9 +13,9 @@ keywords:
   - kubernetes
 maintainers:
   - name: imrajdas
-    email: raj.das@mayadata.io
+    email: rajbabu.das@harness.io
   - name: ispeakc0de
-    email: shubham.chaudhary@mayadata.io
+    email: shubham.chaudhary@harness.io
   - name: jasstkn
     email: jasssstkn@yahoo.com
 icon: https://raw.githubusercontent.com/litmuschaos/icons/master/litmus.png
