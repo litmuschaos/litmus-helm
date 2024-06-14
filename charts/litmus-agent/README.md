@@ -1,6 +1,6 @@
 # litmus-agent
 
-![Version: 3.7.0](https://img.shields.io/badge/Version-3.7.0-informational?style=flat-square) ![AppVersion: 3.7.0](https://img.shields.io/badge/AppVersion-3.7.0-informational?style=flat-square)
+![Version: 3.8.0](https://img.shields.io/badge/Version-3.8.0-informational?style=flat-square) ![AppVersion: 3.8.0](https://img.shields.io/badge/AppVersion-3.8.0-informational?style=flat-square)
 
 A Helm chart to install litmus agent
 
@@ -53,7 +53,7 @@ $ helm install litmus-agent litmuschaos/litmus-agent \
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| APP_VERSION | string | `"3.6.0"` |  |
+| APP_VERSION | string | `"3.7.0"` |  |
 | INFRA_DESCRIPTION | string | `"chaos infrastructure deployed with helm"` |  |
 | INFRA_NAME | string | `"helm-infrastructure"` |  |
 | INFRA_NODE_SELECTOR | string | `""` |  |
