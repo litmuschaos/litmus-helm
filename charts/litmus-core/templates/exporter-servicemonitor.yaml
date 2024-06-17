@@ -7,8 +7,7 @@ metadata:
   namespace: {{ .Values.exporter.serviceMonitor.namespace }}
   {{- end }}
   labels:
-    app: {{ template "litmus.name" . }}
-    {{- include "litmus.labels" . | indent 4 }}
+    {{- include "litmus.exporterLabels" . | indent 4 }}
     {{- if .Values.exporter.serviceMonitor.additionalLabels }}
     {{- toYaml .Values.exporter.serviceMonitor.additionalLabels | nindent 4 }}
     {{- end }}
@@ -31,6 +30,5 @@ spec:
       - {{ .Release.Namespace }}
   selector:
     matchLabels:
-      app: {{ template "litmus.name" . }}
-      {{- include "litmus.selectors" . | indent 6 }}
+      {{- include "litmus.exporterSelectors" . | indent 6 }}
 {{- end }}
