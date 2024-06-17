@@ -1,6 +1,6 @@
 # litmus-agent
 
-![Version: 3.8.1](https://img.shields.io/badge/Version-3.8.1-informational?style=flat-square) ![AppVersion: 3.8.0](https://img.shields.io/badge/AppVersion-3.8.0-informational?style=flat-square)
+![Version: 3.8.2](https://img.shields.io/badge/Version-3.8.2-informational?style=flat-square) ![AppVersion: 3.8.0](https://img.shields.io/badge/AppVersion-3.8.0-informational?style=flat-square)
 
 A Helm chart to install litmus agent
 
@@ -85,6 +85,10 @@ $ helm install litmus-agent litmuschaos/litmus-agent \
 | resources.requests.cpu | string | `"100m"` |  |
 | resources.requests.memory | string | `"128Mi"` |  |
 | subscriber.enabled | bool | `true` |  |
+| useExistingHookSecret | bool | `false` | Use an existing hook Secret instead of creating one with the chart, ref. to templates/secret.yaml |
+| useExistingInfraConfigMap | bool | `false` | Use an existing infra ConfigMap instead of creating one with the chart, ref. to templates/infra-config-map.yaml |
+| useExistingInfraSecret | bool | `false` | Use an existing infra Secret instead of creating one with the chart, ref. to templates/infra-secret.yaml |
+| useExistingWorkflowControllerConfigMap | bool | `false` | Use an existing infra ConfigMap instead of creating one with the chart, ref. to templates/infra-config-map-workflow.yaml |
 | workflow-controller.crds.create | bool | `true` |  |
 | workflow-controller.enabled | bool | `true` |  |
 

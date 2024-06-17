@@ -48,6 +48,27 @@ resources:
     cpu: 100m
     memory: 128Mi
 
+# Existing Secret name should be:
+# `{{ include "subscriber.fullname" . }}-hook`
+# I.E. `name: litmus-agent-hook`
+# -- Use an existing hook Secret instead of creating one with the chart, ref. to templates/secret.yaml
+useExistingHookSecret: false
+
+# Existing ConfigMap name should be equal to .global.infraConfigName
+# I.E. `name: subscriber-config`
+# -- Use an existing infra ConfigMap instead of creating one with the chart, ref. to templates/infra-config-map.yaml
+useExistingInfraConfigMap: false
+
+# Existing Secret name should be equal to .global.infraSecretName
+# I.E. `name: subscriber-secret`
+# -- Use an existing infra Secret instead of creating one with the chart, ref. to templates/infra-secret.yaml
+useExistingInfraSecret: false
+
+# Existing ConfigMap name should be:
+# `{{ index .Values "workflow-controller" "appSettings" "configmapName" }}`
+# -- Use an existing infra ConfigMap instead of creating one with the chart, ref. to templates/infra-config-map-workflow.yaml
+useExistingWorkflowControllerConfigMap: false
+
 chaos-operator:
   enabled: true
 
