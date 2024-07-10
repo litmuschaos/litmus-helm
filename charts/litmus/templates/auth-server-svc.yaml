@@ -14,8 +14,8 @@ spec:
   type: {{ .Values.portal.server.authServer.service.type }}
   ports:
     - name: auth-server
-      port: {{ .Values.portal.server.authServer.service.authServer.port }}
-      targetPort: {{ .Values.portal.server.authServer.service.authServer.targetPort }}
+      port: {{ .Values.portal.server.authServer.service.authRestServer.port }}
+      targetPort: {{ .Values.portal.server.authServer.service.authRestServer.targetPort }}
     - name: auth-rpc-server
       port: {{ .Values.portal.server.authServer.service.authRpcServer.port }}
       targetPort: {{ .Values.portal.server.authServer.service.authRpcServer.targetPort }}

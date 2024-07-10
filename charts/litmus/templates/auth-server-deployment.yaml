@@ -1,10 +1,10 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "litmus-portal.fullname" . }}-auth-server
+  name: '{{ include "litmus-portal.fullname" . }}-auth-server'
   namespace: {{ .Release.Namespace }}
   labels:
-    app.kubernetes.io/component: {{ include "litmus-portal.name" . }}-auth-server
+    app.kubernetes.io/component: '{{ include "litmus-portal.name" . }}-auth-server'
     {{- include "litmus-portal.labels" . | nindent 4 }}
     {{- if .Values.portal.server.customLabels }}
       {{ toYaml .Values.portal.server.customLabels | nindent 4 }}
@@ -121,6 +121,8 @@ spec:
               {{- end }}
             - name: LITMUS_GQL_GRPC_ENDPOINT
               value: "{{ include "litmus-portal.fullname" . }}-server-service"
+            - name: "LITMUS_GQL_GRPC_PORT"
+              value: "{{ .Values.portal.server.graphqlServer.service.graphqlRpcServer.port }}"
               {{- if .Values.internalTLS.enabled }}
             - name: ENABLE_INTERNAL_TLS
               value: "true"
@@ -134,6 +136,10 @@ spec:
             - name: ENABLE_INTERNAL_TLS
               value: "false"
               {{- end }}
+            - name: REST_PORT
+              value: {{ (index .Values.portal.server.authServer.ports 0).containerPort }}
+            - name: GRPC_PORT
+              value: {{ (index .Values.portal.server.authServer.ports 1).containerPort }}
             {{- range $key, $val := .Values.portal.server.authServer.env }}
             - name: {{ $key }}
               value: {{ $val | quote }}

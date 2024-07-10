@@ -140,8 +140,10 @@ spec:
                   name: {{ include "litmus-portal.secretname" . }}
                   key: DB_USER
               {{- end }}
-            - name: "LITMUS_AUTH_GRPC_ENDPOINT"
-              value: "{{ include "litmus-portal.fullname" . }}-auth-server-service"
+            - name: LITMUS_AUTH_GRPC_ENDPOINT
+              value: '{{ include "litmus-portal.fullname" . }}-auth-server-service'
+            - name: "LITMUS_AUTH_GRPC_PORT"
+              value: "{{ .Values.portal.server.authServer.service.authRpcServer.port }}"
               {{- if .Values.internalTLS.enabled }}
             - name: ENABLE_INTERNAL_TLS
               value: "true"
@@ -155,6 +157,10 @@ spec:
             - name: ENABLE_INTERNAL_TLS
               value: "false"
               {{- end }}
+            - name: REST_PORT
+              value: {{ (index .Values.portal.server.graphqlServer.ports 0).containerPort }}
+            - name: GRPC_PORT
+              value: {{ (index .Values.portal.server.graphqlServer.ports 1).containerPort }}
             {{- $imageRegistry := .Values.image.imageRegistryName -}}
             {{- range $key, $val := .Values.portal.server.graphqlServer.imageEnv }}
             - name: {{ $key }}

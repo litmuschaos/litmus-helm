@@ -29,7 +29,7 @@ image:
 
 internalTLS:
   # If internal TLS enabled
-  enabled: true
+  enabled: false
   # enable strong ssl ciphers (default: false)
   strong_ssl_ciphers: false
   # There are three ways to provide tls
@@ -222,14 +222,14 @@ portal:
         tag: 3.8.0
         pullPolicy: "Always"
       ports:
-        - name: gql-server
+        - name: gql-rest-server
           containerPort: 8080
         - name: gql-rpc-server
           containerPort: 8000
       service:
         annotations: {}
         type: ClusterIP
-        graphqlServer:
+        graphqlRestServer:
           port: 9002
           targetPort: 8080
         graphqlRpcServer:
@@ -248,7 +248,6 @@ portal:
         CONTAINER_RUNTIME_EXECUTOR: "k8sapi"
         DEFAULT_HUB_BRANCH_NAME: "v3.8.x"
         INFRA_DEPLOYMENTS: '["app=chaos-exporter", "name=chaos-operator", "app=event-tracker", "app=workflow-controller"]'
-        LITMUS_AUTH_GRPC_PORT: ":3030"
         WORKFLOW_HELPER_IMAGE_VERSION: "3.8.0"
         REMOTE_HUB_MAX_SIZE: "5000000"
         INFRA_COMPATIBLE_VERSIONS: '["3.8.0"]'
@@ -298,21 +297,20 @@ portal:
         tag: 3.8.0
         pullPolicy: "Always"
       ports:
-        - name: auth-server
+        - name: auth-rest-server
           containerPort: 3030
         - name: auth-rpc-server
           containerPort: 3000
       service:
         annotations: {}
         type: ClusterIP
-        authServer:
+        authRestServer:
           port: 9003
           targetPort: 3000
         authRpcServer:
           port: 3030
           targetPort: 3030
-      env:
-        LITMUS_GQL_GRPC_PORT: ":8000"
+      env: {}
       resources:
         # We usually recommend not to specify default resources and to leave this as a conscious
         # choice for the user. This also increases chances charts run on environments with little

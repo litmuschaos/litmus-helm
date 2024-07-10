@@ -77,7 +77,7 @@ We separated service configuration from `portal.server.service` to `portal.serve
 | internalTLS.authServer.secretName | string | `""` |  |
 | internalTLS.certMountPath | string | `"/etc/tls"` |  |
 | internalTLS.certSource | string | `"auto"` |  |
-| internalTLS.enabled | bool | `true` |  |
+| internalTLS.enabled | bool | `false` |  |
 | internalTLS.graphqlServer.crt | string | `""` |  |
 | internalTLS.graphqlServer.key | string | `""` |  |
 | internalTLS.graphqlServer.secretName | string | `""` |  |
@@ -140,12 +140,12 @@ We separated service configuration from `portal.server.service` to `portal.serve
 | portal.server.authServer.autoscaling.minReplicas | int | `2` |  |
 | portal.server.authServer.autoscaling.targetCPUUtilizationPercentage | int | `50` |  |
 | portal.server.authServer.autoscaling.targetMemoryUtilizationPercentage | int | `50` |  |
-| portal.server.authServer.env.LITMUS_GQL_GRPC_PORT | string | `":8000"` |  |
+| portal.server.authServer.env | object | `{}` |  |
 | portal.server.authServer.image.pullPolicy | string | `"Always"` |  |
 | portal.server.authServer.image.repository | string | `"litmusportal-auth-server"` |  |
 | portal.server.authServer.image.tag | string | `"3.8.0"` |  |
 | portal.server.authServer.ports[0].containerPort | int | `3030` |  |
-| portal.server.authServer.ports[0].name | string | `"auth-server"` |  |
+| portal.server.authServer.ports[0].name | string | `"auth-rest-server"` |  |
 | portal.server.authServer.ports[1].containerPort | int | `3000` |  |
 | portal.server.authServer.ports[1].name | string | `"auth-rpc-server"` |  |
 | portal.server.authServer.replicas | int | `1` |  |
@@ -160,10 +160,10 @@ We separated service configuration from `portal.server.service` to `portal.serve
 | portal.server.authServer.securityContext.runAsNonRoot | bool | `true` |  |
 | portal.server.authServer.securityContext.runAsUser | int | `2000` |  |
 | portal.server.authServer.service.annotations | object | `{}` |  |
+| portal.server.authServer.service.authRestServer.port | int | `9003` |  |
+| portal.server.authServer.service.authRestServer.targetPort | int | `3000` |  |
 | portal.server.authServer.service.authRpcServer.port | int | `3030` |  |
 | portal.server.authServer.service.authRpcServer.targetPort | int | `3030` |  |
-| portal.server.authServer.service.authServer.port | int | `9003` |  |
-| portal.server.authServer.service.authServer.targetPort | int | `3000` |  |
 | portal.server.authServer.service.type | string | `"ClusterIP"` |  |
 | portal.server.authServer.volumeMounts | list | `[]` |  |
 | portal.server.authServer.volumes | list | `[]` |  |
@@ -175,7 +175,6 @@ We separated service configuration from `portal.server.service` to `portal.serve
 | portal.server.graphqlServer.genericEnv.ENABLE_GQL_INTROSPECTION | string | `"false"` |  |
 | portal.server.graphqlServer.genericEnv.INFRA_COMPATIBLE_VERSIONS | string | `"[\"3.8.0\"]"` |  |
 | portal.server.graphqlServer.genericEnv.INFRA_DEPLOYMENTS | string | `"[\"app=chaos-exporter\", \"name=chaos-operator\", \"app=event-tracker\", \"app=workflow-controller\"]"` |  |
-| portal.server.graphqlServer.genericEnv.LITMUS_AUTH_GRPC_PORT | string | `":3030"` |  |
 | portal.server.graphqlServer.genericEnv.REMOTE_HUB_MAX_SIZE | string | `"5000000"` |  |
 | portal.server.graphqlServer.genericEnv.TLS_CERT_64 | string | `""` |  |
 | portal.server.graphqlServer.genericEnv.WORKFLOW_HELPER_IMAGE_VERSION | string | `"3.8.0"` |  |
@@ -195,7 +194,7 @@ We separated service configuration from `portal.server.service` to `portal.serve
 | portal.server.graphqlServer.livenessProbe.successThreshold | int | `1` |  |
 | portal.server.graphqlServer.livenessProbe.timeoutSeconds | int | `5` |  |
 | portal.server.graphqlServer.ports[0].containerPort | int | `8080` |  |
-| portal.server.graphqlServer.ports[0].name | string | `"gql-server"` |  |
+| portal.server.graphqlServer.ports[0].name | string | `"gql-rest-server"` |  |
 | portal.server.graphqlServer.ports[1].containerPort | int | `8000` |  |
 | portal.server.graphqlServer.ports[1].name | string | `"gql-rpc-server"` |  |
 | portal.server.graphqlServer.readinessProbe.initialDelaySeconds | int | `5` |  |
@@ -213,10 +212,10 @@ We separated service configuration from `portal.server.service` to `portal.serve
 | portal.server.graphqlServer.securityContext.runAsNonRoot | bool | `true` |  |
 | portal.server.graphqlServer.securityContext.runAsUser | int | `2000` |  |
 | portal.server.graphqlServer.service.annotations | object | `{}` |  |
+| portal.server.graphqlServer.service.graphqlRestServer.port | int | `9002` |  |
+| portal.server.graphqlServer.service.graphqlRestServer.targetPort | int | `8080` |  |
 | portal.server.graphqlServer.service.graphqlRpcServer.port | int | `8000` |  |
 | portal.server.graphqlServer.service.graphqlRpcServer.targetPort | int | `8000` |  |
-| portal.server.graphqlServer.service.graphqlServer.port | int | `9002` |  |
-| portal.server.graphqlServer.service.graphqlServer.targetPort | int | `8080` |  |
 | portal.server.graphqlServer.service.type | string | `"ClusterIP"` |  |
 | portal.server.graphqlServer.volumeMounts[0].mountPath | string | `"/tmp/"` |  |
 | portal.server.graphqlServer.volumeMounts[0].name | string | `"gitops-storage"` |  |
