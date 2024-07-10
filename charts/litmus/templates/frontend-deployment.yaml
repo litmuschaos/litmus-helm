@@ -38,6 +38,11 @@ spec:
         - name: nginx-config
           configMap:
             name: {{ include "litmus-portal.fullname" . }}-frontend-nginx-configuration
+        {{- if .Values.internalTLS.enabled }}
+        - name: web-internal-certs
+          secret:
+            secretName: {{ template "litmus-portal.internalTLS.web.secretName" . }}
+        {{- end }}
       containers:
         - name: litmusportal-frontend
           image: {{ .Values.image.imageRegistryName }}/{{ .Values.portal.frontend.image.repository }}:{{ .Values.portal.frontend.image.tag }}
@@ -63,6 +68,10 @@ spec:
             - name: nginx-config
               mountPath: /etc/nginx/nginx.conf
               subPath: nginx.conf
+            {{- if .Values.internalTLS.enabled }}
+            - name: web-internal-certs
+              mountPath: {{ .Values.internalTLS.certMountPath }}
+            {{- end }}
     {{- with .Values.portal.frontend.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

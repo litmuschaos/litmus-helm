@@ -1,9 +1,6 @@
 # Default values for litmus.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
-
-portalScope: cluster
-
 nameOverride: ""
 
 # -- Additional labels
@@ -30,6 +27,45 @@ image:
   # Optional pod imagePullSecrets
   imagePullSecrets: []
 
+internalTLS:
+  # If internal TLS enabled
+  enabled: true
+  # enable strong ssl ciphers (default: false)
+  strong_ssl_ciphers: false
+  # There are three ways to provide tls
+  # 1) "auto" will generate cert automatically
+  # 2) "manual" need provide cert file manually in following value
+  # 3) "secret" internal certificates from secret
+  certSource: "auto"
+  # The content of trust ca, only available when `certSource` is "manual"
+  trustCa: ""
+  # Path on which the certs & keys will be mounted across all components
+  certMountPath: "/etc/tls"
+  # web related cert configuration
+  web:
+    # secret name for web's tls certs
+    secretName: ""
+    # Content of web's TLS cert file, only available when `certSource` is "manual"
+    crt: ""
+    # Content of web's TLS key file, only available when `certSource` is "manual"
+    key: ""
+  # graph-server related cert configuration
+  graphqlServer:
+    # secret name for graph-server's tls certs
+    secretName: ""
+    # Content of graphqlServer's TLS key file, only available when `certSource` is "manual"
+    crt: ""
+    # Content of graphqlServer's TLS key file, only available when `certSource` is "manual"
+    key: ""
+  # auth-server related cert configuration
+  authServer:
+    # secret name for auth-server's tls certs
+    secretName: ""
+    # Content of auth-server's TLS key file, only available when `certSource` is "manual"
+    crt: ""
+    # Content of auth-server's TLS key file, only available when `certSource` is "manual"
+    key: ""
+
 ingress:
   enabled: false
   name: litmus-ingress
@@ -55,29 +91,6 @@ ingress:
   tls: []
   #  - secretName: chart-example-tls
   #    hosts: []
-
-upgradeAgent:
-  enabled: true
-  controlPlane:
-    image:
-      repository: upgrade-agent-cp
-      tag: "3.8.0"
-      pullPolicy: "Always"
-    restartPolicy: OnFailure
-  nodeSelector: {}
-  tolerations: []
-  affinity: {}
-  resources: {}
-  # We usually recommend not to specify default resources and to leave this as a conscious
-  # choice for the user. This also increases chances charts run on environments with little
-  # resources, such as Minikube. If you do want to specify resources, uncomment the following
-  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
-#   limits:
-#     cpu: 100m
-#     memory: 128Mi
-#   requests:
-#     cpu: 100m
-#     memory: 128Mi
 
 portal:
   frontend:
@@ -161,7 +174,6 @@ portal:
     ##     rollingUpdate:
     ##       maxSurge: 1
     ##       maxUnavailable: 25%
-    serviceAccountName: litmus-server-account
     customLabels: {}
     # my.company.com/tier: "backend"
     waitForMongodb:
@@ -189,6 +201,7 @@ portal:
           cpu: "250m"
           ephemeral-storage: "1Gi"
     graphqlServer:
+      automountServiceAccountToken: false
       volumes:
         - name: gitops-storage
           emptyDir: {}
@@ -231,7 +244,6 @@ portal:
         LITMUS_CHAOS_RUNNER_IMAGE: "chaos-runner:3.8.0"
         LITMUS_CHAOS_EXPORTER_IMAGE: "chaos-exporter:3.8.0"
       genericEnv:
-        TLS_SECRET_NAME: ""
         TLS_CERT_64: ""
         CONTAINER_RUNTIME_EXECUTOR: "k8sapi"
         DEFAULT_HUB_BRANCH_NAME: "v3.8.x"

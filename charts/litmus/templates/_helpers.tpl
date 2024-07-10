@@ -91,3 +91,39 @@ Check for existing secret
 mongodb://{{ trimSuffix "," $hosts  }}/admin
 {{- end -}}
 
+{{- define "litmus-portal.internalTLS.web.secretName" -}}
+  {{- if eq .Values.internalTLS.certSource "secret" -}}
+    {{- .Values.internalTLS.web.secretName -}}
+  {{- else -}}
+    {{- printf "%s-web-internal-tls" (include "litmus-portal.fullname" .) -}}
+  {{- end -}}
+{{- end -}}
+
+{{- define "litmus-portal.internalTLS.authServer.secretName" -}}
+  {{- if eq .Values.internalTLS.certSource "secret" -}}
+    {{- .Values.internalTLS.authServer.secretName -}}
+  {{- else -}}
+    {{- printf "%s-auth-server-internal-tls" (include "litmus-portal.fullname" .) -}}
+  {{- end -}}
+{{- end -}}
+
+{{- define "litmus-portal.internalTLS.graphqlServer.secretName" -}}
+  {{- if eq .Values.internalTLS.certSource "secret" -}}
+    {{- .Values.internalTLS.graphqlServer.secretName -}}
+  {{- else -}}
+    {{- printf "%s-graphql-server-internal-tls" (include "litmus-portal.fullname" .) -}}
+  {{- end -}}
+{{- end -}}
+
+{{- define "litmus-portal.web" -}}
+  {{- printf "%s-web" (include "litmus-portal.fullname" .) -}}
+{{- end -}}
+
+{{- define "litmus-portal.auth-server" -}}
+  {{- printf "%s-auth-server" (include "litmus-portal.fullname" .) -}}
+{{- end -}}
+
+{{- define "litmus-portal.graphql-server" -}}
+  {{- printf "%s-graphql-server" (include "litmus-portal.fullname" .) -}}
+{{- end -}}
+

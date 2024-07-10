@@ -30,7 +30,6 @@ spec:
         {{- end }}
     spec:
       automountServiceAccountToken: {{ .Values.portal.server.authServer.automountServiceAccountToken }}
-      serviceAccountName: {{ .Values.portal.server.serviceAccountName }}
       {{- if .Values.image.imagePullSecrets }}
       imagePullSecrets:
         {{ toYaml .Values.image.imagePullSecrets | indent 8 }}
@@ -122,18 +121,40 @@ spec:
               {{- end }}
             - name: LITMUS_GQL_GRPC_ENDPOINT
               value: "{{ include "litmus-portal.fullname" . }}-server-service"
+              {{- if .Values.internalTLS.enabled }}
+            - name: ENABLE_INTERNAL_TLS
+              value: "true"
+            - name: TLS_CERT_PATH
+              value: "{{ .Values.internalTLS.certMountPath }}/tls.crt"
+            - name: TLS_KEY_PATH
+              value: "{{ .Values.internalTLS.certMountPath }}/tls.key"
+            - name: CA_CERT_TLS_PATH
+              value: "{{ .Values.internalTLS.certMountPath }}/ca.crt"
+              {{- else }}
+            - name: ENABLE_INTERNAL_TLS
+              value: "false"
+              {{- end }}
             {{- range $key, $val := .Values.portal.server.authServer.env }}
             - name: {{ $key }}
               value: {{ $val | quote }}
             {{- end }}
-          {{- with .Values.portal.server.authServer.volumeMounts }}
           volumeMounts:
+          {{- with .Values.portal.server.authServer.volumeMounts }}
             {{- toYaml . | nindent 12 }}
           {{- end }}
-      {{- with .Values.portal.server.authServer.volumes }}
+            {{- if .Values.internalTLS.enabled }}
+            - name: auth-server-internal-certs
+              mountPath: {{ .Values.internalTLS.certMountPath }}
+            {{- end }}
       volumes:
+      {{- with .Values.portal.server.authServer.volumes }}
         {{- toYaml . | nindent 8 }}
       {{- end }}
+        {{- if .Values.internalTLS.enabled }}
+        - name: auth-server-internal-certs
+          secret:
+            secretName: {{ template "litmus-portal.internalTLS.authServer.secretName" . }}
+        {{- end }}
     {{- with .Values.portal.server.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

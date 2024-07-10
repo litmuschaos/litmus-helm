@@ -1,0 +1,49 @@
+{{- if and .Values.internalTLS.enabled (eq .Values.internalTLS.certSource "auto") }}
+{{- $ca := genCA "litmus-portal-internal-ca" 365 }}
+{{- $webCN := (include "litmus-portal.web" .) }}
+{{- $webCrt := genSignedCert $webCN (list "127.0.0.1") (list "localhost" $webCN) 365 $ca }}
+{{- $authServerCN := (include "litmus-portal.auth-server" .) }}
+{{- $authServerCrt := genSignedCert $authServerCN nil (list $authServerCN) 365 $ca }}
+{{- $graphqlServerCN := (include "litmus-portal.graphql-server" .) }}
+{{- $graphqlServerCrt := genSignedCert $graphqlServerCN nil (list $graphqlServerCN) 365 $ca }}
+
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: "{{ template "litmus-portal.internalTLS.web.secretName" . }}"
+  labels:
+{{ include "litmus-portal.labels" . | indent 4 }}
+type: kubernetes.io/tls
+data:
+  ca.crt: {{ $ca.Cert | b64enc | quote }}
+  tls.crt: {{ $webCrt.Cert | b64enc | quote }}
+  tls.key: {{ $webCrt.Key | b64enc | quote }}
+
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: "{{ template "litmus-portal.internalTLS.authServer.secretName" . }}"
+  labels:
+{{ include "litmus-portal.labels" . | indent 4 }}
+type: kubernetes.io/tls
+data:
+  ca.crt: {{ $ca.Cert | b64enc | quote }}
+  tls.crt: {{ $authServerCrt.Cert | b64enc | quote }}
+  tls.key: {{ $authServerCrt.Key | b64enc | quote }}
+
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: "{{ template "litmus-portal.internalTLS.graphqlServer.secretName" . }}"
+  labels:
+{{ include "litmus-portal.labels" . | indent 4 }}
+type: kubernetes.io/tls
+data:
+  ca.crt: {{ $ca.Cert | b64enc | quote }}
+  tls.crt: {{ $graphqlServerCrt.Cert | b64enc | quote }}
+  tls.key: {{ $graphqlServerCrt.Key | b64enc | quote }}
+
+{{- end }}

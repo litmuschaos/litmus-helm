@@ -27,13 +27,18 @@ spec:
           {{ toYaml .Values.portal.server.customLabels | nindent 8 }}
         {{- end }}
     spec:
-      serviceAccountName: {{ .Values.portal.server.serviceAccountName }}
+      automountServiceAccountToken: {{ .Values.portal.server.graphqlServer.automountServiceAccountToken }}
       {{- if .Values.image.imagePullSecrets }}
       imagePullSecrets:
         {{ toYaml .Values.image.imagePullSecrets | indent 8 }}
       {{- end }}
       volumes:
         {{- toYaml .Values.portal.server.graphqlServer.volumes | default "" | nindent 8 }}
+        {{- if .Values.internalTLS.enabled }}
+        - name: graphql-server-internal-certs
+          secret:
+            secretName: {{ template "litmus-portal.internalTLS.graphqlServer.secretName" . }}
+        {{- end }}
       initContainers:
         - name: wait-for-mongodb
           image: {{ .Values.image.imageRegistryName }}/{{ .Values.portal.server.waitForMongodb.image.repository }}:{{ .Values.portal.server.waitForMongodb.image.tag }}
@@ -83,6 +88,10 @@ spec:
           image: {{ .Values.image.imageRegistryName }}/{{ .Values.portal.server.graphqlServer.image.repository }}:{{ .Values.portal.server.graphqlServer.image.tag }}
           volumeMounts:
             {{- toYaml .Values.portal.server.graphqlServer.volumeMounts | default "" | nindent 12 }}
+            {{- if .Values.internalTLS.enabled }}
+            - name: graphql-server-internal-certs
+              mountPath: {{ .Values.internalTLS.certMountPath }}
+            {{- end }}
           imagePullPolicy: {{ .Values.portal.server.graphqlServer.image.pullPolicy }}
           ports:
             {{- toYaml .Values.portal.server.graphqlServer.ports | nindent 12 }}
@@ -131,24 +140,21 @@ spec:
                   name: {{ include "litmus-portal.secretname" . }}
                   key: DB_USER
               {{- end }}
-            - name: LITMUS_PORTAL_NAMESPACE
-              valueFrom:
-                fieldRef:
-                  fieldPath: metadata.namespace
-            - name: CHAOS_CENTER_SCOPE
-              value: {{ .Values.portalScope }}
-            - name: SERVER_SERVICE_NAME
-              value: {{ include "litmus-portal.fullname" . }}-server-service
-            - name: INGRESS
-              value: "{{ .Values.ingress.enabled }}"
-            - name: INGRESS_NAME
-              value: "{{ .Values.ingress.name }}"
             - name: "LITMUS_AUTH_GRPC_ENDPOINT"
               value: "{{ include "litmus-portal.fullname" . }}-auth-server-service"
-            - name: NODE_NAME
-              valueFrom:
-                fieldRef:
-                  fieldPath: spec.nodeName
+              {{- if .Values.internalTLS.enabled }}
+            - name: ENABLE_INTERNAL_TLS
+              value: "true"
+            - name: TLS_CERT_PATH
+              value: "{{ .Values.internalTLS.certMountPath }}/tls.crt"
+            - name: TLS_KEY_PATH
+              value: "{{ .Values.internalTLS.certMountPath }}/tls.key"
+            - name: CA_CERT_TLS_PATH
+              value: "{{ .Values.internalTLS.certMountPath }}/ca.crt"
+              {{- else }}
+            - name: ENABLE_INTERNAL_TLS
+              value: "false"
+              {{- end }}
             {{- $imageRegistry := .Values.image.imageRegistryName -}}
             {{- range $key, $val := .Values.portal.server.graphqlServer.imageEnv }}
             - name: {{ $key }}

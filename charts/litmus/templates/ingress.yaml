@@ -14,10 +14,13 @@ metadata:
   labels:
     app.kubernetes.io/component: {{ include "litmus-portal.name" . }}-frontend
     {{- include "litmus-portal.labels" . | nindent 4 }}
-  {{- with .Values.ingress.annotations }}
   annotations:
+  {{- with .Values.ingress.annotations }}
     {{- toYaml . | nindent 4 }}
   {{- end }}
+{{- if .Values.internalTLS.enabled }}
+    nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+{{- end }}
 spec:
   {{- if .Values.ingress.ingressClassName }}
   ingressClassName: {{ .Values.ingress.ingressClassName }}
