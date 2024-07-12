@@ -63,11 +63,12 @@ We separated service configuration from `portal.server.service` to `portal.serve
 | existingSecret | string | `""` | Use existing secret (e.g., External Secrets) |
 | image.imagePullSecrets | list | `[]` |  |
 | image.imageRegistryName | string | `"litmuschaos.docker.scarf.sh/litmuschaos"` |  |
-| ingress.annotations | object | `{}` |  |
+| ingress.annotations."ingress.kubernetes.io/proxy-body-size" | string | `"0"` |  |
+| ingress.annotations."ingress.kubernetes.io/ssl-redirect" | string | `"true"` |  |
+| ingress.annotations."nginx.ingress.kubernetes.io/proxy-body-size" | string | `"0"` |  |
+| ingress.annotations."nginx.ingress.kubernetes.io/ssl-redirect" | string | `"true"` |  |
 | ingress.enabled | bool | `false` |  |
-| ingress.host.backend.path | string | `"/backend/(.*)"` | You may need adapt the path depending your ingress-controller |
-| ingress.host.backend.pathType | string | `"ImplementationSpecific"` | Allow to set [pathType](https://kubernetes.io/docs/concepts/services-networking/ingress/#path-types) for the backend path |
-| ingress.host.frontend.path | string | `"/(.*)"` | You may need adapt the path depending your ingress-controller |
+| ingress.host.frontend.path | string | `"/"` | You may need adapt the path depending your ingress-controller |
 | ingress.host.frontend.pathType | string | `"ImplementationSpecific"` | Allow to set [pathType](https://kubernetes.io/docs/concepts/services-networking/ingress/#path-types) for the frontend path |
 | ingress.host.name | string | `""` | This is ingress hostname (ex: my-domain.com) |
 | ingress.ingressClassName | string | `""` |  |
