@@ -55,11 +55,13 @@ spec:
             httpGet:
               path: /
               port: http
+              scheme: {{ include "litmus-portal.component.scheme" . | upper }}
             {{- toYaml .Values.portal.frontend.livenessProbe | nindent 12 }}
           readinessProbe:
             httpGet:
               path: /
               port: http
+              scheme: {{ include "litmus-portal.component.scheme" . | upper }}
             {{- toYaml .Values.portal.frontend.readinessProbe | nindent 12 }}
           ports:
             - containerPort: {{ .Values.portal.frontend.containerPort }}

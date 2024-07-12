@@ -10,9 +10,11 @@ customLabels: {}
 # -- Use existing secret (e.g., External Secrets)
 existingSecret: ""
 
+allowedOrigins: ".*" #eg: ^(http://|https://|)litmuschaos.io(:[0-9]+|)?,^(http://|https://|)litmusportal-server-service(:[0-9]+|)?
+
 adminConfig:
   JWTSecret: "litmus-portal@123"
-  VERSION: "3.8.0"
+  VERSION: "ci"
   SKIP_SSL_VERIFY: "false"
   # -- leave empty if uses Mongo DB deployed by this chart
   DBPASSWORD: ""
@@ -118,7 +120,7 @@ portal:
     #   runAsNonRoot: true
     image:
       repository: litmusportal-frontend
-      tag: 3.8.0
+      tag: ci
       pullPolicy: "Always"
     containerPort: 8185
     customLabels: {}
@@ -219,10 +221,10 @@ portal:
         readOnlyRootFilesystem: true
       image:
         repository: litmusportal-server
-        tag: 3.8.0
+        tag: ci
         pullPolicy: "Always"
       ports:
-        - name: gql-rest-server
+        - name: gql-server
           containerPort: 8080
         - name: gql-rpc-server
           containerPort: 8000
@@ -236,21 +238,21 @@ portal:
           port: 8000
           targetPort: 8000
       imageEnv:
-        SUBSCRIBER_IMAGE: "litmusportal-subscriber:3.8.0"
-        EVENT_TRACKER_IMAGE: "litmusportal-event-tracker:3.8.0"
+        SUBSCRIBER_IMAGE: "litmusportal-subscriber:ci"
+        EVENT_TRACKER_IMAGE: "litmusportal-event-tracker:ci"
         ARGO_WORKFLOW_CONTROLLER_IMAGE: "workflow-controller:v3.3.1"
         ARGO_WORKFLOW_EXECUTOR_IMAGE: "argoexec:v3.3.1"
-        LITMUS_CHAOS_OPERATOR_IMAGE: "chaos-operator:3.8.0"
-        LITMUS_CHAOS_RUNNER_IMAGE: "chaos-runner:3.8.0"
-        LITMUS_CHAOS_EXPORTER_IMAGE: "chaos-exporter:3.8.0"
+        LITMUS_CHAOS_OPERATOR_IMAGE: "chaos-operator:ci"
+        LITMUS_CHAOS_RUNNER_IMAGE: "chaos-runner:ci"
+        LITMUS_CHAOS_EXPORTER_IMAGE: "chaos-exporter:ci"
       genericEnv:
         TLS_CERT_64: ""
         CONTAINER_RUNTIME_EXECUTOR: "k8sapi"
         DEFAULT_HUB_BRANCH_NAME: "v3.8.x"
         INFRA_DEPLOYMENTS: '["app=chaos-exporter", "name=chaos-operator", "app=event-tracker", "app=workflow-controller"]'
-        WORKFLOW_HELPER_IMAGE_VERSION: "3.8.0"
+        WORKFLOW_HELPER_IMAGE_VERSION: "ci"
         REMOTE_HUB_MAX_SIZE: "5000000"
-        INFRA_COMPATIBLE_VERSIONS: '["3.8.0"]'
+        INFRA_COMPATIBLE_VERSIONS: '["ci"]'
         # Provide UI endpoint if using namespaced scope
         CHAOS_CENTER_UI_ENDPOINT: ""
         ENABLE_GQL_INTROSPECTION: "false"
@@ -294,13 +296,13 @@ portal:
       automountServiceAccountToken: false
       image:
         repository: litmusportal-auth-server
-        tag: 3.8.0
+        tag: ci
         pullPolicy: "Always"
       ports:
-        - name: auth-rest-server
-          containerPort: 3030
-        - name: auth-rpc-server
+        - name: auth-server
           containerPort: 3000
+        - name: auth-rpc-server
+          containerPort: 3030
       service:
         annotations: {}
         type: ClusterIP

@@ -116,14 +116,23 @@ mongodb://{{ trimSuffix "," $hosts  }}/admin
 {{- end -}}
 
 {{- define "litmus-portal.web" -}}
-  {{- printf "%s-web" (include "litmus-portal.fullname" .) -}}
+  {{- printf "%s-web-service" (include "litmus-portal.fullname" .) -}}
 {{- end -}}
 
 {{- define "litmus-portal.auth-server" -}}
-  {{- printf "%s-auth-server" (include "litmus-portal.fullname" .) -}}
+  {{- printf "%s-auth-server-service" (include "litmus-portal.fullname" .) -}}
 {{- end -}}
 
 {{- define "litmus-portal.graphql-server" -}}
-  {{- printf "%s-graphql-server" (include "litmus-portal.fullname" .) -}}
+  {{- printf "%s-graphql-server-service" (include "litmus-portal.fullname" .) -}}
+{{- end -}}
+
+{{/* scheme for all components because it only support http mode */}}
+{{- define "litmus-portal.component.scheme" -}}
+  {{- if .Values.internalTLS.enabled -}}
+    {{- printf "https" -}}
+  {{- else -}}
+    {{- printf "http" -}}
+  {{- end -}}
 {{- end -}}
 
