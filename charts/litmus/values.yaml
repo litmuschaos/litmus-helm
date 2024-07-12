@@ -10,7 +10,8 @@ customLabels: {}
 # -- Use existing secret (e.g., External Secrets)
 existingSecret: ""
 
-allowedOrigins: ".*" #eg: ^(http://|https://|)litmuschaos.io(:[0-9]+|)?,^(http://|https://|)litmusportal-server-service(:[0-9]+|)?
+#eg: ^(http://|https://|)litmuschaos.io(:[0-9]+|)?,^(http://|https://|)litmusportal-server-service(:[0-9]+|)?
+allowedOrigins: ".*"
 
 adminConfig:
   JWTSecret: "litmus-portal@123"
