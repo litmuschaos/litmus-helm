@@ -14,7 +14,7 @@ existingSecret: ""
 allowedOrigins: ".*"
 
 adminConfig:
-  VERSION: "3.9.0"
+  VERSION: "3.9.1"
   SKIP_SSL_VERIFY: "false"
   # -- leave empty if uses Mongo DB deployed by this chart
   DBPASSWORD: ""
@@ -118,7 +118,7 @@ portal:
     #   runAsNonRoot: true
     image:
       repository: litmusportal-frontend
-      tag: 3.9.0
+      tag: 3.9.1
       pullPolicy: "Always"
     containerPort: 8185
     customLabels: {}
@@ -221,7 +221,7 @@ portal:
         readOnlyRootFilesystem: true
       image:
         repository: litmusportal-server
-        tag: 3.9.0
+        tag: 3.9.1
         pullPolicy: "Always"
       ports:
         - name: gql-server
@@ -238,8 +238,8 @@ portal:
           port: 8000
           targetPort: 8000
       imageEnv:
-        SUBSCRIBER_IMAGE: "litmusportal-subscriber:3.9.0"
-        EVENT_TRACKER_IMAGE: "litmusportal-event-tracker:3.9.0"
+        SUBSCRIBER_IMAGE: "litmusportal-subscriber:3.9.1"
+        EVENT_TRACKER_IMAGE: "litmusportal-event-tracker:3.9.1"
         ARGO_WORKFLOW_CONTROLLER_IMAGE: "workflow-controller:v3.3.1"
         ARGO_WORKFLOW_EXECUTOR_IMAGE: "argoexec:v3.3.1"
         LITMUS_CHAOS_OPERATOR_IMAGE: "chaos-operator:3.9.0"
@@ -296,7 +296,7 @@ portal:
       automountServiceAccountToken: false
       image:
         repository: litmusportal-auth-server
-        tag: 3.9.0
+        tag: 3.9.1
         pullPolicy: "Always"
       ports:
         - name: auth-server
