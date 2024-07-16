@@ -11,7 +11,7 @@ customLabels: {}
 image:
   litmusGO:
     repository: litmuschaos.docker.scarf.sh/litmuschaos/go-runner
-    tag: 3.8.0
+    tag: 3.9.0
     pullPolicy: Always
 
 experiments:
