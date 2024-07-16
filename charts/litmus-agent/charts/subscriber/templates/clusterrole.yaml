@@ -22,9 +22,9 @@ rules:
   resources: ["pods","namespaces","nodes","services"]
   verbs: ["get","list","watch"]
 
-- apiGroups: ["litmuschaos.io"]
-  resources: ["chaosengines","chaosschedules","chaosresults"]
-  verbs: ["get","list","create","delete","update","watch"]
+- apiGroups: [ "litmuschaos.io" ]
+  resources: [ "chaosengines", "chaosresults" ]
+  verbs: [ "get", "list", "create", "delete", "update", "watch", "patch" ]
 
 - apiGroups: ["apps.openshift.io"]
   resources: ["deploymentconfigs"]
@@ -35,6 +35,15 @@ rules:
   verbs: ["get","list", "delete","deletecollection"]
 
 - apiGroups: ["argoproj.io"]
-  resources: ["workflows","workflows/finalizers","workflowtemplates", "workflowtemplates/finalizers","cronworkflows","cronworkflows/finalizers","clusterworkflowtemplates","clusterworkflowtemplates/finalizers","rollouts"]
-  verbs: ["get","list","create","delete","update","watch"]
+  resources:
+    [
+      "workflows",
+      "workflows/finalizers",
+      "workflowtemplates",
+      "workflowtemplates/finalizers",
+      "cronworkflows",
+      "cronworkflows/finalizers",
+      "rollouts",
+    ]
+  verbs: ["get", "list", "create", "delete", "update", "watch","patch"]
 {{- end }}
