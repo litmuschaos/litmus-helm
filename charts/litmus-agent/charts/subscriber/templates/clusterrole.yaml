@@ -35,6 +35,15 @@ rules:
   verbs: ["get","list", "delete","deletecollection"]
 
 - apiGroups: ["argoproj.io"]
-  resources: ["workflows","workflows/finalizers","workflowtemplates", "workflowtemplates/finalizers","cronworkflows","cronworkflows/finalizers","clusterworkflowtemplates","clusterworkflowtemplates/finalizers","rollouts"]
-  verbs: ["get","list","create","delete","update","watch"]
+  resources:
+    [
+      "workflows",
+      "workflows/finalizers",
+      "workflowtemplates",
+      "workflowtemplates/finalizers",
+      "cronworkflows",
+      "cronworkflows/finalizers",
+      "rollouts",
+    ]
+  verbs: ["get", "list", "create", "delete", "update", "watch","patch"]
 {{- end }}

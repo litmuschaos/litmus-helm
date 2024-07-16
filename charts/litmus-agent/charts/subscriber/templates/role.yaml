@@ -22,9 +22,9 @@ rules:
     resources: ["pods","services"]
     verbs: ["get", "list", "watch"]
 
-  - apiGroups: ["litmuschaos.io"]
-    resources: ["chaosengines", "chaosschedules", "chaosresults"]
-    verbs: ["get", "list", "create", "delete", "update", "watch"]
+  - apiGroups: [ "litmuschaos.io" ]
+    resources: [ "chaosengines", "chaosresults" ]
+    verbs: [ "get", "list", "create", "delete", "update", "watch", "patch"]
 
   - apiGroups: ["apps.openshift.io"]
     resources: ["deploymentconfigs"]
@@ -45,5 +45,5 @@ rules:
         "cronworkflows/finalizers",
         "rollouts",
       ]
-    verbs: ["get", "list", "create", "delete", "update", "watch"]
+    verbs: ["get", "list", "create", "delete", "update", "watch","patch"]
 {{- end }}
