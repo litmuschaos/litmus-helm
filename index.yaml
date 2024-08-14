@@ -2,6 +2,31 @@ apiVersion: v1
 entries:
   kube-aws:
   - apiVersion: v1
+    appVersion: 3.9.1
+    created: "2024-08-14T16:02:17.561716329Z"
+    description: A Helm chart to install litmus aws chaos experiments
+    digest: 568a32d6e20c1a59a6bbbd3fc8607def91bc94c20567173ad3b9fd87010fa33e
+    home: https://litmuschaos.io
+    icon: https://raw.githubusercontent.com/litmuschaos/icons/master/litmus.png
+    keywords:
+    - chaos-engineering
+    - resiliency
+    - aws
+    - kubernetes
+    maintainers:
+    - email: jasssstkn@yahoo.com
+      name: jasstkn
+    - email: karthik@chaosnative.com
+      name: ksatchit
+    - email: udit@chaosnative.com
+      name: uditgaurav
+    name: kube-aws
+    sources:
+    - https://github.com/litmuschaos/litmus
+    urls:
+    - https://github.com/litmuschaos/litmus-helm/releases/download/kube-aws-3.9.1/kube-aws-3.9.1.tgz
+    version: 3.9.1
+  - apiVersion: v1
     appVersion: 3.9.0
     created: "2024-07-16T06:58:37.709120311Z"
     description: A Helm chart to install litmus aws chaos experiments
@@ -7199,4 +7224,4 @@ entries:
     urls:
     - litmus-core/litmus-core-1.20.0.tgz
     version: 1.20.0
-generated: "2024-07-16T09:12:51.57921011Z"
+generated: "2024-08-14T16:02:17.562537498Z"
