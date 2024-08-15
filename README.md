@@ -133,14 +133,11 @@ Sample helm command to install the external agent in namespace mode
 ```bash
 helm install litmus-agent litmuschaos/litmus-agent \
 --namespace litmus --create-namespace \
---set "INFRA_NAME=helm-agent" \
---set "INFRA_DESCRIPTION=My first agent deployed with helm !" \
 --set "LITMUS_URL=https://chaos-center.domain.com" \ # FOR REMOTE AGENT (INGRESS)
 --set "LITMUS_URL=http://litmusportal-frontend-service.litmus.svc.cluster.local:9091" \ # FOR SELF AGENT (SVC)
 --set "LITMUS_BACKEND_URL=http://litmusportal-server-service.litmus.svc.cluster.local:9002" \ # FOR SELF AGENT (SVC)
---set "LITMUS_USERNAME=admin" \
---set "LITMUS_PASSWORD=litmus" \
---set "LITMUS_PROJECT_ID=<PROJECT_ID>" \
+--set "INFRA_ID=<INFRA_ID>" \
+--set "ACCESS_KEY=<ACCESS_KEY>" \
 --set "global.INFRA_MODE=namespace" \
 --set "crds.create=false" \
 --set "workflow-controller.crds.create=false
@@ -153,14 +150,11 @@ Sample helm command to install the external agent in cluster mode
 ```bash
 helm install litmus-agent litmuschaos/litmus-agent \
 --namespace litmus --create-namespace \
---set "INFRA_NAME=helm-agent" \
---set "INFRA_DESCRIPTION=My first agent deployed with helm !" \
 --set "LITMUS_URL=https://chaos-center.domain.com" \ # FOR REMOTE AGENT (INGRESS)
 --set "LITMUS_URL=http://litmusportal-frontend-service.litmus.svc.cluster.local:9091" \ # FOR SELF AGENT (SVC)
 --set "LITMUS_BACKEND_URL=http://litmusportal-server-service.litmus.svc.cluster.local:9002" \ # FOR SELF AGENT (SVC)
---set "LITMUS_USERNAME=admin" \
---set "LITMUS_PASSWORD=litmus" \
---set "LITMUS_PROJECT_ID=<PROJECT_ID>" \
+--set "INFRA_ID=<INFRA_ID>" \
+--set "ACCESS_KEY=<ACCESS_KEY>" \
 --set "global.INFRA_MODE=cluster"
 ```
 

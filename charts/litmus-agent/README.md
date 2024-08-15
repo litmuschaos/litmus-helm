@@ -38,15 +38,11 @@ To install this chart with the release name `litmus-portal`:
 $ helm repo add litmuschaos https://litmuschaos.github.io/litmus-helm/
 $ helm install litmus-agent litmuschaos/litmus-agent \
   --namespace litmus --create-namespace \
-  --set "INFRA_NAME=helm-agent" \
-  --set "INFRA_DESCRIPTION=My first agent deployed with helm !" \
   --set "LITMUS_URL=https://chaos-center.domain.com" \ # FOR REMOTE AGENT (INGRESS)
   --set "LITMUS_URL=http://litmusportal-frontend-service.litmus.svc.cluster.local:9091" \ # FOR SELF AGENT (SVC)
   --set "LITMUS_BACKEND_URL=http://litmusportal-server-service.litmus.svc.cluster.local:9002" \ # FOR SELF AGENT (SVC)
-  --set "LITMUS_USERNAME=admin" \
-  --set "LITMUS_PASSWORD=litmus" \
-  --set "LITMUS_PROJECT_ID=69395cb3-0231-4262-8990-78056c8adb4c" \
-  --set "LITMUS_ENVIRONMENT_ID=nameofenvironment"
+  --set "INFRA_ID=<INFRA_ID>"
+  --set "ACCESS_KEY=<ACCESS_KEY>"
 ```
 
 ## Values
@@ -54,16 +50,12 @@ $ helm install litmus-agent litmuschaos/litmus-agent \
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | APP_VERSION | string | `"3.9.0"` |  |
-| INFRA_DESCRIPTION | string | `"chaos infrastructure deployed with helm"` |  |
-| INFRA_NAME | string | `"helm-infrastructure"` |  |
 | INFRA_NODE_SELECTOR | string | `""` |  |
 | INFRA_TYPE | string | `"external"` |  |
 | LITMUS_BACKEND_URL | string | `""` |  |
-| LITMUS_ENVIRONMENT_ID | string | `""` | ID of the litmus environment where the infrastructure will be added |
-| LITMUS_PASSWORD | string | `"litmus"` |  |
-| LITMUS_PROJECT_ID | string | `""` |  |
 | LITMUS_URL | string | `"https://my-domain.com"` |  |
-| LITMUS_USERNAME | string | `"admin"` |  |
+| INFRA_ID | string | `""`| |
+| ACCESS_KEY | string | `""` | |
 | NS_EXISTS | bool | `true` |  |
 | PLATFORM_NAME | string | `"Others"` |  |
 | SA_EXISTS | bool | `true` |  |
