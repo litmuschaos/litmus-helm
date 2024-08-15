@@ -51,7 +51,7 @@ spec:
     - name: RAMP_TIME
       value: ''
 
-    - name: INSTANCE_TAG
+    - name: EC2_INSTANCE_TAG
       value: ''
 
     # enable it if the target instance is a part of self-managed nodegroup.
