@@ -1,6 +1,6 @@
 # litmus-agent
 
-![Version: 3.9.0](https://img.shields.io/badge/Version-3.9.0-informational?style=flat-square) ![AppVersion: 3.9.0](https://img.shields.io/badge/AppVersion-3.9.0-informational?style=flat-square)
+![Version: 3.10.0](https://img.shields.io/badge/Version-3.10.0-informational?style=flat-square) ![AppVersion: 3.10.0](https://img.shields.io/badge/AppVersion-3.10.0-informational?style=flat-square)
 
 A Helm chart to install litmus agent
 
@@ -24,10 +24,10 @@ Kubernetes: `>=1.16.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-|  | chaos-exporter | 3.9.0 |
-|  | chaos-operator | 3.9.0 |
-|  | event-tracker | 3.9.0 |
-|  | subscriber | 3.9.0 |
+|  | chaos-exporter | 3.10.0 |
+|  | chaos-operator | 3.10.0 |
+|  | event-tracker | 3.10.0 |
+|  | subscriber | 3.10.0 |
 |  | workflow-controller | 0.2.1 |
 
 ## Installing the Chart
@@ -49,7 +49,7 @@ $ helm install litmus-agent litmuschaos/litmus-agent \
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| APP_VERSION | string | `"3.9.0"` |  |
+| APP_VERSION | string | `"3.10.0"` |  |
 | INFRA_NODE_SELECTOR | string | `""` |  |
 | INFRA_TYPE | string | `"external"` |  |
 | LITMUS_BACKEND_URL | string | `""` |  |
