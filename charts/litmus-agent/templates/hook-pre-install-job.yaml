@@ -29,12 +29,6 @@ spec:
           - secretRef:
               name: {{ include "litmus-agent.fullname" . }}-hook
         env:
-          - name: INFRA_NAME
-            value: {{ .Values.INFRA_NAME }}
-          - name: INFRA_DESCRIPTION
-            value: {{ .Values.INFRA_DESCRIPTION | quote }}
-          - name: LITMUS_ENVIRONMENT_ID
-            value: {{ .Values.LITMUS_ENVIRONMENT_ID }}
           - name: INFRA_MODE
             value: {{ .Values.global.INFRA_MODE }}
           - name: INFRA_CONFIGMAP_NAME
