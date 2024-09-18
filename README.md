@@ -143,7 +143,7 @@ helm install litmus-agent litmuschaos/litmus-agent \
 --set "LITMUS_PROJECT_ID=<PROJECT_ID>" \
 --set "global.INFRA_MODE=namespace" \
 --set "crds.create=false" \
---set "workflow-controller.crds.create=false
+--set "workflow-controller.crds.create=false"
 ```
 
 #### Install the external agent in cluster mode
