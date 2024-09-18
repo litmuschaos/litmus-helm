@@ -1,6 +1,6 @@
 # litmus-agent
 
-![Version: 3.11.1](https://img.shields.io/badge/Version-3.11.1-informational?style=flat-square) ![AppVersion: 3.11.1](https://img.shields.io/badge/AppVersion-3.11.1-informational?style=flat-square)
+![Version: 3.11.2](https://img.shields.io/badge/Version-3.11.2-informational?style=flat-square) ![AppVersion: 3.11.2](https://img.shields.io/badge/AppVersion-3.11.2-informational?style=flat-square)
 
 A Helm chart to install litmus agent
 

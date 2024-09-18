@@ -1,8 +1,8 @@
 apiVersion: v2
-appVersion: "3.11.1"
+appVersion: "3.11.2"
 description: A Helm chart to install litmus agent
 name: litmus-agent
-version: 3.11.1
+version: 3.11.2
 kubeVersion: ">=1.16.0-0"
 home: https://litmuschaos.io
 sources:
