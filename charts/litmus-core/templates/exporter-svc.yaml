@@ -4,8 +4,7 @@ kind: Service
 metadata:
   name: {{ include "litmus.name" . }}-monitor
   labels:
-    app: {{ template "litmus.name" . }}
-    {{- include "litmus.labels" . | nindent 4 }}
+    {{- include "litmus.exporterLabels" . | nindent 4 }}
 {{- if .Values.exporter.service.annotations }}
   annotations:
     {{- toYaml .Values.exporter.service.annotations | nindent 4 }}
@@ -18,6 +17,5 @@ spec:
     targetPort: http
   type: {{ .Values.exporter.service.type }}
   selector:
-    app: {{ template "litmus.name" . }}
-    {{- include "litmus.selectors" . | nindent 4 }}
+    {{- include "litmus.exporterSelectors" . | nindent 4 }}
 {{- end -}}
