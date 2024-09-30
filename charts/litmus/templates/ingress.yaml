@@ -14,10 +14,13 @@ metadata:
   labels:
     app.kubernetes.io/component: {{ include "litmus-portal.name" . }}-frontend
     {{- include "litmus-portal.labels" . | nindent 4 }}
-  {{- with .Values.ingress.annotations }}
   annotations:
+  {{- with .Values.ingress.annotations }}
     {{- toYaml . | nindent 4 }}
   {{- end }}
+{{- if .Values.internalTLS.enabled }}
+    nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+{{- end }}
 spec:
   {{- if .Values.ingress.ingressClassName }}
   ingressClassName: {{ .Values.ingress.ingressClassName }}
@@ -48,21 +51,10 @@ spec:
             name: {{ $fullName }}-frontend-service
             port:
               number: {{ .Values.portal.frontend.service.port }}
-      - path: {{ .Values.ingress.host.backend.path }}
-        pathType: {{ .Values.ingress.host.backend.pathType }}
-        backend:
-          service: 
-            name: {{ $fullName }}-server-service
-            port: 
-              number: {{ .Values.portal.server.graphqlServer.service.graphqlServer.port }}
     {{- else if semverCompare "<1.19-0" .Capabilities.KubeVersion.GitVersion }}
       - path: {{ .Values.ingress.host.paths.frontend }}
         backend:
           serviceName: {{ $fullName }}-frontend-service
           servicePort: {{ .Values.portal.frontend.service.port }}
-      - path: {{ .Values.ingress.host.paths.backend }}
-        backend: 
-          serviceName: {{ $fullName }}-server-service
-          servicePort: {{ .Values.portal.server.graphqlServer.service.graphqlServer.port }}
     {{- end }}
 {{- end }}

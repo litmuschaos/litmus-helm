@@ -1,9 +1,6 @@
 # Default values for litmus.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
-
-portalScope: cluster
-
 nameOverride: ""
 
 # -- Additional labels
@@ -13,9 +10,11 @@ customLabels: {}
 # -- Use existing secret (e.g., External Secrets)
 existingSecret: ""
 
+# eg: ^(http://|https://|)litmuschaos.io(:[0-9]+|)?,^(http://|https://|)litmusportal-server-service(:[0-9]+|)?
+allowedOrigins: ".*"
+
 adminConfig:
-  JWTSecret: "litmus-portal@123"
-  VERSION: "3.6.0"
+  VERSION: "3.11.0"
   SKIP_SSL_VERIFY: "false"
   # -- leave empty if uses Mongo DB deployed by this chart
   DBPASSWORD: ""
@@ -30,11 +29,53 @@ image:
   # Optional pod imagePullSecrets
   imagePullSecrets: []
 
+internalTLS:
+  # If internal TLS enabled
+  enabled: false
+  # enable strong ssl ciphers (default: false)
+  strong_ssl_ciphers: false
+  # There are three ways to provide tls
+  # 1) "auto" will generate cert automatically
+  # 2) "manual" need provide cert file manually in following value
+  # 3) "secret" internal certificates from secret
+  certSource: "auto"
+  # The content of trust ca, only available when `certSource` is "manual"
+  trustCa: ""
+  # Path on which the certs & keys will be mounted across all components
+  certMountPath: "/etc/tls"
+  # web related cert configuration
+  web:
+    # secret name for web's tls certs
+    secretName: ""
+    # Content of web's TLS cert file, only available when `certSource` is "manual"
+    crt: ""
+    # Content of web's TLS key file, only available when `certSource` is "manual"
+    key: ""
+  # graph-server related cert configuration
+  graphqlServer:
+    # secret name for graph-server's tls certs
+    secretName: ""
+    # Content of graphqlServer's TLS key file, only available when `certSource` is "manual"
+    crt: ""
+    # Content of graphqlServer's TLS key file, only available when `certSource` is "manual"
+    key: ""
+  # auth-server related cert configuration
+  authServer:
+    # secret name for auth-server's tls certs
+    secretName: ""
+    # Content of auth-server's TLS key file, only available when `certSource` is "manual"
+    crt: ""
+    # Content of auth-server's TLS key file, only available when `certSource` is "manual"
+    key: ""
+
 ingress:
   enabled: false
   name: litmus-ingress
   annotations:
-    {}
+    ingress.kubernetes.io/ssl-redirect: "true"
+    ingress.kubernetes.io/proxy-body-size: "0"
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/proxy-body-size: "0"
     # kubernetes.io/tls-acme: "true"
     # nginx.ingress.kubernetes.io/rewrite-target: /$1
 
@@ -44,40 +85,12 @@ ingress:
     name: ""
     frontend:
       # -- You may need adapt the path depending your ingress-controller
-      path: /(.*)
+      path: /
       # -- Allow to set [pathType](https://kubernetes.io/docs/concepts/services-networking/ingress/#path-types) for the frontend path
-      pathType: ImplementationSpecific
-    backend:
-      # -- You may need adapt the path depending your ingress-controller
-      path: /backend/(.*)
-      # -- Allow to set [pathType](https://kubernetes.io/docs/concepts/services-networking/ingress/#path-types) for the backend path
       pathType: ImplementationSpecific
   tls: []
   #  - secretName: chart-example-tls
   #    hosts: []
-
-upgradeAgent:
-  enabled: true
-  controlPlane:
-    image:
-      repository: upgrade-agent-cp
-      tag: "3.6.0"
-      pullPolicy: "Always"
-    restartPolicy: OnFailure
-  nodeSelector: {}
-  tolerations: []
-  affinity: {}
-  resources: {}
-  # We usually recommend not to specify default resources and to leave this as a conscious
-  # choice for the user. This also increases chances charts run on environments with little
-  # resources, such as Minikube. If you do want to specify resources, uncomment the following
-  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
-#   limits:
-#     cpu: 100m
-#     memory: 128Mi
-#   requests:
-#     cpu: 100m
-#     memory: 128Mi
 
 portal:
   frontend:
@@ -105,7 +118,7 @@ portal:
     #   runAsNonRoot: true
     image:
       repository: litmusportal-frontend
-      tag: 3.6.0
+      tag: 3.11.0
       pullPolicy: "Always"
     containerPort: 8185
     customLabels: {}
@@ -140,6 +153,8 @@ portal:
       type: ClusterIP
       port: 9091
       targetPort: 8185
+# NOTE: Using virtualService is not compatible with native mTLS of Litmus.
+# It's recommended to use mTLS feature provided by Istio itself in such scenario.
     virtualService:
       enabled: false
       hosts: []
@@ -161,7 +176,6 @@ portal:
     ##     rollingUpdate:
     ##       maxSurge: 1
     ##       maxUnavailable: 25%
-    serviceAccountName: litmus-server-account
     customLabels: {}
     # my.company.com/tier: "backend"
     waitForMongodb:
@@ -189,6 +203,7 @@ portal:
           cpu: "250m"
           ephemeral-storage: "1Gi"
     graphqlServer:
+      automountServiceAccountToken: false
       volumes:
         - name: gitops-storage
           emptyDir: {}
@@ -206,7 +221,7 @@ portal:
         readOnlyRootFilesystem: true
       image:
         repository: litmusportal-server
-        tag: 3.6.0
+        tag: 3.11.0
         pullPolicy: "Always"
       ports:
         - name: gql-server
@@ -216,32 +231,31 @@ portal:
       service:
         annotations: {}
         type: ClusterIP
-        graphqlServer:
+        graphqlRestServer:
           port: 9002
           targetPort: 8080
         graphqlRpcServer:
           port: 8000
           targetPort: 8000
       imageEnv:
-        SUBSCRIBER_IMAGE: "litmusportal-subscriber:3.6.0"
-        EVENT_TRACKER_IMAGE: "litmusportal-event-tracker:3.6.0"
+        SUBSCRIBER_IMAGE: "litmusportal-subscriber:3.11.0"
+        EVENT_TRACKER_IMAGE: "litmusportal-event-tracker:3.11.0"
         ARGO_WORKFLOW_CONTROLLER_IMAGE: "workflow-controller:v3.3.1"
         ARGO_WORKFLOW_EXECUTOR_IMAGE: "argoexec:v3.3.1"
-        LITMUS_CHAOS_OPERATOR_IMAGE: "chaos-operator:3.6.0"
-        LITMUS_CHAOS_RUNNER_IMAGE: "chaos-runner:3.6.0"
-        LITMUS_CHAOS_EXPORTER_IMAGE: "chaos-exporter:3.6.0"
+        LITMUS_CHAOS_OPERATOR_IMAGE: "chaos-operator:3.11.0"
+        LITMUS_CHAOS_RUNNER_IMAGE: "chaos-runner:3.11.0"
+        LITMUS_CHAOS_EXPORTER_IMAGE: "chaos-exporter:3.11.0"
       genericEnv:
-        TLS_SECRET_NAME: ""
         TLS_CERT_64: ""
         CONTAINER_RUNTIME_EXECUTOR: "k8sapi"
-        DEFAULT_HUB_BRANCH_NAME: "v3.6.x"
+        DEFAULT_HUB_BRANCH_NAME: "v3.11.x"
         INFRA_DEPLOYMENTS: '["app=chaos-exporter", "name=chaos-operator", "app=event-tracker", "app=workflow-controller"]'
-        LITMUS_AUTH_GRPC_PORT: ":3030"
-        WORKFLOW_HELPER_IMAGE_VERSION: "3.6.0"
+        WORKFLOW_HELPER_IMAGE_VERSION: "3.11.0"
         REMOTE_HUB_MAX_SIZE: "5000000"
-        INFRA_COMPATIBLE_VERSIONS: '["3.6.0"]'
+        INFRA_COMPATIBLE_VERSIONS: '["3.11.0"]'
         # Provide UI endpoint if using namespaced scope
         CHAOS_CENTER_UI_ENDPOINT: ""
+        ENABLE_GQL_INTROSPECTION: "false"
       resources:
         # We usually recommend not to specify default resources and to leave this as a conscious
         # choice for the user. This also increases chances charts run on environments with little
@@ -282,24 +296,23 @@ portal:
       automountServiceAccountToken: false
       image:
         repository: litmusportal-auth-server
-        tag: 3.6.0
+        tag: 3.11.0
         pullPolicy: "Always"
       ports:
         - name: auth-server
-          containerPort: 3030
-        - name: auth-rpc-server
           containerPort: 3000
+        - name: auth-rpc-server
+          containerPort: 3030
       service:
         annotations: {}
         type: ClusterIP
-        authServer:
+        authRestServer:
           port: 9003
           targetPort: 3000
         authRpcServer:
           port: 3030
           targetPort: 3030
-      env:
-        LITMUS_GQL_GRPC_PORT: ":8000"
+      env: {}
       resources:
         # We usually recommend not to specify default resources and to leave this as a conscious
         # choice for the user. This also increases chances charts run on environments with little

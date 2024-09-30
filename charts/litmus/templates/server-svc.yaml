@@ -14,8 +14,8 @@ spec:
   type: {{ .Values.portal.server.graphqlServer.service.type }}
   ports:
     - name: graphql-server
-      port: {{ .Values.portal.server.graphqlServer.service.graphqlServer.port }}
-      targetPort: {{ .Values.portal.server.graphqlServer.service.graphqlServer.targetPort }}
+      port: {{ .Values.portal.server.graphqlServer.service.graphqlRestServer.port }}
+      targetPort: {{ .Values.portal.server.graphqlServer.service.graphqlRestServer.targetPort }}
     - name: graphql-rpc-server
       port: {{ .Values.portal.server.graphqlServer.service.graphqlRpcServer.port }}
       targetPort: {{ .Values.portal.server.graphqlServer.service.graphqlRpcServer.targetPort }}

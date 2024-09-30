@@ -1,6 +1,6 @@
 # litmus-agent
 
-![Version: 3.6.1](https://img.shields.io/badge/Version-3.6.1-informational?style=flat-square) ![AppVersion: 3.6.0](https://img.shields.io/badge/AppVersion-3.6.0-informational?style=flat-square)
+![Version: 3.11.2](https://img.shields.io/badge/Version-3.11.2-informational?style=flat-square) ![AppVersion: 3.11.2](https://img.shields.io/badge/AppVersion-3.11.2-informational?style=flat-square)
 
 A Helm chart to install litmus agent
 
@@ -24,10 +24,10 @@ Kubernetes: `>=1.16.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-|  | chaos-exporter | 3.6.1 |
-|  | chaos-operator | 3.6.1 |
-|  | event-tracker | 3.6.1 |
-|  | subscriber | 3.6.1 |
+|  | chaos-exporter | 3.11.0 |
+|  | chaos-operator | 3.11.0 |
+|  | event-tracker | 3.11.0 |
+|  | subscriber | 3.11.0 |
 |  | workflow-controller | 0.2.1 |
 
 ## Installing the Chart
@@ -53,7 +53,7 @@ $ helm install litmus-agent litmuschaos/litmus-agent \
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| APP_VERSION | string | `"3.6.0"` |  |
+| APP_VERSION | string | `"3.11.0"` |  |
 | INFRA_DESCRIPTION | string | `"chaos infrastructure deployed with helm"` |  |
 | INFRA_NAME | string | `"helm-infrastructure"` |  |
 | INFRA_NODE_SELECTOR | string | `""` |  |
@@ -85,6 +85,10 @@ $ helm install litmus-agent litmuschaos/litmus-agent \
 | resources.requests.cpu | string | `"100m"` |  |
 | resources.requests.memory | string | `"128Mi"` |  |
 | subscriber.enabled | bool | `true` |  |
+| useExistingHookSecret | bool | `false` | Use an existing hook Secret instead of creating one with the chart, ref. to templates/secret.yaml |
+| useExistingInfraConfigMap | bool | `false` | Use an existing infra ConfigMap instead of creating one with the chart, ref. to templates/infra-config-map.yaml |
+| useExistingInfraSecret | bool | `false` | Use an existing infra Secret instead of creating one with the chart, ref. to templates/infra-secret.yaml |
+| useExistingWorkflowControllerConfigMap | bool | `false` | Use an existing infra ConfigMap instead of creating one with the chart, ref. to templates/infra-config-map-workflow.yaml |
 | workflow-controller.crds.create | bool | `true` |  |
 | workflow-controller.enabled | bool | `true` |  |
 
