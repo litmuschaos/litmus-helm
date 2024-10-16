@@ -26,6 +26,10 @@ spec:
         {{- if .Values.portal.server.customLabels }}
           {{ toYaml .Values.portal.server.customLabels | nindent 8 }}
         {{- end }}
+      {{- if "litmus-portal.podannotations.auth-server"}}
+      annotations:
+        {{- include "litmus-portal.podannotations.auth-server" . | indent 8 }}
+      {{- end}}
     spec:
       automountServiceAccountToken: {{ .Values.portal.server.graphqlServer.automountServiceAccountToken }}
       {{- if .Values.image.imagePullSecrets }}
