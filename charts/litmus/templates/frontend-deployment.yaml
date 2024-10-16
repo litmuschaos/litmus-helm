@@ -28,7 +28,7 @@ spec:
         {{- if .Values.portal.frontend.customLabels }}
           {{ toYaml .Values.portal.frontend.customLabels | nindent 8 }}
         {{- end }}
-      {{- if "litmus-portal.podannotations.frontend"}}
+      {{- if include "litmus-portal.podannotations.frontend" . }}
       annotations:
         {{- include "litmus-portal.podannotations.frontend" . | indent 8 }}
       {{- end}}
