@@ -15,12 +15,12 @@ replicaCount: 1
 operator:
   image:
     repository: litmuschaos.docker.scarf.sh/litmuschaos/chaos-operator
-    tag: 3.11.0
+    tag: 3.12.0
     pullPolicy: Always
 runner:
   image:
     repository: litmuschaos.docker.scarf.sh/litmuschaos/chaos-runner
-    tag: 3.11.0
+    tag: 3.12.0
 
 service:
   type: ClusterIP
@@ -75,7 +75,7 @@ exporter:
     additionalLabels: {}
   image:
     repository: litmuschaos.docker.scarf.sh/litmuschaos/chaos-exporter
-    tag: 3.11.0
+    tag: 3.12.0
     pullPolicy: Always
   service:
     type: ClusterIP
