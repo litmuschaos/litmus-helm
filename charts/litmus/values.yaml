@@ -3,6 +3,8 @@
 # Declare variables to be passed into your templates.
 nameOverride: ""
 
+# -- Additional annotations
+customPodAnnotations: {}
 # -- Additional labels
 customLabels: {}
 # my.company.com/concourse-cd: 2
@@ -123,6 +125,7 @@ portal:
     containerPort: 8185
     customLabels: {}
     # my.company.com/tier: "frontend"
+    podAnnotations: {}
 
     resources:
       # We usually recommend not to specify default resources and to leave this as a conscious
@@ -280,6 +283,7 @@ portal:
         periodSeconds: 10
         successThreshold: 1
         timeoutSeconds: 1
+      podAnnotations: {}
     authServer:
       replicas: 1
       autoscaling:
@@ -328,7 +332,7 @@ portal:
           ephemeral-storage: "1Gi"
       volumeMounts: []
       volumes: []
-
+      podAnnotations: {}
     nodeSelector: {}
     tolerations: []
     affinity: {}
