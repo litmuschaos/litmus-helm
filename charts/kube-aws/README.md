@@ -27,7 +27,7 @@ A Helm chart to install litmus aws chaos experiments
 | fullnameOverride | string | `"kube-aws"` |  |
 | image.litmusGO.pullPolicy | string | `"Always"` |  |
 | image.litmusGO.repository | string | `"litmuschaos.docker.scarf.sh/litmuschaos/go-runner"` |  |
-| image.litmusGO.tag | string | `"3.12.0"` |  |
+| image.litmusGO.tag | string | `"3.13.0"` |  |
 | nameOverride | string | `"kube-aws"` |  |
 
 ----------------------------------------------
