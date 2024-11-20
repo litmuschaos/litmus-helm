@@ -3606,6 +3606,36 @@ entries:
     version: 1.6.0
   litmus:
   - apiVersion: v2
+    appVersion: 3.13.0
+    created: "2024-11-20T16:06:20.63733027Z"
+    dependencies:
+    - condition: mongodb.enabled
+      name: mongodb
+      repository: https://raw.githubusercontent.com/bitnami/charts/archive-full-index/bitnami
+      version: 12.1.11
+    description: A Helm chart to install ChaosCenter
+    digest: 85d4bd07790c937480b777f7f2497c9ad79298139dc18f02a5cb5218c60b240d
+    home: https://litmuschaos.io
+    icon: https://raw.githubusercontent.com/litmuschaos/icons/master/litmus.png
+    keywords:
+    - chaos-engineering
+    - resiliency
+    - kubernetes
+    kubeVersion: '>=1.16.0-0'
+    maintainers:
+    - email: raj.das@mayadata.io
+      name: imrajdas
+    - email: shubham.chaudhary@mayadata.io
+      name: ispeakc0de
+    - email: jasssstkn@yahoo.com
+      name: jasstkn
+    name: litmus
+    sources:
+    - https://github.com/litmuschaos/litmus
+    urls:
+    - https://github.com/litmuschaos/litmus-helm/releases/download/litmus-3.13.0/litmus-3.13.0.tgz
+    version: 3.13.0
+  - apiVersion: v2
     appVersion: 3.12.0
     created: "2024-11-12T07:59:21.09659957Z"
     dependencies:
@@ -6496,6 +6526,52 @@ entries:
     version: 1.2.0
   litmus-agent:
   - apiVersion: v2
+    appVersion: 3.13.0
+    created: "2024-11-20T16:06:20.768135147Z"
+    dependencies:
+    - condition: chaos-operator.enabled
+      name: chaos-operator
+      repository: ""
+      version: 3.13.0
+    - condition: chaos-exporter.enabled
+      name: chaos-exporter
+      repository: ""
+      version: 3.13.0
+    - condition: event-tracker.enabled
+      name: event-tracker
+      repository: ""
+      version: 3.13.0
+    - condition: subscriber.enabled
+      name: subscriber
+      repository: ""
+      version: 3.13.0
+    - condition: workflow-controller.enabled
+      name: workflow-controller
+      repository: ""
+      version: 0.2.1
+    description: A Helm chart to install litmus agent
+    digest: 1525098ec520f676d76459072e489b205071a00b12776f61926c90e18a77c9be
+    home: https://litmuschaos.io
+    icon: https://raw.githubusercontent.com/litmuschaos/icons/master/litmus.png
+    keywords:
+    - chaos-engineering
+    - resiliency
+    - kubernetes
+    kubeVersion: '>=1.16.0-0'
+    maintainers:
+    - email: remi.ziolkowski-ext@pole-emploi.fr
+      name: Vr00mm
+    - email: shubham.chaudhary@harness.io
+      name: ispeakc0de
+    - email: vedant.shrotria@harness.io
+      name: Jonsy13
+    name: litmus-agent
+    sources:
+    - https://github.com/litmuschaos/litmus
+    urls:
+    - https://github.com/litmuschaos/litmus-helm/releases/download/litmus-agent-3.13.0/litmus-agent-3.13.0.tgz
+    version: 3.13.0
+  - apiVersion: v2
     appVersion: 3.12.0
     created: "2024-11-12T07:59:21.28612603Z"
     dependencies:
@@ -7940,4 +8016,4 @@ entries:
     urls:
     - litmus-core/litmus-core-1.20.0.tgz
     version: 1.20.0
-generated: "2024-11-18T08:10:58.02787027Z"
+generated: "2024-11-20T16:06:20.76885749Z"
