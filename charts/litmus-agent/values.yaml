@@ -40,6 +40,8 @@ image:
 crds:
   create: true
 
+podAnnotations: {}
+
 resources:
   limits:
     cpu: 100m

@@ -15,6 +15,10 @@ spec:
   template:
     metadata:
       name: "{{ .Release.Name }}"
+      {{- with include "litmus-agent.podAnnotations" . }}
+      annotations:
+        {{- . | indent 8 }}
+      {{- end }}
       labels:
         {{- include "litmus-agent.labels" . | nindent 8 }}
     spec:

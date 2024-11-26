@@ -59,6 +59,18 @@ app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
 
 {{/*
+Common pod annotations
+*/}}
+{{- define "subscriber.podAnnotations" -}}
+{{- if .Values.global.podAnnotations }}
+{{ toYaml .Values.global.podAnnotations }}
+{{- end }}
+{{- if .Values.podAnnotations }}
+{{ toYaml .Values.podAnnotations }}
+{{- end }}
+{{- end -}}
+
+{{/*
 Create the name of the service account to use
 */}}
 {{- define "subscriber.serviceAccountName" -}}
