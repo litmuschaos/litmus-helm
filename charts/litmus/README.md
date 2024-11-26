@@ -1,6 +1,6 @@
 # litmus
 
-![Version: 3.13.0](https://img.shields.io/badge/Version-3.13.0-informational?style=flat-square) ![AppVersion: 3.13.0](https://img.shields.io/badge/AppVersion-3.13.0-informational?style=flat-square)
+![Version: 3.13.1](https://img.shields.io/badge/Version-3.13.1-informational?style=flat-square) ![AppVersion: 3.13.0](https://img.shields.io/badge/AppVersion-3.13.0-informational?style=flat-square)
 
 A Helm chart to install ChaosCenter
 
@@ -59,6 +59,7 @@ We separated service configuration from `portal.server.service` to `portal.serve
 | adminConfig.VERSION | string | `"3.13.0"` |  |
 | allowedOrigins | string | `".*"` |  |
 | customLabels | object | `{}` | Additional labels |
+| customPodAnnotations | object | `{}` | Additional annotations |
 | existingSecret | string | `""` | Use existing secret (e.g., External Secrets) |
 | image.imagePullSecrets | list | `[]` |  |
 | image.imageRegistryName | string | `"litmuschaos.docker.scarf.sh/litmuschaos"` |  |
@@ -113,6 +114,7 @@ We separated service configuration from `portal.server.service` to `portal.serve
 | portal.frontend.livenessProbe.successThreshold | int | `1` |  |
 | portal.frontend.livenessProbe.timeoutSeconds | int | `5` |  |
 | portal.frontend.nodeSelector | object | `{}` |  |
+| portal.frontend.podAnnotations | object | `{}` |  |
 | portal.frontend.readinessProbe.initialDelaySeconds | int | `5` |  |
 | portal.frontend.readinessProbe.periodSeconds | int | `10` |  |
 | portal.frontend.readinessProbe.successThreshold | int | `1` |  |
@@ -145,6 +147,7 @@ We separated service configuration from `portal.server.service` to `portal.serve
 | portal.server.authServer.image.pullPolicy | string | `"Always"` |  |
 | portal.server.authServer.image.repository | string | `"litmusportal-auth-server"` |  |
 | portal.server.authServer.image.tag | string | `"3.13.0"` |  |
+| portal.server.authServer.podAnnotations | object | `{}` |  |
 | portal.server.authServer.ports[0].containerPort | int | `3000` |  |
 | portal.server.authServer.ports[0].name | string | `"auth-server"` |  |
 | portal.server.authServer.ports[1].containerPort | int | `3030` |  |
@@ -194,6 +197,7 @@ We separated service configuration from `portal.server.service` to `portal.serve
 | portal.server.graphqlServer.livenessProbe.periodSeconds | int | `10` |  |
 | portal.server.graphqlServer.livenessProbe.successThreshold | int | `1` |  |
 | portal.server.graphqlServer.livenessProbe.timeoutSeconds | int | `5` |  |
+| portal.server.graphqlServer.podAnnotations | object | `{}` |  |
 | portal.server.graphqlServer.ports[0].containerPort | int | `8080` |  |
 | portal.server.graphqlServer.ports[0].name | string | `"gql-server"` |  |
 | portal.server.graphqlServer.ports[1].containerPort | int | `8000` |  |
