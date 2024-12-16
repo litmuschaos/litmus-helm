@@ -1,6 +1,6 @@
 # workflow-controller
 
-![Version: 0.2.1](https://img.shields.io/badge/Version-0.2.1-informational?style=flat-square) ![AppVersion: v3.3.1](https://img.shields.io/badge/AppVersion-v3.3.1-informational?style=flat-square)
+![Version: 0.2.2](https://img.shields.io/badge/Version-0.2.2-informational?style=flat-square) ![AppVersion: v3.3.1](https://img.shields.io/badge/AppVersion-v3.3.1-informational?style=flat-square)
 
 A Helm chart to install workflow-controller
 
