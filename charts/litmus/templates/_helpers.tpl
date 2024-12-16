@@ -136,3 +136,30 @@ mongodb://{{ trimSuffix "," $hosts  }}/admin
   {{- end -}}
 {{- end -}}
 
+{{/* section to define the podannotations for the different components */}}
+{{- define "litmus-portal.podannotations.auth-server" -}}
+{{- if .Values.customPodAnnotations }}
+{{ toYaml .Values.customPodAnnotations }}
+{{- end }}
+{{- if .Values.portal.server.authServer.podAnnotations }}
+{{ toYaml .Values.portal.server.authServer.podAnnotations }}
+{{- end }}
+{{- end -}}
+
+{{- define "litmus-portal.podannotations.graphql-server" -}}
+{{- if .Values.customPodAnnotations }}
+{{ toYaml .Values.customPodAnnotations }}
+{{- end }}
+{{- if .Values.portal.server.graphqlServer.podAnnotations }}
+{{ toYaml .Values.portal.server.graphqlServer.podAnnotations }}
+{{- end }}
+{{- end -}}
+
+{{- define "litmus-portal.podannotations.frontend" -}}
+{{- if .Values.customPodAnnotations }}
+{{ toYaml .Values.customPodAnnotations }}
+{{- end }}
+{{- if .Values.portal.frontend.podAnnotations }}
+{{ toYaml .Values.portal.frontend.podAnnotations }}
+{{- end }}
+{{- end -}}
