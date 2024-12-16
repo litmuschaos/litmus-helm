@@ -1,6 +1,6 @@
 # litmus-agent
 
-![Version: 3.13.0](https://img.shields.io/badge/Version-3.13.0-informational?style=flat-square) ![AppVersion: 3.13.0](https://img.shields.io/badge/AppVersion-3.13.0-informational?style=flat-square)
+![Version: 3.13.1](https://img.shields.io/badge/Version-3.13.1-informational?style=flat-square) ![AppVersion: 3.13.0](https://img.shields.io/badge/AppVersion-3.13.0-informational?style=flat-square)
 
 A Helm chart to install litmus agent
 
@@ -24,11 +24,11 @@ Kubernetes: `>=1.16.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-|  | chaos-exporter | 3.13.0 |
-|  | chaos-operator | 3.13.0 |
-|  | event-tracker | 3.13.0 |
-|  | subscriber | 3.13.0 |
-|  | workflow-controller | 0.2.1 |
+|  | chaos-exporter | 3.13.1 |
+|  | chaos-operator | 3.13.1 |
+|  | event-tracker | 3.13.1 |
+|  | subscriber | 3.13.1 |
+|  | workflow-controller | 0.2.2 |
 
 ## Installing the Chart
 
@@ -80,6 +80,7 @@ $ helm install litmus-agent litmuschaos/litmus-agent \
 | image.pullPolicy | string | `"Always"` |  |
 | image.repository | string | `"litmuschaos.docker.scarf.sh/litmuschaos/litmus-helm-agent"` |  |
 | image.tag | string | `"latest"` |  |
+| podAnnotations | object | `{}` |  |
 | resources.limits.cpu | string | `"100m"` |  |
 | resources.limits.memory | string | `"128Mi"` |  |
 | resources.requests.cpu | string | `"100m"` |  |
