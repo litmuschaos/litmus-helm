@@ -1,8 +1,8 @@
 apiVersion: v2
-appVersion: "3.13.0"
+appVersion: "3.14.0"
 description: A Helm chart to install litmus agent
 name: litmus-agent
-version: 3.13.1
+version: 3.14.0
 kubeVersion: ">=1.16.0-0"
 home: https://litmuschaos.io
 sources:
@@ -21,16 +21,16 @@ maintainers:
 icon: https://raw.githubusercontent.com/litmuschaos/icons/master/litmus.png
 dependencies:
   - name: chaos-operator
-    version: 3.13.1
+    version: 3.14.0
     condition: chaos-operator.enabled
   - name: chaos-exporter
-    version: 3.13.1
+    version: 3.14.0
     condition: chaos-exporter.enabled
   - name: event-tracker
-    version: 3.13.1
+    version: 3.14.0
     condition: event-tracker.enabled
   - name: subscriber
-    version: 3.13.1
+    version: 3.14.0
     condition: subscriber.enabled
   - name: workflow-controller
     version: 0.2.2
