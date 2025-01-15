@@ -58,6 +58,18 @@ litmuschaos.io/app: {{ .Chart.Name }}
 {{- end }}
 
 {{/*
+Common pod annotations
+*/}}
+{{- define "chaos-exporter.podAnnotations" -}}
+{{- if .Values.global.podAnnotations }}
+{{ toYaml .Values.global.podAnnotations }}
+{{- end }}
+{{- if .Values.podAnnotations }}
+{{ toYaml .Values.podAnnotations }}
+{{- end }}
+{{- end -}}
+
+{{/*
 Create the name of the service account to use
 */}}
 {{- define "chaos-exporter.serviceAccountName" -}}

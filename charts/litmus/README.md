@@ -1,6 +1,6 @@
 # litmus
 
-![Version: 3.11.0](https://img.shields.io/badge/Version-3.11.0-informational?style=flat-square) ![AppVersion: 3.11.0](https://img.shields.io/badge/AppVersion-3.11.0-informational?style=flat-square)
+![Version: 3.14.0](https://img.shields.io/badge/Version-3.14.0-informational?style=flat-square) ![AppVersion: 3.14.0](https://img.shields.io/badge/AppVersion-3.14.0-informational?style=flat-square)
 
 A Helm chart to install ChaosCenter
 
@@ -56,9 +56,14 @@ We separated service configuration from `portal.server.service` to `portal.serve
 | adminConfig.DB_PORT | string | `""` |  |
 | adminConfig.DB_SERVER | string | `""` |  |
 | adminConfig.SKIP_SSL_VERIFY | string | `"false"` |  |
+<<<<<<< HEAD
 | adminConfig.VERSION | string | `"3.15.0"` |  |
+=======
+| adminConfig.VERSION | string | `"3.14.0"` |  |
+>>>>>>> master
 | allowedOrigins | string | `".*"` |  |
 | customLabels | object | `{}` | Additional labels |
+| customPodAnnotations | object | `{}` | Additional annotations |
 | existingSecret | string | `""` | Use existing secret (e.g., External Secrets) |
 | image.imagePullSecrets | list | `[]` |  |
 | image.imageRegistryName | string | `"litmuschaos.docker.scarf.sh/litmuschaos"` |  |
@@ -106,13 +111,18 @@ We separated service configuration from `portal.server.service` to `portal.serve
 | portal.frontend.customLabels | object | `{}` |  |
 | portal.frontend.image.pullPolicy | string | `"Always"` |  |
 | portal.frontend.image.repository | string | `"litmusportal-frontend"` |  |
+<<<<<<< HEAD
 | portal.frontend.image.tag | string | `"3.15.0"` |  |
+=======
+| portal.frontend.image.tag | string | `"3.14.0"` |  |
+>>>>>>> master
 | portal.frontend.livenessProbe.failureThreshold | int | `5` |  |
 | portal.frontend.livenessProbe.initialDelaySeconds | int | `30` |  |
 | portal.frontend.livenessProbe.periodSeconds | int | `10` |  |
 | portal.frontend.livenessProbe.successThreshold | int | `1` |  |
 | portal.frontend.livenessProbe.timeoutSeconds | int | `5` |  |
 | portal.frontend.nodeSelector | object | `{}` |  |
+| portal.frontend.podAnnotations | object | `{}` |  |
 | portal.frontend.readinessProbe.initialDelaySeconds | int | `5` |  |
 | portal.frontend.readinessProbe.periodSeconds | int | `10` |  |
 | portal.frontend.readinessProbe.successThreshold | int | `1` |  |
@@ -144,7 +154,12 @@ We separated service configuration from `portal.server.service` to `portal.serve
 | portal.server.authServer.env | object | `{}` |  |
 | portal.server.authServer.image.pullPolicy | string | `"Always"` |  |
 | portal.server.authServer.image.repository | string | `"litmusportal-auth-server"` |  |
+<<<<<<< HEAD
 | portal.server.authServer.image.tag | string | `"3.15.0"` |  |
+=======
+| portal.server.authServer.image.tag | string | `"3.14.0"` |  |
+| portal.server.authServer.podAnnotations | object | `{}` |  |
+>>>>>>> master
 | portal.server.authServer.ports[0].containerPort | int | `3000` |  |
 | portal.server.authServer.ports[0].name | string | `"auth-server"` |  |
 | portal.server.authServer.ports[1].containerPort | int | `3030` |  |
@@ -194,6 +209,7 @@ We separated service configuration from `portal.server.service` to `portal.serve
 | portal.server.graphqlServer.livenessProbe.periodSeconds | int | `10` |  |
 | portal.server.graphqlServer.livenessProbe.successThreshold | int | `1` |  |
 | portal.server.graphqlServer.livenessProbe.timeoutSeconds | int | `5` |  |
+| portal.server.graphqlServer.podAnnotations | object | `{}` |  |
 | portal.server.graphqlServer.ports[0].containerPort | int | `8080` |  |
 | portal.server.graphqlServer.ports[0].name | string | `"gql-server"` |  |
 | portal.server.graphqlServer.ports[1].containerPort | int | `8000` |  |
