@@ -11,17 +11,17 @@ customLabels: {}
 image:
   litmus:
     repository: litmuschaos.docker.scarf.sh/litmuschaos/ansible-runner
-    tag: 3.14.0
+    tag: 3.15.0
     pullPolicy: Always
 
   litmusGO:
     repository: litmuschaos.docker.scarf.sh/litmuschaos/go-runner
-    tag: 3.14.0
+    tag: 3.15.0
     pullPolicy: Always
 
   litmusLIBImage:
     repository: litmuschaos.docker.scarf.sh/litmuschaos/go-runner
-    tag: 3.14.0
+    tag: 3.15.0
 
 environment:
   # supported: 'docker', 'containerd', 'crio'
