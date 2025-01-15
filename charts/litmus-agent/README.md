@@ -28,7 +28,7 @@ Kubernetes: `>=1.16.0-0`
 |  | chaos-operator | 3.15.0 |
 |  | event-tracker | 3.15.0 |
 |  | subscriber | 3.15.0 |
-|  | workflow-controller | 0.2.1 |
+|  | workflow-controller | 0.2.2 |
 
 ## Installing the Chart
 
