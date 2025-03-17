@@ -6,22 +6,22 @@ version: 3.16.0
 kubeVersion: ">=1.16.0-0"
 home: https://litmuschaos.io
 sources:
-  - https://github.com/litmuschaos/litmus
+- https://github.com/litmuschaos/litmus
 keywords:
-  - chaos-engineering
-  - resiliency
-  - kubernetes
+- chaos-engineering
+- resiliency
+- kubernetes
 maintainers:
-  - name: imrajdas
-    email: raj.das@mayadata.io
-  - name: ispeakc0de
-    email: shubham.chaudhary@mayadata.io
-  - name: jasstkn
-    email: jasssstkn@yahoo.com
+- name: imrajdas
+  email: raj.das@mayadata.io
+- name: ispeakc0de
+  email: shubham.chaudhary@mayadata.io
+- name: jasstkn
+  email: jasssstkn@yahoo.com
 icon: https://raw.githubusercontent.com/litmuschaos/icons/master/litmus.png
 
 dependencies:
-  - name: mongodb
-    version: "12.1.11"
-    repository: "https://raw.githubusercontent.com/bitnami/charts/archive-full-index/bitnami"
-    condition: mongodb.enabled
+- name: mongodb
+  version: "16.4.3"
+  repository: "oci://registry-1.docker.io/bitnamicharts"
+  condition: mongodb.enabled
