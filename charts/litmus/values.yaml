@@ -94,6 +94,14 @@ ingress:
   #  - secretName: chart-example-tls
   #    hosts: []
 
+proxy:
+  httpProxy:
+  httpsProxy:
+  noProxy:
+  components:
+    - auth-server
+    - gql-server
+
 portal:
   frontend:
     replicas: 1
