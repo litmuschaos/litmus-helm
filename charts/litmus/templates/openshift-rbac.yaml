@@ -1,0 +1,96 @@
+{{- if and .Values.openshift.enabled (not .Values.openshift.anyuid) (.Capabilities.APIVersions.Has "security.openshift.io/v1") }}
+apiVersion: security.openshift.io/v1
+kind: SecurityContextConstraints
+metadata:
+  name: {{ .Values.openshift.sccName }}
+  labels:
+    app.kubernetes.io/name: {{ .Values.openshift.sccName }}
+  annotations:
+    scc.kubernetes.io/allow-capabilities: "false"
+    scc.kubernetes.io/allow-host-network: "false"
+    scc.kubernetes.io/allow-host-pid: "false"
+    scc.kubernetes.io/allow-host-ipc: "false"
+    scc.kubernetes.io/allow-host-ports: "false"
+    scc.kubernetes.io/priority-class: "1"
+
+allowHostDirVolumePlugin: false
+allowPrivilegeEscalation: false
+capabilities:
+  add: []
+  drop:
+  - ALL
+runAsUser:
+  type: MustRunAsRange # Valid value for runAsUser.type
+  uidRangeMin: 101 # TODO 
+  uidRangeMax: 2000 # TODO
+seLinuxContext:
+  type: RunAsAny # Valid value for seLinuxContext.type
+fsGroup:
+  type: MustRunAs
+  ranges:
+    - min: 101 # TODO 
+      max: 2000 # TODO 
+supplementalGroups:
+  type: MustRunAs
+  ranges:
+    - min: 101 # TODO 
+      max: 2000 # TODO 
+readOnlyRootFilesystem: true
+volumes:
+  - configMap
+  - emptyDir
+  - projected
+  - secret
+  - downwardAPI
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: {{ .Values.openshift.sccName }}-clusterrole
+  labels:
+    app.kubernetes.io/name: {{ .Values.openshift.sccName }}-clusterrole
+rules:
+- apiGroups:
+  - security.openshift.io 
+  resourceNames:
+  - {{ .Values.openshift.sccName }}
+  resources:
+  - securitycontextconstraints 
+  verbs: 
+  - use
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: {{ .Values.openshift.sccName }}-binding
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app.kubernetes.io/name: {{ .Values.openshift.sccName }}-binding
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: {{ .Values.openshift.sccName }}-clusterrole
+subjects:
+  - kind: ServiceAccount
+    name: default # TODO
+    namespace: {{ .Release.Namespace }}
+{{- end  }} 
+---
+{{- if and .Values.openshift.enabled .Values.openshift.anyuid (.Capabilities.APIVersions.Has "security.openshift.io/v1")  }}
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: {{ .Values.openshift.sccName }}-scc-anyuid-binding
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app.kubernetes.io/name: {{ .Values.openshift.sccName }}-scc-anyuid-binding
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: system:openshift:scc:anyuid
+subjects:
+  - kind: ServiceAccount
+    name: default # TODO
+    namespace: {{ .Release.Namespace }}
+
+{{- end  }} 
