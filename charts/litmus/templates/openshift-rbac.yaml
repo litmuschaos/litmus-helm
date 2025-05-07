@@ -5,20 +5,16 @@ metadata:
   name: {{ .Values.openshift.sccName }}
   labels:
     app.kubernetes.io/name: {{ .Values.openshift.sccName }}
-  annotations:
-    scc.kubernetes.io/allow-capabilities: "false"
-    scc.kubernetes.io/allow-host-network: "false"
-    scc.kubernetes.io/allow-host-pid: "false"
-    scc.kubernetes.io/allow-host-ipc: "false"
-    scc.kubernetes.io/allow-host-ports: "false"
-    scc.kubernetes.io/priority-class: "1"
 
+allowHostIPC: false
+allowHostNetwork: false
+allowHostPID: false
+allowHostPorts: false
 allowHostDirVolumePlugin: false
 allowPrivilegeEscalation: false
-capabilities:
-  add: []
-  drop:
-  - ALL
+requiredDropCapabilities:
+- ALL
+
 runAsUser:
   type: MustRunAsRange # Valid value for runAsUser.type
   uidRangeMin: 101 # TODO 
