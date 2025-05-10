@@ -1,0 +1,94 @@
+global:
+  infraConfigName: subscriber-config
+  infraSecretName: subscriber-secret
+  podAnnotations: {}
+  customLabels: {}
+  # INFRA_MODE: cluster, namespace
+  INFRA_MODE: "cluster"
+# Default values for litmus-agent.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+INFRA_NAME: "helm-infrastructure"
+INFRA_DESCRIPTION: "chaos infrastructure deployed with helm"
+
+INFRA_NODE_SELECTOR: ""
+SA_EXISTS: true
+NS_EXISTS: true
+INFRA_TYPE: "external"
+# For compatibility with ChaosCenter, Version has to be same
+APP_VERSION: "3.18.0"
+SKIP_SSL: "false"
+
+# PLATFORM_NAME: AWS, GKE, Openshift, Rancher, Others
+PLATFORM_NAME: "Openshift"
+
+LITMUS_URL: "https://my-domain.com"
+LITMUS_BACKEND_URL: ""
+LITMUS_USERNAME: "admin"
+LITMUS_PASSWORD: "litmus"
+LITMUS_PROJECT_ID: ""
+# -- ID of the litmus environment where the infrastructure will be added
+LITMUS_ENVIRONMENT_ID: ""
+
+image:
+  repository: litmuschaos.docker.scarf.sh/litmuschaos/litmus-helm-agent
+  pullPolicy: Always
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: "latest"
+
+crds:
+  create: true
+
+openshift:
+  enabled: true # default false for vanilla kubernetes
+  sccName: litmus-agent-scc # name of scc to be used
+  serviceAccountName: litmus-admin # name of service account to be used
+
+podAnnotations: {}
+
+resources:
+  limits:
+    cpu: 100m
+    memory: 128Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
+
+# Existing Secret name should be:
+# `{{ include "subscriber.fullname" . }}-hook`
+# I.E. `name: litmus-agent-hook`
+# -- Use an existing hook Secret instead of creating one with the chart, ref. to templates/secret.yaml
+useExistingHookSecret: false
+
+# Existing ConfigMap name should be equal to .global.infraConfigName
+# I.E. `name: subscriber-config`
+# -- Use an existing infra ConfigMap instead of creating one with the chart, ref. to templates/infra-config-map.yaml
+useExistingInfraConfigMap: false
+
+# Existing Secret name should be equal to .global.infraSecretName
+# I.E. `name: subscriber-secret`
+# -- Use an existing infra Secret instead of creating one with the chart, ref. to templates/infra-secret.yaml
+useExistingInfraSecret: false
+
+# Existing ConfigMap name should be:
+# `{{ index .Values "workflow-controller" "appSettings" "configmapName" }}`
+# -- Use an existing infra ConfigMap instead of creating one with the chart, ref. to templates/infra-config-map-workflow.yaml
+useExistingWorkflowControllerConfigMap: false
+
+chaos-operator:
+  enabled: true
+
+chaos-exporter:
+  enabled: true
+
+event-tracker:
+  enabled: true
+
+subscriber:
+  enabled: true
+
+workflow-controller:
+  enabled: true
+  crds:
+    create: true
