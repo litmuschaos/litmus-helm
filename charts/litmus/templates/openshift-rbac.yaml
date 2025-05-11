@@ -65,7 +65,7 @@ roleRef:
   name: {{ .Values.openshift.sccName }}-clusterrole
 subjects:
   - kind: ServiceAccount
-    name: {{ .Chart.Name }}-mongodb 
+    name: {{ .Chart.Name }}-mongodb  # For mongodb subchart
     namespace: {{ .Release.Namespace }}
   - kind: ServiceAccount
     name: default # Default ServiceAccount 
@@ -87,6 +87,9 @@ roleRef:
 subjects:
   - kind: ServiceAccount
     name: {{ .Chart.Name }}-mongodb
+    namespace: {{ .Release.Namespace }}
+  - kind: ServiceAccount
+    name: default # Default ServiceAccount 
     namespace: {{ .Release.Namespace }}
 
 {{- end  }} 
