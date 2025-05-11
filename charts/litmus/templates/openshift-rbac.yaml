@@ -1,4 +1,4 @@
-{{- if and .Values.openshift.enabled (not .Values.openshift.anyuid) (.Capabilities.APIVersions.Has "security.openshift.io/v1") }}
+{{- if and .Values.openshift.enabled (not .Values.openshift.anyuid)  }}
 apiVersion: security.openshift.io/v1
 kind: SecurityContextConstraints
 metadata:
@@ -27,13 +27,14 @@ fsGroup:
 supplementalGroups:
   type: RunAsAny
 
-readOnlyRootFilesystem: true
+readOnlyRootFilesystem: false
 volumes:
   - configMap
   - emptyDir
   - projected
   - secret
   - downwardAPI
+  - persistentVolumeClaim
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
@@ -66,9 +67,12 @@ subjects:
   - kind: ServiceAccount
     name: {{ .Chart.Name }}-mongodb 
     namespace: {{ .Release.Namespace }}
+  - kind: ServiceAccount
+    name: default # Default ServiceAccount 
+    namespace: {{ .Release.Namespace }}
 {{- end  }} 
 ---
-{{- if and .Values.openshift.enabled .Values.openshift.anyuid (.Capabilities.APIVersions.Has "security.openshift.io/v1")  }}
+{{- if and .Values.openshift.enabled .Values.openshift.anyuid   }}
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
