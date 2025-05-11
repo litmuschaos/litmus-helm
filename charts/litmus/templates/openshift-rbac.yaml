@@ -11,10 +11,12 @@ allowHostNetwork: false
 allowHostPID: false
 allowHostPorts: false
 allowHostDirVolumePlugin: false
-allowPrivilegeEscalation: false
-requiredDropCapabilities:
-- ALL
-
+allowPrivilegeEscalation: true
+requiredDropCapabilities: null
+allowedCapabilities: null
+defaultAddCapabilities: null
+seccompProfiles:
+  - '*'
 runAsUser:
   type: MustRunAsRange # Valid value for runAsUser.type
   uidRangeMin: 0 # TODO 
@@ -23,10 +25,8 @@ seLinuxContext:
   type: RunAsAny # Valid value for seLinuxContext.type
 fsGroup:
   type: RunAsAny
-
 supplementalGroups:
   type: RunAsAny
-
 readOnlyRootFilesystem: false
 volumes:
   - configMap
