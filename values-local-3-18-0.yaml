@@ -347,6 +347,10 @@ portal:
 
 # OpenShift specific configuration
 openshift:
+  enabled: true # default false for vanilla kubernetes
+  anyuid: false # # if true service account will obtain permission for using anyuid scc 
+  sccName: litmus-chaos-scc # name of scc to be used
+  
   # If service should be exposed using an OpenShift route
   route:
     enabled: false
