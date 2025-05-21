@@ -347,13 +347,17 @@ portal:
 
 # OpenShift specific configuration
 openshift:
+  enabled: false # default false for vanilla kubernetes
+  anyuid: false # # if true service account will obtain permission for using anyuid scc 
+  sccName: litmus-chaos-scc # name of scc to be used
+  
   # If service should be exposed using an OpenShift route
   route:
     enabled: false
     name: litmus-portal
     customLabels: {}
     annotations: {}
-    host: ""
+    host: "litmus-portal.apps-crc.testing"
 
 # -- Configure the Bitnami MongoDB subchart
 # see values at https://github.com/bitnami/charts/blob/master/bitnami/mongodb/values.yaml

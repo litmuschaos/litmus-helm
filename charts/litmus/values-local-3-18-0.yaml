@@ -357,7 +357,7 @@ openshift:
     name: litmus-portal
     customLabels: {}
     annotations: {}
-    host: "litmus-portal.apps-crc.testig"
+    host: "litmus-portal.apps-crc.testing"
 
 # -- Configure the Bitnami MongoDB subchart
 # see values at https://github.com/bitnami/charts/blob/master/bitnami/mongodb/values.yaml
