@@ -380,6 +380,10 @@ mongodb:
     enabled: true
   volumePermissions:
     enabled: true
+    image:
+      registry: docker.io
+      repository: bitnami/os-shell
+      tag: 12-debian-12-r47
   metrics:
     enabled: false
     prometheusRule:
