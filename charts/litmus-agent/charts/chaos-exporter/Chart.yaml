@@ -1,8 +1,8 @@
 apiVersion: v2
-appVersion: "3.19.0"
+appVersion: "3.20.0"
 description:  A Helm chart to install chaos-exporter
 name: chaos-exporter
-version: 3.19.0
+version: 3.20.0
 kubeVersion: ">=1.16.0-0"
 home: https://litmuschaos.io
 sources:
