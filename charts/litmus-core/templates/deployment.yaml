@@ -4,19 +4,16 @@ metadata:
   name: {{ include "litmus.fullname" . }}
   namespace:  {{ .Release.Namespace }}
   labels:
-    app: {{ template "litmus.name" . }}
-    {{- include "litmus.labels" . | indent 4 }}
+    {{- include "litmus.operatorLabels" . | indent 4 }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app: {{ template "litmus.name" . }}
-      {{- include "litmus.selectors" . | indent 6 }}
+      {{- include "litmus.operatorSelectors" . | indent 6 }}
   template:
     metadata:
       labels:
-        app: {{ template "litmus.name" . }}
-        {{- include "litmus.labels" . | indent 8 }}
+        {{- include "litmus.operatorLabels" . | indent 8 }}
     spec:
       serviceAccountName: {{ include "litmus.fullname" . }}
       {{- if .Values.priorityClassName }}

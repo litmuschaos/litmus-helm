@@ -5,8 +5,7 @@ kind: RoleBinding
 metadata:
   name: {{ include "litmus.fullname" . }}
   labels:
-    app: {{ template "litmus.name" . }}
-    {{- include "litmus.labels" . | indent 4 }}
+    {{- include "litmus.operatorLabels" . | indent 4 }}
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
