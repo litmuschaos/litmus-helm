@@ -26,6 +26,10 @@ spec:
         {{- if .Values.portal.server.customLabels }}
           {{ toYaml .Values.portal.server.customLabels | nindent 8 }}
         {{- end }}
+      {{- if include "litmus-portal.podannotations.graphql-server" . }}
+      annotations:
+        {{- include "litmus-portal.podannotations.graphql-server" . | indent 8 }}
+      {{- end}}
     spec:
       automountServiceAccountToken: {{ .Values.portal.server.graphqlServer.automountServiceAccountToken }}
       {{- if .Values.image.imagePullSecrets }}
@@ -153,6 +157,14 @@ spec:
               value: "{{ (index .Values.portal.server.graphqlServer.ports 1).containerPort }}"
             - name: ALLOWED_ORIGINS
               value: "{{ .Values.allowedOrigins }}"
+              {{- if has "gql-server" .Values.proxy.components }}
+            - name: HTTP_PROXY
+              value: "{{ .Values.proxy.httpProxy }}"
+            - name: HTTPS_PROXY
+              value: "{{ .Values.proxy.httpsProxy }}"
+            - name: NO_PROXY
+              value: "{{ .Values.proxy.noProxy }}"
+              {{- end }}
             {{- $imageRegistry := .Values.image.imageRegistryName -}}
             {{- range $key, $val := .Values.portal.server.graphqlServer.imageEnv }}
             - name: {{ $key }}
