@@ -93,3 +93,20 @@ exporter:
   affinity: {}
 
   priorityClassName:
+
+scheduler:
+  enabled: false
+  image:
+    repository: litmuschaos.docker.scarf.sh/litmuschaos/chaos-scheduler
+    tag: ci
+    pullPolicy: Always
+  
+  resources: {}
+  
+  nodeSelector: {}
+  
+  tolerations: []
+  
+  affinity: {}
+  
+  priorityClassName:

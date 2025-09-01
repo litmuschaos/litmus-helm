@@ -1,0 +1,56 @@
+{{ if .Values.scheduler.enabled }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "litmus.fullname" . }}-scheduler
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: {{ template "litmus.name" . }}-scheduler
+    {{- include "litmus.labels" . | indent 4 }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: chaos-scheduler
+  template:
+    metadata:
+      labels:
+        name: chaos-scheduler
+        app: {{ template "litmus.name" . }}-scheduler
+        {{- include "litmus.labels" . | indent 8 }}
+    spec:
+      serviceAccountName: {{ include "litmus.fullname" . }}-scheduler
+      {{- with .Values.scheduler.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.scheduler.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.scheduler.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- if .Values.scheduler.priorityClassName }}
+      priorityClassName: {{ .Values.scheduler.priorityClassName }}
+      {{- end }}
+      containers:
+        - name: chaos-scheduler
+          image: "{{ .Values.scheduler.image.repository }}:{{ .Values.scheduler.image.tag }}"
+          command:
+          - chaos-scheduler
+          imagePullPolicy: {{ .Values.scheduler.image.pullPolicy }}
+          env:
+            - name: WATCH_NAMESPACE
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: OPERATOR_NAME
+              value: "chaos-scheduler"
+          {{- with .Values.scheduler.resources }}
+          resources:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+{{ end }}
