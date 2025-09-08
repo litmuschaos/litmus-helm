@@ -24,10 +24,10 @@ Kubernetes: `>=1.16.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-|  | chaos-exporter | 3.19.0 |
-|  | chaos-operator | 3.19.0 |
-|  | event-tracker | 3.19.0 |
-|  | subscriber | 3.19.0 |
+|  | chaos-exporter | 3.20.0 |
+|  | chaos-operator | 3.20.0 |
+|  | event-tracker | 3.20.0 |
+|  | subscriber | 3.20.0 |
 |  | workflow-controller | 0.2.2 |
 
 ## Installing the Chart
@@ -53,7 +53,7 @@ $ helm install litmus-agent litmuschaos/litmus-agent \
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| APP_VERSION | string | `"3.19.0"` |  |
+| APP_VERSION | string | `"3.20.0"` |  |
 | INFRA_DESCRIPTION | string | `"chaos infrastructure deployed with helm"` |  |
 | INFRA_NAME | string | `"helm-infrastructure"` |  |
 | INFRA_NODE_SELECTOR | string | `""` |  |
