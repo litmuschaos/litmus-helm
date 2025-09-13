@@ -16,11 +16,7 @@ existingSecret: ""
 allowedOrigins: ".*"
 
 adminConfig:
-<<<<<<< HEAD
-  VERSION: "3.19.0"
-=======
   VERSION: "3.20.0"
->>>>>>> upstream/master
   SKIP_SSL_VERIFY: "false"
   # -- leave empty if uses Mongo DB deployed by this chart
   DBPASSWORD: ""
