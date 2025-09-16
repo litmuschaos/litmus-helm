@@ -175,7 +175,7 @@ We separated service configuration from `portal.server.service` to `portal.serve
 | portal.server.graphqlServer.automountServiceAccountToken | bool | `false` |  |
 | portal.server.graphqlServer.genericEnv.CHAOS_CENTER_UI_ENDPOINT | string | `""` |  |
 | portal.server.graphqlServer.genericEnv.CONTAINER_RUNTIME_EXECUTOR | string | `"k8sapi"` |  |
-| portal.server.graphqlServer.genericEnv.DEFAULT_HUB_BRANCH_NAME | string | `"v3.16.x"` |  |
+| portal.server.graphqlServer.genericEnv.DEFAULT_HUB_BRANCH_NAME | string | `"v3.21.x"` |  |
 | portal.server.graphqlServer.genericEnv.ENABLE_GQL_INTROSPECTION | string | `"false"` |  |
 | portal.server.graphqlServer.genericEnv.INFRA_COMPATIBLE_VERSIONS | string | `"[\"3.21.0\"]"` |  |
 | portal.server.graphqlServer.genericEnv.INFRA_DEPLOYMENTS | string | `"[\"app=chaos-exporter\", \"name=chaos-operator\", \"app=event-tracker\", \"app=workflow-controller\"]"` |  |

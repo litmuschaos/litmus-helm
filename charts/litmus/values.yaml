@@ -259,7 +259,7 @@ portal:
       genericEnv:
         TLS_CERT_64: ""
         CONTAINER_RUNTIME_EXECUTOR: "k8sapi"
-        DEFAULT_HUB_BRANCH_NAME: "v3.16.x"
+        DEFAULT_HUB_BRANCH_NAME: "v3.21.x"
         INFRA_DEPLOYMENTS: '["app=chaos-exporter", "name=chaos-operator", "app=event-tracker", "app=workflow-controller"]'
         WORKFLOW_HELPER_IMAGE_VERSION: "3.21.0"
         REMOTE_HUB_MAX_SIZE: "5000000"
