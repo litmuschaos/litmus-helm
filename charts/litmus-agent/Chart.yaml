@@ -21,18 +21,6 @@ maintainers:
 icon: https://raw.githubusercontent.com/litmuschaos/icons/master/litmus.png
 dependencies:
   - name: chaos-operator
-<<<<<<< HEAD
-    version: 3.19.0
-    condition: chaos-operator.enabled
-  - name: chaos-exporter
-    version: 3.19.0
-    condition: chaos-exporter.enabled
-  - name: event-tracker
-    version: 3.19.0
-    condition: event-tracker.enabled
-  - name: subscriber
-    version: 3.19.0
-=======
     version: 3.20.0
     condition: chaos-operator.enabled
   - name: chaos-exporter
@@ -43,7 +31,6 @@ dependencies:
     condition: event-tracker.enabled
   - name: subscriber
     version: 3.20.0
->>>>>>> upstream/master
     condition: subscriber.enabled
   - name: workflow-controller
     version: 0.2.2
