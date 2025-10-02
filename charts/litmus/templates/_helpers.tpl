@@ -163,3 +163,14 @@ mongodb://{{ trimSuffix "," $hosts  }}/admin
 {{ toYaml .Values.portal.frontend.podAnnotations }}
 {{- end }}
 {{- end -}}
+
+{{/*
+Return the appropriate apiVersion for HorizontalPodAutoscaler.
+*/}}
+{{- define "litmus-portal.hpa.apiVersion" -}}
+{{- if $.Capabilities.APIVersions.Has "autoscaling/v2/HorizontalPodAutoscaler" }}
+{{- print "autoscaling/v2" }}
+{{- else }}
+{{- print "autoscaling/v2beta2" }}
+{{- end }}
+{{- end }}
