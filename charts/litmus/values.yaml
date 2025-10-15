@@ -358,6 +358,10 @@ openshift:
 # -- Configure the Bitnami MongoDB subchart
 # see values at https://github.com/bitnami/charts/blob/master/bitnami/mongodb/values.yaml
 mongodb:
+  image:
+    registry: docker.io
+    repository: bitnamilegacy/mongodb
+    tag: 8.0.13-debian-12-r0
   # For some environments, mongo pings can take time to resolve
   livenessProbe:
     timeoutSeconds: 20
@@ -382,8 +386,8 @@ mongodb:
     enabled: true
     image:
       registry: docker.io
-      repository: bitnami/os-shell
-      tag: 12-debian-12-r47
+      repository: bitnamilegacy/os-shell
+      tag: 12-debian-12-r51
   metrics:
     enabled: false
     prometheusRule:
