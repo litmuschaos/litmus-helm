@@ -1,6 +1,6 @@
 # litmus
 
-![Version: 3.21.2](https://img.shields.io/badge/Version-3.21.2-informational?style=flat-square) ![AppVersion: 3.21.0](https://img.shields.io/badge/AppVersion-3.21.0-informational?style=flat-square)
+![Version: 3.22.0](https://img.shields.io/badge/Version-3.22.0-informational?style=flat-square) ![AppVersion: 3.22.0](https://img.shields.io/badge/AppVersion-3.22.0-informational?style=flat-square)
 
 A Helm chart to install ChaosCenter
 
@@ -56,7 +56,7 @@ We separated service configuration from `portal.server.service` to `portal.serve
 | adminConfig.DB_PORT | string | `""` |  |
 | adminConfig.DB_SERVER | string | `""` |  |
 | adminConfig.SKIP_SSL_VERIFY | string | `"false"` |  |
-| adminConfig.VERSION | string | `"3.21.0"` |  |
+| adminConfig.VERSION | string | `"3.22.0"` |  |
 | allowedOrigins | string | `".*"` |  |
 | customLabels | object | `{}` | Additional labels |
 | customPodAnnotations | object | `{}` | Additional annotations |
@@ -107,7 +107,7 @@ We separated service configuration from `portal.server.service` to `portal.serve
 | portal.frontend.customLabels | object | `{}` |  |
 | portal.frontend.image.pullPolicy | string | `"Always"` |  |
 | portal.frontend.image.repository | string | `"litmusportal-frontend"` |  |
-| portal.frontend.image.tag | string | `"3.21.0"` |  |
+| portal.frontend.image.tag | string | `"3.22.0"` |  |
 | portal.frontend.livenessProbe.failureThreshold | int | `5` |  |
 | portal.frontend.livenessProbe.initialDelaySeconds | int | `30` |  |
 | portal.frontend.livenessProbe.periodSeconds | int | `10` |  |
@@ -146,7 +146,7 @@ We separated service configuration from `portal.server.service` to `portal.serve
 | portal.server.authServer.env | object | `{}` |  |
 | portal.server.authServer.image.pullPolicy | string | `"Always"` |  |
 | portal.server.authServer.image.repository | string | `"litmusportal-auth-server"` |  |
-| portal.server.authServer.image.tag | string | `"3.21.0"` |  |
+| portal.server.authServer.image.tag | string | `"3.22.0"` |  |
 | portal.server.authServer.podAnnotations | object | `{}` |  |
 | portal.server.authServer.ports[0].containerPort | int | `3000` |  |
 | portal.server.authServer.ports[0].name | string | `"auth-server"` |  |
@@ -175,23 +175,23 @@ We separated service configuration from `portal.server.service` to `portal.serve
 | portal.server.graphqlServer.automountServiceAccountToken | bool | `false` |  |
 | portal.server.graphqlServer.genericEnv.CHAOS_CENTER_UI_ENDPOINT | string | `""` |  |
 | portal.server.graphqlServer.genericEnv.CONTAINER_RUNTIME_EXECUTOR | string | `"k8sapi"` |  |
-| portal.server.graphqlServer.genericEnv.DEFAULT_HUB_BRANCH_NAME | string | `"v3.21.x"` |  |
+| portal.server.graphqlServer.genericEnv.DEFAULT_HUB_BRANCH_NAME | string | `"v3.22.x"` |  |
 | portal.server.graphqlServer.genericEnv.ENABLE_GQL_INTROSPECTION | string | `"false"` |  |
-| portal.server.graphqlServer.genericEnv.INFRA_COMPATIBLE_VERSIONS | string | `"[\"3.21.0\"]"` |  |
+| portal.server.graphqlServer.genericEnv.INFRA_COMPATIBLE_VERSIONS | string | `"[\"3.22.0\"]"` |  |
 | portal.server.graphqlServer.genericEnv.INFRA_DEPLOYMENTS | string | `"[\"app=chaos-exporter\", \"name=chaos-operator\", \"app=event-tracker\", \"app=workflow-controller\"]"` |  |
 | portal.server.graphqlServer.genericEnv.REMOTE_HUB_MAX_SIZE | string | `"5000000"` |  |
 | portal.server.graphqlServer.genericEnv.TLS_CERT_64 | string | `""` |  |
-| portal.server.graphqlServer.genericEnv.WORKFLOW_HELPER_IMAGE_VERSION | string | `"3.21.0"` |  |
+| portal.server.graphqlServer.genericEnv.WORKFLOW_HELPER_IMAGE_VERSION | string | `"3.22.0"` |  |
 | portal.server.graphqlServer.image.pullPolicy | string | `"Always"` |  |
 | portal.server.graphqlServer.image.repository | string | `"litmusportal-server"` |  |
-| portal.server.graphqlServer.image.tag | string | `"3.21.0"` |  |
+| portal.server.graphqlServer.image.tag | string | `"3.22.0"` |  |
 | portal.server.graphqlServer.imageEnv.ARGO_WORKFLOW_CONTROLLER_IMAGE | string | `"workflow-controller:v3.3.1"` |  |
 | portal.server.graphqlServer.imageEnv.ARGO_WORKFLOW_EXECUTOR_IMAGE | string | `"argoexec:v3.3.1"` |  |
-| portal.server.graphqlServer.imageEnv.EVENT_TRACKER_IMAGE | string | `"litmusportal-event-tracker:3.21.0"` |  |
-| portal.server.graphqlServer.imageEnv.LITMUS_CHAOS_EXPORTER_IMAGE | string | `"chaos-exporter:3.21.0"` |  |
-| portal.server.graphqlServer.imageEnv.LITMUS_CHAOS_OPERATOR_IMAGE | string | `"chaos-operator:3.21.0"` |  |
-| portal.server.graphqlServer.imageEnv.LITMUS_CHAOS_RUNNER_IMAGE | string | `"chaos-runner:3.21.0"` |  |
-| portal.server.graphqlServer.imageEnv.SUBSCRIBER_IMAGE | string | `"litmusportal-subscriber:3.21.0"` |  |
+| portal.server.graphqlServer.imageEnv.EVENT_TRACKER_IMAGE | string | `"litmusportal-event-tracker:3.22.0"` |  |
+| portal.server.graphqlServer.imageEnv.LITMUS_CHAOS_EXPORTER_IMAGE | string | `"chaos-exporter:3.22.0"` |  |
+| portal.server.graphqlServer.imageEnv.LITMUS_CHAOS_OPERATOR_IMAGE | string | `"chaos-operator:3.22.0"` |  |
+| portal.server.graphqlServer.imageEnv.LITMUS_CHAOS_RUNNER_IMAGE | string | `"chaos-runner:3.22.0"` |  |
+| portal.server.graphqlServer.imageEnv.SUBSCRIBER_IMAGE | string | `"litmusportal-subscriber:3.22.0"` |  |
 | portal.server.graphqlServer.livenessProbe.failureThreshold | int | `5` |  |
 | portal.server.graphqlServer.livenessProbe.initialDelaySeconds | int | `30` |  |
 | portal.server.graphqlServer.livenessProbe.periodSeconds | int | `10` |  |
