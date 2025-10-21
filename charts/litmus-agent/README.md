@@ -71,6 +71,7 @@ $ helm install litmus-agent litmuschaos/litmus-agent \
 | chaos-exporter.enabled | bool | `true` |  |
 | chaos-operator.enabled | bool | `true` |  |
 | crds.create | bool | `true` |  |
+| enablePreInstallJob | bool | `true` | Enable the pre-install hook job that registers this agent with ChaosCenter. Set to false for standallone litmus-agent installation (no ChaosCenter) however other ChaosCenter resources (e.g., hook Secrets/ConfigMaps) may still be rendered; manage them via their own flags (e.g., useExistingHookSecret). |
 | event-tracker.enabled | bool | `true` |  |
 | global.INFRA_MODE | string | `"cluster"` |  |
 | global.customLabels | object | `{}` |  |
