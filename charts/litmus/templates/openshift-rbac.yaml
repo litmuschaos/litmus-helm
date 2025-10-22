@@ -1,0 +1,95 @@
+{{- if and .Values.openshift.enabled (not .Values.openshift.anyuid)  }}
+apiVersion: security.openshift.io/v1
+kind: SecurityContextConstraints
+metadata:
+  name: {{ .Values.openshift.sccName }}
+  labels:
+    app.kubernetes.io/name: {{ .Values.openshift.sccName }}
+
+allowHostIPC: false
+allowHostNetwork: false
+allowHostPID: false
+allowHostPorts: false
+allowHostDirVolumePlugin: false
+allowPrivilegeEscalation: true
+requiredDropCapabilities: null
+allowedCapabilities: null
+defaultAddCapabilities: null
+seccompProfiles:
+  - '*'
+runAsUser:
+  type: MustRunAsRange # Valid value for runAsUser.type
+  uidRangeMin: 0 # TODO 
+  uidRangeMax: 2000 # TODO
+seLinuxContext:
+  type: RunAsAny # Valid value for seLinuxContext.type
+fsGroup:
+  type: RunAsAny
+supplementalGroups:
+  type: RunAsAny
+readOnlyRootFilesystem: false
+volumes:
+  - configMap
+  - emptyDir
+  - projected
+  - secret
+  - downwardAPI
+  - persistentVolumeClaim
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: {{ .Values.openshift.sccName }}-clusterrole
+  labels:
+    app.kubernetes.io/name: {{ .Values.openshift.sccName }}-clusterrole
+rules:
+- apiGroups:
+  - security.openshift.io 
+  resourceNames:
+  - {{ .Values.openshift.sccName }}
+  resources:
+  - securitycontextconstraints 
+  verbs: 
+  - use
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: {{ .Values.openshift.sccName }}-binding
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app.kubernetes.io/name: {{ .Values.openshift.sccName }}-binding
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: {{ .Values.openshift.sccName }}-clusterrole
+subjects:
+  - kind: ServiceAccount
+    name: {{ .Chart.Name }}-mongodb  # For mongodb subchart
+    namespace: {{ .Release.Namespace }}
+  - kind: ServiceAccount
+    name: default # Default ServiceAccount 
+    namespace: {{ .Release.Namespace }}
+{{- end  }} 
+---
+{{- if and .Values.openshift.enabled .Values.openshift.anyuid   }}
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: {{ .Values.openshift.sccName }}-scc-anyuid-binding
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app.kubernetes.io/name: {{ .Values.openshift.sccName }}-scc-anyuid-binding
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: system:openshift:scc:anyuid
+subjects:
+  - kind: ServiceAccount
+    name: {{ .Chart.Name }}-mongodb
+    namespace: {{ .Release.Namespace }}
+  - kind: ServiceAccount
+    name: default # Default ServiceAccount 
+    namespace: {{ .Release.Namespace }}
+
+{{- end  }} 
