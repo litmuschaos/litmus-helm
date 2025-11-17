@@ -1,6 +1,6 @@
 # litmus-agent
 
-![Version: 3.21.0](https://img.shields.io/badge/Version-3.21.0-informational?style=flat-square) ![AppVersion: 3.21.0](https://img.shields.io/badge/AppVersion-3.21.0-informational?style=flat-square)
+![Version: 3.22.1](https://img.shields.io/badge/Version-3.22.1-informational?style=flat-square) ![AppVersion: 3.22.1](https://img.shields.io/badge/AppVersion-3.22.1-informational?style=flat-square)
 
 A Helm chart to install litmus agent
 
@@ -24,10 +24,10 @@ Kubernetes: `>=1.16.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-|  | chaos-exporter | 3.21.0 |
-|  | chaos-operator | 3.21.0 |
-|  | event-tracker | 3.21.0 |
-|  | subscriber | 3.21.0 |
+|  | chaos-exporter | 3.22.0 |
+|  | chaos-operator | 3.22.0 |
+|  | event-tracker | 3.22.0 |
+|  | subscriber | 3.22.0 |
 |  | workflow-controller | 0.2.2 |
 
 ## Installing the Chart
@@ -53,7 +53,7 @@ $ helm install litmus-agent litmuschaos/litmus-agent \
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| APP_VERSION | string | `"3.21.0"` |  |
+| APP_VERSION | string | `"3.22.0"` |  |
 | INFRA_DESCRIPTION | string | `"chaos infrastructure deployed with helm"` |  |
 | INFRA_NAME | string | `"helm-infrastructure"` |  |
 | INFRA_NODE_SELECTOR | string | `""` |  |
@@ -71,6 +71,7 @@ $ helm install litmus-agent litmuschaos/litmus-agent \
 | chaos-exporter.enabled | bool | `true` |  |
 | chaos-operator.enabled | bool | `true` |  |
 | crds.create | bool | `true` |  |
+| enablePreInstallJob | bool | `true` | Enable the pre-install hook job that registers this agent with ChaosCenter. Set to false for standallone litmus-agent installation (no ChaosCenter) however other ChaosCenter resources (e.g., hook Secrets/ConfigMaps) may still be rendered; manage them via their own flags (e.g., useExistingHookSecret). |
 | event-tracker.enabled | bool | `true` |  |
 | global.INFRA_MODE | string | `"cluster"` |  |
 | global.customLabels | object | `{}` |  |

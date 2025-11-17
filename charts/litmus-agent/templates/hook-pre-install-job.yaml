@@ -1,3 +1,4 @@
+{{- if .Values.enablePreInstallJob }}
 apiVersion: batch/v1
 kind: Job
 metadata:
@@ -83,3 +84,4 @@ spec:
 
         resources:
           {{- toYaml .Values.resources | nindent 10 }}
+{{end}}

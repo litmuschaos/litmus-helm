@@ -16,7 +16,7 @@ existingSecret: ""
 allowedOrigins: ".*"
 
 adminConfig:
-  VERSION: "3.21.0"
+  VERSION: "3.22.0"
   SKIP_SSL_VERIFY: "false"
   # -- leave empty if uses Mongo DB deployed by this chart
   DBPASSWORD: ""
@@ -128,7 +128,7 @@ portal:
     #   runAsNonRoot: true
     image:
       repository: litmusportal-frontend
-      tag: 3.21.0
+      tag: 3.22.0
       pullPolicy: "Always"
     containerPort: 8185
     customLabels: {}
@@ -232,7 +232,7 @@ portal:
         readOnlyRootFilesystem: true
       image:
         repository: litmusportal-server
-        tag: 3.21.0
+        tag: 3.22.0
         pullPolicy: "Always"
       ports:
         - name: gql-server
@@ -249,21 +249,21 @@ portal:
           port: 8000
           targetPort: 8000
       imageEnv:
-        SUBSCRIBER_IMAGE: "litmusportal-subscriber:3.21.0"
-        EVENT_TRACKER_IMAGE: "litmusportal-event-tracker:3.21.0"
+        SUBSCRIBER_IMAGE: "litmusportal-subscriber:3.22.0"
+        EVENT_TRACKER_IMAGE: "litmusportal-event-tracker:3.22.0"
         ARGO_WORKFLOW_CONTROLLER_IMAGE: "workflow-controller:v3.3.1"
         ARGO_WORKFLOW_EXECUTOR_IMAGE: "argoexec:v3.3.1"
-        LITMUS_CHAOS_OPERATOR_IMAGE: "chaos-operator:3.21.0"
-        LITMUS_CHAOS_RUNNER_IMAGE: "chaos-runner:3.21.0"
-        LITMUS_CHAOS_EXPORTER_IMAGE: "chaos-exporter:3.21.0"
+        LITMUS_CHAOS_OPERATOR_IMAGE: "chaos-operator:3.22.0"
+        LITMUS_CHAOS_RUNNER_IMAGE: "chaos-runner:3.22.0"
+        LITMUS_CHAOS_EXPORTER_IMAGE: "chaos-exporter:3.22.0"
       genericEnv:
         TLS_CERT_64: ""
         CONTAINER_RUNTIME_EXECUTOR: "k8sapi"
-        DEFAULT_HUB_BRANCH_NAME: "v3.21.x"
+        DEFAULT_HUB_BRANCH_NAME: "v3.22.x"
         INFRA_DEPLOYMENTS: '["app=chaos-exporter", "name=chaos-operator", "app=event-tracker", "app=workflow-controller"]'
-        WORKFLOW_HELPER_IMAGE_VERSION: "3.21.0"
+        WORKFLOW_HELPER_IMAGE_VERSION: "3.22.0"
         REMOTE_HUB_MAX_SIZE: "5000000"
-        INFRA_COMPATIBLE_VERSIONS: '["3.21.0"]'
+        INFRA_COMPATIBLE_VERSIONS: '["3.22.0"]'
         # Provide UI endpoint if using namespaced scope
         CHAOS_CENTER_UI_ENDPOINT: ""
         ENABLE_GQL_INTROSPECTION: "false"
@@ -308,7 +308,7 @@ portal:
       automountServiceAccountToken: false
       image:
         repository: litmusportal-auth-server
-        tag: 3.21.0
+        tag: 3.22.0
         pullPolicy: "Always"
       ports:
         - name: auth-server
@@ -358,6 +358,10 @@ openshift:
 # -- Configure the Bitnami MongoDB subchart
 # see values at https://github.com/bitnami/charts/blob/master/bitnami/mongodb/values.yaml
 mongodb:
+  image:
+    registry: docker.io
+    repository: bitnamilegacy/mongodb
+    tag: 8.0.13-debian-12-r0
   # For some environments, mongo pings can take time to resolve
   livenessProbe:
     timeoutSeconds: 20
@@ -382,8 +386,8 @@ mongodb:
     enabled: true
     image:
       registry: docker.io
-      repository: bitnami/os-shell
-      tag: 12-debian-12-r47
+      repository: bitnamilegacy/os-shell
+      tag: 12-debian-12-r51
   metrics:
     enabled: false
     prometheusRule:

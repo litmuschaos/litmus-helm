@@ -17,7 +17,7 @@ SA_EXISTS: true
 NS_EXISTS: true
 INFRA_TYPE: "external"
 # For compatibility with ChaosCenter, Version has to be same
-APP_VERSION: "3.21.0"
+APP_VERSION: "3.22.0"
 SKIP_SSL: "false"
 
 # PLATFORM_NAME: AWS, GKE, Openshift, Rancher, Others
@@ -54,6 +54,11 @@ resources:
   requests:
     cpu: 100m
     memory: 128Mi
+
+# -- Enable the pre-install hook job that registers this agent with ChaosCenter.
+# Set to false for standallone litmus-agent installation (no ChaosCenter) however other ChaosCenter resources (e.g., hook Secrets/ConfigMaps) may still be rendered;
+# manage them via their own flags (e.g., useExistingHookSecret).
+enablePreInstallJob: true
 
 # Existing Secret name should be:
 # `{{ include "subscriber.fullname" . }}-hook`
