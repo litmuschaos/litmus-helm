@@ -1,6 +1,6 @@
 # subscriber
 
-![Version: 3.22.0](https://img.shields.io/badge/Version-3.22.0-informational?style=flat-square) ![AppVersion: 3.22.0](https://img.shields.io/badge/AppVersion-3.22.0-informational?style=flat-square)
+![Version: 3.23.0](https://img.shields.io/badge/Version-3.23.0-informational?style=flat-square) ![AppVersion: 3.23.0](https://img.shields.io/badge/AppVersion-3.23.0-informational?style=flat-square)
 
 A Helm chart to install subscriber
 

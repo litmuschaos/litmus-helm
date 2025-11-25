@@ -17,7 +17,7 @@ SA_EXISTS: true
 NS_EXISTS: true
 INFRA_TYPE: "external"
 # For compatibility with ChaosCenter, Version has to be same
-APP_VERSION: "3.22.0"
+APP_VERSION: "3.23.0"
 SKIP_SSL: "false"
 
 # PLATFORM_NAME: AWS, GKE, Openshift, Rancher, Others
