@@ -81,6 +81,9 @@ $ helm install litmus-agent litmuschaos/litmus-agent \
 | image.pullPolicy | string | `"Always"` |  |
 | image.repository | string | `"litmuschaos.docker.scarf.sh/litmuschaos/litmus-helm-agent"` |  |
 | image.tag | string | `"latest"` |  |
+| openshift.enabled | bool | `false` |  |
+| openshift.sccName | string | `"litmus-agent-scc"` |  |
+| openshift.serviceAccountName | string | `"litmus-admin"` |  |
 | podAnnotations | object | `{}` |  |
 | resources.limits.cpu | string | `"100m"` |  |
 | resources.limits.memory | string | `"128Mi"` |  |
