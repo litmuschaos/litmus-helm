@@ -1,0 +1,83 @@
+{{- if and .Values.openshift.enabled (not .Values.openshift.anyuid) (.Capabilities.APIVersions.Has "security.openshift.io/v1") }}
+apiVersion: security.openshift.io/v1
+kind: SecurityContextConstraints
+metadata:
+  name: {{ .Values.openshift.sccName }}
+  labels:
+    app.kubernetes.io/name: {{ .Values.openshift.sccName }}
+
+allowHostIPC: false
+allowHostNetwork: false
+# To run fault injection on a target container using pid namespace.
+# It is used in stress, network, dns and http experiments. 
+allowHostPID: true
+allowHostPorts: false
+allowHostDirVolumePlugin: true
+# To run some privileged modules in dns, stress and network chaos
+allowPrivilegeEscalation: true
+allowPrivilegedContainer: true
+allowedCapabilities:
+- 'NET_ADMIN'
+- 'SYS_ADMIN'
+defaultAddCapabilities: null
+readOnlyRootFilesystem: false
+requiredDropCapabilities: null
+
+runAsUser:
+  type: RunAsAny
+seLinuxContext:
+  type: RunAsAny # Valid value for seLinuxContext.type
+runAsUser:
+  type: RunAsAny
+seLinuxContext:
+  type: MustRunAs
+supplementalGroups:
+  type: RunAsAny
+readOnlyRootFilesystem: true
+volumes:
+# To allow configmaps mounts on upload scripts or envs.
+  - configMap
+# used for chaos injection like io chaos.
+  - emptyDir
+  - hostPath
+  - projected
+  - persistentVolumeClaim
+# To derive the experiment pod name in the experimemnt.
+  - downwardAPI
+# To authenticate with different cloud providers
+  - secret
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: {{ .Values.openshift.sccName }}-clusterrole
+  labels:
+    app.kubernetes.io/name: {{ .Values.openshift.sccName }}-clusterrole
+rules:
+- apiGroups:
+  - security.openshift.io 
+  resourceNames:
+  - {{ .Values.openshift.sccName }}
+  resources:
+  - securitycontextconstraints 
+  verbs: 
+  - use
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: {{ .Values.openshift.sccName }}-binding
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app.kubernetes.io/name: {{ .Values.openshift.sccName }}-binding
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: {{ .Values.openshift.sccName }}-clusterrole
+subjects:
+  - kind: ServiceAccount
+    name: default # TODO
+    namespace: {{ .Release.Namespace }}
+{{- end  }} 
+
+
