@@ -190,6 +190,8 @@ portal:
     customLabels: {}
     # my.company.com/tier: "backend"
     waitForMongodb:
+      # -- Set to false to skip the wait-for-mongodb initContainer when using external MongoDB
+      enabled: true
       image:
         repository: mongo
         tag: 6
