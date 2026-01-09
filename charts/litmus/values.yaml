@@ -171,6 +171,10 @@ portal:
       hosts: []
       gateways: []
       pathPrefixEnabled: false
+    # -- Additional environment variables for frontend container
+    extraEnvVars: []
+    # - name: MY_ENV_VAR
+    #   value: "my-value"
     nodeSelector: {}
     tolerations: []
     affinity: {}
@@ -341,6 +345,10 @@ portal:
       volumeMounts: []
       volumes: []
       podAnnotations: {}
+    # -- Additional environment variables for graphql-server container
+    extraEnvVars: []
+    # - name: MY_ENV_VAR
+    #   value: "my-value"
     nodeSelector: {}
     tolerations: []
     affinity: {}

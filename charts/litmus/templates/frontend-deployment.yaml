@@ -70,6 +70,10 @@ spec:
           ports:
             - containerPort: {{ .Values.portal.frontend.containerPort }}
               name: http
+          {{- if .Values.portal.frontend.extraEnvVars }}
+          env:
+            {{- toYaml .Values.portal.frontend.extraEnvVars | nindent 12 }}
+          {{- end }}
           volumeMounts:
             - name: nginx-config
               mountPath: /etc/nginx/nginx.conf
