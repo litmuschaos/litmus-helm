@@ -1,6 +1,6 @@
 # litmus
 
-![Version: 3.24.0](https://img.shields.io/badge/Version-3.24.0-informational?style=flat-square) ![AppVersion: 3.24.0](https://img.shields.io/badge/AppVersion-3.24.0-informational?style=flat-square)
+![Version: 3.24.1](https://img.shields.io/badge/Version-3.24.1-informational?style=flat-square) ![AppVersion: 3.24.0](https://img.shields.io/badge/AppVersion-3.24.0-informational?style=flat-square)
 
 A Helm chart to install ChaosCenter
 
@@ -105,6 +105,7 @@ We separated service configuration from `portal.server.service` to `portal.serve
 | portal.frontend.autoscaling.targetMemoryUtilizationPercentage | int | `50` |  |
 | portal.frontend.containerPort | int | `8185` |  |
 | portal.frontend.customLabels | object | `{}` |  |
+| portal.frontend.extraEnvVars | list | `[]` | Additional environment variables for frontend container |
 | portal.frontend.image.pullPolicy | string | `"Always"` |  |
 | portal.frontend.image.repository | string | `"litmusportal-frontend"` |  |
 | portal.frontend.image.tag | string | `"3.24.0"` |  |
@@ -172,6 +173,7 @@ We separated service configuration from `portal.server.service` to `portal.serve
 | portal.server.authServer.volumeMounts | list | `[]` |  |
 | portal.server.authServer.volumes | list | `[]` |  |
 | portal.server.customLabels | object | `{}` |  |
+| portal.server.extraEnvVars | list | `[]` | Additional environment variables for graphql-server container |
 | portal.server.graphqlServer.automountServiceAccountToken | bool | `false` |  |
 | portal.server.graphqlServer.genericEnv.CHAOS_CENTER_UI_ENDPOINT | string | `""` |  |
 | portal.server.graphqlServer.genericEnv.CONTAINER_RUNTIME_EXECUTOR | string | `"k8sapi"` |  |
