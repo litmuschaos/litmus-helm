@@ -33,5 +33,5 @@ dependencies:
     version: 3.24.0
     condition: subscriber.enabled
   - name: workflow-controller
-    version: 0.2.2
+    version: 0.2.3
     condition: workflow-controller.enabled
