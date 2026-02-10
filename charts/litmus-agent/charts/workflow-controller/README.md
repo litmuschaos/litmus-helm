@@ -30,6 +30,7 @@ Kubernetes: `>=1.16.0-0`
 | appSettings.configmapName | string | `"workflow-controller-configmap"` |  |
 | appSettings.containerRuntimeExecutor | string | `"k8sapi"` |  |
 | appSettings.executorImage | string | `"litmuschaos/argoexec:v3.3.1"` |  |
+| appSettings.gloglevel | string | `"1"` |  |
 | appSettings.loglevel | string | `"debug"` |  |
 | autoscaling.enabled | bool | `false` |  |
 | autoscaling.maxReplicas | int | `100` |  |

@@ -46,7 +46,7 @@ spec:
             - --loglevel
             - {{ .Values.appSettings.loglevel }}
             - --gloglevel
-            - "1"
+            - {{ .Values.appSettings.gloglevel | quote }}
           command:
             - workflow-controller
           env:
