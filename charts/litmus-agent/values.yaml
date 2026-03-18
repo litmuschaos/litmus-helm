@@ -56,7 +56,7 @@ resources:
 enablePreInstallJob: true
 
 # Existing Secret name should be:
-# `{{ include "subscriber.fullname" . }}-hook`
+# `{{ include "litmus-agent.fullname" . }}-hook`
 # I.E. `name: litmus-agent-hook`
 # -- Use an existing hook Secret instead of creating one with the chart, ref. to templates/secret.yaml
 useExistingHookSecret: false
