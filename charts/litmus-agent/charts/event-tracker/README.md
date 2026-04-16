@@ -1,6 +1,6 @@
 # event-tracker
 
-![Version: 3.27.0](https://img.shields.io/badge/Version-3.27.0-informational?style=flat-square) ![AppVersion: 3.27.0](https://img.shields.io/badge/AppVersion-3.27.0-informational?style=flat-square)
+![Version: 3.28.0](https://img.shields.io/badge/Version-3.28.0-informational?style=flat-square) ![AppVersion: 3.28.0](https://img.shields.io/badge/AppVersion-3.28.0-informational?style=flat-square)
 
 A Helm chart to install event-tracker
 
