@@ -243,6 +243,8 @@ portal:
           containerPort: 8080
         - name: gql-rpc-server
           containerPort: 8000
+        - name: metrics
+          containerPort: 8889
       service:
         annotations: {}
         type: ClusterIP
@@ -252,6 +254,9 @@ portal:
         graphqlRpcServer:
           port: 8000
           targetPort: 8000
+        metrics:
+          port: 8889
+          targetPort: 8889
       imageEnv:
         SUBSCRIBER_IMAGE: "litmusportal-subscriber:3.29.0"
         EVENT_TRACKER_IMAGE: "litmusportal-event-tracker:3.29.0"
@@ -271,6 +276,7 @@ portal:
         # Provide UI endpoint if using namespaced scope
         CHAOS_CENTER_UI_ENDPOINT: ""
         ENABLE_GQL_INTROSPECTION: "false"
+        METRICS_PORT: "8889"
       resources:
         # We usually recommend not to specify default resources and to leave this as a conscious
         # choice for the user. This also increases chances charts run on environments with little
