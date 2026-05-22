@@ -40,6 +40,11 @@ image:
 crds:
   create: true
 
+openshift:
+  enabled: false # default false for vanilla kubernetes
+  sccName: litmus-agent-scc # name of scc to be used
+  serviceAccountName: litmus-admin # name of service account to be used
+
 podAnnotations: {}
 
 resources:
