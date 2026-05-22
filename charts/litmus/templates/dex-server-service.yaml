@@ -1,0 +1,26 @@
+{{- if .Values.dexServer.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "litmus-portal.fullname" . }}-litmusportal-dex-service
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app.kubernetes.io/component: {{ include "litmus-portal.name" . }}-litmusportal-dex-service
+    {{- include "litmus-portal.labels" . | nindent 4 }}
+  {{- with .Values.dexServer.service.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  type: {{ .Values.dexServer.service.type }}
+  ports:
+    - name: dex-server
+      port: {{ .Values.dexServer.service.port }}
+      protocol: TCP
+      targetPort: {{ .Values.dexServer.service.targetPort }}
+      {{- if eq .Values.dexServer.service.type "NodePort" }}
+      nodePort: {{ .Values.dexServer.service.nodePort }}
+      {{- end }}
+  selector:
+    app.kubernetes.io/component: {{ include "litmus-portal.name" . }}-litmusportal-dex-server
+{{- end }}
