@@ -2,11 +2,11 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "litmus-portal.fullname" . }}-litmusportal-dex-server
+  name: {{ include "litmus-portal.fullname" . }}-dex-server
   namespace: {{ .Release.Namespace }}
   labels:
     {{- include "litmus-portal.labels" . | nindent 4 }}
-    app.kubernetes.io/component: {{ include "litmus-portal.name" . }}-litmusportal-dex-server
+    app.kubernetes.io/component: {{ include "litmus-portal.name" . }}-dex-server
     {{- if .Values.dexServer.customLabels }}
       {{ toYaml .Values.dexServer.customLabels | nindent 4 }}
     {{- end }}
@@ -20,11 +20,11 @@ spec:
   {{- end }}
   selector:
     matchLabels:
-      app.kubernetes.io/component: {{ include "litmus-portal.name" . }}-litmusportal-dex-server
+      app.kubernetes.io/component: {{ include "litmus-portal.name" . }}-dex-server
   template:
     metadata:
       labels:
-        app.kubernetes.io/component: {{ include "litmus-portal.name" . }}-litmusportal-dex-server
+        app.kubernetes.io/component: {{ include "litmus-portal.name" . }}-dex-server
     spec:
       serviceAccountName: {{ include "litmus-portal.fullname" . }}-dex-server-account
       containers:

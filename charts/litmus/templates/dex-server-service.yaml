@@ -2,10 +2,10 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "litmus-portal.fullname" . }}-litmusportal-dex-service
+  name: {{ include "litmus-portal.fullname" . }}-dex-server-service
   namespace: {{ .Release.Namespace }}
   labels:
-    app.kubernetes.io/component: {{ include "litmus-portal.name" . }}-litmusportal-dex-service
+    app.kubernetes.io/component: {{ include "litmus-portal.name" . }}-dex-server
     {{- include "litmus-portal.labels" . | nindent 4 }}
   {{- with .Values.dexServer.service.annotations }}
   annotations:
@@ -22,5 +22,5 @@ spec:
       nodePort: {{ .Values.dexServer.service.nodePort }}
       {{- end }}
   selector:
-    app.kubernetes.io/component: {{ include "litmus-portal.name" . }}-litmusportal-dex-server
+    app.kubernetes.io/component: {{ include "litmus-portal.name" . }}-dex-server
 {{- end }}
