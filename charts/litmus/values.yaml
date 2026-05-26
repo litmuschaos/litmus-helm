@@ -368,6 +368,47 @@ openshift:
     customLabels: {}
     annotations: {}
     host: ""
+  dexServer:
+    route:
+      enabled: false
+      customLabels: {}
+      annotations: {}
+
+dexServer:
+  enabled: false
+  issuer: "http://<Your Domain>:32000" 
+  callbackURL: "http://localhost:8080/auth/dex/callback" 
+  secret: ZXhhbXBsZS1hcHAtc2VjcmV0
+  connectors: []
+  # - type: github
+  #   id: github
+  #   name: GitHub
+  #   config:
+  #     clientID: xxxx
+  #     clientSecret: yyyy
+  replicas: 1
+  image:
+    repository: "litmuschaos/litmusportal-dex-server"
+    tag: "ci"
+    pullPolicy: "IfNotPresent"
+  containerPort: 5556
+  autoscaling:
+    enabled: false
+  updateStrategy: {}
+  customLabels: {}
+
+  resources: {}
+  securityContext: {}
+  nodeSelector: {}
+  tolerations: []
+  affinity: {}
+
+  service:
+    type: NodePort
+    port: 5556
+    targetPort: 5556
+    nodePort: 32000
+    annotations: {}
 
 # -- Configure the Bitnami MongoDB subchart
 # see values at https://github.com/bitnami/charts/blob/master/bitnami/mongodb/values.yaml

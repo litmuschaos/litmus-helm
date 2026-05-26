@@ -1,0 +1,25 @@
+{{- if and (.Values.dexServer.enabled) (.Values.openshift.dexServer.route.enabled) }}
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  labels:
+    app.kubernetes.io/name: {{ include "litmus-portal.fullname" . }}-dex-server-router
+    {{- include "litmus-portal.labels" . | nindent 4 }}
+    {{- if .Values.openshift.dexServer.route.customLabels }}
+      {{ toYaml .Values.openshift.dexServer.route.customLabels | nindent 4 }}
+    {{- end }}
+  name: {{ include "litmus-portal.fullname" . }}-dex-server-router
+  namespace: {{ .Release.Namespace }}
+  {{- with .Values.openshift.dexServer.route.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  port:
+    targetPort: dex-server
+  to:
+    kind: Service
+    name: {{ include "litmus-portal.fullname" . }}-dex-server-service
+  tls:
+    termination: edge
+{{- end }}
