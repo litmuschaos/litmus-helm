@@ -38,8 +38,6 @@ jobs:
 
       - name: Check for changes
         run: |
-          # fix fatal: detected dubious ownership in repository at
-          git config --global --add safe.directory "$GITHUB_WORKSPACE"
           helm-docs .
           if [ -z "$(git status --porcelain)" ]; then
             echo "Docs are up-to-date"
