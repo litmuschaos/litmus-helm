@@ -1,4 +1,4 @@
-{{- if .Values.openshift.route.enabled -}}
+{{- if and .Values.openshift.route.enabled  }}
 {{ $fullName := include "litmus-portal.fullname" . }}
 apiVersion: route.openshift.io/v1
 kind: Route
