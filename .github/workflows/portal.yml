@@ -35,13 +35,13 @@ jobs:
         env:
           response: ${{ steps.get_PR_commits.outputs.data }}
 
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           ref: ${{steps.getcommit.outputs.sha}}
           fetch-depth: 0
 
       - name: Checkout litmus-E2E Repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           repository: litmuschaos/litmus-e2e
           path: litmus-e2e
