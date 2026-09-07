@@ -38,7 +38,7 @@ app.kubernetes.io/instance: {{ .Release.Name }}
 app.kubernetes.io/managed-by: {{ .Release.Service }}
 app.kubernetes.io/name: {{ template "kubernetes-chaos.fullname" . }}
 app.kubernetes.io/part-of: {{ template "kubernetes-chaos.fullname" . }} 
-app.kubernetes.io/version: "{{ .Chart.Version }}"
+app.kubernetes.io/version: "{{ .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" }}"
 helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version }} 
 litmuschaos.io/version: {{ .Chart.AppVersion }}
 {{- if .Values.customLabels }}
