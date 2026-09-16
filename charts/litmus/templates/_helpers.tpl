@@ -39,7 +39,7 @@ app.kubernetes.io/instance: {{ .Release.Name }}
 app.kubernetes.io/managed-by: {{ .Release.Service }}
 app.kubernetes.io/name: {{ include "litmus-portal.name" . }}
 app.kubernetes.io/part-of: {{ template "litmus-portal.name" . }}
-app.kubernetes.io/version: "{{ .Chart.Version }}"
+app.kubernetes.io/version: "{{ .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" }}"
 helm.sh/chart: {{ include "litmus-portal.chart" . }}
 litmuschaos.io/version: {{ .Chart.AppVersion }}
 {{- if .Values.customLabels }}
