@@ -46,7 +46,7 @@ spec:
                 properties:
                   appkind:
                     type: string
-                    pattern: ^(^$|deployment|statefulset|daemonset|deploymentconfig|rollout)$
+                    pattern: ^(^$|deployment|statefulset|daemonset|deploymentconfig|rollout|job)$
                   applabel:
                     type: string
                   appns:
@@ -71,12 +71,14 @@ spec:
                       properties:
                         kind:
                           type: string
-                          pattern: ^(^$|deployment|statefulset|daemonset|deploymentconfig|rollout)$
+                          pattern: ^(^$|deployment|statefulset|daemonset|deploymentconfig|rollout|job)$
                         labels:
                           type: string
                         names:
                           type: string
                         namespace:
+                          type: string
+                        labelMatchMode:
                           type: string
                       oneOf:
                         - required: [ names ]
@@ -2410,11 +2412,11 @@ spec:
                                   key:
                                     type: string
                                     minLength: 1
-                                    allowEmptyValue: false
+
                                   value:
                                     type: string
                                     minLength: 1
-                                    allowEmptyValue: false
+
                             experimentImage:
                               type: string
                             env:
@@ -2558,11 +2560,11 @@ spec:
                                   key:
                                     type: string
                                     minLength: 1
-                                    allowEmptyValue: false
+
                                   value:
                                     type: string
                                     minLength: 1
-                                    allowEmptyValue: false
+
                             tolerations:
                               description: Pod's tolerations.
                               items:
