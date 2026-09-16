@@ -1,6 +1,6 @@
 # litmus-agent
 
-![Version: 3.30.0](https://img.shields.io/badge/Version-3.30.0-informational?style=flat-square) ![AppVersion: 3.30.0](https://img.shields.io/badge/AppVersion-3.30.0-informational?style=flat-square)
+![Version: 3.30.1](https://img.shields.io/badge/Version-3.30.1-informational?style=flat-square) ![AppVersion: 3.30.0](https://img.shields.io/badge/AppVersion-3.30.0-informational?style=flat-square)
 
 A Helm chart to install litmus agent
 
@@ -26,8 +26,8 @@ Kubernetes: `>=1.16.0-0`
 |------------|------|---------|
 |  | chaos-exporter | 3.30.0 |
 |  | chaos-operator | 3.30.0 |
-|  | event-tracker | 3.30.0 |
-|  | subscriber | 3.30.0 |
+|  | event-tracker | 3.30.1 |
+|  | subscriber | 3.30.1 |
 |  | workflow-controller | 0.2.3 |
 
 ## Installing the Chart
