@@ -46,4 +46,8 @@ rules:
       "rollouts",
     ]
   verbs: ["get", "list", "create", "delete", "update", "watch","patch"]
+
+- apiGroups: ["batch"]
+  resources: ["jobs"]
+  verbs: ["get", "list", "create", "patch", "update"]
 {{- end }}
