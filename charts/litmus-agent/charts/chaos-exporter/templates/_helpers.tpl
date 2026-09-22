@@ -54,7 +54,7 @@ Selector labels
 {{- define "chaos-exporter.selectorLabels" -}}
 app.kubernetes.io/name: {{ include "chaos-exporter.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
-litmuschaos.io/app: {{ .Chart.Name }}
+app: {{ .Chart.Name }}
 {{- end }}
 
 {{/*
