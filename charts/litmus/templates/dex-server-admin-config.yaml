@@ -1,0 +1,41 @@
+{{- if and .Values.dexServer.enabled }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "litmus-portal.fullname" . }}-dex-server-admin-config
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "litmus-portal.labels" . | nindent 4 }}
+    app.kubernetes.io/component: {{ include "litmus-portal.name" . }}-dex-server
+data:
+  config.yaml: |
+    issuer: {{ .Values.dexServer.issuer }}
+
+    storage:
+      type: kubernetes
+      config:
+        inCluster: true
+
+    web:
+      http: 0.0.0.0:5556
+
+    staticClients:
+      - id: LitmusPortalAuthBackend
+        redirectURIs:
+          - '/auth/dex/callback'
+          - {{ .Values.dexServer.callbackURL }}
+        name: 'LitmusPortalAuthBackend'
+        secret: {{ .Values.dexServer.secret }}
+
+    oauth2:
+        skipApprovalScreen: true
+
+    connectors:
+{{- range .Values.dexServer.connectors }}
+      - type: {{ .type }}
+        name: {{ .name }}
+        id: {{ .id }}
+        config: 
+{{- .config | toYaml | nindent 10 }}
+{{- end }}
+{{- end }}
