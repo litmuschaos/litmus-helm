@@ -46,7 +46,7 @@ spec:
                 properties:
                   appkind:
                     type: string
-                    pattern: ^(^$|deployment|statefulset|daemonset|deploymentconfig|rollout)$
+                    pattern: ^(^$|deployment|statefulset|daemonset|deploymentconfig|rollout|job)$
                   applabel:
                     type: string
                   appns:
@@ -71,7 +71,7 @@ spec:
                       properties:
                         kind:
                           type: string
-                          pattern: ^(^$|deployment|statefulset|daemonset|deploymentconfig|rollout)$
+                          pattern: ^(^$|deployment|statefulset|daemonset|deploymentconfig|rollout|job)$
                         labels:
                           type: string
                         names:
