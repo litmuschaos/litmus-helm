@@ -1,0 +1,393 @@
+# Default values for litmus.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+nameOverride: ""
+
+# -- Additional annotations
+customPodAnnotations: {}
+# -- Additional labels
+customLabels: {}
+# my.company.com/concourse-cd: 2
+
+# -- Use existing secret (e.g., External Secrets)
+existingSecret: ""
+
+# eg: ^(http://|https://|)litmuschaos.io(:[0-9]+|)?,^(http://|https://|)litmusportal-server-service(:[0-9]+|)?
+allowedOrigins: ".*"
+
+adminConfig:
+  VERSION: "3.16.0"
+  SKIP_SSL_VERIFY: "false"
+  # -- leave empty if uses Mongo DB deployed by this chart
+  DBPASSWORD: ""
+  DBUSER: ""
+  DB_SERVER: ""
+  DB_PORT: ""
+  ADMIN_USERNAME: "admin"
+  ADMIN_PASSWORD: "litmus"
+
+image:
+  imageRegistryName: litmuschaos.docker.scarf.sh/litmuschaos
+  # Optional pod imagePullSecrets
+  imagePullSecrets: []
+
+internalTLS:
+  # If internal TLS enabled
+  enabled: false
+  # enable strong ssl ciphers (default: false)
+  strong_ssl_ciphers: false
+  # There are three ways to provide tls
+  # 1) "auto" will generate cert automatically
+  # 2) "manual" need provide cert file manually in following value
+  # 3) "secret" internal certificates from secret
+  certSource: "auto"
+  # The content of trust ca, only available when `certSource` is "manual"
+  trustCa: ""
+  # Path on which the certs & keys will be mounted across all components
+  certMountPath: "/etc/tls"
+  # web related cert configuration
+  web:
+    # secret name for web's tls certs
+    secretName: ""
+    # Content of web's TLS cert file, only available when `certSource` is "manual"
+    crt: ""
+    # Content of web's TLS key file, only available when `certSource` is "manual"
+    key: ""
+  # graph-server related cert configuration
+  graphqlServer:
+    # secret name for graph-server's tls certs
+    secretName: ""
+    # Content of graphqlServer's TLS key file, only available when `certSource` is "manual"
+    crt: ""
+    # Content of graphqlServer's TLS key file, only available when `certSource` is "manual"
+    key: ""
+  # auth-server related cert configuration
+  authServer:
+    # secret name for auth-server's tls certs
+    secretName: ""
+    # Content of auth-server's TLS key file, only available when `certSource` is "manual"
+    crt: ""
+    # Content of auth-server's TLS key file, only available when `certSource` is "manual"
+    key: ""
+
+
+ingress:
+  enabled: false
+  name: litmus-ingress
+  annotations:
+    ingress.kubernetes.io/ssl-redirect: "true"
+    ingress.kubernetes.io/proxy-body-size: "0"
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/proxy-body-size: "0"
+    # kubernetes.io/tls-acme: "true"
+    # nginx.ingress.kubernetes.io/rewrite-target: /$1
+
+  ingressClassName: ""
+  host:
+    # -- This is ingress hostname (ex: my-domain.com)
+    name: ""
+    frontend:
+      # -- You may need adapt the path depending your ingress-controller
+      path: /
+      # -- Allow to set [pathType](https://kubernetes.io/docs/concepts/services-networking/ingress/#path-types) for the frontend path
+      pathType: ImplementationSpecific
+  tls: []
+  #  - secretName: chart-example-tls
+  #    hosts: []
+
+portal:
+  frontend:
+    replicas: 1
+    autoscaling:
+      enabled: false
+      minReplicas: 2
+      maxReplicas: 3
+      targetCPUUtilizationPercentage: 50
+      targetMemoryUtilizationPercentage: 50
+    updateStrategy: {}
+    ## Strategy for deployment updates.
+    ##
+    ## Example:
+    ##
+    ##   strategy:
+    ##     type: RollingUpdate
+    ##     rollingUpdate:
+    ##       maxSurge: 1
+    ##       maxUnavailable: 25%
+    automountServiceAccountToken: false
+    # securityContext:
+    #   runAsUser: 2000
+    #   allowPrivilegeEscalation: false
+    #   runAsNonRoot: true
+    image:
+      repository: litmusportal-frontend
+      tag: 3.16.0
+      pullPolicy: "Always"
+    containerPort: 8185
+    customLabels: {}
+    # my.company.com/tier: "frontend"
+    podAnnotations: {}
+
+    resources:
+      # We usually recommend not to specify default resources and to leave this as a conscious
+      # choice for the user. This also increases chances charts run on environments with little
+      # resources, such as Minikube. If you do want to specify resources, uncomment the following
+      # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+      requests:
+        memory: "150Mi"
+        cpu: "125m"
+        ephemeral-storage: "500Mi"
+      limits:
+        memory: "512Mi"
+        cpu: "550m"
+        ephemeral-storage: "1Gi"
+    livenessProbe:
+      failureThreshold: 5
+      initialDelaySeconds: 30
+      periodSeconds: 10
+      successThreshold: 1
+      timeoutSeconds: 5
+    readinessProbe:
+      initialDelaySeconds: 5
+      periodSeconds: 10
+      successThreshold: 1
+      timeoutSeconds: 1
+    service:
+      annotations: {}
+      type: ClusterIP
+      port: 9091
+      targetPort: 8185
+# NOTE: Using virtualService is not compatible with native mTLS of Litmus.
+# It's recommended to use mTLS feature provided by Istio itself in such scenario.
+    virtualService:
+      enabled: false
+      hosts: []
+      gateways: []
+      pathPrefixEnabled: false
+    nodeSelector: {}
+    tolerations: []
+    affinity: {}
+
+  server:
+    replicas: 1
+    updateStrategy: {}
+    ## Strategy for deployment updates.
+    ##
+    ## Example:
+    ##
+    ##   strategy:
+    ##     type: RollingUpdate
+    ##     rollingUpdate:
+    ##       maxSurge: 1
+    ##       maxUnavailable: 25%
+    customLabels: {}
+    # my.company.com/tier: "backend"
+    waitForMongodb:
+      image:
+        repository: mongo
+        tag: 6
+        pullPolicy: "Always"
+      securityContext:
+        {}
+        # runAsUser: 101
+        # allowPrivilegeEscalation: false
+        # runAsNonRoot: true
+        # readOnlyRootFilesystem: true
+      resources:
+        # We usually recommend not to specify default resources and to leave this as a conscious
+        # choice for the user. This also increases chances charts run on environments with little
+        # resources, such as Minikube. If you do want to specify resources, uncomment the following
+        # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+        requests:
+          memory: "150Mi"
+          cpu: "25m"
+          ephemeral-storage: "500Mi"
+        limits:
+          memory: "512Mi"
+          cpu: "250m"
+          ephemeral-storage: "1Gi"
+    graphqlServer:
+      automountServiceAccountToken: false
+      volumes:
+        - name: gitops-storage
+          emptyDir: {}
+        - name: hub-storage
+          emptyDir: {}
+      volumeMounts:
+        - mountPath: /tmp/
+          name: gitops-storage
+        - mountPath: /tmp/version
+          name: hub-storage
+      securityContext:
+        runAsUser: 2000
+        allowPrivilegeEscalation: false
+        runAsNonRoot: true
+        readOnlyRootFilesystem: true
+      image:
+        repository: litmusportal-server
+        tag: 3.16.0
+        pullPolicy: "Always"
+      ports:
+        - name: gql-server
+          containerPort: 8080
+        - name: gql-rpc-server
+          containerPort: 8000
+      service:
+        annotations: {}
+        type: ClusterIP
+        graphqlRestServer:
+          port: 9002
+          targetPort: 8080
+        graphqlRpcServer:
+          port: 8000
+          targetPort: 8000
+      imageEnv:
+        SUBSCRIBER_IMAGE: "litmusportal-subscriber:3.16.0"
+        EVENT_TRACKER_IMAGE: "litmusportal-event-tracker:3.16.0"
+        ARGO_WORKFLOW_CONTROLLER_IMAGE: "workflow-controller:v3.3.1"
+        ARGO_WORKFLOW_EXECUTOR_IMAGE: "argoexec:v3.3.1"
+        LITMUS_CHAOS_OPERATOR_IMAGE: "chaos-operator:3.16.0"
+        LITMUS_CHAOS_RUNNER_IMAGE: "chaos-runner:3.16.0"
+        LITMUS_CHAOS_EXPORTER_IMAGE: "chaos-exporter:3.16.0"
+      genericEnv:
+        TLS_CERT_64: ""
+        CONTAINER_RUNTIME_EXECUTOR: "k8sapi"
+        DEFAULT_HUB_BRANCH_NAME: "v3.16.x"
+        INFRA_DEPLOYMENTS: '["app=chaos-exporter", "name=chaos-operator", "app=event-tracker", "app=workflow-controller"]'
+        WORKFLOW_HELPER_IMAGE_VERSION: "3.16.0"
+        REMOTE_HUB_MAX_SIZE: "5000000"
+        INFRA_COMPATIBLE_VERSIONS: '["3.16.0"]'
+        # Provide UI endpoint if using namespaced scope
+        CHAOS_CENTER_UI_ENDPOINT: ""
+        ENABLE_GQL_INTROSPECTION: "false"
+      resources:
+        # We usually recommend not to specify default resources and to leave this as a conscious
+        # choice for the user. This also increases chances charts run on environments with little
+        # resources, such as Minikube. If you do want to specify resources, uncomment the following
+        # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+        requests:
+          memory: "250Mi"
+          cpu: "225m"
+          ephemeral-storage: "500Mi"
+        limits:
+          memory: "712Mi"
+          cpu: "550m"
+          ephemeral-storage: "1Gi"
+      livenessProbe:
+        failureThreshold: 5
+        initialDelaySeconds: 30
+        periodSeconds: 10
+        successThreshold: 1
+        timeoutSeconds: 5
+      readinessProbe:
+        initialDelaySeconds: 5
+        periodSeconds: 10
+        successThreshold: 1
+        timeoutSeconds: 1
+      podAnnotations: {}
+    authServer:
+      replicas: 1
+      autoscaling:
+        enabled: false
+        minReplicas: 2
+        maxReplicas: 3
+        targetCPUUtilizationPercentage: 50
+        targetMemoryUtilizationPercentage: 50
+      securityContext:
+        runAsUser: 2000
+        allowPrivilegeEscalation: false
+        runAsNonRoot: true
+        readOnlyRootFilesystem: true
+      automountServiceAccountToken: false
+      image:
+        repository: litmusportal-auth-server
+        tag: 3.16.0
+        pullPolicy: "Always"
+      ports:
+        - name: auth-server
+          containerPort: 3000
+        - name: auth-rpc-server
+          containerPort: 3030
+      service:
+        annotations: {}
+        type: ClusterIP
+        authRestServer:
+          port: 9003
+          targetPort: 3000
+        authRpcServer:
+          port: 3030
+          targetPort: 3030
+      env: {}
+      resources:
+        # We usually recommend not to specify default resources and to leave this as a conscious
+        # choice for the user. This also increases chances charts run on environments with little
+        # resources, such as Minikube. If you do want to specify resources, uncomment the following
+        # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+        requests:
+          memory: "250Mi"
+          cpu: "225m"
+          ephemeral-storage: "500Mi"
+        limits:
+          memory: "712Mi"
+          cpu: "550m"
+          ephemeral-storage: "1Gi"
+      volumeMounts: []
+      volumes: []
+      podAnnotations: {}
+    nodeSelector: {}
+    tolerations: []
+    affinity: {}
+
+# OpenShift specific configuration
+
+openshift:
+  enabled: true # default false for vanilla kubernetes
+  anyuid: false # # if true service account will obtain permission for using anyuid scc 
+  sccName: litmus-chaos-scc # name of scc to be used
+  
+  # If service should be exposed using an OpenShift route
+  route:
+    enabled: true
+    name: litmus-portal
+    customLabels: {}
+    annotations: 
+      haproxy.router.openshift.io/balance: roundrobin
+      haproxy.router.openshift.io/disable_cookies: "true"
+      template.openshift.io/expose-uri: "http://{.spec.host}{.spec.path}"
+
+    host: ""
+
+# -- Configure the Bitnami MongoDB subchart
+# see values at https://github.com/bitnami/charts/blob/master/bitnami/mongodb/values.yaml
+mongodb:
+  # For some environments, mongo pings can take time to resolve
+  livenessProbe:
+    timeoutSeconds: 20
+  readinessProbe:
+    timeoutSeconds: 20
+  # Required when using Mac M1 - https://github.com/bitnami/containers/issues/40947#issuecomment-1968364385
+  # extraEnvVars:
+  #   - name: EXPERIMENTAL_DOCKER_DESKTOP_FORCE_QEMU
+  #     value: "1"
+  enabled: true # to check if mongodb is enabled
+  auth:
+    enabled: true
+    rootUser: "root"
+    rootPassword: "1234"
+    # -- existingSecret Existing secret with MongoDB(&reg;) credentials (keys: `mongodb-passwords`, `mongodb-root-password`, `mongodb-metrics-password`, ` mongodb-replica-set-key`)
+    existingSecret: ""
+  architecture: replicaset
+  replicaCount: 3
+  persistence:
+    enabled: true
+  volumePermissions:
+    enabled: true
+  metrics:
+    enabled: false
+    prometheusRule:
+      enabled: false
+  # Required when using Mac M1 - https://github.com/bitnami/containers/issues/40947#issuecomment-1968364385
+  # arbiter:
+    # extraEnvVars:
+    #   - name: EXPERIMENTAL_DOCKER_DESKTOP_FORCE_QEMU
+    #     value: "1"
