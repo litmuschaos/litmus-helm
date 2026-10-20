@@ -53,9 +53,22 @@ Selector labels
 */}}
 {{- define "chaos-operator.selectorLabels" -}}
 litmuschaos.io/app: {{ .Chart.Name }}
+name: {{ .Chart.Name }}
 app.kubernetes.io/name: {{ include "chaos-operator.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
+
+{{/*
+Common pod annotations
+*/}}
+{{- define "chaos-operator.podAnnotations" -}}
+{{- if .Values.global.podAnnotations }}
+{{ toYaml .Values.global.podAnnotations }}
+{{- end }}
+{{- if .Values.podAnnotations }}
+{{ toYaml .Values.podAnnotations }}
+{{- end }}
+{{- end -}}
 
 {{/*
 Create the name of the service account to use

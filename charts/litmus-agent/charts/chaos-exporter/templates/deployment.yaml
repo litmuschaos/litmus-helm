@@ -13,9 +13,9 @@ spec:
       {{- include "chaos-exporter.selectorLabels" . | nindent 6 }}
   template:
     metadata:
-      {{- with .Values.podAnnotations }}
+      {{- with include "chaos-exporter.podAnnotations" . }}
       annotations:
-        {{- toYaml . | nindent 8 }}
+        {{- . | indent 8 }}
       {{- end }}
       labels:
         {{- include "chaos-exporter.labels" . | nindent 8 }}

@@ -19,5 +19,8 @@ spec:
     - name: graphql-rpc-server
       port: {{ .Values.portal.server.graphqlServer.service.graphqlRpcServer.port }}
       targetPort: {{ .Values.portal.server.graphqlServer.service.graphqlRpcServer.targetPort }}
+    - name: metrics
+      port: {{ .Values.portal.server.graphqlServer.service.metrics.port }}
+      targetPort: {{ .Values.portal.server.graphqlServer.service.metrics.targetPort }}
   selector:
     app.kubernetes.io/component: {{ include "litmus-portal.name" . }}-server

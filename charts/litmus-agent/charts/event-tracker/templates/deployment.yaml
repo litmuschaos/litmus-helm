@@ -13,9 +13,9 @@ spec:
       {{- include "event-tracker.selectorLabels" . | nindent 6 }}
   template:
     metadata:
-      {{- with .Values.podAnnotations }}
+      {{- with include "event-tracker.podAnnotations" . }}
       annotations:
-        {{- toYaml . | nindent 8 }}
+        {{- . | indent 8 }}
       {{- end }}
       labels:
         {{- include "event-tracker.labels" . | nindent 8 }}

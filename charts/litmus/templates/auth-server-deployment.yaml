@@ -28,6 +28,10 @@ spec:
         {{- if .Values.portal.server.customLabels }}
           {{ toYaml .Values.portal.server.customLabels | nindent 8 }}
         {{- end }}
+      {{- if include "litmus-portal.podannotations.auth-server" . }}
+      annotations:
+        {{- include "litmus-portal.podannotations.auth-server" . | indent 8 }}
+      {{- end}}
     spec:
       automountServiceAccountToken: {{ .Values.portal.server.authServer.automountServiceAccountToken }}
       {{- if .Values.image.imagePullSecrets }}
@@ -142,6 +146,14 @@ spec:
               value: "{{ (index .Values.portal.server.authServer.ports 1).containerPort }}"
             - name: ALLOWED_ORIGINS
               value: "{{ .Values.allowedOrigins }}"
+              {{- if has "auth-server" .Values.proxy.components }}
+            - name: HTTP_PROXY
+              value: "{{ .Values.proxy.httpProxy }}"
+            - name: HTTPS_PROXY
+              value: "{{ .Values.proxy.httpsProxy }}"
+            - name: NO_PROXY
+              value: "{{ .Values.proxy.noProxy }}"
+              {{- end }}
             {{- range $key, $val := .Values.portal.server.authServer.env }}
             - name: {{ $key }}
               value: {{ $val | quote }}

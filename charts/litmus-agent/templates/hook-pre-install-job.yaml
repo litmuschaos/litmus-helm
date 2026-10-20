@@ -1,3 +1,4 @@
+{{- if .Values.enablePreInstallJob }}
 apiVersion: batch/v1
 kind: Job
 metadata:
@@ -15,6 +16,10 @@ spec:
   template:
     metadata:
       name: "{{ .Release.Name }}"
+      {{- with include "litmus-agent.podAnnotations" . }}
+      annotations:
+        {{- . | indent 8 }}
+      {{- end }}
       labels:
         {{- include "litmus-agent.labels" . | nindent 8 }}
     spec:
@@ -73,3 +78,4 @@ spec:
 
         resources:
           {{- toYaml .Values.resources | nindent 10 }}
+{{end}}

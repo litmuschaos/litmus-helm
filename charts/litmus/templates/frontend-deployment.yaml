@@ -28,6 +28,10 @@ spec:
         {{- if .Values.portal.frontend.customLabels }}
           {{ toYaml .Values.portal.frontend.customLabels | nindent 8 }}
         {{- end }}
+      {{- if include "litmus-portal.podannotations.frontend" . }}
+      annotations:
+        {{- include "litmus-portal.podannotations.frontend" . | indent 8 }}
+      {{- end}}
     spec:
       automountServiceAccountToken: {{ .Values.portal.frontend.automountServiceAccountToken }}
       {{- if .Values.image.imagePullSecrets }}
@@ -66,6 +70,10 @@ spec:
           ports:
             - containerPort: {{ .Values.portal.frontend.containerPort }}
               name: http
+          {{- if .Values.portal.frontend.extraEnvVars }}
+          env:
+            {{- toYaml .Values.portal.frontend.extraEnvVars | nindent 12 }}
+          {{- end }}
           volumeMounts:
             - name: nginx-config
               mountPath: /etc/nginx/nginx.conf

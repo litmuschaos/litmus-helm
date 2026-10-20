@@ -13,9 +13,9 @@ spec:
       {{- include "workflow-controller.selectorLabels" . | nindent 6 }}
   template:
     metadata:
-      {{- with .Values.podAnnotations }}
+      {{- with include "workflow-controller.podAnnotations" . }}
       annotations:
-        {{- toYaml . | nindent 8 }}
+        {{- . | indent 8 }}
       {{- end }}
       labels:
         {{- include "workflow-controller.labels" . | nindent 8 }}
@@ -44,9 +44,9 @@ spec:
             - --container-runtime-executor
             - {{ .Values.appSettings.containerRuntimeExecutor }}
             - --loglevel
-            - debug
+            - {{ .Values.appSettings.loglevel }}
             - --gloglevel
-            - "1"
+            - {{ .Values.appSettings.gloglevel | quote }}
           command:
             - workflow-controller
           env:

@@ -52,10 +52,23 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 Selector labels
 */}}
 {{- define "chaos-exporter.selectorLabels" -}}
+litmuschaos.io/app: {{ .Chart.Name }}
 app.kubernetes.io/name: {{ include "chaos-exporter.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
-litmuschaos.io/app: {{ .Chart.Name }}
+app: {{ .Chart.Name }}
 {{- end }}
+
+{{/*
+Common pod annotations
+*/}}
+{{- define "chaos-exporter.podAnnotations" -}}
+{{- if .Values.global.podAnnotations }}
+{{ toYaml .Values.global.podAnnotations }}
+{{- end }}
+{{- if .Values.podAnnotations }}
+{{ toYaml .Values.podAnnotations }}
+{{- end }}
+{{- end -}}
 
 {{/*
 Create the name of the service account to use

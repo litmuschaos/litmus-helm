@@ -53,9 +53,22 @@ Selector labels
 */}}
 {{- define "workflow-controller.selectorLabels" -}}
 litmuschaos.io/app: {{ .Chart.Name }}
+app: {{ .Chart.Name }}
 app.kubernetes.io/name: {{ include "workflow-controller.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
+
+{{/*
+Common pod annotations
+*/}}
+{{- define "workflow-controller.podAnnotations" -}}
+{{- if .Values.global.podAnnotations }}
+{{ toYaml .Values.global.podAnnotations }}
+{{- end }}
+{{- if .Values.podAnnotations }}
+{{ toYaml .Values.podAnnotations }}
+{{- end }}
+{{- end -}}
 
 {{/*
 Create the name of the service account to use

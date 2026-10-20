@@ -53,9 +53,22 @@ Selector labels
 */}}
 {{- define "event-tracker.selectorLabels" -}}
 litmuschaos.io/app: {{ .Chart.Name }}
+app: {{ .Chart.Name }}
 app.kubernetes.io/name: {{ include "event-tracker.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
+
+{{/*
+Common pod annotations
+*/}}
+{{- define "event-tracker.podAnnotations" -}}
+{{- if .Values.global.podAnnotations }}
+{{ toYaml .Values.global.podAnnotations }}
+{{- end }}
+{{- if .Values.podAnnotations }}
+{{ toYaml .Values.podAnnotations }}
+{{- end }}
+{{- end -}}
 
 {{/*
 Create the name of the service account to use
