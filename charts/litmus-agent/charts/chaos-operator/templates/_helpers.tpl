@@ -53,6 +53,7 @@ Selector labels
 */}}
 {{- define "chaos-operator.selectorLabels" -}}
 litmuschaos.io/app: {{ .Chart.Name }}
+name: {{ .Chart.Name }}
 app.kubernetes.io/name: {{ include "chaos-operator.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}

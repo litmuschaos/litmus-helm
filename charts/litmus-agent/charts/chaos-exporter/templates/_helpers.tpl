@@ -52,9 +52,10 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 Selector labels
 */}}
 {{- define "chaos-exporter.selectorLabels" -}}
+litmuschaos.io/app: {{ .Chart.Name }}
 app.kubernetes.io/name: {{ include "chaos-exporter.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
-litmuschaos.io/app: {{ .Chart.Name }}
+app: {{ .Chart.Name }}
 {{- end }}
 
 {{/*
