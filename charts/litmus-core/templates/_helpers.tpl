@@ -31,12 +31,10 @@ Create chart name and version as used by the chart label.
 {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
-{{/* Generate basic labels */}}
-{{- define "litmus.labels" }}
+{{/* Generate common labels */}}
+{{- define "litmus.commonLabels" }}
 app.kubernetes.io/component: litmus-infra
-app.kubernetes.io/instance: {{ .Release.Name }}
 app.kubernetes.io/managed-by: {{ .Release.Service }}
-app.kubernetes.io/name: {{ template "litmus.name" . }}
 app.kubernetes.io/part-of: {{ template "litmus.name" . }} 
 app.kubernetes.io/version: "{{ .Chart.Version }}"
 helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version }} 
@@ -46,10 +44,28 @@ litmuschaos.io/version: {{ .Chart.AppVersion }}
 {{- end }}
 {{- end }}
 
-{{/*
-Specify default selectors
-*/}}
-{{- define "litmus.selectors" }}
+{{/* Generate chaos-operator labels*/}}
+{{- define "litmus.operatorLabels" }}
+{{ include "litmus.commonLabels" . }}
+{{ include "litmus.operatorSelectors" . }}
+{{- end }}
+
+{{/* Chaos operator selectors labels */}}
+{{- define "litmus.operatorSelectors" }}
+app: {{ template "litmus.name" . }}
 app.kubernetes.io/name: {{ template "litmus.name" . }}
+app.kubernetes.io/instance: {{ .Release.Name }}
+{{- end }}
+
+{{/* Generate chaos-exporter labels*/}}
+{{- define "litmus.exporterLabels" }}
+{{ include "litmus.commonLabels" . }}
+{{ include "litmus.exporterSelectors" . }}
+{{- end }}
+
+{{/* Chaos exporter selectors labels */}}
+{{- define "litmus.exporterSelectors" }}
+app: {{ template "litmus.name" . }}
+app.kubernetes.io/name: {{ template "litmus.name" . }}-monitor
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
