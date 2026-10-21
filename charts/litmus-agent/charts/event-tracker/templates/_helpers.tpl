@@ -53,6 +53,7 @@ Selector labels
 */}}
 {{- define "event-tracker.selectorLabels" -}}
 litmuschaos.io/app: {{ .Chart.Name }}
+app: {{ .Chart.Name }}
 app.kubernetes.io/name: {{ include "event-tracker.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}

@@ -44,9 +44,9 @@ spec:
             - --container-runtime-executor
             - {{ .Values.appSettings.containerRuntimeExecutor }}
             - --loglevel
-            - debug
+            - {{ .Values.appSettings.loglevel }}
             - --gloglevel
-            - "1"
+            - {{ .Values.appSettings.gloglevel | quote }}
           command:
             - workflow-controller
           env:

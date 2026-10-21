@@ -1,6 +1,6 @@
 # workflow-controller
 
-![Version: 0.2.2](https://img.shields.io/badge/Version-0.2.2-informational?style=flat-square) ![AppVersion: v3.3.1](https://img.shields.io/badge/AppVersion-v3.3.1-informational?style=flat-square)
+![Version: 0.2.3](https://img.shields.io/badge/Version-0.2.3-informational?style=flat-square) ![AppVersion: v3.3.1](https://img.shields.io/badge/AppVersion-v3.3.1-informational?style=flat-square)
 
 A Helm chart to install workflow-controller
 
@@ -30,6 +30,8 @@ Kubernetes: `>=1.16.0-0`
 | appSettings.configmapName | string | `"workflow-controller-configmap"` |  |
 | appSettings.containerRuntimeExecutor | string | `"k8sapi"` |  |
 | appSettings.executorImage | string | `"litmuschaos/argoexec:v3.3.1"` |  |
+| appSettings.gloglevel | string | `"1"` |  |
+| appSettings.loglevel | string | `"debug"` |  |
 | autoscaling.enabled | bool | `false` |  |
 | autoscaling.maxReplicas | int | `100` |  |
 | autoscaling.minReplicas | int | `1` |  |

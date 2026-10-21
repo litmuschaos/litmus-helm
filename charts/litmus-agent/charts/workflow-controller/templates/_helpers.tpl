@@ -53,6 +53,7 @@ Selector labels
 */}}
 {{- define "workflow-controller.selectorLabels" -}}
 litmuschaos.io/app: {{ .Chart.Name }}
+app: {{ .Chart.Name }}
 app.kubernetes.io/name: {{ include "workflow-controller.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
