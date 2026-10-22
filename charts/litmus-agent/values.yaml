@@ -37,6 +37,9 @@ image:
   # Overrides the image tag whose default is the chart appVersion.
   tag: "latest"
 
+# Optional pull secrets for the pre-install hook job image
+imagePullSecrets: []
+
 crds:
   create: true
 
