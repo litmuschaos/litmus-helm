@@ -50,7 +50,19 @@ spec:
           command: ["/bin/bash", "-c"]
           env:
             - name: DB_PASSWORD
-              {{- if .Values.mongodb.enabled }}
+              {{- if .Values.mongoOfficial.enabled }}
+              {{- if .Values.mongoOfficial.auth.existingSecret }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.mongoOfficial.auth.existingSecret }}
+                  key: {{ .Values.mongoOfficial.auth.passwordKey }}
+              {{- else }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Release.Name }}-mongodb-official
+                  key: {{ .Values.mongoOfficial.auth.passwordKey }}
+              {{- end }}
+              {{- else if .Values.mongodb.enabled }}
               {{- if not .Values.mongodb.auth.existingSecret }}
               value: {{ .Values.mongodb.auth.rootPassword | quote }}
               {{- else }}
@@ -66,7 +78,16 @@ spec:
                   key: DB_PASSWORD
               {{- end }}
             - name: DB_USER
-              {{- if .Values.mongodb.enabled }}
+              {{- if .Values.mongoOfficial.enabled }}
+              {{- if .Values.mongoOfficial.auth.existingSecret }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.mongoOfficial.auth.existingSecret }}
+                  key: {{ .Values.mongoOfficial.auth.usernameKey }}
+              {{- else }}
+              value: {{ .Values.mongoOfficial.auth.rootUser }}
+              {{- end }}
+              {{- else if .Values.mongodb.enabled }}
               value: {{ .Values.mongodb.auth.rootUser }}
               {{- else }}
               valueFrom:
@@ -80,9 +101,15 @@ spec:
                   name: {{ include "litmus-portal.fullname" . }}-admin-config
                   key: DB_SERVER
           args:
+            {{- if .Values.mongoOfficial.enabled }}
+            [
+                "until mongosh -u ${DB_USER} -p ${DB_PASSWORD} ${DB_SERVER} --eval 'db.adminCommand(\"ping\")' | grep -q 'ok'; do sleep 5; echo 'Waiting for the MongoDB to be ready...'; done; echo 'Connection with MongoDB established'",
+            ]
+            {{- else }}
             [
                 "until [[ $(mongosh -u ${DB_USER} -p ${DB_PASSWORD} ${DB_SERVER} --eval 'rs.status()' | grep 'ok' | wc -l) -eq 1 ]]; do sleep 5; echo 'Waiting for the MongoDB to be ready...'; done; echo 'Connection with MongoDB established'",
             ]
+            {{- end }}
           resources:
             {{- toYaml .Values.portal.server.waitForMongodb.resources | nindent 12 }}
           securityContext:
@@ -110,7 +137,19 @@ spec:
                 name: {{ include "litmus-portal.fullname" . }}-admin-config
           env:
             - name: DB_PASSWORD
-              {{- if .Values.mongodb.enabled }}      
+              {{- if .Values.mongoOfficial.enabled }}
+              {{- if .Values.mongoOfficial.auth.existingSecret }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.mongoOfficial.auth.existingSecret }}
+                  key: {{ .Values.mongoOfficial.auth.passwordKey }}
+              {{- else }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Release.Name }}-mongodb-official
+                  key: {{ .Values.mongoOfficial.auth.passwordKey }}
+              {{- end }}
+              {{- else if .Values.mongodb.enabled }}      
               {{- if not .Values.mongodb.auth.existingSecret }}
               value: {{ .Values.mongodb.auth.rootPassword | quote}}
               {{- else }}
@@ -126,7 +165,16 @@ spec:
                   key: DB_PASSWORD
               {{- end }}
             - name: DB_USER
-              {{- if .Values.mongodb.enabled }}
+              {{- if .Values.mongoOfficial.enabled }}
+              {{- if .Values.mongoOfficial.auth.existingSecret }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.mongoOfficial.auth.existingSecret }}
+                  key: {{ .Values.mongoOfficial.auth.usernameKey }}
+              {{- else }}
+              value: {{ .Values.mongoOfficial.auth.rootUser }}
+              {{- end }}
+              {{- else if .Values.mongodb.enabled }}
               value: {{ .Values.mongodb.auth.rootUser }}
               {{- else }}
               valueFrom:
