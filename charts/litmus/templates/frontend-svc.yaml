@@ -12,6 +12,9 @@ metadata:
   {{- end }}
 spec:
   type: {{ .Values.portal.frontend.service.type }}
+  {{- if and .Values.portal.frontend.service.externalTrafficPolicy (or (eq .Values.portal.frontend.service.type "LoadBalancer") (eq .Values.portal.frontend.service.type "NodePort")) }}
+  externalTrafficPolicy: {{ .Values.portal.frontend.service.externalTrafficPolicy }}
+  {{- end }}
   ports:
     - name: http
       port: {{ .Values.portal.frontend.service.port }}

@@ -1,6 +1,6 @@
 # litmus
 
-![Version: 3.30.0](https://img.shields.io/badge/Version-3.30.0-informational?style=flat-square) ![AppVersion: 3.30.0](https://img.shields.io/badge/AppVersion-3.30.0-informational?style=flat-square)
+![Version: 3.30.1](https://img.shields.io/badge/Version-3.30.1-informational?style=flat-square) ![AppVersion: 3.30.0](https://img.shields.io/badge/AppVersion-3.30.0-informational?style=flat-square)
 
 A Helm chart to install ChaosCenter
 
@@ -128,6 +128,7 @@ We separated service configuration from `portal.server.service` to `portal.serve
 | portal.frontend.resources.requests.ephemeral-storage | string | `"500Mi"` |  |
 | portal.frontend.resources.requests.memory | string | `"150Mi"` |  |
 | portal.frontend.service.annotations | object | `{}` |  |
+| portal.frontend.service.externalTrafficPolicy | string | `""` | External traffic policy for the frontend service. Only applies when service.type is LoadBalancer or NodePort. Allowed values are Cluster and Local. |
 | portal.frontend.service.port | int | `9091` |  |
 | portal.frontend.service.targetPort | int | `8185` |  |
 | portal.frontend.service.type | string | `"ClusterIP"` |  |

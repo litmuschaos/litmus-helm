@@ -162,6 +162,8 @@ portal:
     service:
       annotations: {}
       type: ClusterIP
+      # -- External traffic policy for the frontend service. Only applies when service.type is LoadBalancer or NodePort. Allowed values are Cluster and Local.
+      externalTrafficPolicy: ""
       port: 9091
       targetPort: 8185
 # NOTE: Using virtualService is not compatible with native mTLS of Litmus.
