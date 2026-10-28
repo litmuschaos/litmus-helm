@@ -157,14 +157,6 @@ spec:
               value: "{{ (index .Values.portal.server.graphqlServer.ports 1).containerPort }}"
             - name: ALLOWED_ORIGINS
               value: "{{ .Values.allowedOrigins }}"
-              {{- if has "gql-server" .Values.proxy.components }}
-            - name: HTTP_PROXY
-              value: "{{ .Values.proxy.httpProxy }}"
-            - name: HTTPS_PROXY
-              value: "{{ .Values.proxy.httpsProxy }}"
-            - name: NO_PROXY
-              value: "{{ .Values.proxy.noProxy }}"
-              {{- end }}
             {{- $imageRegistry := .Values.image.imageRegistryName -}}
             {{- range $key, $val := .Values.portal.server.graphqlServer.imageEnv }}
             - name: {{ $key }}
@@ -173,9 +165,6 @@ spec:
             {{- range $key, $val := .Values.portal.server.graphqlServer.genericEnv }}
             - name: {{ $key }}
               value: {{ $val | quote }}
-            {{- end }}
-            {{- if .Values.portal.server.extraEnvVars }}
-            {{- toYaml .Values.portal.server.extraEnvVars | nindent 12 }}
             {{- end }}
     {{- with .Values.portal.server.nodeSelector }}
       nodeSelector:

@@ -1,5 +1,5 @@
 {{- if .Values.portal.frontend.autoscaling.enabled -}}
-apiVersion: {{ include "litmus-portal.hpa.apiVersion" . }}
+apiVersion: autoscaling/v2beta2
 kind: HorizontalPodAutoscaler
 metadata:
   labels:
