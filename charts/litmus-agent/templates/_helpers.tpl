@@ -72,3 +72,37 @@ Create the name of the service account to use
 {{- define "litmus-agent.serviceAccountName" -}}
 {{- include "litmus-agent.fullname" . }}
 {{- end }}
+
+{{/*
+Checksum of the values consumed by the install job. It is part of the job name
+so that a change in any input recreates the job instead of patching an
+immutable one.
+*/}}
+{{- define "litmus-agent.installJobChecksum" -}}
+{{- $inputs := dict
+  "appVersion" .Values.APP_VERSION
+  "containerRuntimeExecutor" (index .Values "workflow-controller" "appSettings" "containerRuntimeExecutor")
+  "image" (printf "%s:%s" .Values.image.repository (.Values.image.tag | default .Chart.Version))
+  "infraConfigName" .Values.global.infraConfigName
+  "infraDescription" .Values.INFRA_DESCRIPTION
+  "infraMode" .Values.global.INFRA_MODE
+  "infraName" .Values.INFRA_NAME
+  "infraNodeSelector" .Values.INFRA_NODE_SELECTOR
+  "infraSecretName" .Values.global.infraSecretName
+  "infraType" .Values.INFRA_TYPE
+  "litmusBackendURL" .Values.LITMUS_BACKEND_URL
+  "litmusEnvironmentID" .Values.LITMUS_ENVIRONMENT_ID
+  "litmusPassword" .Values.LITMUS_PASSWORD
+  "litmusProjectID" .Values.LITMUS_PROJECT_ID
+  "litmusURL" .Values.LITMUS_URL
+  "litmusUsername" .Values.LITMUS_USERNAME
+  "nsExists" .Values.NS_EXISTS
+  "platformName" .Values.PLATFORM_NAME
+  "podAnnotations" (include "litmus-agent.podAnnotations" .)
+  "resources" .Values.resources
+  "saExists" .Values.SA_EXISTS
+  "skipSSL" .Values.SKIP_SSL
+  "workflowConfigmapName" (index .Values "workflow-controller" "appSettings" "configmapName")
+-}}
+{{- toYaml $inputs | sha256sum | trunc 10 -}}
+{{- end }}
