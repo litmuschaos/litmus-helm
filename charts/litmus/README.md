@@ -1,6 +1,6 @@
 # litmus
 
-![Version: 3.30.0](https://img.shields.io/badge/Version-3.30.0-informational?style=flat-square) ![AppVersion: 3.30.0](https://img.shields.io/badge/AppVersion-3.30.0-informational?style=flat-square)
+![Version: 3.30.1](https://img.shields.io/badge/Version-3.30.1-informational?style=flat-square) ![AppVersion: 3.30.0](https://img.shields.io/badge/AppVersion-3.30.0-informational?style=flat-square)
 
 A Helm chart to install ChaosCenter
 
@@ -35,6 +35,54 @@ $ helm repo add litmuschaos https://litmuschaos.github.io/litmus-helm/
 $ helm install litmus-portal litmuschaos/litmus
 ```
 
+## Using an External Database
+
+To use an external MongoDB compatible database instead of the MongoDB subchart, disable the subchart and point `adminConfig.DB_SERVER` to the database. Credentials are read from `adminConfig.DBUSER` and `adminConfig.DBPASSWORD`.
+
+```yaml
+mongodb:
+  enabled: false
+
+adminConfig:
+  DB_SERVER: "mongodb://my-mongodb:27017"
+  DBUSER: "litmus"
+  DBPASSWORD: "litmus"
+```
+
+### AWS DocumentDB
+
+DocumentDB only accepts TLS connections, requires the AWS CA bundle and does not support retryable writes.
+
+Create a ConfigMap with the AWS CA bundle in the release namespace:
+
+```console
+$ curl -O https://truststore.pki.rds.amazonaws.com/global/global-bundle.pem
+$ kubectl create configmap documentdb-ca-bundle --from-file=global-bundle.pem -n litmus
+```
+
+Reference the ConfigMap and enable TLS. Parameters configured under `externalDatabase.connectionParameters` are appended to the `DB_SERVER` connection string:
+
+```yaml
+mongodb:
+  enabled: false
+
+adminConfig:
+  DB_SERVER: "mongodb://my-cluster.cluster-xxxxxxxxxxxx.us-east-1.docdb.amazonaws.com:27017/?replicaSet=rs0"
+  DBUSER: "litmus"
+  DBPASSWORD: "litmus"
+
+externalDatabase:
+  tls:
+    enabled: true
+    caBundle: "documentdb-ca-bundle"
+    caBundleKey: "global-bundle.pem"
+  connectionParameters:
+    retryWrites: "false"
+    readPreference: "secondaryPreferred"
+```
+
+The CA bundle is mounted at `externalDatabase.tls.caMountPath` in the `graphql-server` and `auth-server` containers, and `tls=true` as well as `tlsCAFile` are added to the connection string automatically.
+
 ## Upgrading Chart
 
 ### From 2.15.8 -> Above
@@ -61,6 +109,11 @@ We separated service configuration from `portal.server.service` to `portal.serve
 | customLabels | object | `{}` | Additional labels |
 | customPodAnnotations | object | `{}` | Additional annotations |
 | existingSecret | string | `""` | Use existing secret (e.g., External Secrets) |
+| externalDatabase.connectionParameters | object | `{}` | Additional parameters appended to the DB_SERVER connection string, for example retryWrites or readPreference |
+| externalDatabase.tls.caBundle | string | `""` | Name of an existing ConfigMap containing the CA bundle |
+| externalDatabase.tls.caBundleKey | string | `"ca.crt"` | Key in the ConfigMap that holds the CA bundle |
+| externalDatabase.tls.caMountPath | string | `"/etc/ssl/mongodb/ca.crt"` | Path at which the CA bundle is mounted in the server containers |
+| externalDatabase.tls.enabled | bool | `false` | Enable TLS for the external database connection |
 | image.imagePullSecrets | list | `[]` |  |
 | image.imageRegistryName | string | `"litmuschaos.docker.scarf.sh/litmuschaos"` |  |
 | ingress.annotations."ingress.kubernetes.io/proxy-body-size" | string | `"0"` |  |

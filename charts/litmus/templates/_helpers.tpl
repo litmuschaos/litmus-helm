@@ -91,6 +91,45 @@ Check for existing secret
 mongodb://{{ trimSuffix "," $hosts  }}/admin
 {{- end -}}
 
+{{/*
+ Returns the mongodb connection string used by the server components,
+ including the parameters configured under externalDatabase
+*/}}
+{{- define "litmus-portal.dbConnectionString" -}}
+{{- if and .Values.mongodb.enabled (or .Values.externalDatabase.tls.enabled .Values.externalDatabase.connectionParameters) -}}
+{{- fail "externalDatabase settings require mongodb.enabled=false" -}}
+{{- end -}}
+{{- $base := .Values.adminConfig.DB_SERVER -}}
+{{- if not $base -}}
+{{- $base = include "litmus-portal.mongodbConnectionString" . -}}
+{{- end -}}
+{{- $params := list -}}
+{{- if .Values.externalDatabase.tls.enabled -}}
+{{- $_ := required "externalDatabase.tls.caBundle is required when externalDatabase.tls.enabled is true" .Values.externalDatabase.tls.caBundle -}}
+{{- $params = append $params "tls=true" -}}
+{{- $params = append $params (printf "tlsCAFile=%s" .Values.externalDatabase.tls.caMountPath) -}}
+{{- end -}}
+{{- range $key, $value := .Values.externalDatabase.connectionParameters -}}
+{{- $params = append $params (printf "%v=%v" $key $value) -}}
+{{- end -}}
+{{- if $params -}}
+{{- printf "%s%s%s" $base (ternary "&" "?" (contains "?" $base)) (join "&" $params) -}}
+{{- else -}}
+{{- $base -}}
+{{- end -}}
+{{- end -}}
+
+{{/*
+ Returns the command used by the wait-for-mongodb init container
+*/}}
+{{- define "litmus-portal.mongodb.readinessCommand" -}}
+{{- if .Values.mongodb.enabled -}}
+until [[ $(mongosh -u ${DB_USER} -p ${DB_PASSWORD} ${DB_SERVER} --eval 'rs.status()' | grep 'ok' | wc -l) -eq 1 ]]; do sleep 5; echo 'Waiting for the MongoDB to be ready...'; done; echo 'Connection with MongoDB established'
+{{- else -}}
+until mongosh "${DB_SERVER}" -u "${DB_USER}" -p "${DB_PASSWORD}" --quiet --eval 'quit(db.runCommand({ ping: 1 }).ok ? 0 : 1)'; do sleep 5; echo 'Waiting for the MongoDB to be ready...'; done; echo 'Connection with MongoDB established'
+{{- end -}}
+{{- end -}}
+
 {{- define "litmus-portal.internalTLS.web.secretName" -}}
   {{- if eq .Values.internalTLS.certSource "secret" -}}
     {{- .Values.internalTLS.web.secretName -}}

@@ -43,6 +43,11 @@ spec:
           secret:
             secretName: {{ template "litmus-portal.internalTLS.graphqlServer.secretName" . }}
         {{- end }}
+        {{- if .Values.externalDatabase.tls.enabled }}
+        - name: mongodb-ca-bundle
+          configMap:
+            name: {{ .Values.externalDatabase.tls.caBundle }}
+        {{- end }}
       initContainers:
         - name: wait-for-mongodb
           image: {{ .Values.image.imageRegistryName }}/{{ .Values.portal.server.waitForMongodb.image.repository }}:{{ .Values.portal.server.waitForMongodb.image.tag }}
@@ -81,8 +86,15 @@ spec:
                   key: DB_SERVER
           args:
             [
-                "until [[ $(mongosh -u ${DB_USER} -p ${DB_PASSWORD} ${DB_SERVER} --eval 'rs.status()' | grep 'ok' | wc -l) -eq 1 ]]; do sleep 5; echo 'Waiting for the MongoDB to be ready...'; done; echo 'Connection with MongoDB established'",
+                {{ include "litmus-portal.mongodb.readinessCommand" . | quote }},
             ]
+          {{- if .Values.externalDatabase.tls.enabled }}
+          volumeMounts:
+            - name: mongodb-ca-bundle
+              mountPath: {{ .Values.externalDatabase.tls.caMountPath }}
+              subPath: {{ .Values.externalDatabase.tls.caBundleKey }}
+              readOnly: true
+          {{- end }}
           resources:
             {{- toYaml .Values.portal.server.waitForMongodb.resources | nindent 12 }}
           securityContext:
@@ -95,6 +107,12 @@ spec:
             {{- if .Values.internalTLS.enabled }}
             - name: graphql-server-internal-certs
               mountPath: {{ .Values.internalTLS.certMountPath }}
+            {{- end }}
+            {{- if .Values.externalDatabase.tls.enabled }}
+            - name: mongodb-ca-bundle
+              mountPath: {{ .Values.externalDatabase.tls.caMountPath }}
+              subPath: {{ .Values.externalDatabase.tls.caBundleKey }}
+              readOnly: true
             {{- end }}
           imagePullPolicy: {{ .Values.portal.server.graphqlServer.image.pullPolicy }}
           ports:
