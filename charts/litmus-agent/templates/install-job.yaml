@@ -2,15 +2,9 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: install-{{ include "litmus-agent.fullname" . }}
+  name: {{ printf "install-%s-%s" (include "litmus-agent.fullname" . | trunc 44 | trimSuffix "-") (include "litmus-agent.installJobChecksum" .) }}
   labels:
     {{- include "litmus-agent.labels" . | nindent 4 }}
-  annotations:
-    # This is what defines this resource as a hook. Without this line, the
-    # job is considered part of the release.
-    "helm.sh/hook": pre-install
-    "helm.sh/hook-weight": "2"
-    "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded
 spec:
   backoffLimit: 0
   template:

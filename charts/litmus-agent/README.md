@@ -1,6 +1,6 @@
 # litmus-agent
 
-![Version: 3.30.1](https://img.shields.io/badge/Version-3.30.1-informational?style=flat-square) ![AppVersion: 3.30.0](https://img.shields.io/badge/AppVersion-3.30.0-informational?style=flat-square)
+![Version: 3.30.2](https://img.shields.io/badge/Version-3.30.2-informational?style=flat-square) ![AppVersion: 3.30.0](https://img.shields.io/badge/AppVersion-3.30.0-informational?style=flat-square)
 
 A Helm chart to install litmus agent
 
@@ -71,7 +71,7 @@ $ helm install litmus-agent litmuschaos/litmus-agent \
 | chaos-exporter.enabled | bool | `true` |  |
 | chaos-operator.enabled | bool | `true` |  |
 | crds.create | bool | `true` |  |
-| enablePreInstallJob | bool | `true` | Enable the pre-install hook job that registers this agent with ChaosCenter. Set to false for standallone litmus-agent installation (no ChaosCenter) however other ChaosCenter resources (e.g., hook Secrets/ConfigMaps) may still be rendered; manage them via their own flags (e.g., useExistingHookSecret). |
+| enablePreInstallJob | bool | `true` | Enable the job that registers this agent with ChaosCenter. The job is a regular release resource, it does not block `helm install`; use `helm install --wait` if the installation must wait for it to complete. Set to false for standallone litmus-agent installation (no ChaosCenter) however other ChaosCenter resources (e.g., Secrets/ConfigMaps) may still be rendered; manage them via their own flags (e.g., useExistingHookSecret). |
 | event-tracker.enabled | bool | `true` |  |
 | global.INFRA_MODE | string | `"cluster"` |  |
 | global.customLabels | object | `{}` |  |
