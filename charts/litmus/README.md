@@ -1,6 +1,6 @@
 # litmus
 
-![Version: 3.30.0](https://img.shields.io/badge/Version-3.30.0-informational?style=flat-square) ![AppVersion: 3.30.0](https://img.shields.io/badge/AppVersion-3.30.0-informational?style=flat-square)
+![Version: 3.30.1](https://img.shields.io/badge/Version-3.30.1-informational?style=flat-square) ![AppVersion: 3.30.0](https://img.shields.io/badge/AppVersion-3.30.0-informational?style=flat-square)
 
 A Helm chart to install ChaosCenter
 
@@ -34,6 +34,36 @@ To install this chart with the release name `litmus-portal`:
 $ helm repo add litmuschaos https://litmuschaos.github.io/litmus-helm/
 $ helm install litmus-portal litmuschaos/litmus
 ```
+
+## Custom Ingress rules
+
+By default the chart creates a single Ingress rule that points to the frontend service. Use `ingress.hosts` to define your own rules, for example to expose the GraphQL server directly through the server service:
+
+```yaml
+ingress:
+  enabled: true
+  hosts:
+    - host: litmus.example.com
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+          backend:
+            service:
+              name: litmus-portal-frontend-service
+              port:
+                number: 9091
+        - path: /api
+          pathType: Prefix
+          backend:
+            service:
+              name: litmus-portal-server-service
+              port:
+                number: 9002
+```
+
+When `ingress.hosts` is set, it replaces the rule generated from `ingress.host`, which is kept for backward compatibility. Service names are prefixed with the Helm release name, so replace `litmus-portal` in the example with your release name if it differs.
+
+Authentication (`/auth/`) and the GraphQL API (`/api/`) are already proxied by the frontend service, so exposing the server backend is only needed when clients must reach it directly. When `internalTLS.enabled` is true, the chart adds `nginx.ingress.kubernetes.io/backend-protocol: HTTPS` to the whole Ingress, which affects every backend defined here.
 
 ## Upgrading Chart
 
@@ -71,6 +101,7 @@ We separated service configuration from `portal.server.service` to `portal.serve
 | ingress.host.frontend.path | string | `"/"` | You may need adapt the path depending your ingress-controller |
 | ingress.host.frontend.pathType | string | `"ImplementationSpecific"` | Allow to set [pathType](https://kubernetes.io/docs/concepts/services-networking/ingress/#path-types) for the frontend path |
 | ingress.host.name | string | `""` | This is ingress hostname (ex: my-domain.com) |
+| ingress.hosts | list | `[]` | Custom ingress rules. When non-empty, these rules replace the rule generated from `ingress.host`. |
 | ingress.ingressClassName | string | `""` |  |
 | ingress.name | string | `"litmus-ingress"` |  |
 | ingress.tls | list | `[]` |  |
