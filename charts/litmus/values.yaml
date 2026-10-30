@@ -82,6 +82,24 @@ ingress:
     # nginx.ingress.kubernetes.io/rewrite-target: /$1
 
   ingressClassName: ""
+  # -- Custom ingress rules. When non-empty, these rules replace the rule generated from `ingress.host`.
+  hosts: []
+  # - host: litmus.example.com
+  #   paths:
+  #     - path: /
+  #       pathType: ImplementationSpecific
+  #       backend:
+  #         service:
+  #           name: litmus-portal-frontend-service
+  #           port:
+  #             number: 9091
+  #     - path: /api
+  #       pathType: Prefix
+  #       backend:
+  #         service:
+  #           name: litmus-portal-server-service
+  #           port:
+  #             number: 9002
   host:
     # -- This is ingress hostname (ex: my-domain.com)
     name: ""

@@ -1,5 +1,66 @@
+{{- define "litmus-portal.ingress.paths" -}}
+{{- $root := .root -}}
+{{- range .paths }}
+- path: {{ required "ingress path is required" .path | quote }}
+  {{- if semverCompare ">=1.19-0" $root.Capabilities.KubeVersion.GitVersion }}
+  pathType: {{ .pathType | default "ImplementationSpecific" }}
+  backend:
+    service:
+      name: {{ required "ingress backend service name is required" .backend.service.name }}
+      port:
+        {{- if .backend.service.port.number }}
+        number: {{ .backend.service.port.number }}
+        {{- else if .backend.service.port.name }}
+        name: {{ .backend.service.port.name }}
+        {{- else }}
+        {{- fail "ingress backend service port number or name is required" }}
+        {{- end }}
+  {{- else }}
+  backend:
+    serviceName: {{ required "ingress backend service name is required" .backend.service.name }}
+    servicePort: {{ .backend.service.port.number | default .backend.service.port.name }}
+  {{- end }}
+{{- end }}
+{{- end -}}
+
+{{- define "litmus-portal.ingress.rules" -}}
+{{- if .Values.ingress.hosts }}
+{{- range .Values.ingress.hosts }}
+{{- if .host }}
+- host: {{ .host | quote }}
+  http:
+{{- else }}
+- http:
+{{- end }}
+    paths:
+    {{- include "litmus-portal.ingress.paths" (dict "root" $ "paths" .paths) | trim | nindent 4 }}
+{{- end }}
+{{- else }}
+{{- if .Values.ingress.host.name }}
+- host: {{ .Values.ingress.host.name | quote }}
+  http:
+{{- else }}
+- http:
+{{- end }}
+    paths:
+    {{- if semverCompare ">=1.19-0" .Capabilities.KubeVersion.GitVersion }}
+    - path: {{ .Values.ingress.host.frontend.path }}
+      pathType: {{ .Values.ingress.host.frontend.pathType }}
+      backend:
+        service:
+          name: {{ include "litmus-portal.fullname" . }}-frontend-service
+          port:
+            number: {{ .Values.portal.frontend.service.port }}
+    {{- else }}
+    - path: {{ .Values.ingress.host.frontend.path }}
+      backend:
+        serviceName: {{ include "litmus-portal.fullname" . }}-frontend-service
+        servicePort: {{ .Values.portal.frontend.service.port }}
+    {{- end }}
+{{- end }}
+{{- end -}}
+
 {{- if .Values.ingress.enabled -}}
-{{ $fullName := include "litmus-portal.fullname" . }}
 {{- if semverCompare ">=1.19-0" .Capabilities.KubeVersion.GitVersion -}}
 apiVersion: networking.k8s.io/v1
 {{- else if semverCompare ">=1.14-0" .Capabilities.KubeVersion.GitVersion -}}
@@ -36,25 +97,5 @@ spec:
     {{- end }}
   {{- end }}
   rules:
-  {{- if .Values.ingress.host.name }}
-  - host: {{ .Values.ingress.host.name | quote }}
-    http:
-  {{- else }}
-  - http: 
-  {{- end }}
-      paths:
-    {{- if semverCompare ">=1.19-0" .Capabilities.KubeVersion.GitVersion }}
-      - path: {{ .Values.ingress.host.frontend.path }}
-        pathType: {{ .Values.ingress.host.frontend.pathType }}
-        backend:
-          service:
-            name: {{ $fullName }}-frontend-service
-            port:
-              number: {{ .Values.portal.frontend.service.port }}
-    {{- else if semverCompare "<1.19-0" .Capabilities.KubeVersion.GitVersion }}
-      - path: {{ .Values.ingress.host.paths.frontend }}
-        backend:
-          serviceName: {{ $fullName }}-frontend-service
-          servicePort: {{ .Values.portal.frontend.service.port }}
-    {{- end }}
+    {{- include "litmus-portal.ingress.rules" . | trim | nindent 2 }}
 {{- end }}

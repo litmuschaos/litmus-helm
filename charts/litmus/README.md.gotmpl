@@ -21,6 +21,36 @@ $ helm repo add litmuschaos https://litmuschaos.github.io/litmus-helm/
 $ helm install litmus-portal litmuschaos/litmus
 ```
 
+## Custom Ingress rules
+
+By default the chart creates a single Ingress rule that points to the frontend service. Use `ingress.hosts` to define your own rules, for example to expose the GraphQL server directly through the server service:
+
+```yaml
+ingress:
+  enabled: true
+  hosts:
+    - host: litmus.example.com
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+          backend:
+            service:
+              name: litmus-portal-frontend-service
+              port:
+                number: 9091
+        - path: /api
+          pathType: Prefix
+          backend:
+            service:
+              name: litmus-portal-server-service
+              port:
+                number: 9002
+```
+
+When `ingress.hosts` is set, it replaces the rule generated from `ingress.host`, which is kept for backward compatibility. Service names are prefixed with the Helm release name, so replace `litmus-portal` in the example with your release name if it differs.
+
+Authentication (`/auth/`) and the GraphQL API (`/api/`) are already proxied by the frontend service, so exposing the server backend is only needed when clients must reach it directly. When `internalTLS.enabled` is true, the chart adds `nginx.ingress.kubernetes.io/backend-protocol: HTTPS` to the whole Ingress, which affects every backend defined here.
+
 ## Upgrading Chart
 
 ### From 2.15.8 -> Above
