@@ -26,6 +26,22 @@ adminConfig:
   ADMIN_USERNAME: "admin"
   ADMIN_PASSWORD: "litmus"
 
+# External MongoDB compatible database settings (for example AWS DocumentDB).
+# These values are only used when `mongodb.enabled` is false.
+externalDatabase:
+  # TLS configuration for the external database connection
+  tls:
+    # -- Enable TLS for the external database connection
+    enabled: false
+    # -- Name of an existing ConfigMap containing the CA bundle
+    caBundle: ""
+    # -- Key in the ConfigMap that holds the CA bundle
+    caBundleKey: "ca.crt"
+    # -- Path at which the CA bundle is mounted in the server containers
+    caMountPath: "/etc/ssl/mongodb/ca.crt"
+  # -- Additional parameters appended to the DB_SERVER connection string, for example retryWrites or readPreference
+  connectionParameters: {}
+
 image:
   imageRegistryName: litmuschaos.docker.scarf.sh/litmuschaos
   # Optional pod imagePullSecrets

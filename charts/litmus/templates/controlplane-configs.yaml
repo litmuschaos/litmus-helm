@@ -7,11 +7,7 @@ metadata:
     {{- include "litmus-portal.labels" . | nindent 4 }}
     app.kubernetes.io/component: {{ include "litmus-portal.name" . }}-admin-config
 data:
-  {{- if .Values.adminConfig.DB_SERVER }}
-  DB_SERVER: "{{ .Values.adminConfig.DB_SERVER }}"
-  {{- else }}
-  DB_SERVER: "{{ include "litmus-portal.mongodbConnectionString" . }}"
-  {{- end }}
+  DB_SERVER: "{{ include "litmus-portal.dbConnectionString" . }}"
   VERSION: "{{ .Values.adminConfig.VERSION }}"
   SKIP_SSL_VERIFY: "{{ .Values.adminConfig.SKIP_SSL_VERIFY }}"
 ---
