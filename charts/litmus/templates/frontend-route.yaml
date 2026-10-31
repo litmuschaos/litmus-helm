@@ -6,11 +6,9 @@ metadata:
   name: {{ $fullName }}-route
   namespace:  {{ .Release.Namespace }}
   labels:
-    app.kubernetes.io/part-of: {{ $fullName }}-server
-    app.kubernetes.io/part-of: {{ $fullName }}-frontend
     {{- include "litmus-portal.labels" . | nindent 4 }}
-    {{- if .Values.openshift.route.customLabels }}
-      {{ toYaml .Values.openshift.route.customLabels | nindent 4 }}
+    {{- with .Values.openshift.route.customLabels }}
+    {{- toYaml . | nindent 4 }}
     {{- end }}
   {{- with .Values.openshift.route.annotations }}
   annotations:
