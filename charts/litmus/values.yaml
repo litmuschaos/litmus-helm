@@ -180,9 +180,9 @@ portal:
     affinity: {}
 
   server:
-   # DEPRECATED: use graphqlServer.replicas (authServer.replicas for auth-server)
+   # -- DEPRECATED: use graphqlServer.replicas (authServer.replicas for auth-server)
     replicas: 1
-     # DEPRECATED: use graphqlServer.updateStrategy / authServer.updateStrategy
+     # -- DEPRECATED: use graphqlServer.updateStrategy / authServer.updateStrategy
     updateStrategy: {}
     ## Strategy for deployment updates.
     ##
@@ -193,7 +193,7 @@ portal:
     ##     rollingUpdate:
     ##       maxSurge: 1
     ##       maxUnavailable: 25%
-    # DEPRECATED: use graphqlServer.customLabels / authServer.customLabels
+    # -- DEPRECATED: use graphqlServer.customLabels / authServer.customLabels
     customLabels: {}
     # my.company.com/tier: "backend"
     waitForMongodb:
@@ -221,13 +221,17 @@ portal:
           cpu: "250m"
           ephemeral-storage: "1Gi"
     graphqlServer:
-      # replicas, updateStrategy, customLabels, nodeSelector, tolerations, affinity and
-      # extraEnvVars fall back to the deprecated portal.server.* values when left empty
+      # -- Overrides the deprecated portal.server.replicas when set
       replicas:
+      # -- Overrides the deprecated portal.server.updateStrategy when set
       updateStrategy: {}
+      # -- Overrides the deprecated portal.server.customLabels when set
       customLabels: {}
+      # -- Overrides the deprecated portal.server.nodeSelector when set
       nodeSelector: {}
+      # -- Overrides the deprecated portal.server.tolerations when set
       tolerations: []
+      # -- Overrides the deprecated portal.server.affinity when set
       affinity: {}
       # -- Additional environment variables for graphql-server container
       extraEnvVars: []
@@ -317,10 +321,15 @@ portal:
       podAnnotations: {}
     authServer:
       replicas: 1
+      # -- Overrides the deprecated portal.server.updateStrategy when set
       updateStrategy: {}
+      # -- Overrides the deprecated portal.server.customLabels when set
       customLabels: {}
+      # -- Overrides the deprecated portal.server.nodeSelector when set
       nodeSelector: {}
+       # -- Overrides the deprecated portal.server.tolerations when set
       tolerations: []
+      # -- Overrides the deprecated portal.server.affinity when set
       affinity: {}
       autoscaling:
         enabled: false
@@ -369,16 +378,16 @@ portal:
       volumeMounts: []
       volumes: []
       podAnnotations: {}
-    # DEPRECATED: use graphqlServer.extraEnvVars
+    # -- DEPRECATED: use graphqlServer.extraEnvVars
     # -- Additional environment variables for graphql-server container
     extraEnvVars: []
     # - name: MY_ENV_VAR
     #   value: "my-value"
-    # DEPRECATED: use graphqlServer.nodeSelector / authServer.nodeSelector
+    # -- DEPRECATED: use graphqlServer.nodeSelector / authServer.nodeSelector
     nodeSelector: {}
-     # DEPRECATED: use graphqlServer.tolerations / authServer.tolerations
+     # -- DEPRECATED: use graphqlServer.tolerations / authServer.tolerations
     tolerations: []
-    # DEPRECATED: use graphqlServer.affinity / authServer.affinity
+    # -- DEPRECATED: use graphqlServer.affinity / authServer.affinity
     affinity: {}
 
 # OpenShift specific configuration

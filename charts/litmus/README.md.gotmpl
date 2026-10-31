@@ -31,6 +31,17 @@ We moved ingress path config from `ingress.host.paths.backend` to `ingress.host.
 
 We separated service configuration from `portal.server.service` to `portal.server.graphqlServer.service` and `portal.server.authServer.service`. You need to move your values to the correspondent options and upgrade as usual.
 
+Server settings that used to be shared between the GraphQL server and the auth server can now be set per component. The old keys still work and are used when the new ones are empty, but they are deprecated:
+
+| Deprecated | Use instead |
+|---|---|
+| `portal.server.replicas` | `portal.server.graphqlServer.replicas` |
+| `portal.server.updateStrategy` | `portal.server.graphqlServer.updateStrategy` / `portal.server.authServer.updateStrategy` |
+| `portal.server.customLabels` | `portal.server.graphqlServer.customLabels` / `portal.server.authServer.customLabels` |
+| `portal.server.nodeSelector`, `affinity`, `tolerations` | the same keys under `graphqlServer` / `authServer` |
+| `portal.server.extraEnvVars` | `portal.server.graphqlServer.extraEnvVars` |
+
+The auth-server HPA now reads `minReplicas`, `maxReplicas` and the CPU/memory targets from `portal.server.authServer.autoscaling`. Previously it used `portal.frontend.autoscaling` by mistake, so if you tuned the frontend values expecting them to apply to the auth-server, set them under `authServer.autoscaling` instead.
 {{ template "chart.valuesSection" . }}
 
 {{ template "helm-docs.versionFooter" . }}
