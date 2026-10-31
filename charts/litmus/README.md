@@ -1,6 +1,6 @@
 # litmus
 
-![Version: 3.30.0](https://img.shields.io/badge/Version-3.30.0-informational?style=flat-square) ![AppVersion: 3.30.0](https://img.shields.io/badge/AppVersion-3.30.0-informational?style=flat-square)
+![Version: 3.30.1](https://img.shields.io/badge/Version-3.30.1-informational?style=flat-square) ![AppVersion: 3.30.0](https://img.shields.io/badge/AppVersion-3.30.0-informational?style=flat-square)
 
 A Helm chart to install ChaosCenter
 
@@ -45,6 +45,17 @@ We moved ingress path config from `ingress.host.paths.backend` to `ingress.host.
 
 We separated service configuration from `portal.server.service` to `portal.server.graphqlServer.service` and `portal.server.authServer.service`. You need to move your values to the correspondent options and upgrade as usual.
 
+Server settings that used to be shared between the GraphQL server and the auth server can now be set per component. The old keys still work and are used when the new ones are empty, but they are deprecated:
+
+| Deprecated | Use instead |
+|---|---|
+| `portal.server.replicas` | `portal.server.graphqlServer.replicas` |
+| `portal.server.updateStrategy` | `portal.server.graphqlServer.updateStrategy` / `portal.server.authServer.updateStrategy` |
+| `portal.server.customLabels` | `portal.server.graphqlServer.customLabels` / `portal.server.authServer.customLabels` |
+| `portal.server.nodeSelector`, `affinity`, `tolerations` | the same keys under `graphqlServer` / `authServer` |
+| `portal.server.extraEnvVars` | `portal.server.graphqlServer.extraEnvVars` |
+
+The auth-server HPA now reads `minReplicas`, `maxReplicas` and the CPU/memory targets from `portal.server.authServer.autoscaling`. Previously it used `portal.frontend.autoscaling` by mistake, so if you tuned the frontend values expecting them to apply to the auth-server, set them under `authServer.autoscaling` instead.
 ## Values
 
 | Key | Type | Default | Description |
@@ -137,17 +148,20 @@ We separated service configuration from `portal.server.service` to `portal.serve
 | portal.frontend.virtualService.gateways | list | `[]` |  |
 | portal.frontend.virtualService.hosts | list | `[]` |  |
 | portal.frontend.virtualService.pathPrefixEnabled | bool | `false` |  |
-| portal.server.affinity | object | `{}` |  |
+| portal.server.affinity | object | `{}` | DEPRECATED: use graphqlServer.affinity / authServer.affinity |
+| portal.server.authServer.affinity | object | `{}` | Overrides the deprecated portal.server.affinity when set |
 | portal.server.authServer.automountServiceAccountToken | bool | `false` |  |
 | portal.server.authServer.autoscaling.enabled | bool | `false` |  |
 | portal.server.authServer.autoscaling.maxReplicas | int | `3` |  |
 | portal.server.authServer.autoscaling.minReplicas | int | `2` |  |
 | portal.server.authServer.autoscaling.targetCPUUtilizationPercentage | int | `50` |  |
 | portal.server.authServer.autoscaling.targetMemoryUtilizationPercentage | int | `50` |  |
+| portal.server.authServer.customLabels | object | `{}` | Overrides the deprecated portal.server.customLabels when set |
 | portal.server.authServer.env | object | `{}` |  |
 | portal.server.authServer.image.pullPolicy | string | `"Always"` |  |
 | portal.server.authServer.image.repository | string | `"litmusportal-auth-server"` |  |
 | portal.server.authServer.image.tag | string | `"3.30.0"` |  |
+| portal.server.authServer.nodeSelector | object | `{}` | Overrides the deprecated portal.server.nodeSelector when set |
 | portal.server.authServer.podAnnotations | object | `{}` |  |
 | portal.server.authServer.ports[0].containerPort | int | `3000` |  |
 | portal.server.authServer.ports[0].name | string | `"auth-server"` |  |
@@ -170,11 +184,16 @@ We separated service configuration from `portal.server.service` to `portal.serve
 | portal.server.authServer.service.authRpcServer.port | int | `3030` |  |
 | portal.server.authServer.service.authRpcServer.targetPort | int | `3030` |  |
 | portal.server.authServer.service.type | string | `"ClusterIP"` |  |
+| portal.server.authServer.tolerations | list | `[]` | Overrides the deprecated portal.server.tolerations when set |
+| portal.server.authServer.updateStrategy | object | `{}` | Overrides the deprecated portal.server.updateStrategy when set |
 | portal.server.authServer.volumeMounts | list | `[]` |  |
 | portal.server.authServer.volumes | list | `[]` |  |
-| portal.server.customLabels | object | `{}` |  |
+| portal.server.customLabels | object | `{}` | DEPRECATED: use graphqlServer.customLabels / authServer.customLabels |
 | portal.server.extraEnvVars | list | `[]` | Additional environment variables for graphql-server container |
+| portal.server.graphqlServer.affinity | object | `{}` | Overrides the deprecated portal.server.affinity when set |
 | portal.server.graphqlServer.automountServiceAccountToken | bool | `false` |  |
+| portal.server.graphqlServer.customLabels | object | `{}` | Overrides the deprecated portal.server.customLabels when set |
+| portal.server.graphqlServer.extraEnvVars | list | `[]` | Additional environment variables for graphql-server container |
 | portal.server.graphqlServer.genericEnv.CHAOS_CENTER_UI_ENDPOINT | string | `""` |  |
 | portal.server.graphqlServer.genericEnv.CONTAINER_RUNTIME_EXECUTOR | string | `"k8sapi"` |  |
 | portal.server.graphqlServer.genericEnv.DEFAULT_HUB_BRANCH_NAME | string | `"v3.30.x"` |  |
@@ -200,6 +219,7 @@ We separated service configuration from `portal.server.service` to `portal.serve
 | portal.server.graphqlServer.livenessProbe.periodSeconds | int | `10` |  |
 | portal.server.graphqlServer.livenessProbe.successThreshold | int | `1` |  |
 | portal.server.graphqlServer.livenessProbe.timeoutSeconds | int | `5` |  |
+| portal.server.graphqlServer.nodeSelector | object | `{}` | Overrides the deprecated portal.server.nodeSelector when set |
 | portal.server.graphqlServer.podAnnotations | object | `{}` |  |
 | portal.server.graphqlServer.ports[0].containerPort | int | `8080` |  |
 | portal.server.graphqlServer.ports[0].name | string | `"gql-server"` |  |
@@ -211,6 +231,7 @@ We separated service configuration from `portal.server.service` to `portal.serve
 | portal.server.graphqlServer.readinessProbe.periodSeconds | int | `10` |  |
 | portal.server.graphqlServer.readinessProbe.successThreshold | int | `1` |  |
 | portal.server.graphqlServer.readinessProbe.timeoutSeconds | int | `1` |  |
+| portal.server.graphqlServer.replicas | string | `nil` | Overrides the deprecated portal.server.replicas when set |
 | portal.server.graphqlServer.resources.limits.cpu | string | `"550m"` |  |
 | portal.server.graphqlServer.resources.limits.ephemeral-storage | string | `"1Gi"` |  |
 | portal.server.graphqlServer.resources.limits.memory | string | `"712Mi"` |  |
@@ -229,6 +250,8 @@ We separated service configuration from `portal.server.service` to `portal.serve
 | portal.server.graphqlServer.service.metrics.port | int | `8889` |  |
 | portal.server.graphqlServer.service.metrics.targetPort | int | `8889` |  |
 | portal.server.graphqlServer.service.type | string | `"ClusterIP"` |  |
+| portal.server.graphqlServer.tolerations | list | `[]` | Overrides the deprecated portal.server.tolerations when set |
+| portal.server.graphqlServer.updateStrategy | object | `{}` | Overrides the deprecated portal.server.updateStrategy when set |
 | portal.server.graphqlServer.volumeMounts[0].mountPath | string | `"/tmp/"` |  |
 | portal.server.graphqlServer.volumeMounts[0].name | string | `"gitops-storage"` |  |
 | portal.server.graphqlServer.volumeMounts[1].mountPath | string | `"/tmp/version"` |  |
@@ -237,10 +260,10 @@ We separated service configuration from `portal.server.service` to `portal.serve
 | portal.server.graphqlServer.volumes[0].name | string | `"gitops-storage"` |  |
 | portal.server.graphqlServer.volumes[1].emptyDir | object | `{}` |  |
 | portal.server.graphqlServer.volumes[1].name | string | `"hub-storage"` |  |
-| portal.server.nodeSelector | object | `{}` |  |
-| portal.server.replicas | int | `1` |  |
-| portal.server.tolerations | list | `[]` |  |
-| portal.server.updateStrategy | object | `{}` |  |
+| portal.server.nodeSelector | object | `{}` | DEPRECATED: use graphqlServer.nodeSelector / authServer.nodeSelector |
+| portal.server.replicas | int | `1` | DEPRECATED: use graphqlServer.replicas (authServer.replicas for auth-server) |
+| portal.server.tolerations | list | `[]` | DEPRECATED: use graphqlServer.tolerations / authServer.tolerations |
+| portal.server.updateStrategy | object | `{}` | DEPRECATED: use graphqlServer.updateStrategy / authServer.updateStrategy |
 | portal.server.waitForMongodb.image.pullPolicy | string | `"Always"` |  |
 | portal.server.waitForMongodb.image.repository | string | `"mongo"` |  |
 | portal.server.waitForMongodb.image.tag | int | `6` |  |

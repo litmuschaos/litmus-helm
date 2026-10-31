@@ -1,3 +1,4 @@
+{{- $labels := .Values.portal.server.authServer.customLabels | default .Values.portal.server.customLabels }}
 {{- if .Values.portal.server.authServer.autoscaling.enabled -}}
 apiVersion: {{ include "litmus-portal.hpa.apiVersion" . }}
 kind: HorizontalPodAutoscaler
@@ -5,8 +6,8 @@ metadata:
   labels:
     app.kubernetes.io/component: {{ include "litmus-portal.name" . }}-auth-server
     {{- include "litmus-portal.labels" . | nindent 4 }}
-    {{- if .Values.portal.server.customLabels }}
-      {{ toYaml .Values.portal.server.customLabels | nindent 4 }}
+    {{- if $labels }}
+      {{ toYaml $labels | nindent 4 }}
     {{- end }}
   name: {{ include "litmus-portal.fullname" . }}-auth-server
   namespace: {{ .Release.Namespace }}
@@ -15,10 +16,10 @@ spec:
     apiVersion: apps/v1
     kind: Deployment
     name: {{ include "litmus-portal.fullname" . }}-auth-server
-  minReplicas: {{ .Values.portal.frontend.autoscaling.minReplicas }}
-  maxReplicas: {{ .Values.portal.frontend.autoscaling.maxReplicas }}
+  minReplicas: {{ .Values.portal.server.authServer.autoscaling.minReplicas }}
+  maxReplicas: {{ .Values.portal.server.authServer.autoscaling.maxReplicas }}
   metrics:
-  {{- with .Values.portal.frontend.autoscaling.targetMemoryUtilizationPercentage }}
+  {{- with .Values.portal.server.authServer.autoscaling.targetMemoryUtilizationPercentage }}
   - type: Resource
     resource:
       name: memory
@@ -26,7 +27,7 @@ spec:
         type: Utilization
         averageUtilization: {{ . }}
   {{- end }}
-  {{- with .Values.portal.frontend.autoscaling.targetCPUUtilizationPercentage }}
+  {{- with .Values.portal.server.authServer.autoscaling.targetCPUUtilizationPercentage }}
   - type: Resource
     resource:
       name: cpu

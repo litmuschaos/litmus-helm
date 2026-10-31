@@ -1,3 +1,6 @@
+{{- $auth := .Values.portal.server.authServer }}
+{{- $labels := $auth.customLabels | default .Values.portal.server.customLabels }}
+{{- $updateStrategy := $auth.updateStrategy | default .Values.portal.server.updateStrategy }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -6,16 +9,16 @@ metadata:
   labels:
     app.kubernetes.io/component: '{{ include "litmus-portal.name" . }}-auth-server'
     {{- include "litmus-portal.labels" . | nindent 4 }}
-    {{- if .Values.portal.server.customLabels }}
-      {{ toYaml .Values.portal.server.customLabels | nindent 4 }}
+    {{- if $labels }}
+      {{ toYaml $labels | nindent 4 }}
     {{- end }}
 spec:
   {{- if not .Values.portal.server.authServer.autoscaling.enabled }}
   replicas: {{ .Values.portal.server.authServer.replicas }}
   {{- end }}
-  {{- if .Values.portal.server.updateStrategy }}
+  {{- if $updateStrategy }}
   strategy:
-  {{- toYaml .Values.portal.server.updateStrategy | nindent 4 }}
+  {{- toYaml $updateStrategy | nindent 4 }}
   {{- end }}
   selector:
     matchLabels:
@@ -25,8 +28,8 @@ spec:
       labels:
         app.kubernetes.io/component: {{ include "litmus-portal.name" . }}-auth-server
         {{- include "litmus-portal.labels" . | nindent 8 }}
-        {{- if .Values.portal.server.customLabels }}
-          {{ toYaml .Values.portal.server.customLabels | nindent 8 }}
+                {{- if $labels }}
+          {{ toYaml $labels | nindent 8 }}
         {{- end }}
       {{- if include "litmus-portal.podannotations.auth-server" . }}
       annotations:
@@ -175,15 +178,15 @@ spec:
           secret:
             secretName: {{ template "litmus-portal.internalTLS.authServer.secretName" . }}
         {{- end }}
-    {{- with .Values.portal.server.nodeSelector }}
+      {{- with ($auth.nodeSelector | default .Values.portal.server.nodeSelector) }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
     {{- end }}
-    {{- with .Values.portal.server.affinity }}
+    {{- with ($auth.affinity | default .Values.portal.server.affinity) }}
       affinity:
         {{- toYaml . | nindent 8 }}
     {{- end }}
-    {{- with .Values.portal.server.tolerations }}
+    {{- with ($auth.tolerations | default .Values.portal.server.tolerations) }}
       tolerations:
         {{- toYaml . | nindent 8 }}
     {{- end }}
