@@ -80,8 +80,13 @@ Check for existing secret
 
 {{/*
  Returns mongodb connection string
+ Supports Bitnami subchart (default) and official mongo image (mongoOfficial.enabled).
 */}}
 {{- define "litmus-portal.mongodbConnectionString" -}}
+{{- if .Values.mongoOfficial.enabled -}}
+{{- $svc := printf "%s-mongodb-official" .Release.Name -}}
+mongodb://{{ $svc }}:27017/admin
+{{- else -}}
 {{- $hosts := "" -}}
 {{- $count := (.Values.mongodb.replicaCount | int) -}}
 {{- range $i, $e := until $count -}}
@@ -89,6 +94,7 @@ Check for existing secret
   {{- $hosts = printf "%s%s:%d," $hosts $host 27017 -}}
 {{- end -}}
 mongodb://{{ trimSuffix "," $hosts  }}/admin
+{{- end -}}
 {{- end -}}
 
 {{- define "litmus-portal.internalTLS.web.secretName" -}}

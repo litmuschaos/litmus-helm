@@ -411,3 +411,28 @@ mongodb:
     # extraEnvVars:
     #   - name: EXPERIMENTAL_DOCKER_DESKTOP_FORCE_QEMU
     #     value: "1"
+
+# -- Deploy MongoDB from the official Docker Hub image (`mongo`) instead of Bitnami.
+# When enabled, set `mongodb.enabled=false` to disable the Bitnami subchart.
+# The chart deploys a minimal StatefulSet using `MONGO_INITDB_*` env vars and
+# supports existing Kubernetes Secrets for credentials.
+mongoOfficial:
+  enabled: false
+  image:
+    registry: docker.io
+    repository: mongo
+    tag: "8.0"
+    pullPolicy: IfNotPresent
+  auth:
+    rootUser: root
+    rootPassword: "1234"
+    # -- Existing secret with MongoDB credentials (keys: `MONGO_INITDB_ROOT_USERNAME`, `MONGO_INITDB_ROOT_PASSWORD` by default)
+    existingSecret: ""
+    usernameKey: MONGO_INITDB_ROOT_USERNAME
+    passwordKey: MONGO_INITDB_ROOT_PASSWORD
+  replicaCount: 1
+  persistence:
+    enabled: true
+    size: 8Gi
+    storageClass: ""
+  resources: {}
