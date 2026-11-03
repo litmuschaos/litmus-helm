@@ -9,9 +9,6 @@ global:
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-INFRA_NAME: "helm-infrastructure"
-INFRA_DESCRIPTION: "chaos infrastructure deployed with helm"
-
 INFRA_NODE_SELECTOR: ""
 SA_EXISTS: true
 NS_EXISTS: true
@@ -25,11 +22,8 @@ PLATFORM_NAME: "Others"
 
 LITMUS_URL: "https://my-domain.com"
 LITMUS_BACKEND_URL: ""
-LITMUS_USERNAME: "admin"
-LITMUS_PASSWORD: "litmus"
-LITMUS_PROJECT_ID: ""
-# -- ID of the litmus environment where the infrastructure will be added
-LITMUS_ENVIRONMENT_ID: ""
+INFRA_ID: ""
+ACCESS_KEY: ""
 
 image:
   repository: litmuschaos.docker.scarf.sh/litmuschaos/litmus-helm-agent
