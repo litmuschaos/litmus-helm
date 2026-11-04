@@ -36,7 +36,7 @@ spec:
       automountServiceAccountToken: {{ .Values.portal.server.authServer.automountServiceAccountToken }}
       {{- if .Values.image.imagePullSecrets }}
       imagePullSecrets:
-        {{ toYaml .Values.image.imagePullSecrets | indent 8 }}
+        {{- toYaml .Values.image.imagePullSecrets | nindent 8 }}
       {{- end }}
       initContainers:
         - name: wait-for-mongodb
