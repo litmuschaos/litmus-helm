@@ -1,0 +1,34 @@
+{{- if and .Values.dexServer.enabled .Values.dexServer.autoscaling.enabled }}
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: {{ include "litmus-portal.fullname" . }}-dex-server
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "litmus-portal.labels" . | nindent 4 }}
+    app.kubernetes.io/component: {{ include "litmus-portal.name" . }}-dex-server
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: {{ include "litmus-portal.fullname" . }}-dex-server
+  minReplicas: {{ .Values.dexServer.autoscaling.minReplicas }}
+  maxReplicas: {{ .Values.dexServer.autoscaling.maxReplicas }}
+  metrics:
+    {{- if .Values.dexServer.autoscaling.targetCPUUtilizationPercentage }}
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: {{ .Values.dexServer.autoscaling.targetCPUUtilizationPercentage }}
+    {{- end }}
+    {{- if .Values.dexServer.autoscaling.targetMemoryUtilizationPercentage }}
+    - type: Resource
+      resource:
+        name: memory
+        target:
+          type: Utilization
+          averageUtilization: {{ .Values.dexServer.autoscaling.targetMemoryUtilizationPercentage }}
+    {{- end }}
+{{- end }}
