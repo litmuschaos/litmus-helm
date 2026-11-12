@@ -16,12 +16,12 @@ image:
 
   litmusGO:
     repository: litmuschaos.docker.scarf.sh/litmuschaos/go-runner
-    tag: 3.31.0
+    tag: 3.33.0
     pullPolicy: Always
 
   litmusLIBImage:
     repository: litmuschaos.docker.scarf.sh/litmuschaos/go-runner
-    tag: 3.31.0
+    tag: 3.33.0
 
 environment:
   # supported: 'docker', 'containerd', 'crio'
