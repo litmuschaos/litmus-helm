@@ -45,8 +45,13 @@ spec:
           securityContext:
             {{- toYaml .Values.dexServer.securityContext | nindent 12 }}
           {{- end }}
-          {{- if or .Values.proxy.httpProxy .Values.proxy.httpsProxy .Values.proxy.noProxy }}
           env:
+            - name: DEX_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "litmus-portal.fullname" . }}-dex-server-secret
+                  key: secret
+          {{- if or .Values.proxy.httpProxy .Values.proxy.httpsProxy .Values.proxy.noProxy }}
             {{- if .Values.proxy.httpProxy }}
             - name: HTTP_PROXY
               value: {{ .Values.proxy.httpProxy | quote }}
@@ -67,6 +72,12 @@ spec:
             items:
               - key: config.yaml
                 path: config.yaml
+        - name: secret
+          secret:
+            secretName: {{ include "litmus-portal.fullname" . }}-dex-server-secret
+            items:
+              - key: secret
+                path: secret
     {{- with .Values.dexServer.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

@@ -25,7 +25,7 @@ data:
           - '/auth/dex/callback'
           - {{ .Values.dexServer.callbackURL }}
         name: 'LitmusPortalAuthBackend'
-        secret: {{ .Values.dexServer.secret }}
+        secretEnv: DEX_CLIENT_SECRET
 
     oauth2:
         skipApprovalScreen: true

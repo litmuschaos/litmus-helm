@@ -388,12 +388,16 @@ dexServer:
   #     clientSecret: yyyy
   replicas: 1
   image:
-    repository: "litmuschaos/litmusportal-dex-server"
+    repository: "litmusportal-dex-server"
     tag: "ci"
     pullPolicy: "IfNotPresent"
   containerPort: 5556
   autoscaling:
     enabled: false
+    minReplicas: 1
+    maxReplicas: 3
+    targetCPUUtilizationPercentage: 80
+    # targetMemoryUtilizationPercentage: 80
   updateStrategy: {}
   customLabels: {}
 
